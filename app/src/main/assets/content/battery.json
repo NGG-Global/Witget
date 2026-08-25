@@ -1,0 +1,1863 @@
+{
+  "schemaVersion": 1,
+  "widget": "BATTERY",
+  "locale": "en",
+  "states": [
+    {
+      "key": "BAT_CH1",
+      "label": "Charging, 0-20%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_CH1_NEUTRAL_01",
+              "text": "{percent}% and charging. Recovery has started.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_NEUTRAL_02",
+              "text": "Charging from {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_NEUTRAL_03",
+              "text": "{percent}% • Plugged in.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_NEUTRAL_04",
+              "text": "Low battery, but power is incoming.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_CH1_FRIENDLY_01",
+              "text": "{percent}% and charging. Crisis averted.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_FRIENDLY_02",
+              "text": "Back on power at {percent}%. Nice save.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_FRIENDLY_03",
+              "text": "{percent}% • Charging. We're recovering.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_FRIENDLY_04",
+              "text": "The battery is getting the help it needs.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_CH1_DRY_01",
+              "text": "{percent}% and charging. Corrective action underway.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_DRY_02",
+              "text": "Power source acquired at {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_DRY_03",
+              "text": "The patient is receiving electricity.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH1_DRY_04",
+              "text": "Charging. Administrative panic cancelled.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_CH1_SARCASTIC_01",
+              "text": "{percent}% and charging. You remembered eventually.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_SARCASTIC_02",
+              "text": "A charger! At {percent}%! Inspired timing.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_SARCASTIC_03",
+              "text": "Crisis management has begun.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH1_SARCASTIC_04",
+              "text": "The phone has been rescued from your planning.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_CH1_CHAOTIC_01",
+              "text": "POWER DETECTED AT {percent}%! RESUSCITATION UNDERWAY.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_CHAOTIC_02",
+              "text": "THE CHARGER HAS ENTERED THE ARENA.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH1_CHAOTIC_03",
+              "text": "{percent}% → ELECTRICITY IS HAPPENING.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH1_CHAOTIC_04",
+              "text": "WE HAVE POWER. REPEAT: WE HAVE POWER.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_CH2",
+      "label": "Charging, 21-60%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_CH2_NEUTRAL_01",
+              "text": "{percent}% and charging.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH2_NEUTRAL_02",
+              "text": "Charging steadily at {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH2_NEUTRAL_03",
+              "text": "{percent}% • Power connected.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH2_NEUTRAL_04",
+              "text": "Battery is recovering normally.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_CH2_FRIENDLY_01",
+              "text": "{percent}% and climbing. Looking good.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH2_FRIENDLY_02",
+              "text": "Charging at {percent}%. Plenty of runway soon.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH2_FRIENDLY_03",
+              "text": "The battery is happily refilling.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH2_FRIENDLY_04",
+              "text": "{percent}% and moving in the right direction.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_CH2_DRY_01",
+              "text": "{percent}%. Electricity continues to occur.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH2_DRY_02",
+              "text": "Charging. Expected outcome: more battery.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH2_DRY_03",
+              "text": "Power accumulation in progress.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH2_DRY_04",
+              "text": "The device is attached to infrastructure.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_CH2_SARCASTIC_01",
+              "text": "{percent}% and charging. Responsible behavior detected.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH2_SARCASTIC_02",
+              "text": "Look at that: electricity before disaster.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH2_SARCASTIC_03",
+              "text": "The charger relationship is going surprisingly well.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH2_SARCASTIC_04",
+              "text": "{percent}%. Preparedness has entered the chat.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_CH2_CHAOTIC_01",
+              "text": "BATTERY ASCENSION: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH2_CHAOTIC_02",
+              "text": "THE POWER BAR GROWS STRONGER.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH2_CHAOTIC_03",
+              "text": "ELECTRONS ARE DOING THEIR LITTLE JOBS.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH2_CHAOTIC_04",
+              "text": "{percent}% AND RISING. THE MACHINE FEEDS.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_CH3",
+      "label": "Charging, 61-90%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_CH3_NEUTRAL_01",
+              "text": "{percent}% and charging. Nearly topped up.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH3_NEUTRAL_02",
+              "text": "Battery is at {percent}% and still charging.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH3_NEUTRAL_03",
+              "text": "{percent}% • Almost full.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH3_NEUTRAL_04",
+              "text": "Plenty of charge already; still increasing.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_CH3_FRIENDLY_01",
+              "text": "{percent}% and charging. You're basically set.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH3_FRIENDLY_02",
+              "text": "Nearly there at {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH3_FRIENDLY_03",
+              "text": "You've got plenty now, but more never hurts.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH3_FRIENDLY_04",
+              "text": "{percent}%. Comfortable territory.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_CH3_DRY_01",
+              "text": "{percent}%. The device continues accepting tribute.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH3_DRY_02",
+              "text": "Charging beyond practical necessity. Respectable.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH3_DRY_03",
+              "text": "Power reserves: sufficient and becoming more sufficient.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH3_DRY_04",
+              "text": "Still charging. Thorough.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_CH3_SARCASTIC_01",
+              "text": "{percent}% and still plugged in. We love overachievement.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH3_SARCASTIC_02",
+              "text": "At {percent}%, you're charging for emotional security.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH3_SARCASTIC_03",
+              "text": "This is no longer charging. It's hoarding.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH3_SARCASTIC_04",
+              "text": "{percent}%. The battery has enough, but appreciates the attention.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_CH3_CHAOTIC_01",
+              "text": "{percent}%! UNREASONABLE POWER RESERVES.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH3_CHAOTIC_02",
+              "text": "THE BATTERY HAS ENTERED LUXURY MODE.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH3_CHAOTIC_03",
+              "text": "POWER LEVELS: COMFORTABLY EXCESSIVE.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH3_CHAOTIC_04",
+              "text": "KEEP FEEDING THE RECTANGLE. IT GROWS STRONG.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_CH4",
+      "label": "Charging, 91-100%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_CH4_NEUTRAL_01",
+              "text": "{percent}% and charging. Essentially full.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH4_NEUTRAL_02",
+              "text": "Battery is topped up at {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH4_NEUTRAL_03",
+              "text": "{percent}% • Full-power territory.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH4_NEUTRAL_04",
+              "text": "Charging is nearly complete.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_CH4_FRIENDLY_01",
+              "text": "{percent}%. You're more than ready.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH4_FRIENDLY_02",
+              "text": "Fully prepared at {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH4_FRIENDLY_03",
+              "text": "Battery anxiety has no case here.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH4_FRIENDLY_04",
+              "text": "{percent}%. You can unplug with confidence.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_CH4_DRY_01",
+              "text": "{percent}%. Additional electricity appears optional.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH4_DRY_02",
+              "text": "The battery is effectively complete.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH4_DRY_03",
+              "text": "Charging continues for ceremonial reasons.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH4_DRY_04",
+              "text": "Power status: unnecessarily secure.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_CH4_SARCASTIC_01",
+              "text": "{percent}% and still plugged in. Let it go.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH4_SARCASTIC_02",
+              "text": "Your battery is full enough to file for independence.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH4_SARCASTIC_03",
+              "text": "At {percent}%, the charger is mostly moral support.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH4_SARCASTIC_04",
+              "text": "You've won. You may release the cable.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_CH4_CHAOTIC_01",
+              "text": "{percent}%! MAXIMUM JUICE APPROACHING.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_CH4_CHAOTIC_02",
+              "text": "THE BATTERY IS TOO POWERFUL TO CONTAIN.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH4_CHAOTIC_03",
+              "text": "POWER HOARDING DETECTED.",
+              "vars": []
+            },
+            {
+              "id": "BAT_CH4_CHAOTIC_04",
+              "text": "THE RECTANGLE IS FULL. SET IT FREE.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_B1",
+      "label": "95-100%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_B1_NEUTRAL_01",
+              "text": "{percent}%. Fully charged territory.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_NEUTRAL_02",
+              "text": "Battery: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_NEUTRAL_03",
+              "text": "{percent}% • Excellent reserve.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_NEUTRAL_04",
+              "text": "Nearly full at {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_B1_FRIENDLY_01",
+              "text": "{percent}%. You're set for a while.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_FRIENDLY_02",
+              "text": "Plenty of battery: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_FRIENDLY_03",
+              "text": "{percent}%. Nice and comfortable.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_FRIENDLY_04",
+              "text": "Battery anxiety can take the afternoon off.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_B1_DRY_01",
+              "text": "{percent}%. Suspiciously prepared.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_DRY_02",
+              "text": "Power reserves: excessive.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B1_DRY_03",
+              "text": "The rectangle is well provisioned.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B1_DRY_04",
+              "text": "{percent}%. No excuse to look for a charger.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_B1_SARCASTIC_01",
+              "text": "{percent}%. Who are you and what have you done with the usual user?",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_SARCASTIC_02",
+              "text": "Look at that battery. Planning ahead?",
+              "vars": []
+            },
+            {
+              "id": "BAT_B1_SARCASTIC_03",
+              "text": "{percent}%. Unreasonably responsible.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_SARCASTIC_04",
+              "text": "Your phone is better prepared for the day than most people.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_B1_CHAOTIC_01",
+              "text": "{percent}% POWER. UNLIMITED HUBRIS.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B1_CHAOTIC_02",
+              "text": "THE RECTANGLE IS AT FULL STRENGTH.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B1_CHAOTIC_03",
+              "text": "POWER LEVEL: BOSS FIGHT READY.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B1_CHAOTIC_04",
+              "text": "{percent}%. YOU COULD LEAVE THE HOUSE WITHOUT A CABLE.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_B2",
+      "label": "80-94%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_B2_NEUTRAL_01",
+              "text": "{percent}%. Strong battery level.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B2_NEUTRAL_02",
+              "text": "Battery is healthy at {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B2_NEUTRAL_03",
+              "text": "{percent}% • Plenty remaining.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B2_NEUTRAL_04",
+              "text": "High charge: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_B2_FRIENDLY_01",
+              "text": "{percent}%. You're in great shape.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B2_FRIENDLY_02",
+              "text": "Plenty left at {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B2_FRIENDLY_03",
+              "text": "The battery situation is pleasantly boring.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B2_FRIENDLY_04",
+              "text": "{percent}%. No worries here.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_B2_DRY_01",
+              "text": "{percent}%. Operationally luxurious.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B2_DRY_02",
+              "text": "Battery reserve: more than adequate.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B2_DRY_03",
+              "text": "The phone is financially independent in electricity terms.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B2_DRY_04",
+              "text": "{percent}%. Nothing to report, which is ideal.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_B2_SARCASTIC_01",
+              "text": "{percent}%. You may stop checking now.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B2_SARCASTIC_02",
+              "text": "Still at {percent}%. Battery anxiety remains unemployed.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B2_SARCASTIC_03",
+              "text": "Your charger is not needed. It can rest.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B2_SARCASTIC_04",
+              "text": "{percent}%. Somehow, everything is fine.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_B2_CHAOTIC_01",
+              "text": "{percent}%! POWER SURPLUS DETECTED.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B2_CHAOTIC_02",
+              "text": "THE BATTERY BAR IS THRIVING.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B2_CHAOTIC_03",
+              "text": "ENERGY RESERVES: GLORIOUS.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B2_CHAOTIC_04",
+              "text": "{percent}%. THE MACHINE KNOWS NO FEAR.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_B3",
+      "label": "60-79%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_B3_NEUTRAL_01",
+              "text": "{percent}%. Comfortable battery level.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B3_NEUTRAL_02",
+              "text": "Battery: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B3_NEUTRAL_03",
+              "text": "{percent}% • Good reserve.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B3_NEUTRAL_04",
+              "text": "More than half remaining.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_B3_FRIENDLY_01",
+              "text": "{percent}%. You're comfortably fine.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B3_FRIENDLY_02",
+              "text": "Plenty of day left in the battery.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B3_FRIENDLY_03",
+              "text": "{percent}%. Nothing urgent.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B3_FRIENDLY_04",
+              "text": "Battery status: relaxed.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_B3_DRY_01",
+              "text": "{percent}%. Adequate electricity.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B3_DRY_02",
+              "text": "Battery: sufficient.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B3_DRY_03",
+              "text": "The rectangle remains operational without drama.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B3_DRY_04",
+              "text": "{percent}%. We continue.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_B3_SARCASTIC_01",
+              "text": "{percent}%. Too high for panic, too low for bragging.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B3_SARCASTIC_02",
+              "text": "A deeply uninteresting {percent}%. Perfect.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B3_SARCASTIC_03",
+              "text": "Your battery is fine. Please find a new concern.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B3_SARCASTIC_04",
+              "text": "{percent}%. The middle class of battery levels.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_B3_CHAOTIC_01",
+              "text": "{percent}%. STABLE. POWERFUL. MORTAL.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B3_CHAOTIC_02",
+              "text": "THE ENERGY BAR REMAINS FORMIDABLE.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B3_CHAOTIC_03",
+              "text": "BATTERY STATUS: VIBING.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B3_CHAOTIC_04",
+              "text": "{percent}%. THE MACHINE ENDURES.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_B4",
+      "label": "40-59%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_B4_NEUTRAL_01",
+              "text": "{percent}%. Moderate battery level.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B4_NEUTRAL_02",
+              "text": "Battery is around halfway at {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B4_NEUTRAL_03",
+              "text": "{percent}% • Still comfortable.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B4_NEUTRAL_04",
+              "text": "Roughly half the charge remains.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_B4_FRIENDLY_01",
+              "text": "{percent}%. Still fine; just keep an eye on it.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B4_FRIENDLY_02",
+              "text": "Around half left. Plenty for now.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B4_FRIENDLY_03",
+              "text": "{percent}%. Comfortable, with a charger eventually.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B4_FRIENDLY_04",
+              "text": "Battery status: doing okay.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_B4_DRY_01",
+              "text": "{percent}%. The midpoint has been acknowledged.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B4_DRY_02",
+              "text": "Battery reserve: neither impressive nor concerning.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B4_DRY_03",
+              "text": "The rectangle has entered its second act.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B4_DRY_04",
+              "text": "{percent}%. Statistically battery.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_B4_SARCASTIC_01",
+              "text": "{percent}%. The glass is half full if the glass takes USB-C.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B4_SARCASTIC_02",
+              "text": "Around half. The bargaining stage begins later.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B4_SARCASTIC_03",
+              "text": "Battery anxiety may begin warming up.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B4_SARCASTIC_04",
+              "text": "{percent}%. Not a problem. Yet. Dramatic pause included.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_B4_CHAOTIC_01",
+              "text": "{percent}%. THE MIDGAME BEGINS.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B4_CHAOTIC_02",
+              "text": "HALF POWER. FULL CONFIDENCE.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B4_CHAOTIC_03",
+              "text": "THE BATTERY BAR HAS ENTERED ACT TWO.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B4_CHAOTIC_04",
+              "text": "{percent}%. CHARGER QUEST: NOT YET.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_B5",
+      "label": "25-39%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_B5_NEUTRAL_01",
+              "text": "{percent}%. Battery is getting low.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_NEUTRAL_02",
+              "text": "Battery: {percent}% • Consider charging later.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_NEUTRAL_03",
+              "text": "{percent}% remaining.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_NEUTRAL_04",
+              "text": "Low-to-moderate reserve.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_B5_FRIENDLY_01",
+              "text": "{percent}%. You're okay, but a charger would be nice soon.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_FRIENDLY_02",
+              "text": "Getting low at {percent}%. No panic yet.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_FRIENDLY_03",
+              "text": "{percent}%. Maybe charge when it's convenient.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_FRIENDLY_04",
+              "text": "Still usable, but we're entering charger-awareness territory.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_B5_DRY_01",
+              "text": "{percent}%. Charger awareness recommended.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_DRY_02",
+              "text": "Battery reserves have become noteworthy.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B5_DRY_03",
+              "text": "The rectangle is beginning to make contingency plans.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B5_DRY_04",
+              "text": "{percent}%. Mild logistical concern.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_B5_SARCASTIC_01",
+              "text": "{percent}%. Optimism is still permitted, with conditions.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_SARCASTIC_02",
+              "text": "Your phone has started noticing electrical outlets.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B5_SARCASTIC_03",
+              "text": "{percent}%. We have entered 'where's my charger?' territory.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_SARCASTIC_04",
+              "text": "The battery is low enough to become part of the plot.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_B5_CHAOTIC_01",
+              "text": "{percent}%. THE QUEST FOR ELECTRICITY APPROACHES.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B5_CHAOTIC_02",
+              "text": "POWER LEVEL: NERVOUS BUT FUNCTIONAL.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B5_CHAOTIC_03",
+              "text": "THE BATTERY BAR HAS STARTED SWEATING.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B5_CHAOTIC_04",
+              "text": "{percent}%. LOCATE THE CABLE. CASUALLY. FOR NOW.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_B6",
+      "label": "15-24%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_B6_NEUTRAL_01",
+              "text": "{percent}%. Low battery.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B6_NEUTRAL_02",
+              "text": "Battery: {percent}% • Charging recommended.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B6_NEUTRAL_03",
+              "text": "Only {percent}% remains.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B6_NEUTRAL_04",
+              "text": "Low reserve. Plug in when possible.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_B6_FRIENDLY_01",
+              "text": "{percent}%. Time to think about a charger.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B6_FRIENDLY_02",
+              "text": "Low at {percent}%. A little electricity would help.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B6_FRIENDLY_03",
+              "text": "Your phone would appreciate being plugged in soon.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B6_FRIENDLY_04",
+              "text": "{percent}%. Still alive; charger encouraged.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_B6_DRY_01",
+              "text": "{percent}%. Electrical intervention recommended.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B6_DRY_02",
+              "text": "Battery reserves are now an operational concern.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B6_DRY_03",
+              "text": "The device has entered low-power diplomacy.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B6_DRY_04",
+              "text": "{percent}%. Infrastructure should be located.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_B6_SARCASTIC_01",
+              "text": "{percent}%. Optimism is no longer appropriate.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B6_SARCASTIC_02",
+              "text": "Your phone is drafting a final email.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B6_SARCASTIC_03",
+              "text": "{percent}%. The charger is no longer optional décor.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B6_SARCASTIC_04",
+              "text": "Battery status: bargaining.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_B6_CHAOTIC_01",
+              "text": "{percent}%! FIND ELECTRICITY.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B6_CHAOTIC_02",
+              "text": "LOW POWER ARC ACTIVATED.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B6_CHAOTIC_03",
+              "text": "THE RECTANGLE DEMANDS A CABLE.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B6_CHAOTIC_04",
+              "text": "{percent}%. THIS IS NOW A RESOURCE-MANAGEMENT GAME.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_B7",
+      "label": "6-14%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_B7_NEUTRAL_01",
+              "text": "{percent}%. Very low battery.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B7_NEUTRAL_02",
+              "text": "Battery: {percent}% • Charge soon.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B7_NEUTRAL_03",
+              "text": "Critical reserve approaching.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B7_NEUTRAL_04",
+              "text": "Only {percent}% remains.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_B7_FRIENDLY_01",
+              "text": "{percent}%. Please find a charger soon.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B7_FRIENDLY_02",
+              "text": "Very low at {percent}%. Let's get some power.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B7_FRIENDLY_03",
+              "text": "Your battery is running on determination.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B7_FRIENDLY_04",
+              "text": "{percent}%. This would be a good charging moment.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_B7_DRY_01",
+              "text": "{percent}%. Electricity is now a priority.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B7_DRY_02",
+              "text": "Power reserves: poor.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B7_DRY_03",
+              "text": "The device is operating on administrative fumes.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B7_DRY_04",
+              "text": "{percent}%. Contingency phase.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_B7_SARCASTIC_01",
+              "text": "{percent}%. Your phone has started writing its memoir.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B7_SARCASTIC_02",
+              "text": "This is the part where every outlet becomes beautiful.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B7_SARCASTIC_03",
+              "text": "{percent}%. Maybe stop opening the camera.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B7_SARCASTIC_04",
+              "text": "Battery status: thoughts and prayers.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_B7_CHAOTIC_01",
+              "text": "{percent}%! RED ALERT: RECTANGLE EDITION.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B7_CHAOTIC_02",
+              "text": "THE BATTERY BAR IS A THIN RED RUMOR.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B7_CHAOTIC_03",
+              "text": "POWER CRISIS. CABLE SUMMONING RITUAL REQUIRED.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B7_CHAOTIC_04",
+              "text": "{percent}%. ABANDON NONESSENTIAL SCROLLING.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "BAT_B8",
+      "label": "1-5%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "BAT_B8_NEUTRAL_01",
+              "text": "{percent}%. Critical battery.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B8_NEUTRAL_02",
+              "text": "Battery critically low: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B8_NEUTRAL_03",
+              "text": "Only {percent}% remains. Charge now.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B8_NEUTRAL_04",
+              "text": "Immediate charging recommended.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "BAT_B8_FRIENDLY_01",
+              "text": "{percent}%. Charger. Now, ideally.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B8_FRIENDLY_02",
+              "text": "You're at {percent}%. Let's save this little rectangle.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B8_FRIENDLY_03",
+              "text": "Very little battery left. Plug in if you can.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B8_FRIENDLY_04",
+              "text": "{percent}%. We are officially out of wiggle room.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "BAT_B8_DRY_01",
+              "text": "{percent}%. This device is technically still alive.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B8_DRY_02",
+              "text": "Power reserves: ceremonial.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B8_DRY_03",
+              "text": "Battery capacity has become conceptual.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B8_DRY_04",
+              "text": "{percent}%. The phone is operating on paperwork.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "BAT_B8_SARCASTIC_01",
+              "text": "{percent}%. It has been an honor.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B8_SARCASTIC_02",
+              "text": "Your phone is seeing the light, and unfortunately it's the shutdown screen.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B8_SARCASTIC_03",
+              "text": "At {percent}%, even checking the battery was ambitious.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B8_SARCASTIC_04",
+              "text": "The charger would like to know why you hate planning.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "BAT_B8_CHAOTIC_01",
+              "text": "{percent}%! THIS IS NOT A DRILL.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "BAT_B8_CHAOTIC_02",
+              "text": "THE RECTANGLE WALKS THE EDGE OF THE VOID.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B8_CHAOTIC_03",
+              "text": "POWER LEVEL: ONE BAD NOTIFICATION FROM DEATH.",
+              "vars": []
+            },
+            {
+              "id": "BAT_B8_CHAOTIC_04",
+              "text": "{percent}%. PLUG. IT. IN.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

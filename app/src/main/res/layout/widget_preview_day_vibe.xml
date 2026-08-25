@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Widget-picker preview. Deliberately static: the picker renders this before the
+  widget exists, so it shows representative sample values rather than live data.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tile_day_vibe"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:letterSpacing="0.14"
+        android:text="@string/widget_day_vibe_label"
+        android:textAllCaps="true"
+        android:textColor="#A2664A"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/widget_day_vibe_preview_hero"
+        android:textColor="#A2664A"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:text="@string/widget_day_vibe_preview_voice"
+        android:textColor="#A2664A"
+        android:textSize="13sp" />
+</LinearLayout>

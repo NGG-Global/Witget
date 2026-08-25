@@ -1,0 +1,999 @@
+{
+  "schemaVersion": 1,
+  "widget": "DAILY_JOKE",
+  "locale": "en",
+  "states": [
+    {
+      "key": "J_META",
+      "label": "Optional line below the joke",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "J_META_NEUTRAL_01",
+              "text": "Joke quality: {score}/10",
+              "vars": [
+                "score"
+              ]
+            },
+            {
+              "id": "J_META_NEUTRAL_02",
+              "text": "Category: {category}",
+              "vars": [
+                "category"
+              ]
+            },
+            {
+              "id": "J_META_NEUTRAL_03",
+              "text": "Daily joke #{day_of_year}",
+              "vars": [
+                "day_of_year"
+              ]
+            },
+            {
+              "id": "J_META_NEUTRAL_04",
+              "text": "Scientific value: negligible",
+              "vars": []
+            },
+            {
+              "id": "J_META_NEUTRAL_05",
+              "text": "Repeat risk: currently low",
+              "vars": []
+            },
+            {
+              "id": "J_META_NEUTRAL_06",
+              "text": "Comedy confidence: {score}/10",
+              "vars": [
+                "score"
+              ]
+            },
+            {
+              "id": "J_META_NEUTRAL_07",
+              "text": "Today's joke has been delivered.",
+              "vars": []
+            },
+            {
+              "id": "J_META_NEUTRAL_08",
+              "text": "Humor content: verified present",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "J_META_FRIENDLY_01",
+              "text": "Dad approval: {percent}%",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "J_META_FRIENDLY_02",
+              "text": "Tiny laugh probability: {percent}%",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "J_META_FRIENDLY_03",
+              "text": "Hope that helped: {score}/10",
+              "vars": [
+                "score"
+              ]
+            },
+            {
+              "id": "J_META_FRIENDLY_04",
+              "text": "Mood contribution: +{score}%",
+              "vars": [
+                "score"
+              ]
+            },
+            {
+              "id": "J_META_FRIENDLY_05",
+              "text": "Approved for coffee breaks",
+              "vars": []
+            },
+            {
+              "id": "J_META_FRIENDLY_06",
+              "text": "Friendliness rating: {score}/10",
+              "vars": [
+                "score"
+              ]
+            },
+            {
+              "id": "J_META_FRIENDLY_07",
+              "text": "A small joke for the road",
+              "vars": []
+            },
+            {
+              "id": "J_META_FRIENDLY_08",
+              "text": "Your daily nonsense has arrived",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "J_META_DRY_01",
+              "text": "Comedy status: adequate",
+              "vars": []
+            },
+            {
+              "id": "J_META_DRY_02",
+              "text": "Regret level: {score}/10",
+              "vars": [
+                "score"
+              ]
+            },
+            {
+              "id": "J_META_DRY_03",
+              "text": "Humor detected: technically",
+              "vars": []
+            },
+            {
+              "id": "J_META_DRY_04",
+              "text": "Punchline efficiency: {percent}%",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "J_META_DRY_05",
+              "text": "This concludes today's comedy requirement.",
+              "vars": []
+            },
+            {
+              "id": "J_META_DRY_06",
+              "text": "Joke delivered without incident.",
+              "vars": []
+            },
+            {
+              "id": "J_META_DRY_07",
+              "text": "Audience response: pending",
+              "vars": []
+            },
+            {
+              "id": "J_META_DRY_08",
+              "text": "Quality assurance declined to comment",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "J_META_SARCASTIC_01",
+              "text": "Dad approval: unfortunately {percent}%",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "J_META_SARCASTIC_02",
+              "text": "Regret level: elevated",
+              "vars": []
+            },
+            {
+              "id": "J_META_SARCASTIC_03",
+              "text": "You opened the widget. This is on you.",
+              "vars": []
+            },
+            {
+              "id": "J_META_SARCASTIC_04",
+              "text": "Comedy budget: clearly limited",
+              "vars": []
+            },
+            {
+              "id": "J_META_SARCASTIC_05",
+              "text": "Punchline survived testing",
+              "vars": []
+            },
+            {
+              "id": "J_META_SARCASTIC_06",
+              "text": "Nobody requested this, yet here we are",
+              "vars": []
+            },
+            {
+              "id": "J_META_SARCASTIC_07",
+              "text": "Estimated groan rate: {percent}%",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "J_META_SARCASTIC_08",
+              "text": "This joke has legal representation",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "J_META_CHAOTIC_01",
+              "text": "GROAN METER: {percent}%",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "J_META_CHAOTIC_02",
+              "text": "COMEDY DAMAGE: {score}/10",
+              "vars": [
+                "score"
+              ]
+            },
+            {
+              "id": "J_META_CHAOTIC_03",
+              "text": "THE JOKE HAS BREACHED CONTAINMENT",
+              "vars": []
+            },
+            {
+              "id": "J_META_CHAOTIC_04",
+              "text": "DAD ENERGY: MAXIMUM",
+              "vars": []
+            },
+            {
+              "id": "J_META_CHAOTIC_05",
+              "text": "LAUGH OR THE WIDGET WINS",
+              "vars": []
+            },
+            {
+              "id": "J_META_CHAOTIC_06",
+              "text": "ABSURDITY INDEX: {percent}%",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "J_META_CHAOTIC_07",
+              "text": "THIS PASSED ZERO REVIEWS",
+              "vars": []
+            },
+            {
+              "id": "J_META_CHAOTIC_08",
+              "text": "THE PUNCHLINE IS NOW YOUR PROBLEM",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "jokes": [
+    {
+      "id": "J001",
+      "category": "DAD_WORDPLAY",
+      "text": "I bought a calendar with no dates. It was a timeless investment."
+    },
+    {
+      "id": "J002",
+      "category": "DAD_WORDPLAY",
+      "text": "My vacuum cleaner and I have a lot in common: we both lose interest when things get messy."
+    },
+    {
+      "id": "J003",
+      "category": "DAD_WORDPLAY",
+      "text": "I tried to organize my spices alphabetically. It was a seasoned decision."
+    },
+    {
+      "id": "J004",
+      "category": "DAD_WORDPLAY",
+      "text": "The elevator told me a joke. It worked on so many levels."
+    },
+    {
+      "id": "J005",
+      "category": "DAD_WORDPLAY",
+      "text": "I named my Wi-Fi 'The Past.' Now everyone keeps trying to connect with it."
+    },
+    {
+      "id": "J006",
+      "category": "DAD_WORDPLAY",
+      "text": "My chair applied for a promotion. It wanted a higher position."
+    },
+    {
+      "id": "J007",
+      "category": "DAD_WORDPLAY",
+      "text": "The broom quit. It was tired of being pushed around."
+    },
+    {
+      "id": "J008",
+      "category": "DAD_WORDPLAY",
+      "text": "I opened a bakery for introverts. We specialize in small rolls."
+    },
+    {
+      "id": "J009",
+      "category": "DAD_WORDPLAY",
+      "text": "My lamp is very supportive. It always brightens the room when I walk in."
+    },
+    {
+      "id": "J010",
+      "category": "DAD_WORDPLAY",
+      "text": "The fridge has started journaling. It has a lot to unpack."
+    },
+    {
+      "id": "J011",
+      "category": "DAD_WORDPLAY",
+      "text": "I tried to write a book about glue. I got stuck on chapter one."
+    },
+    {
+      "id": "J012",
+      "category": "DAD_WORDPLAY",
+      "text": "My socks started a podcast. Every episode is about finding their other half."
+    },
+    {
+      "id": "J013",
+      "category": "DAD_WORDPLAY",
+      "text": "The ceiling fan is my biggest supporter. It keeps saying, 'I'm a huge fan.'"
+    },
+    {
+      "id": "J014",
+      "category": "DAD_WORDPLAY",
+      "text": "I challenged my mirror to a staring contest. It copied my strategy."
+    },
+    {
+      "id": "J015",
+      "category": "DAD_WORDPLAY",
+      "text": "My notebook is very dramatic. Every problem becomes a whole page."
+    },
+    {
+      "id": "J016",
+      "category": "DAD_WORDPLAY",
+      "text": "The pencil refused to argue. It didn't want to make a point."
+    },
+    {
+      "id": "J017",
+      "category": "DAD_WORDPLAY",
+      "text": "I asked the clock for advice. It said timing is everything, then refused to elaborate."
+    },
+    {
+      "id": "J018",
+      "category": "DAD_WORDPLAY",
+      "text": "My kettle has one personality trait: reaching a boiling point."
+    },
+    {
+      "id": "J019",
+      "category": "DAD_WORDPLAY",
+      "text": "I bought invisible ink. I can't see myself using it."
+    },
+    {
+      "id": "J020",
+      "category": "DAD_WORDPLAY",
+      "text": "My umbrella is an optimist. It always assumes things will blow over."
+    },
+    {
+      "id": "J021",
+      "category": "DAD_WORDPLAY",
+      "text": "I tried to make a belt out of watches. Total waist of time."
+    },
+    {
+      "id": "J022",
+      "category": "DAD_WORDPLAY",
+      "text": "My bookshelf is judgmental. It keeps bringing up my unfinished business."
+    },
+    {
+      "id": "J023",
+      "category": "DAD_WORDPLAY",
+      "text": "The battery went to therapy. It was tired of feeling drained."
+    },
+    {
+      "id": "J024",
+      "category": "DAD_WORDPLAY",
+      "text": "My phone wanted a day off. I told it to disconnect for a while."
+    },
+    {
+      "id": "J025",
+      "category": "NERD_TECH",
+      "text": "I told my computer I needed space. It deleted three temporary files and called it growth."
+    },
+    {
+      "id": "J026",
+      "category": "NERD_TECH",
+      "text": "My password is emotionally secure. Nobody can get through to it."
+    },
+    {
+      "id": "J027",
+      "category": "NERD_TECH",
+      "text": "The bug said it wasn't a bug. It preferred 'unexpected feature with confidence.'"
+    },
+    {
+      "id": "J028",
+      "category": "NERD_TECH",
+      "text": "My code works perfectly until someone watches."
+    },
+    {
+      "id": "J029",
+      "category": "NERD_TECH",
+      "text": "I asked the cloud where my file went. It said, 'Define went.'"
+    },
+    {
+      "id": "J030",
+      "category": "NERD_TECH",
+      "text": "My router has trust issues. It keeps asking everyone for credentials."
+    },
+    {
+      "id": "J031",
+      "category": "NERD_TECH",
+      "text": "I installed an update for stability. Everything moved."
+    },
+    {
+      "id": "J032",
+      "category": "NERD_TECH",
+      "text": "My app has dark mode because the bugs prefer low light."
+    },
+    {
+      "id": "J033",
+      "category": "NERD_TECH",
+      "text": "The server isn't down. It's practicing horizontal scaling."
+    },
+    {
+      "id": "J034",
+      "category": "NERD_TECH",
+      "text": "I gave my AI a simple task. It returned a framework and three follow-up questions."
+    },
+    {
+      "id": "J035",
+      "category": "NERD_TECH",
+      "text": "My keyboard and I are in a committed relationship. We have a lot of space between us."
+    },
+    {
+      "id": "J036",
+      "category": "NERD_TECH",
+      "text": "I wrote one line of code and spent forty minutes choosing the variable name. Architecture matters."
+    },
+    {
+      "id": "J037",
+      "category": "NERD_TECH",
+      "text": "My cache remembers everything except what I actually need."
+    },
+    {
+      "id": "J038",
+      "category": "NERD_TECH",
+      "text": "The database and I agreed to see other tables."
+    },
+    {
+      "id": "J039",
+      "category": "NERD_TECH",
+      "text": "I put my phone in airplane mode. It still refuses to fly."
+    },
+    {
+      "id": "J040",
+      "category": "NERD_TECH",
+      "text": "My Bluetooth relationship status is 'paired, technically.'"
+    },
+    {
+      "id": "J041",
+      "category": "NERD_TECH",
+      "text": "The loading spinner has a great career. It is always going places without arriving."
+    },
+    {
+      "id": "J042",
+      "category": "NERD_TECH",
+      "text": "I asked Git for closure. It offered me another branch."
+    },
+    {
+      "id": "J043",
+      "category": "NERD_TECH",
+      "text": "My API is very private. Even I don't know what it's returning."
+    },
+    {
+      "id": "J044",
+      "category": "NERD_TECH",
+      "text": "The compiler and I have different definitions of 'obvious.'"
+    },
+    {
+      "id": "J045",
+      "category": "NERD_TECH",
+      "text": "My smart home is so smart it has started ignoring me strategically."
+    },
+    {
+      "id": "J046",
+      "category": "NERD_TECH",
+      "text": "I backed everything up. Emotionally, less so."
+    },
+    {
+      "id": "J047",
+      "category": "NERD_TECH",
+      "text": "The app said 'Something went wrong.' Finally, a precise diagnosis."
+    },
+    {
+      "id": "J048",
+      "category": "NERD_TECH",
+      "text": "My battery saver is excellent at saving battery for a future I apparently won't use it in."
+    },
+    {
+      "id": "J049",
+      "category": "WORK_LIFE",
+      "text": "I had a productive morning. I moved three tasks to tomorrow."
+    },
+    {
+      "id": "J050",
+      "category": "WORK_LIFE",
+      "text": "My to-do list is less of a plan and more of a historical document."
+    },
+    {
+      "id": "J051",
+      "category": "WORK_LIFE",
+      "text": "I joined a meeting that could have been an email. The email could have been a sentence."
+    },
+    {
+      "id": "J052",
+      "category": "WORK_LIFE",
+      "text": "My work-life balance is currently buffering."
+    },
+    {
+      "id": "J053",
+      "category": "WORK_LIFE",
+      "text": "I cleaned my desk and immediately lost everything."
+    },
+    {
+      "id": "J054",
+      "category": "WORK_LIFE",
+      "text": "I made a five-year plan. It starts with getting through Thursday."
+    },
+    {
+      "id": "J055",
+      "category": "WORK_LIFE",
+      "text": "My inbox and I are taking some time apart. There are 2,417 unread reasons."
+    },
+    {
+      "id": "J056",
+      "category": "WORK_LIFE",
+      "text": "I scheduled time to be spontaneous. It's at 16:30."
+    },
+    {
+      "id": "J057",
+      "category": "WORK_LIFE",
+      "text": "I love deadlines. They make excellent whooshing sounds in my calendar."
+    },
+    {
+      "id": "J058",
+      "category": "WORK_LIFE",
+      "text": "Today I achieved inbox zero. Then someone emailed me."
+    },
+    {
+      "id": "J059",
+      "category": "WORK_LIFE",
+      "text": "My productivity system has become a hobby that prevents productivity."
+    },
+    {
+      "id": "J060",
+      "category": "WORK_LIFE",
+      "text": "I wrote 'quick task' on my list. That was optimistic fiction."
+    },
+    {
+      "id": "J061",
+      "category": "WORK_LIFE",
+      "text": "I took a break from procrastinating. Very refreshing."
+    },
+    {
+      "id": "J062",
+      "category": "WORK_LIFE",
+      "text": "My coffee and I have a performance-based partnership."
+    },
+    {
+      "id": "J063",
+      "category": "WORK_LIFE",
+      "text": "I finally found my motivation. It was under 'maybe tomorrow.'"
+    },
+    {
+      "id": "J064",
+      "category": "WORK_LIFE",
+      "text": "The meeting ended early. Nobody knew what to do with the remaining six minutes."
+    },
+    {
+      "id": "J065",
+      "category": "WORK_LIFE",
+      "text": "My calendar is color-coded, which makes the panic easier to categorize."
+    },
+    {
+      "id": "J066",
+      "category": "WORK_LIFE",
+      "text": "I opened a spreadsheet for fun. This is how I know I need a holiday."
+    },
+    {
+      "id": "J067",
+      "category": "WORK_LIFE",
+      "text": "I have excellent time management. I manage to lose time very consistently."
+    },
+    {
+      "id": "J068",
+      "category": "WORK_LIFE",
+      "text": "I put 'rest' on my to-do list, so naturally it became stressful."
+    },
+    {
+      "id": "J069",
+      "category": "WORK_LIFE",
+      "text": "I completed a task before the deadline. I assume there will be consequences."
+    },
+    {
+      "id": "J070",
+      "category": "WORK_LIFE",
+      "text": "My lunch break has been promoted to a calendar event with stakeholders."
+    },
+    {
+      "id": "J071",
+      "category": "WORK_LIFE",
+      "text": "I said 'I'll remember that' and immediately created a reminder."
+    },
+    {
+      "id": "J072",
+      "category": "WORK_LIFE",
+      "text": "The best part of working from home is the commute from bed to concern."
+    },
+    {
+      "id": "J073",
+      "category": "ANTI_JOKE",
+      "text": "A man walks into a bar. He orders water. Hydration is important."
+    },
+    {
+      "id": "J074",
+      "category": "ANTI_JOKE",
+      "text": "Why did the chicken cross the road? Traffic conditions allowed it."
+    },
+    {
+      "id": "J075",
+      "category": "ANTI_JOKE",
+      "text": "I told a joke about construction. It was completed on schedule."
+    },
+    {
+      "id": "J076",
+      "category": "ANTI_JOKE",
+      "text": "What is blue and smells like blue paint? Blue paint."
+    },
+    {
+      "id": "J077",
+      "category": "ANTI_JOKE",
+      "text": "I bought a mystery box. It contained a box. Mystery resolved."
+    },
+    {
+      "id": "J078",
+      "category": "ANTI_JOKE",
+      "text": "Two people walked into a room. The room remained structurally unaffected."
+    },
+    {
+      "id": "J079",
+      "category": "ANTI_JOKE",
+      "text": "I asked my dog what two minus two is. The dog did not answer. Correct."
+    },
+    {
+      "id": "J080",
+      "category": "ANTI_JOKE",
+      "text": "Why was the math book sad? It wasn't. Books don't have endocrine systems."
+    },
+    {
+      "id": "J081",
+      "category": "ANTI_JOKE",
+      "text": "A horse enters an office. Security procedures have failed."
+    },
+    {
+      "id": "J082",
+      "category": "ANTI_JOKE",
+      "text": "I lost my phone yesterday. Then I found it. End of arc."
+    },
+    {
+      "id": "J083",
+      "category": "ANTI_JOKE",
+      "text": "I planted a joke in the garden. Nothing happened. Wrong climate."
+    },
+    {
+      "id": "J084",
+      "category": "ANTI_JOKE",
+      "text": "The doctor told me to avoid unnecessary stress. So I stopped reading notifications."
+    },
+    {
+      "id": "J085",
+      "category": "ANTI_JOKE",
+      "text": "A printer walks into a café. This raises several engineering questions."
+    },
+    {
+      "id": "J086",
+      "category": "ANTI_JOKE",
+      "text": "I tried to surprise myself. Prior knowledge made this difficult."
+    },
+    {
+      "id": "J087",
+      "category": "ANTI_JOKE",
+      "text": "My alarm didn't go off. It remained on the nightstand."
+    },
+    {
+      "id": "J088",
+      "category": "ANTI_JOKE",
+      "text": "I opened the fridge for inspiration. It contained food."
+    },
+    {
+      "id": "J089",
+      "category": "ANTI_JOKE",
+      "text": "The weather forecast said 30 degrees. Later, it was approximately 30 degrees. Incredible."
+    },
+    {
+      "id": "J090",
+      "category": "ANTI_JOKE",
+      "text": "I threw a boomerang away. It returned, as specified."
+    },
+    {
+      "id": "J091",
+      "category": "ANTI_JOKE",
+      "text": "I took a personality test. It produced a result."
+    },
+    {
+      "id": "J092",
+      "category": "ANTI_JOKE",
+      "text": "I asked the mirror who was fairest. It reflected visible light."
+    },
+    {
+      "id": "J093",
+      "category": "ANTI_JOKE",
+      "text": "A skeleton walks into a pharmacy. It is denied service for administrative reasons."
+    },
+    {
+      "id": "J094",
+      "category": "ANTI_JOKE",
+      "text": "I made a joke about gravity. It went down exactly as expected."
+    },
+    {
+      "id": "J095",
+      "category": "ANTI_JOKE",
+      "text": "Why did I open this app? Historical records are inconclusive."
+    },
+    {
+      "id": "J096",
+      "category": "ANTI_JOKE",
+      "text": "I waited for inspiration. Time passed."
+    },
+    {
+      "id": "J097",
+      "category": "ABSURD",
+      "text": "A pigeon outside my window has been promoted. It now supervises the other pigeons."
+    },
+    {
+      "id": "J098",
+      "category": "ABSURD",
+      "text": "My left shoe knows what it did."
+    },
+    {
+      "id": "J099",
+      "category": "ABSURD",
+      "text": "I have replaced my five-year plan with a mysterious envelope labeled 'Thursday.'"
+    },
+    {
+      "id": "J100",
+      "category": "ABSURD",
+      "text": "The moon has not replied to my email. Typical management."
+    },
+    {
+      "id": "J101",
+      "category": "ABSURD",
+      "text": "I put a tiny hat on my router. Signal quality unchanged. Morale improved."
+    },
+    {
+      "id": "J102",
+      "category": "ABSURD",
+      "text": "There is no evidence my houseplants are plotting, which is exactly what they want me to think."
+    },
+    {
+      "id": "J103",
+      "category": "ABSURD",
+      "text": "My spoon has entered its villain era."
+    },
+    {
+      "id": "J104",
+      "category": "ABSURD",
+      "text": "I accidentally made eye contact with a mannequin. We are now legally rivals."
+    },
+    {
+      "id": "J105",
+      "category": "ABSURD",
+      "text": "The microwave beeped four times. I assume this was a threat."
+    },
+    {
+      "id": "J106",
+      "category": "ABSURD",
+      "text": "My laundry pile has achieved geological status."
+    },
+    {
+      "id": "J107",
+      "category": "ABSURD",
+      "text": "I don't trust revolving doors. Too many sudden returns."
+    },
+    {
+      "id": "J108",
+      "category": "ABSURD",
+      "text": "A potato has never disappointed me professionally."
+    },
+    {
+      "id": "J109",
+      "category": "ABSURD",
+      "text": "The chair in the corner is facing the wrong way again. I did not move it."
+    },
+    {
+      "id": "J110",
+      "category": "ABSURD",
+      "text": "Today has strong 'side character discovers a secret tunnel' energy."
+    },
+    {
+      "id": "J111",
+      "category": "ABSURD",
+      "text": "I whispered 'be normal' to my phone and it opened a system update screen."
+    },
+    {
+      "id": "J112",
+      "category": "ABSURD",
+      "text": "My ceiling has been above me for years. Suspicious consistency."
+    },
+    {
+      "id": "J113",
+      "category": "ABSURD",
+      "text": "The fridge light knows too much."
+    },
+    {
+      "id": "J114",
+      "category": "ABSURD",
+      "text": "I have declared the next 11 minutes a protected historical period."
+    },
+    {
+      "id": "J115",
+      "category": "ABSURD",
+      "text": "My socks are not missing. They have chosen separate careers."
+    },
+    {
+      "id": "J116",
+      "category": "ABSURD",
+      "text": "The toaster has one setting: legal dispute."
+    },
+    {
+      "id": "J117",
+      "category": "ABSURD",
+      "text": "A cloud looked like a duck. The duck declined to comment."
+    },
+    {
+      "id": "J118",
+      "category": "ABSURD",
+      "text": "My hallway is longer at night. No measurements will be taken."
+    },
+    {
+      "id": "J119",
+      "category": "ABSURD",
+      "text": "I put my problems in a folder called 'Archive.' They remain extremely active."
+    },
+    {
+      "id": "J120",
+      "category": "ABSURD",
+      "text": "The day has been reviewed by management and will continue anyway."
+    }
+  ],
+  "categoryWeights": [
+    {
+      "mode": "NEUTRAL",
+      "weights": [
+        {
+          "category": "DAD_WORDPLAY",
+          "weight": 20
+        },
+        {
+          "category": "NERD_TECH",
+          "weight": 20
+        },
+        {
+          "category": "WORK_LIFE",
+          "weight": 20
+        },
+        {
+          "category": "ANTI_JOKE",
+          "weight": 20
+        },
+        {
+          "category": "ABSURD",
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "mode": "FRIENDLY",
+      "weights": [
+        {
+          "category": "DAD_WORDPLAY",
+          "weight": 30
+        },
+        {
+          "category": "NERD_TECH",
+          "weight": 15
+        },
+        {
+          "category": "WORK_LIFE",
+          "weight": 15
+        },
+        {
+          "category": "ANTI_JOKE",
+          "weight": 10
+        },
+        {
+          "category": "ABSURD",
+          "weight": 30
+        }
+      ]
+    },
+    {
+      "mode": "DRY",
+      "weights": [
+        {
+          "category": "DAD_WORDPLAY",
+          "weight": 10
+        },
+        {
+          "category": "NERD_TECH",
+          "weight": 20
+        },
+        {
+          "category": "WORK_LIFE",
+          "weight": 20
+        },
+        {
+          "category": "ANTI_JOKE",
+          "weight": 40
+        },
+        {
+          "category": "ABSURD",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "mode": "SARCASTIC",
+      "weights": [
+        {
+          "category": "DAD_WORDPLAY",
+          "weight": 10
+        },
+        {
+          "category": "NERD_TECH",
+          "weight": 20
+        },
+        {
+          "category": "WORK_LIFE",
+          "weight": 30
+        },
+        {
+          "category": "ANTI_JOKE",
+          "weight": 30
+        },
+        {
+          "category": "ABSURD",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "mode": "CHAOTIC",
+      "weights": [
+        {
+          "category": "DAD_WORDPLAY",
+          "weight": 10
+        },
+        {
+          "category": "NERD_TECH",
+          "weight": 25
+        },
+        {
+          "category": "WORK_LIFE",
+          "weight": 10
+        },
+        {
+          "category": "ANTI_JOKE",
+          "weight": 10
+        },
+        {
+          "category": "ABSURD",
+          "weight": 45
+        }
+      ]
+    }
+  ]
+}

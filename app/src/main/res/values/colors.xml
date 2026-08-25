@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Referenced from themes.xml as the pre-Compose window background. -->
+    <color name="wallpaper_light">#E7DED3</color>
+    <color name="wallpaper_dark">#1C1814</color>
+</resources>

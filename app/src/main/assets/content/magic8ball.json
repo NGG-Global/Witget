@@ -1,0 +1,850 @@
+{
+  "schemaVersion": 1,
+  "widget": "MAGIC_8_BALL",
+  "locale": "en",
+  "states": [
+    {
+      "key": "M8_POSITIVE",
+      "label": "8B-Positive",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "M8_POSITIVE_NEUTRAL_01",
+              "text": "Yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_02",
+              "text": "Very likely.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_03",
+              "text": "Signs point to yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_04",
+              "text": "The outlook is good.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_05",
+              "text": "I'd lean yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_06",
+              "text": "Probably.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_07",
+              "text": "Chances look good.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_08",
+              "text": "It seems favorable.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_09",
+              "text": "Yes, with reasonable confidence.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_10",
+              "text": "I'd go with yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_11",
+              "text": "The answer appears to be yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_NEUTRAL_12",
+              "text": "Most likely, yes.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "M8_POSITIVE_FRIENDLY_01",
+              "text": "Yeah, I think so.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_02",
+              "text": "I'd say yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_03",
+              "text": "This feels like a yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_04",
+              "text": "Go for it.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_05",
+              "text": "I like your chances.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_06",
+              "text": "I think this one works out.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_07",
+              "text": "Yep — cautiously optimistic.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_08",
+              "text": "You have my extremely unofficial approval.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_09",
+              "text": "Looks promising.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_10",
+              "text": "I vote yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_11",
+              "text": "This has good energy.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_FRIENDLY_12",
+              "text": "I'd take the chance.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "M8_POSITIVE_DRY_01",
+              "text": "Yes. Apparently.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_02",
+              "text": "Probability favors yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_03",
+              "text": "Approved by no recognized authority.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_04",
+              "text": "Yes, based on absolutely no evidence.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_05",
+              "text": "Proceed, statistically speaking-ish.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_06",
+              "text": "The imaginary data says yes.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_07",
+              "text": "Yes. Documentation unavailable.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_08",
+              "text": "Outcome: favorable enough.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_09",
+              "text": "A provisional yes has been issued.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_10",
+              "text": "Yes. Please don't cite me.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_11",
+              "text": "Positive result returned.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_DRY_12",
+              "text": "The universe has selected 'yes.'",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "M8_POSITIVE_SARCASTIC_01",
+              "text": "Sure. What's the worst that could happen?",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_02",
+              "text": "Yes. Against my better judgment.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_03",
+              "text": "Fine. Go make it interesting.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_04",
+              "text": "Apparently yes. Congratulations in advance.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_05",
+              "text": "Yes. You were going to do it anyway.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_06",
+              "text": "Go for it. I assume you've ignored worse advice.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_07",
+              "text": "The signs say yes. The signs have poor supervision.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_08",
+              "text": "Yes. Weirdly confident about this one.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_09",
+              "text": "Do it. Future-you can handle the paperwork.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_10",
+              "text": "I vote yes, which should concern both of us.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_11",
+              "text": "Looks good. Suspicious, but good.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_SARCASTIC_12",
+              "text": "Yes. Please act surprised.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "M8_POSITIVE_CHAOTIC_01",
+              "text": "YES. COMMIT TO THE BIT.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_02",
+              "text": "ABSOLUTELY. RELEASE THE PLOT.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_03",
+              "text": "THE ORACLE SCREAMS YES.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_04",
+              "text": "YES. NO FURTHER QUESTIONS.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_05",
+              "text": "DO IT FOR THE LORE.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_06",
+              "text": "GREEN LIGHT. CHAOS AUTHORIZED.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_07",
+              "text": "YES. THE TIMELINE DEMANDS IT.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_08",
+              "text": "FORTUNE HAS SLAMMED THE YES BUTTON.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_09",
+              "text": "GO. GO NOW. WALK DRAMATICALLY.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_10",
+              "text": "YES! SIDE QUEST ACCEPTED.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_11",
+              "text": "THE VIBES ARE IMMACULATELY PRO-YES.",
+              "vars": []
+            },
+            {
+              "id": "M8_POSITIVE_CHAOTIC_12",
+              "text": "APPROVED BY THE COUNCIL OF BAD IDEAS.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "M8_NEUTRAL",
+      "label": "8B-Neutral",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "M8_NEUTRAL_NEUTRAL_01",
+              "text": "Ask again later.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_NEUTRAL_02",
+              "text": "Too close to call.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_NEUTRAL_03",
+              "text": "Unclear for now.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_NEUTRAL_04",
+              "text": "More information required.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_NEUTRAL_05",
+              "text": "The answer is still forming.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_NEUTRAL_06",
+              "text": "Could go either way.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "M8_NEUTRAL_FRIENDLY_01",
+              "text": "Maybe give it a little time.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_FRIENDLY_02",
+              "text": "I'm honestly not sure yet.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_FRIENDLY_03",
+              "text": "Ask me again in a bit.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_FRIENDLY_04",
+              "text": "Could go either way — annoying, I know.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_FRIENDLY_05",
+              "text": "Let's call this one undecided.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_FRIENDLY_06",
+              "text": "I need another imaginary data point.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "M8_NEUTRAL_DRY_01",
+              "text": "Insufficient nonsense to determine.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_DRY_02",
+              "text": "Result unavailable.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_DRY_03",
+              "text": "Please resubmit to fate later.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_DRY_04",
+              "text": "The universe is out of office.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_DRY_05",
+              "text": "Pending further imaginary analysis.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_DRY_06",
+              "text": "Decision deferred.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "M8_NEUTRAL_SARCASTIC_01",
+              "text": "Ask again when you've decided what answer you want.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_SARCASTIC_02",
+              "text": "Could go either way. Helpful, I know.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_SARCASTIC_03",
+              "text": "The universe has left you on read.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_SARCASTIC_04",
+              "text": "Try again later. Fate is in a meeting.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_SARCASTIC_05",
+              "text": "Unclear. Even destiny has commitment issues.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_SARCASTIC_06",
+              "text": "I refuse to be blamed for this yet.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "M8_NEUTRAL_CHAOTIC_01",
+              "text": "THE ORACLE IS BUFFERING.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_CHAOTIC_02",
+              "text": "FATE HAS TIMED OUT.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_CHAOTIC_03",
+              "text": "ASK AGAIN. THE COSMOS DROPPED THE CALL.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_CHAOTIC_04",
+              "text": "UNKNOWN. THE VIBES ARE IN COURT.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_CHAOTIC_05",
+              "text": "DESTINY IS CURRENTLY UPDATING.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEUTRAL_CHAOTIC_06",
+              "text": "THE ANSWER EXISTS SOMEWHERE. NOT HERE.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "M8_NEGATIVE",
+      "label": "8B-Negative",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_01",
+              "text": "No.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_02",
+              "text": "Probably not.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_03",
+              "text": "Signs point to no.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_04",
+              "text": "The outlook is poor.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_05",
+              "text": "I'd lean no.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_06",
+              "text": "Not likely.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_07",
+              "text": "I wouldn't count on it.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_08",
+              "text": "This doesn't look favorable.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_09",
+              "text": "No, with reasonable confidence.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_10",
+              "text": "I'd go with no.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_11",
+              "text": "The answer appears to be no.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_NEUTRAL_12",
+              "text": "Chances are low.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_01",
+              "text": "I don't think so.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_02",
+              "text": "Probably not this one.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_03",
+              "text": "I'd skip it.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_04",
+              "text": "My vote is no.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_05",
+              "text": "This feels like a pass.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_06",
+              "text": "I'd save your energy.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_07",
+              "text": "Not looking great, I'm afraid.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_08",
+              "text": "Maybe choose another route.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_09",
+              "text": "I wouldn't bet on it.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_10",
+              "text": "This one gets a gentle no.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_11",
+              "text": "I think future-you may prefer 'no.'",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_FRIENDLY_12",
+              "text": "Let's not force this one.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "M8_NEGATIVE_DRY_01",
+              "text": "No. Efficient, isn't it?",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_02",
+              "text": "Probability favors disappointment.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_03",
+              "text": "Denied by no recognized authority.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_04",
+              "text": "No, based on absolutely no evidence.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_05",
+              "text": "I would not allocate resources to this.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_06",
+              "text": "The imaginary data says no.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_07",
+              "text": "No. Documentation unavailable.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_08",
+              "text": "Outcome: unfavorably adequate.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_09",
+              "text": "A provisional no has been issued.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_10",
+              "text": "No. Please don't appeal.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_11",
+              "text": "Negative result returned.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_DRY_12",
+              "text": "The universe has selected 'no.'",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_01",
+              "text": "No. You knew that already.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_02",
+              "text": "Absolutely not. Let's preserve the timeline.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_03",
+              "text": "I wouldn't. But I admire the confidence.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_04",
+              "text": "No. Future-you just sent a thank-you note.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_05",
+              "text": "The signs say no. Loudly.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_06",
+              "text": "Maybe don't turn this into a lesson you have to learn personally.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_07",
+              "text": "Hard no. The paperwork alone isn't worth it.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_08",
+              "text": "No. This has 'great story, bad decision' energy.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_09",
+              "text": "I vote no, and I rarely care this much.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_10",
+              "text": "Please step away from the idea.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_11",
+              "text": "No. Your impulse has lost voting rights.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_SARCASTIC_12",
+              "text": "This feels expensive in ways money can't measure.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_01",
+              "text": "NO. ABORT MISSION.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_02",
+              "text": "ABSOLUTELY NOT. TIMELINE PROTECTED.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_03",
+              "text": "THE ORACLE HAS FILED A RESTRAINING ORDER.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_04",
+              "text": "NO. PUT THE IDEA BACK.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_05",
+              "text": "DO NOT UNLOCK THIS QUESTLINE.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_06",
+              "text": "RED LIGHT. CHAOS DENIED, SOMEHOW.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_07",
+              "text": "NO. THE LORE DOES NOT NEED THIS.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_08",
+              "text": "FATE HAS HIT THE EMERGENCY BRAKE.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_09",
+              "text": "TURN AROUND DRAMATICALLY.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_10",
+              "text": "NO! SIDE QUEST REJECTED.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_11",
+              "text": "THE VIBES HAVE EVACUATED.",
+              "vars": []
+            },
+            {
+              "id": "M8_NEGATIVE_CHAOTIC_12",
+              "text": "DENIED BY THE COUNCIL OF EVEN WORSE IDEAS.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

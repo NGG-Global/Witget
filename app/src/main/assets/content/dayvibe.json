@@ -1,0 +1,1339 @@
+{
+  "schemaVersion": 1,
+  "widget": "DAY_VIBE",
+  "locale": "en",
+  "states": [
+    {
+      "key": "DAY_B1",
+      "label": "Empty / almost empty (busy score 0-19)",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_B1_NEUTRAL_01",
+              "text": "Today looks open.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_NEUTRAL_02",
+              "text": "Very light calendar today.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_NEUTRAL_03",
+              "text": "You have plenty of unbooked time.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_NEUTRAL_04",
+              "text": "Calendar load: minimal.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_B1_FRIENDLY_01",
+              "text": "A rare spacious day. Enjoy it.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_FRIENDLY_02",
+              "text": "Your calendar is giving you room to breathe.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_FRIENDLY_03",
+              "text": "Light day ahead. Nice.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_FRIENDLY_04",
+              "text": "Plenty of white space today.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_B1_DRY_01",
+              "text": "Calendar status: suspiciously empty.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_DRY_02",
+              "text": "Minimal scheduled human interaction.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_DRY_03",
+              "text": "Today contains an unusual amount of nothing.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_DRY_04",
+              "text": "The calendar has declined to cause problems.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_B1_SARCASTIC_01",
+              "text": "Nothing? On the calendar? Is this legal?",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_SARCASTIC_02",
+              "text": "Your calendar appears to have forgotten about you.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_SARCASTIC_03",
+              "text": "A quiet day. Don't tell anyone or they'll book it.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_SARCASTIC_04",
+              "text": "This is how calendars look in stock photos.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_B1_CHAOTIC_01",
+              "text": "THE CALENDAR IS EMPTY. RUN BEFORE IT NOTICES.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_CHAOTIC_02",
+              "text": "FREE TIME DETECTED. THIS IS NOT A DRILL.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_CHAOTIC_03",
+              "text": "TODAY HAS NO BOSS FIGHT SCHEDULED.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B1_CHAOTIC_04",
+              "text": "WHITE SPACE! BEAUTIFUL, UNCLAIMED WHITE SPACE!",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "DAY_B2",
+      "label": "Light (busy score 20-39)",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_B2_NEUTRAL_01",
+              "text": "Today looks light.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_NEUTRAL_02",
+              "text": "A few commitments, plenty of room.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_NEUTRAL_03",
+              "text": "Calendar load: light.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_NEUTRAL_04",
+              "text": "A manageable schedule today.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_B2_FRIENDLY_01",
+              "text": "A pretty comfortable day ahead.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_FRIENDLY_02",
+              "text": "A few things to do, but plenty of breathing room.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_FRIENDLY_03",
+              "text": "This looks manageable.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_FRIENDLY_04",
+              "text": "Nice balance today.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_B2_DRY_01",
+              "text": "Calendar status: mildly employed.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_DRY_02",
+              "text": "A small number of obligations have been detected.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_DRY_03",
+              "text": "Today has structure, reluctantly.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_DRY_04",
+              "text": "Scheduled activity: present but containable.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_B2_SARCASTIC_01",
+              "text": "A few meetings. Nothing you can't emotionally survive.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_SARCASTIC_02",
+              "text": "Your calendar has made some demands, but nothing outrageous.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_SARCASTIC_03",
+              "text": "Manageable. Almost suspiciously so.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_SARCASTIC_04",
+              "text": "A light day. Someone forgot to overbook you.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_B2_CHAOTIC_01",
+              "text": "QUESTS DETECTED: FEW.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_CHAOTIC_02",
+              "text": "TODAY'S DIFFICULTY: NORMAL MODE.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_CHAOTIC_03",
+              "text": "THE CALENDAR HAS SPAWNED MINOR ENEMIES ONLY.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B2_CHAOTIC_04",
+              "text": "A LIGHT SCHEDULE. ENJOY THE PATCH NOTES.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "DAY_B3",
+      "label": "Normal (busy score 40-59)",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_B3_NEUTRAL_01",
+              "text": "A moderately busy day.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_NEUTRAL_02",
+              "text": "Calendar load: normal.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_NEUTRAL_03",
+              "text": "You have a solid amount scheduled.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_NEUTRAL_04",
+              "text": "Today looks active but manageable.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_B3_FRIENDLY_01",
+              "text": "A full-ish day, but still workable.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_FRIENDLY_02",
+              "text": "You've got a decent amount on. Pace yourself.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_FRIENDLY_03",
+              "text": "Busy enough to matter, not enough to panic.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_FRIENDLY_04",
+              "text": "A normal busy day. You've got this.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_B3_DRY_01",
+              "text": "Calendar status: operational.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_DRY_02",
+              "text": "The day contains a standard quantity of obligations.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_DRY_03",
+              "text": "Moderate scheduling has occurred.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_DRY_04",
+              "text": "Today is neither free nor legally a crisis.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_B3_SARCASTIC_01",
+              "text": "A normal amount of calendar nonsense.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_SARCASTIC_02",
+              "text": "Busy, but not 'fake your own disappearance' busy.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_SARCASTIC_03",
+              "text": "Your calendar wants attention, not custody.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_SARCASTIC_04",
+              "text": "A respectable quantity of things you agreed to.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_B3_CHAOTIC_01",
+              "text": "TODAY HAS CONTENT.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_CHAOTIC_02",
+              "text": "CALENDAR DIFFICULTY: MODERATE.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_CHAOTIC_03",
+              "text": "THE QUEST LOG IS POPULATED.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B3_CHAOTIC_04",
+              "text": "MULTIPLE OBJECTIVES. NO FINAL BOSS YET.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "DAY_B4",
+      "label": "Busy (busy score 60-79)",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_B4_NEUTRAL_01",
+              "text": "Busy day ahead.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_NEUTRAL_02",
+              "text": "Calendar load: high.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_NEUTRAL_03",
+              "text": "You have a lot scheduled today.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_NEUTRAL_04",
+              "text": "Expect limited open time.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_B4_FRIENDLY_01",
+              "text": "A busy one. Protect the gaps you have.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_FRIENDLY_02",
+              "text": "You've got a lot today; remember to leave yourself a minute between things.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_FRIENDLY_03",
+              "text": "Full schedule ahead. One thing at a time.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_FRIENDLY_04",
+              "text": "Busy, but survivable.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_B4_DRY_01",
+              "text": "Calendar status: densely allocated.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_DRY_02",
+              "text": "Open space has become a scarce resource.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_DRY_03",
+              "text": "Today has been subdivided aggressively.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_DRY_04",
+              "text": "The calendar has acquired most available territory.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_B4_SARCASTIC_01",
+              "text": "Your day appears to have been sold in small pieces.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_SARCASTIC_02",
+              "text": "A lot of meetings. Apparently focus was getting dangerous.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_SARCASTIC_03",
+              "text": "Your calendar has chosen violence, professionally.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_SARCASTIC_04",
+              "text": "Busy day. Hydration and strategic muting recommended.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_B4_CHAOTIC_01",
+              "text": "THE CALENDAR IS PACKED. ARMOR EQUIPPED.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_CHAOTIC_02",
+              "text": "QUEST LOG: CONCERNINGLY FULL.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_CHAOTIC_03",
+              "text": "TODAY HAS ENTERED HARD MODE.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B4_CHAOTIC_04",
+              "text": "BACK-TO-BACK ENERGY DETECTED. PREPARE SNACKS.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "DAY_B5",
+      "label": "Brutal (busy score 80-100)",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_B5_NEUTRAL_01",
+              "text": "Extremely busy day.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_NEUTRAL_02",
+              "text": "Calendar load: very high.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_NEUTRAL_03",
+              "text": "Very little unbooked time today.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_NEUTRAL_04",
+              "text": "Today is heavily scheduled.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_B5_FRIENDLY_01",
+              "text": "That's a lot. Protect any break you can find.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_FRIENDLY_02",
+              "text": "Very full day. Keep expectations realistic.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_FRIENDLY_03",
+              "text": "Your calendar is intense today. One meeting at a time.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_FRIENDLY_04",
+              "text": "This is a heavy schedule. Be generous with yourself.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_B5_DRY_01",
+              "text": "Calendar status: fully occupied.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_DRY_02",
+              "text": "The day has been converted into appointments.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_DRY_03",
+              "text": "Unscheduled time is now a theoretical construct.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_DRY_04",
+              "text": "Today is operating above recommended meeting density.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_B5_SARCASTIC_01",
+              "text": "Your calendar has become a hostage situation.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_SARCASTIC_02",
+              "text": "Seven-plus meetings? Productivity has been safely prevented.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_SARCASTIC_03",
+              "text": "Today is less a schedule and more a terms-of-service agreement.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_SARCASTIC_04",
+              "text": "Your calendar looked at boundaries and selected 'No.'",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_B5_CHAOTIC_01",
+              "text": "FINAL BOSS CALENDAR.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_CHAOTIC_02",
+              "text": "TODAY IS A RAID.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_CHAOTIC_03",
+              "text": "THE QUEST LOG HAS BECOME A WALL OF TEXT.",
+              "vars": []
+            },
+            {
+              "id": "DAY_B5_CHAOTIC_04",
+              "text": "NO FREE SQUARES. GODSPEED.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "DAY_S1",
+      "label": "Special: first event before 08:00",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_S1_NEUTRAL_01",
+              "text": "Early start: first event at {first_time}.",
+              "vars": [
+                "first_time"
+              ]
+            },
+            {
+              "id": "DAY_S1_NEUTRAL_02",
+              "text": "Your day begins early at {first_time}.",
+              "vars": [
+                "first_time"
+              ]
+            },
+            {
+              "id": "DAY_S1_NEUTRAL_03",
+              "text": "First calendar item: {first_time}.",
+              "vars": [
+                "first_time"
+              ]
+            },
+            {
+              "id": "DAY_S1_NEUTRAL_04",
+              "text": "Early event detected.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_S1_FRIENDLY_01",
+              "text": "Early one today: {first_time}. Coffee may be relevant.",
+              "vars": [
+                "first_time"
+              ]
+            },
+            {
+              "id": "DAY_S1_FRIENDLY_02",
+              "text": "First event at {first_time}. Be gentle with the morning.",
+              "vars": [
+                "first_time"
+              ]
+            },
+            {
+              "id": "DAY_S1_FRIENDLY_03",
+              "text": "Your calendar starts before the day feels ready.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S1_FRIENDLY_04",
+              "text": "Early start. At least you know in advance.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_S1_DRY_01",
+              "text": "First obligation: {first_time}. Unfortunate precision.",
+              "vars": [
+                "first_time"
+              ]
+            },
+            {
+              "id": "DAY_S1_DRY_02",
+              "text": "The calendar begins before reasonable conversation.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S1_DRY_03",
+              "text": "Early scheduling has occurred.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S1_DRY_04",
+              "text": "{first_time}. Apparently mornings are real.",
+              "vars": [
+                "first_time"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_S1_SARCASTIC_01",
+              "text": "First meeting at {first_time}. Who authorized this?",
+              "vars": [
+                "first_time"
+              ]
+            },
+            {
+              "id": "DAY_S1_SARCASTIC_02",
+              "text": "Your calendar has opinions about sunrise.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S1_SARCASTIC_03",
+              "text": "{first_time}. A time usually reserved for regret.",
+              "vars": [
+                "first_time"
+              ]
+            },
+            {
+              "id": "DAY_S1_SARCASTIC_04",
+              "text": "An early meeting. Someone has made an enemy.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_S1_CHAOTIC_01",
+              "text": "{first_time}! THE DAY SPAWNS BEFORE TUTORIAL COMPLETION.",
+              "vars": [
+                "first_time"
+              ]
+            },
+            {
+              "id": "DAY_S1_CHAOTIC_02",
+              "text": "EARLY-MORNING BOSS FIGHT DETECTED.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S1_CHAOTIC_03",
+              "text": "THE CALENDAR ATTACKS AT DAWN.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S1_CHAOTIC_04",
+              "text": "COFFEE BUFF RECOMMENDED.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "DAY_S2",
+      "label": "Special: 3+ back-to-back events",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_S2_NEUTRAL_01",
+              "text": "Multiple back-to-back events today.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_NEUTRAL_02",
+              "text": "Three or more events run consecutively.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_NEUTRAL_03",
+              "text": "Limited transition time between meetings.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_NEUTRAL_04",
+              "text": "Back-to-back block detected.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_S2_FRIENDLY_01",
+              "text": "A few meetings are stacked together. Protect a break afterward.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_FRIENDLY_02",
+              "text": "Back-to-back stretch ahead. Water nearby might help.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_FRIENDLY_03",
+              "text": "Your calendar has a dense block; give yourself recovery time after.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_FRIENDLY_04",
+              "text": "Several events in a row. Pace yourself.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_S2_DRY_01",
+              "text": "Transition time has been removed for efficiency.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_DRY_02",
+              "text": "Meetings have formed a continuous structure.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_DRY_03",
+              "text": "Back-to-back scheduling: confirmed.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_DRY_04",
+              "text": "The calendar has eliminated corridors between rooms.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_S2_SARCASTIC_01",
+              "text": "Your meetings have unionized into one mega-meeting.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_SARCASTIC_02",
+              "text": "Apparently breathing between calls was optional.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_SARCASTIC_03",
+              "text": "Back-to-back meetings: because context switching was too relaxing.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_SARCASTIC_04",
+              "text": "Your calendar has invented the human sandwich.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_S2_CHAOTIC_01",
+              "text": "COMBO CHAIN: 3+ MEETINGS.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_CHAOTIC_02",
+              "text": "NO SAVE POINT BETWEEN ENCOUNTERS.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_CHAOTIC_03",
+              "text": "BACK-TO-BACK-TO-BACK. THE CALENDAR COMBOS YOU.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S2_CHAOTIC_04",
+              "text": "MEETING STREAK BONUS: EMOTIONAL DAMAGE.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "DAY_S3",
+      "label": "Special: no free 30-min lunch window 11:30-14:30",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_S3_NEUTRAL_01",
+              "text": "No clear 30-minute lunch window.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_NEUTRAL_02",
+              "text": "Midday is tightly scheduled.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_NEUTRAL_03",
+              "text": "Lunch window may be limited today.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_NEUTRAL_04",
+              "text": "No open half-hour around lunch.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_S3_FRIENDLY_01",
+              "text": "Your lunch window is tight. Worth protecting one if you can.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_FRIENDLY_02",
+              "text": "Midday looks packed; try to claim a proper break.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_FRIENDLY_03",
+              "text": "No obvious lunch gap. Future you may appreciate creating one.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_FRIENDLY_04",
+              "text": "Your calendar forgot food exists.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_S3_DRY_01",
+              "text": "Lunch has not been provisioned by the schedule.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_DRY_02",
+              "text": "Midday resources: allocated elsewhere.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_DRY_03",
+              "text": "The calendar has omitted a basic maintenance interval.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_DRY_04",
+              "text": "No lunch-shaped gap detected.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_S3_SARCASTIC_01",
+              "text": "Your calendar has removed lunch from the roadmap.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_SARCASTIC_02",
+              "text": "Apparently eating is an out-of-scope feature.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_SARCASTIC_03",
+              "text": "No lunch gap. Bold stance from people who expect you to function.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_SARCASTIC_04",
+              "text": "Your calendar would like you to photosynthesize.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_S3_CHAOTIC_01",
+              "text": "LUNCH WINDOW: MISSING IN ACTION.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_CHAOTIC_02",
+              "text": "FOOD QUEST BLOCKED BY CALENDAR DLC.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_CHAOTIC_03",
+              "text": "MIDDAY HAS NO SAFE ZONE.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S3_CHAOTIC_04",
+              "text": "THE SCHEDULE HAS FORGOTTEN THE HUMAN REQUIRES FUEL.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "DAY_S4",
+      "label": "Special: event after 20:00",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_S4_NEUTRAL_01",
+              "text": "Late event today at {late_time}.",
+              "vars": [
+                "late_time"
+              ]
+            },
+            {
+              "id": "DAY_S4_NEUTRAL_02",
+              "text": "Your schedule extends into the evening.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_NEUTRAL_03",
+              "text": "Calendar activity continues after 20:00.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_NEUTRAL_04",
+              "text": "Late commitment detected.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_S4_FRIENDLY_01",
+              "text": "You've got something late today. Keep some energy in reserve.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_FRIENDLY_02",
+              "text": "Long day: your calendar stretches into the evening.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_FRIENDLY_03",
+              "text": "Late event ahead. Hopefully the rest of the evening stays yours.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_FRIENDLY_04",
+              "text": "Your day runs a little long today.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_S4_DRY_01",
+              "text": "The calendar has expanded beyond standard business hours.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_DRY_02",
+              "text": "Evening territory has been allocated.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_DRY_03",
+              "text": "Late scheduling: confirmed.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_DRY_04",
+              "text": "The workday has developed an epilogue.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_S4_SARCASTIC_01",
+              "text": "Your calendar has annexed part of the evening.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_SARCASTIC_02",
+              "text": "A late event. Because daytime apparently wasn't enough.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_SARCASTIC_03",
+              "text": "The schedule has crossed the border into personal territory.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_SARCASTIC_04",
+              "text": "Congratulations, your day has bonus content.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_S4_CHAOTIC_01",
+              "text": "EVENING DLC INSTALLED.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_CHAOTIC_02",
+              "text": "THE CALENDAR REFUSES TO END.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_CHAOTIC_03",
+              "text": "POST-CREDITS MEETING DETECTED.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S4_CHAOTIC_04",
+              "text": "THE DAY HAS A SECRET EXTRA LEVEL.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "DAY_S5",
+      "label": "Special: zero meetings, task/reminder events only",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "DAY_S5_NEUTRAL_01",
+              "text": "No meetings today.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_NEUTRAL_02",
+              "text": "Meeting count: zero.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_NEUTRAL_03",
+              "text": "Your schedule has tasks, but no meetings.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_NEUTRAL_04",
+              "text": "A meeting-free day.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "DAY_S5_FRIENDLY_01",
+              "text": "No meetings. That's a nice little gift.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_FRIENDLY_02",
+              "text": "A whole day without meetings. Enjoy the focus.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_FRIENDLY_03",
+              "text": "Meeting-free today. Your attention gets to stay yours.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_FRIENDLY_04",
+              "text": "Tasks, yes. Calls, no. Beautiful.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "DAY_S5_DRY_01",
+              "text": "Meeting count: 0. System functioning as intended.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_DRY_02",
+              "text": "No synchronous obligations detected.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_DRY_03",
+              "text": "The calendar has chosen restraint.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_DRY_04",
+              "text": "Meetings are absent. Productivity remains possible.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "DAY_S5_SARCASTIC_01",
+              "text": "Zero meetings. Someone accidentally respected your time.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_SARCASTIC_02",
+              "text": "No meetings today. Please avoid making eye contact with the calendar.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_SARCASTIC_03",
+              "text": "The rarest calendar event: none.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_SARCASTIC_04",
+              "text": "Congratulations on temporarily escaping the meeting economy.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "DAY_S5_CHAOTIC_01",
+              "text": "ZERO MEETINGS! LEGENDARY DROP.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_CHAOTIC_02",
+              "text": "FOCUS MODE HAS SPAWNED NATURALLY.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_CHAOTIC_03",
+              "text": "NO CALLS. NO GRIDS OF FACES. FREEDOM.",
+              "vars": []
+            },
+            {
+              "id": "DAY_S5_CHAOTIC_04",
+              "text": "THE CALENDAR HAS BLESSED THIS RUN.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

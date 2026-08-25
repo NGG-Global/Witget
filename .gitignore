@@ -1,0 +1,22 @@
+# Gradle / Android build output
+.gradle/
+build/
+app/build/
+captures/
+.cxx/
+
+# Local machine configuration — never committed
+local.properties
+keystore.properties
+*.jks
+*.keystore
+secrets.properties
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Python tooling used by the content pipeline
+tools/content/__pycache__/
+tools/content/.venv/

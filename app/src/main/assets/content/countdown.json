@@ -1,0 +1,1328 @@
+{
+  "schemaVersion": 1,
+  "widget": "COUNTDOWN",
+  "locale": "en",
+  "states": [
+    {
+      "key": "CD1",
+      "label": "Under 1 hour",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "CD1_NEUTRAL_01",
+              "text": "{event} in {minutes} min.",
+              "vars": [
+                "event",
+                "minutes"
+              ]
+            },
+            {
+              "id": "CD1_NEUTRAL_02",
+              "text": "Only {minutes} minutes to go.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "CD1_NEUTRAL_03",
+              "text": "{event} is less than an hour away.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD1_NEUTRAL_04",
+              "text": "Countdown: {minutes} min.",
+              "vars": [
+                "minutes"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "CD1_FRIENDLY_01",
+              "text": "Almost there — {minutes} min until {event}.",
+              "vars": [
+                "event",
+                "minutes"
+              ]
+            },
+            {
+              "id": "CD1_FRIENDLY_02",
+              "text": "Just {minutes} min to go.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "CD1_FRIENDLY_03",
+              "text": "{event} is basically here.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD1_FRIENDLY_04",
+              "text": "A very short wait now: {minutes} min.",
+              "vars": [
+                "minutes"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "CD1_DRY_01",
+              "text": "{minutes} min. This is no longer long-term planning.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "CD1_DRY_02",
+              "text": "Countdown has entered immediate mode.",
+              "vars": []
+            },
+            {
+              "id": "CD1_DRY_03",
+              "text": "{event}: operationally imminent.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD1_DRY_04",
+              "text": "Remaining distance: one short wait.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "CD1_SARCASTIC_01",
+              "text": "{minutes} min. Too late to pretend you forgot.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "CD1_SARCASTIC_02",
+              "text": "{event} is approaching with uncomfortable speed.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD1_SARCASTIC_03",
+              "text": "Only {minutes} min. The future has become pushy.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "CD1_SARCASTIC_04",
+              "text": "At this point, the countdown is just staring at you.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "CD1_CHAOTIC_01",
+              "text": "{minutes} MINUTES! FINAL APPROACH.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "CD1_CHAOTIC_02",
+              "text": "THE EVENT IS IN THE BUILDING.",
+              "vars": []
+            },
+            {
+              "id": "CD1_CHAOTIC_03",
+              "text": "COUNTDOWN HAS ENTERED BOSS MUSIC.",
+              "vars": []
+            },
+            {
+              "id": "CD1_CHAOTIC_04",
+              "text": "{event_upper} IS IMMINENT.",
+              "vars": [
+                "event_upper"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CD2",
+      "label": "1-23 hours",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "CD2_NEUTRAL_01",
+              "text": "{event} in {hours} h.",
+              "vars": [
+                "event",
+                "hours"
+              ]
+            },
+            {
+              "id": "CD2_NEUTRAL_02",
+              "text": "Less than a day until {event}.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD2_NEUTRAL_03",
+              "text": "{event} is today / within 24 hours.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD2_NEUTRAL_04",
+              "text": "Countdown: {hours} hours.",
+              "vars": [
+                "hours"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "CD2_FRIENDLY_01",
+              "text": "{hours} hours until {event}. Very close now.",
+              "vars": [
+                "event",
+                "hours"
+              ]
+            },
+            {
+              "id": "CD2_FRIENDLY_02",
+              "text": "It's happening soon: {hours} h.",
+              "vars": [
+                "hours"
+              ]
+            },
+            {
+              "id": "CD2_FRIENDLY_03",
+              "text": "Less than a day to go.",
+              "vars": []
+            },
+            {
+              "id": "CD2_FRIENDLY_04",
+              "text": "One sleep or less until {event}.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "CD2_DRY_01",
+              "text": "{hours} h. The event has become today's problem.",
+              "vars": [
+                "hours"
+              ]
+            },
+            {
+              "id": "CD2_DRY_02",
+              "text": "Countdown: sub-day territory.",
+              "vars": []
+            },
+            {
+              "id": "CD2_DRY_03",
+              "text": "{event} is now operationally close.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD2_DRY_04",
+              "text": "The wait has been reduced to hours.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "CD2_SARCASTIC_01",
+              "text": "{hours} hours. Time to stop saying 'eventually.'",
+              "vars": [
+                "hours"
+              ]
+            },
+            {
+              "id": "CD2_SARCASTIC_02",
+              "text": "{event} is close enough to affect your mood.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD2_SARCASTIC_03",
+              "text": "Less than a day. Your excuses are expiring.",
+              "vars": []
+            },
+            {
+              "id": "CD2_SARCASTIC_04",
+              "text": "{hours} h. The future is now making eye contact.",
+              "vars": [
+                "hours"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "CD2_CHAOTIC_01",
+              "text": "{hours} HOURS! WE ARE IN THE ENDGAME.",
+              "vars": [
+                "hours"
+              ]
+            },
+            {
+              "id": "CD2_CHAOTIC_02",
+              "text": "THE COUNTDOWN IS YELLING NOW.",
+              "vars": []
+            },
+            {
+              "id": "CD2_CHAOTIC_03",
+              "text": "ONE SLEEP MAXIMUM.",
+              "vars": []
+            },
+            {
+              "id": "CD2_CHAOTIC_04",
+              "text": "{event_upper}: LOADING… {hours}H.",
+              "vars": [
+                "event_upper",
+                "hours"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CD3",
+      "label": "1-2 days",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "CD3_NEUTRAL_01",
+              "text": "{event} in {days} days.",
+              "vars": [
+                "days",
+                "event"
+              ]
+            },
+            {
+              "id": "CD3_NEUTRAL_02",
+              "text": "Only {days} days remaining.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD3_NEUTRAL_03",
+              "text": "{event} is coming up very soon.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD3_NEUTRAL_04",
+              "text": "Countdown: {days} days.",
+              "vars": [
+                "days"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "CD3_FRIENDLY_01",
+              "text": "Just {days} days until {event}.",
+              "vars": [
+                "days",
+                "event"
+              ]
+            },
+            {
+              "id": "CD3_FRIENDLY_02",
+              "text": "Very close now — {days} days.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD3_FRIENDLY_03",
+              "text": "That's basically {sleeps} sleeps.",
+              "vars": [
+                "sleeps"
+              ]
+            },
+            {
+              "id": "CD3_FRIENDLY_04",
+              "text": "{event} is almost here.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "CD3_DRY_01",
+              "text": "{days} days. Administrative definition: soon.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD3_DRY_02",
+              "text": "The countdown is now short enough to notice.",
+              "vars": []
+            },
+            {
+              "id": "CD3_DRY_03",
+              "text": "{event}: approximately {sleeps} sleeps away.",
+              "vars": [
+                "event",
+                "sleeps"
+              ]
+            },
+            {
+              "id": "CD3_DRY_04",
+              "text": "Remaining time: inconveniently tangible.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "CD3_SARCASTIC_01",
+              "text": "{days} days. The event has entered your personal airspace.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD3_SARCASTIC_02",
+              "text": "Only {sleeps} sleeps. Start acting accordingly.",
+              "vars": [
+                "sleeps"
+              ]
+            },
+            {
+              "id": "CD3_SARCASTIC_03",
+              "text": "{event} is almost close enough to blame for things.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD3_SARCASTIC_04",
+              "text": "{days} days. We can officially begin overthinking.",
+              "vars": [
+                "days"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "CD3_CHAOTIC_01",
+              "text": "{days} DAYS! THE PORTAL OPENS SOON.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD3_CHAOTIC_02",
+              "text": "ONLY {sleeps} SLEEPS REMAIN.",
+              "vars": [
+                "sleeps"
+              ]
+            },
+            {
+              "id": "CD3_CHAOTIC_03",
+              "text": "COUNTDOWN: CRITICAL EXCITEMENT RANGE.",
+              "vars": []
+            },
+            {
+              "id": "CD3_CHAOTIC_04",
+              "text": "{event_upper} APPROACHES.",
+              "vars": [
+                "event_upper"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CD4",
+      "label": "3-6 days",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "CD4_NEUTRAL_01",
+              "text": "{event} in {days} days.",
+              "vars": [
+                "days",
+                "event"
+              ]
+            },
+            {
+              "id": "CD4_NEUTRAL_02",
+              "text": "Less than a week until {event}.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD4_NEUTRAL_03",
+              "text": "Countdown: {days} days.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD4_NEUTRAL_04",
+              "text": "{event} is coming up this week.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "CD4_FRIENDLY_01",
+              "text": "Only {days} days to go.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD4_FRIENDLY_02",
+              "text": "Less than a week until {event}. Nice.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD4_FRIENDLY_03",
+              "text": "About {sleeps} sleeps left.",
+              "vars": [
+                "sleeps"
+              ]
+            },
+            {
+              "id": "CD4_FRIENDLY_04",
+              "text": "The wait is getting short.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "CD4_DRY_01",
+              "text": "{days} days. Calendar proximity has been achieved.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD4_DRY_02",
+              "text": "Less than a week. This now qualifies as soon.",
+              "vars": []
+            },
+            {
+              "id": "CD4_DRY_03",
+              "text": "Remaining time: {sleeps} sleeps.",
+              "vars": [
+                "sleeps"
+              ]
+            },
+            {
+              "id": "CD4_DRY_04",
+              "text": "{event} has entered the current-week jurisdiction.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "CD4_SARCASTIC_01",
+              "text": "{days} days. That's not 'later'; that's a schedule.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD4_SARCASTIC_02",
+              "text": "Less than a week. Time has started moving suspiciously fast.",
+              "vars": []
+            },
+            {
+              "id": "CD4_SARCASTIC_03",
+              "text": "Only {sleeps} sleeps until this becomes real.",
+              "vars": [
+                "sleeps"
+              ]
+            },
+            {
+              "id": "CD4_SARCASTIC_04",
+              "text": "{event} has upgraded from concept to appointment.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "CD4_CHAOTIC_01",
+              "text": "LESS THAN A WEEK! QUEST MARKER VISIBLE.",
+              "vars": []
+            },
+            {
+              "id": "CD4_CHAOTIC_02",
+              "text": "{days} DAYS. THE HYPE ENGINE STARTS.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD4_CHAOTIC_03",
+              "text": "{sleeps} SLEEPS UNTIL {event_upper}.",
+              "vars": [
+                "event_upper",
+                "sleeps"
+              ]
+            },
+            {
+              "id": "CD4_CHAOTIC_04",
+              "text": "COUNTDOWN HAS ENTERED THE FINAL WEEK.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CD5",
+      "label": "1-3 weeks",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "CD5_NEUTRAL_01",
+              "text": "{event} in {days} days.",
+              "vars": [
+                "days",
+                "event"
+              ]
+            },
+            {
+              "id": "CD5_NEUTRAL_02",
+              "text": "About {weeks} weeks until {event}.",
+              "vars": [
+                "event",
+                "weeks"
+              ]
+            },
+            {
+              "id": "CD5_NEUTRAL_03",
+              "text": "Countdown: {days} days.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD5_NEUTRAL_04",
+              "text": "{event} is a few weeks away.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "CD5_FRIENDLY_01",
+              "text": "About {weeks} weeks to go.",
+              "vars": [
+                "weeks"
+              ]
+            },
+            {
+              "id": "CD5_FRIENDLY_02",
+              "text": "Only {weekends} weekends until {event}.",
+              "vars": [
+                "event",
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD5_FRIENDLY_03",
+              "text": "Close enough to start looking forward to it.",
+              "vars": []
+            },
+            {
+              "id": "CD5_FRIENDLY_04",
+              "text": "{days} days — getting there.",
+              "vars": [
+                "days"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "CD5_DRY_01",
+              "text": "{weeks} weeks. Measurable, survivable.",
+              "vars": [
+                "weeks"
+              ]
+            },
+            {
+              "id": "CD5_DRY_02",
+              "text": "Remaining time: approximately {weekends} weekends.",
+              "vars": [
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD5_DRY_03",
+              "text": "{event} has entered medium-range planning.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD5_DRY_04",
+              "text": "The countdown can now be expressed in a small number of weekends.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "CD5_SARCASTIC_01",
+              "text": "Only {weekends} weekends. That's offensively close.",
+              "vars": [
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD5_SARCASTIC_02",
+              "text": "{weeks} weeks. Time to begin checking the countdown too often.",
+              "vars": [
+                "weeks"
+              ]
+            },
+            {
+              "id": "CD5_SARCASTIC_03",
+              "text": "{event} is no longer far enough to ignore.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD5_SARCASTIC_04",
+              "text": "{days} days. Your brain may now start packing prematurely.",
+              "vars": [
+                "days"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "CD5_CHAOTIC_01",
+              "text": "ONLY {weekends} WEEKENDS REMAIN.",
+              "vars": [
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD5_CHAOTIC_02",
+              "text": "{weeks} WEEKS! HYPE IS NOW AUTHORIZED.",
+              "vars": [
+                "weeks"
+              ]
+            },
+            {
+              "id": "CD5_CHAOTIC_03",
+              "text": "COUNTDOWN RANGE: EXCITINGLY FINITE.",
+              "vars": []
+            },
+            {
+              "id": "CD5_CHAOTIC_04",
+              "text": "{event_upper} HAS APPEARED ON THE HORIZON.",
+              "vars": [
+                "event_upper"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CD6",
+      "label": "1-3 months",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "CD6_NEUTRAL_01",
+              "text": "{event} in {days} days.",
+              "vars": [
+                "days",
+                "event"
+              ]
+            },
+            {
+              "id": "CD6_NEUTRAL_02",
+              "text": "About {months} months until {event}.",
+              "vars": [
+                "event",
+                "months"
+              ]
+            },
+            {
+              "id": "CD6_NEUTRAL_03",
+              "text": "Countdown: {days} days.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD6_NEUTRAL_04",
+              "text": "{event} is a couple of months away.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "CD6_FRIENDLY_01",
+              "text": "About {months} months to go.",
+              "vars": [
+                "months"
+              ]
+            },
+            {
+              "id": "CD6_FRIENDLY_02",
+              "text": "Roughly {weekends} weekends until {event}.",
+              "vars": [
+                "event",
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD6_FRIENDLY_03",
+              "text": "Not tomorrow, but close enough to feel real.",
+              "vars": []
+            },
+            {
+              "id": "CD6_FRIENDLY_04",
+              "text": "{days} days. Plenty of anticipation time.",
+              "vars": [
+                "days"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "CD6_DRY_01",
+              "text": "{months} months. A respectable waiting period.",
+              "vars": [
+                "months"
+              ]
+            },
+            {
+              "id": "CD6_DRY_02",
+              "text": "Remaining time: {weekends} weekends, approximately.",
+              "vars": [
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD6_DRY_03",
+              "text": "{event} is within medium-term human planning range.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD6_DRY_04",
+              "text": "Countdown is no longer abstract.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "CD6_SARCASTIC_01",
+              "text": "{months} months. Close enough to think about, far enough to be annoying.",
+              "vars": [
+                "months"
+              ]
+            },
+            {
+              "id": "CD6_SARCASTIC_02",
+              "text": "Only {weekends} weekends, which sounds much worse somehow.",
+              "vars": [
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD6_SARCASTIC_03",
+              "text": "{days} days. You will check this widget more often than necessary.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD6_SARCASTIC_04",
+              "text": "{event} remains frustratingly in the future.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "CD6_CHAOTIC_01",
+              "text": "{months} MONTHS. THE ARC HAS BEGUN.",
+              "vars": [
+                "months"
+              ]
+            },
+            {
+              "id": "CD6_CHAOTIC_02",
+              "text": "{weekends} WEEKENDS UNTIL DESTINY.",
+              "vars": [
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD6_CHAOTIC_03",
+              "text": "COUNTDOWN: LONG ENOUGH FOR LORE, SHORT ENOUGH FOR HYPE.",
+              "vars": []
+            },
+            {
+              "id": "CD6_CHAOTIC_04",
+              "text": "{event_upper} IS IN THE UPCOMING SEASON.",
+              "vars": [
+                "event_upper"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CD7",
+      "label": "3-12 months",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "CD7_NEUTRAL_01",
+              "text": "{event} in {days} days.",
+              "vars": [
+                "days",
+                "event"
+              ]
+            },
+            {
+              "id": "CD7_NEUTRAL_02",
+              "text": "About {months} months until {event}.",
+              "vars": [
+                "event",
+                "months"
+              ]
+            },
+            {
+              "id": "CD7_NEUTRAL_03",
+              "text": "Countdown: {months} months.",
+              "vars": [
+                "months"
+              ]
+            },
+            {
+              "id": "CD7_NEUTRAL_04",
+              "text": "{event} is later this year / within a year.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "CD7_FRIENDLY_01",
+              "text": "About {months} months to go.",
+              "vars": [
+                "months"
+              ]
+            },
+            {
+              "id": "CD7_FRIENDLY_02",
+              "text": "Roughly {weekends} weekends until {event}.",
+              "vars": [
+                "event",
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD7_FRIENDLY_03",
+              "text": "Still a while, but the countdown is officially underway.",
+              "vars": []
+            },
+            {
+              "id": "CD7_FRIENDLY_04",
+              "text": "{days} days. Future-you has plans.",
+              "vars": [
+                "days"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "CD7_DRY_01",
+              "text": "{months} months. Long-range anticipation enabled.",
+              "vars": [
+                "months"
+              ]
+            },
+            {
+              "id": "CD7_DRY_02",
+              "text": "Remaining distance: {weekends} weekends.",
+              "vars": [
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD7_DRY_03",
+              "text": "{event} has been accepted into strategic planning.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD7_DRY_04",
+              "text": "Countdown status: distant but legitimate.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "CD7_SARCASTIC_01",
+              "text": "{months} months. Plenty of time to forget and get excited again.",
+              "vars": [
+                "months"
+              ]
+            },
+            {
+              "id": "CD7_SARCASTIC_02",
+              "text": "Only {weekends} weekends, if you enjoy making time sound alarming.",
+              "vars": [
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD7_SARCASTIC_03",
+              "text": "{event} is far away, but apparently important enough for a widget.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD7_SARCASTIC_04",
+              "text": "{days} days. Excellent opportunity for repeated unnecessary checking.",
+              "vars": [
+                "days"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "CD7_CHAOTIC_01",
+              "text": "LONG-RANGE HYPE LOCKED ON.",
+              "vars": []
+            },
+            {
+              "id": "CD7_CHAOTIC_02",
+              "text": "{months} MONTHS UNTIL {event_upper}.",
+              "vars": [
+                "event_upper",
+                "months"
+              ]
+            },
+            {
+              "id": "CD7_CHAOTIC_03",
+              "text": "{weekends} WEEKENDS. THE SAGA BEGINS.",
+              "vars": [
+                "weekends"
+              ]
+            },
+            {
+              "id": "CD7_CHAOTIC_04",
+              "text": "DESTINATION: FUTURE. ETA: {days} DAYS.",
+              "vars": [
+                "days"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "CD8",
+      "label": "1 year or more",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "CD8_NEUTRAL_01",
+              "text": "{event} in about {years} years.",
+              "vars": [
+                "event",
+                "years"
+              ]
+            },
+            {
+              "id": "CD8_NEUTRAL_02",
+              "text": "Countdown: {days} days.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD8_NEUTRAL_03",
+              "text": "Long-term countdown: {years} years.",
+              "vars": [
+                "years"
+              ]
+            },
+            {
+              "id": "CD8_NEUTRAL_04",
+              "text": "{event} is more than a year away.",
+              "vars": [
+                "event"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "CD8_FRIENDLY_01",
+              "text": "A long one: about {years} years to go.",
+              "vars": [
+                "years"
+              ]
+            },
+            {
+              "id": "CD8_FRIENDLY_02",
+              "text": "Future-you has {event} waiting.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD8_FRIENDLY_03",
+              "text": "Still far away, but it's nice to have something on the horizon.",
+              "vars": []
+            },
+            {
+              "id": "CD8_FRIENDLY_04",
+              "text": "About {years} years. Plenty of time to look forward to it.",
+              "vars": [
+                "years"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "CD8_DRY_01",
+              "text": "{years} years. Strategic patience required.",
+              "vars": [
+                "years"
+              ]
+            },
+            {
+              "id": "CD8_DRY_02",
+              "text": "Countdown has entered infrastructure-project territory.",
+              "vars": []
+            },
+            {
+              "id": "CD8_DRY_03",
+              "text": "{event}: long-range objective.",
+              "vars": [
+                "event"
+              ]
+            },
+            {
+              "id": "CD8_DRY_04",
+              "text": "Remaining time is best measured without staring at it daily.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "CD8_SARCASTIC_01",
+              "text": "{years} years. Bold choice for a home-screen countdown.",
+              "vars": [
+                "years"
+              ]
+            },
+            {
+              "id": "CD8_SARCASTIC_02",
+              "text": "This event is so far away the widget may mature emotionally first.",
+              "vars": []
+            },
+            {
+              "id": "CD8_SARCASTIC_03",
+              "text": "{days} days. Maybe don't pack yet.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD8_SARCASTIC_04",
+              "text": "A multi-year countdown. Commitment has been demonstrated.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "CD8_CHAOTIC_01",
+              "text": "{years} YEARS! THIS IS A LONG QUESTLINE.",
+              "vars": [
+                "years"
+              ]
+            },
+            {
+              "id": "CD8_CHAOTIC_02",
+              "text": "THE COUNTDOWN HAS ITS OWN LORE NOW.",
+              "vars": []
+            },
+            {
+              "id": "CD8_CHAOTIC_03",
+              "text": "{days} DAYS UNTIL DESTINY. ABSURD. RESPECT.",
+              "vars": [
+                "days"
+              ]
+            },
+            {
+              "id": "CD8_CHAOTIC_04",
+              "text": "LONG-TERM OBJECTIVE ACQUIRED: {event_upper}.",
+              "vars": [
+                "event_upper"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

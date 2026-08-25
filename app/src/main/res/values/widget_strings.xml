@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_screen_time_label">Screen Time Translator</string>
+    <string name="widget_screen_time_description">Today\'s screen time, translated into things you would actually recognise.</string>
+    <string name="widget_screen_time_preview_hero">0.7x</string>
+    <string name="widget_screen_time_preview_voice">lord of the rings trilogies</string>
+    <string name="widget_daily_joke_label">Daily Joke</string>
+    <string name="widget_daily_joke_description">One curated joke a day, with metadata nobody asked for.</string>
+    <string name="widget_daily_joke_preview_voice">why don\'t skeletons ever fight each other?</string>
+    <string name="widget_battery_label">Battery Prognosis</string>
+    <string name="widget_battery_description">Your battery percentage, plus an opinion about it.</string>
+    <string name="widget_battery_preview_hero">23%</string>
+    <string name="widget_battery_preview_voice">optimism is no longer appropriate</string>
+    <string name="widget_day_vibe_label">Day Vibe</string>
+    <string name="widget_day_vibe_description">Today\'s calendar, read as a mood instead of a list.</string>
+    <string name="widget_day_vibe_preview_hero">4 mtgs</string>
+    <string name="widget_day_vibe_preview_voice">suspiciously busy</string>
+    <string name="widget_weather_label">Weather, Translated</string>
+    <string name="widget_weather_description">Real temperature and conditions, described like a person would.</string>
+    <string name="widget_weather_preview_hero">34°</string>
+    <string name="widget_weather_preview_voice">outside has been preheated</string>
+    <string name="widget_countdown_label">Countdown in Perspective</string>
+    <string name="widget_countdown_description">A countdown that also tells you how many weekends that is.</string>
+    <string name="widget_countdown_preview_hero">19 days</string>
+    <string name="widget_countdown_preview_voice">= 2.7 weekends</string>
+    <string name="widget_time_progress_label">Time Progress</string>
+    <string name="widget_time_progress_description">How much of the day, week, month or year is already gone.</string>
+    <string name="widget_time_progress_preview_hero">65%</string>
+    <string name="widget_time_progress_preview_voice">spent. no refunds.</string>
+    <string name="widget_magic_8_ball_label">Magic 8 Ball</string>
+    <string name="widget_magic_8_ball_description">Tap for questionable guidance in your chosen personality.</string>
+    <string name="widget_magic_8_ball_preview_voice">yes. weirdly confident about this one.</string>
+</resources>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      Permissions are deliberately few and each one belongs to exactly one
+      widget. Nothing here is requested at first launch; the app explains a
+      permission at the point the widget that needs it is set up, and every
+      other widget keeps working if it is denied.
+    -->
+
+    <!-- Day Vibe. Read only: the pack never writes to the calendar. -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+
+    <!-- Weather, only when the user chooses automatic location over a named city. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Weather forecasts. Every other widget works fully offline. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--
+      Screen Time Translator. PACKAGE_USAGE_STATS is a special permission that
+      cannot be granted by a runtime dialog; declaring it lets the system list
+      the app under Settings > Special app access > Usage access, which is where
+      the onboarding deep-links to.
+    -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!--
+      Resolving the per-app Usage Access screen: several OEM builds do not
+      implement it, and resolveActivity returns null without this declaration.
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.settings.USAGE_ACCESS_SETTINGS" />
+        </intent>
+    </queries>
+
+    <!-- Re-schedules widget refresh work after a reboot. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name=".SoftDreadApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SoftDread">
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SoftDread">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="softdread" />
+            </intent-filter>
+        </activity>
+
+        <!--
+          One configuration activity serves every widget type. It is declared as
+          `android:configure` only for Countdown, which cannot render anything
+          truthful until it knows what it is counting to; the rest are useful the
+          moment they are placed and are configured from the app instead.
+        -->
+        <activity
+            android:name=".ui.configuration.WidgetConfigurationActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="@string/configure_widget"
+            android:theme="@style/Theme.SoftDread">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".widgets.screentime.ScreenTimeWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_screen_time_info" />
+        </receiver>
+        <receiver
+            android:name=".widgets.joke.DailyJokeWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_daily_joke_info" />
+        </receiver>
+        <receiver
+            android:name=".widgets.battery.BatteryWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_battery_info" />
+        </receiver>
+        <receiver
+            android:name=".widgets.dayvibe.DayVibeWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_day_vibe_info" />
+        </receiver>
+        <receiver
+            android:name=".widgets.weather.WeatherWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_weather_info" />
+        </receiver>
+        <receiver
+            android:name=".widgets.countdown.CountdownWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_countdown_info" />
+        </receiver>
+        <receiver
+            android:name=".widgets.progress.TimeProgressWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_time_progress_info" />
+        </receiver>
+        <receiver
+            android:name=".widgets.magic8ball.Magic8BallWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_magic_8_ball_info" />
+        </receiver>
+
+        <!-- Rebuilds the refresh schedule after a reboot or an app update. -->
+        <receiver
+            android:name=".work.BootCompletedReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

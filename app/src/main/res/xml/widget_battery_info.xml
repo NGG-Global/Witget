@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sizing follows the design sheet's grid note: cell 84.5 x 84.5 with a 10 dp
+  gutter, so 2 cells = 179 dp and 4 cells = 368 dp.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/widget_battery_description"
+    android:initialLayout="@layout/glance_default_loading_layout"
+    android:minHeight="40dp"
+    android:minResizeHeight="40dp"
+    android:minResizeWidth="180dp"
+    android:minWidth="180dp"
+    android:previewLayout="@layout/widget_preview_battery"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellHeight="2"
+    android:targetCellWidth="2"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen" />

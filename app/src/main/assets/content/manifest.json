@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "locale": "en",
+  "source": {
+    "document": "widget_pack_content_bible_v1.docx",
+    "sha256": "d5716314d65253a8bfe81d37360aa34d9b9bdecaff9df4848e081a8796f79be8"
+  },
+  "generator": "tools/content/extract_content.py",
+  "files": [
+    {
+      "name": "screentime.json",
+      "responseCount": 140
+    },
+    {
+      "name": "joke.json",
+      "responseCount": 40
+    },
+    {
+      "name": "battery.json",
+      "responseCount": 240
+    },
+    {
+      "name": "dayvibe.json",
+      "responseCount": 200
+    },
+    {
+      "name": "weather.json",
+      "responseCount": 220
+    },
+    {
+      "name": "countdown.json",
+      "responseCount": 160
+    },
+    {
+      "name": "progress.json",
+      "responseCount": 180
+    },
+    {
+      "name": "magic8ball.json",
+      "responseCount": 150
+    }
+  ],
+  "equivalencyUnitCount": 50,
+  "jokeCount": 120,
+  "totalResponseCount": 1330
+}

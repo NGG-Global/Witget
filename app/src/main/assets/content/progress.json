@@ -1,0 +1,1487 @@
+{
+  "schemaVersion": 1,
+  "widget": "TIME_PROGRESS",
+  "locale": "en",
+  "states": [
+    {
+      "key": "TP1",
+      "label": "0-14% of selected period",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "TP1_NEUTRAL_01",
+              "text": "{period} is {percent}% complete.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP1_NEUTRAL_02",
+              "text": "Only {percent}% into the {period}.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP1_NEUTRAL_03",
+              "text": "{percent}% elapsed.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP1_NEUTRAL_04",
+              "text": "The {period} has barely started.",
+              "vars": [
+                "period"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "TP1_FRIENDLY_01",
+              "text": "Only {percent}% in. Plenty of {period} left.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP1_FRIENDLY_02",
+              "text": "Fresh {period}: {percent}% complete.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP1_FRIENDLY_03",
+              "text": "You're near the beginning — lots of runway.",
+              "vars": []
+            },
+            {
+              "id": "TP1_FRIENDLY_04",
+              "text": "{percent}% done. No need to rush.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "TP1_DRY_01",
+              "text": "{percent}%. Early-stage {period}.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP1_DRY_02",
+              "text": "The {period} is mostly unused inventory.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP1_DRY_03",
+              "text": "Elapsed: {percent}%. Minimal damage.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP1_DRY_04",
+              "text": "We have only begun consuming the {period}.",
+              "vars": [
+                "period"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "TP1_SARCASTIC_01",
+              "text": "{percent}% in. You still have time to become the person you claimed you'd be.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP1_SARCASTIC_02",
+              "text": "The {period} is young and still believes in you.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP1_SARCASTIC_03",
+              "text": "Only {percent}%. Plenty of time for questionable decisions.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP1_SARCASTIC_04",
+              "text": "{percent}% complete. The optimism window remains open.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "TP1_CHAOTIC_01",
+              "text": "{percent}%! NEW {period_upper} ENERGY.",
+              "vars": [
+                "percent",
+                "period_upper"
+              ]
+            },
+            {
+              "id": "TP1_CHAOTIC_02",
+              "text": "THE {period_upper} HAS JUST SPAWNED.",
+              "vars": [
+                "period_upper"
+              ]
+            },
+            {
+              "id": "TP1_CHAOTIC_03",
+              "text": "ONLY {percent}% CONSUMED. POSSIBILITIES EVERYWHERE.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP1_CHAOTIC_04",
+              "text": "EARLY GAME. FULL HEALTH. ZERO EXCUSES.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "TP2",
+      "label": "15-34%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "TP2_NEUTRAL_01",
+              "text": "{period} is {percent}% complete.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP2_NEUTRAL_02",
+              "text": "{percent}% of the {period} has passed.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP2_NEUTRAL_03",
+              "text": "Still early in the {period}.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP2_NEUTRAL_04",
+              "text": "About a quarter of the {period} is gone.",
+              "vars": [
+                "period"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "TP2_FRIENDLY_01",
+              "text": "{percent}% through. Still lots of room left.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP2_FRIENDLY_02",
+              "text": "The {period} is underway, but there's plenty ahead.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP2_FRIENDLY_03",
+              "text": "About a quarter done. Nice time to adjust course.",
+              "vars": []
+            },
+            {
+              "id": "TP2_FRIENDLY_04",
+              "text": "{percent}% complete. Still very workable.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "TP2_DRY_01",
+              "text": "{percent}%. The {period} is now operational.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP2_DRY_02",
+              "text": "A meaningful minority of the {period} has disappeared.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP2_DRY_03",
+              "text": "Time consumption: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP2_DRY_04",
+              "text": "The opening act is ending.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "TP2_SARCASTIC_01",
+              "text": "{percent}% already. The tutorial is over.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP2_SARCASTIC_02",
+              "text": "The {period} has started charging rent.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP2_SARCASTIC_03",
+              "text": "About a quarter gone. Time has been doing its little trick again.",
+              "vars": []
+            },
+            {
+              "id": "TP2_SARCASTIC_04",
+              "text": "{percent}%. Still early enough to pretend the plan is working.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "TP2_CHAOTIC_01",
+              "text": "{percent}%! TUTORIAL COMPLETE.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP2_CHAOTIC_02",
+              "text": "THE {period_upper} HAS ENTERED ACT ONE.",
+              "vars": [
+                "period_upper"
+              ]
+            },
+            {
+              "id": "TP2_CHAOTIC_03",
+              "text": "TIME IS MOVING. RUDE.",
+              "vars": []
+            },
+            {
+              "id": "TP2_CHAOTIC_04",
+              "text": "{percent}% CONSUMED. THE QUEST CONTINUES.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "TP3",
+      "label": "35-64%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "TP3_NEUTRAL_01",
+              "text": "{period} is {percent}% complete.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP3_NEUTRAL_02",
+              "text": "You're around the middle of the {period}.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP3_NEUTRAL_03",
+              "text": "{percent}% elapsed.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP3_NEUTRAL_04",
+              "text": "The {period} is roughly halfway through.",
+              "vars": [
+                "period"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "TP3_FRIENDLY_01",
+              "text": "Around halfway. Good moment for a reset if you need one.",
+              "vars": []
+            },
+            {
+              "id": "TP3_FRIENDLY_02",
+              "text": "{percent}% through the {period}. Still plenty left.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP3_FRIENDLY_03",
+              "text": "Mid-{period} territory.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP3_FRIENDLY_04",
+              "text": "Halfway-ish. Enough time to change how the rest goes.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "TP3_DRY_01",
+              "text": "{percent}%. Midpoint bureaucracy.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP3_DRY_02",
+              "text": "The {period} has entered its second act.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP3_DRY_03",
+              "text": "Time allocation: approximately half spent.",
+              "vars": []
+            },
+            {
+              "id": "TP3_DRY_04",
+              "text": "The beginning is no longer available.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "TP3_SARCASTIC_01",
+              "text": "{percent}%. Ah, the point where 'later' starts looking suspicious.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP3_SARCASTIC_02",
+              "text": "Halfway-ish. Time would like to remind you it is non-refundable.",
+              "vars": []
+            },
+            {
+              "id": "TP3_SARCASTIC_03",
+              "text": "The {period} is in act two. Plot development expected.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP3_SARCASTIC_04",
+              "text": "{percent}% gone. Very efficient of time.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "TP3_CHAOTIC_01",
+              "text": "MIDGAME! {percent}% OF THE {period_upper} CONSUMED.",
+              "vars": [
+                "percent",
+                "period_upper"
+              ]
+            },
+            {
+              "id": "TP3_CHAOTIC_02",
+              "text": "ACT TWO HAS BEGUN.",
+              "vars": []
+            },
+            {
+              "id": "TP3_CHAOTIC_03",
+              "text": "HALF THE MAP IS REVEALED.",
+              "vars": []
+            },
+            {
+              "id": "TP3_CHAOTIC_04",
+              "text": "{percent}%! TIME IS SPEEDRUNNING.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "TP4",
+      "label": "65-84%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "TP4_NEUTRAL_01",
+              "text": "{period} is {percent}% complete.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP4_NEUTRAL_02",
+              "text": "Most of the {period} has passed.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP4_NEUTRAL_03",
+              "text": "{percent}% elapsed.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP4_NEUTRAL_04",
+              "text": "The {period} is entering its final stretch.",
+              "vars": [
+                "period"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "TP4_FRIENDLY_01",
+              "text": "{percent}% through. Still enough time to finish strong.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP4_FRIENDLY_02",
+              "text": "Most of the {period} is behind you.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP4_FRIENDLY_03",
+              "text": "Final stretch territory.",
+              "vars": []
+            },
+            {
+              "id": "TP4_FRIENDLY_04",
+              "text": "{percent}% done. Make the remaining part count if you want to.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "TP4_DRY_01",
+              "text": "{percent}%. Remaining inventory is limited.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP4_DRY_02",
+              "text": "The {period} has entered late-stage operations.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP4_DRY_03",
+              "text": "Most available time has been consumed.",
+              "vars": []
+            },
+            {
+              "id": "TP4_DRY_04",
+              "text": "The end is now a visible administrative fact.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "TP4_SARCASTIC_01",
+              "text": "{percent}%. 'I'll do it later' is losing legal standing.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP4_SARCASTIC_02",
+              "text": "Most of the {period} is gone. Time remains smug.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP4_SARCASTIC_03",
+              "text": "We're in the final stretch. Suddenly every day has opinions.",
+              "vars": []
+            },
+            {
+              "id": "TP4_SARCASTIC_04",
+              "text": "{percent}% complete. The deadline-shaped object approaches.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "TP4_CHAOTIC_01",
+              "text": "{percent}%! FINAL ACT APPROACHING.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP4_CHAOTIC_02",
+              "text": "THE {period_upper} HAS ENTERED LATE GAME.",
+              "vars": [
+                "period_upper"
+              ]
+            },
+            {
+              "id": "TP4_CHAOTIC_03",
+              "text": "TIME BAR: MOSTLY EMPTY.",
+              "vars": []
+            },
+            {
+              "id": "TP4_CHAOTIC_04",
+              "text": "THE ENDING IS NOW RENDERING IN THE DISTANCE.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "TP5",
+      "label": "85-99%",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "TP5_NEUTRAL_01",
+              "text": "{period} is {percent}% complete.",
+              "vars": [
+                "percent",
+                "period"
+              ]
+            },
+            {
+              "id": "TP5_NEUTRAL_02",
+              "text": "Only {remaining_percent}% of the {period} remains.",
+              "vars": [
+                "period",
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP5_NEUTRAL_03",
+              "text": "The {period} is almost over.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP5_NEUTRAL_04",
+              "text": "Final stretch: {percent}% complete.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "TP5_FRIENDLY_01",
+              "text": "Almost there. Only {remaining_percent}% left.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP5_FRIENDLY_02",
+              "text": "The {period} is nearly done.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP5_FRIENDLY_03",
+              "text": "Last stretch now.",
+              "vars": []
+            },
+            {
+              "id": "TP5_FRIENDLY_04",
+              "text": "{percent}% complete. Finish, rest, or simply survive — all valid.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "TP5_DRY_01",
+              "text": "{percent}%. Closure approaches.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP5_DRY_02",
+              "text": "Remaining {period}: {remaining_percent}%.",
+              "vars": [
+                "period",
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP5_DRY_03",
+              "text": "The {period} has entered end-of-life support.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP5_DRY_04",
+              "text": "Final allocation is now active.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "TP5_SARCASTIC_01",
+              "text": "{percent}%. So much for 'there's plenty of time.'",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP5_SARCASTIC_02",
+              "text": "Only {remaining_percent}% left. The future has become the present again.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP5_SARCASTIC_03",
+              "text": "The {period} is packing its bags.",
+              "vars": [
+                "period"
+              ]
+            },
+            {
+              "id": "TP5_SARCASTIC_04",
+              "text": "{percent}% complete. Time remains undefeated.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "TP5_CHAOTIC_01",
+              "text": "{percent}%! FINAL BOSS MUSIC.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP5_CHAOTIC_02",
+              "text": "ONLY {remaining_percent}% OF THE {period_upper} REMAINS.",
+              "vars": [
+                "period_upper",
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP5_CHAOTIC_03",
+              "text": "ENDGAME. SAVE YOUR PROGRESS.",
+              "vars": []
+            },
+            {
+              "id": "TP5_CHAOTIC_04",
+              "text": "THE {period_upper} IS ABOUT TO ROLL CREDITS.",
+              "vars": [
+                "period_upper"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "TP_S1",
+      "label": "Day-specific alternate",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "TP_S1_NEUTRAL_01",
+              "text": "{percent}% of today has passed.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S1_NEUTRAL_02",
+              "text": "Today's progress: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S1_NEUTRAL_03",
+              "text": "Day remaining: {remaining_percent}%.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S1_NEUTRAL_04",
+              "text": "The day is {percent}% complete.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "TP_S1_FRIENDLY_01",
+              "text": "{percent}% through today. Still some day left.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S1_FRIENDLY_02",
+              "text": "Today's moving along: {percent}% done.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S1_FRIENDLY_03",
+              "text": "You've got {remaining_percent}% of the day remaining.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S1_FRIENDLY_04",
+              "text": "Day progress: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "TP_S1_DRY_01",
+              "text": "Today: {percent}% consumed.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S1_DRY_02",
+              "text": "Day inventory remaining: {remaining_percent}%.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S1_DRY_03",
+              "text": "The current day is depreciating normally.",
+              "vars": []
+            },
+            {
+              "id": "TP_S1_DRY_04",
+              "text": "{percent}% elapsed. Midnight remains inevitable.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "TP_S1_SARCASTIC_01",
+              "text": "{percent}% of today gone. It had a good run.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S1_SARCASTIC_02",
+              "text": "Only {remaining_percent}% left before the calendar respawns.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S1_SARCASTIC_03",
+              "text": "Today is already {percent}% complete. Time has been busy.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S1_SARCASTIC_04",
+              "text": "The day is leaving without asking.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "TP_S1_CHAOTIC_01",
+              "text": "TODAY IS {percent}% COMPLETE.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S1_CHAOTIC_02",
+              "text": "DAY BAR: {remaining_percent}% REMAINING.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S1_CHAOTIC_03",
+              "text": "MIDNIGHT APPROACHES ON SCHEDULE.",
+              "vars": []
+            },
+            {
+              "id": "TP_S1_CHAOTIC_04",
+              "text": "THE CURRENT DAY IS BEING CONSUMED LIVE.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "TP_S2",
+      "label": "Week-specific alternate",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "TP_S2_NEUTRAL_01",
+              "text": "The week is {percent}% complete.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S2_NEUTRAL_02",
+              "text": "{remaining_percent}% of the week remains.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S2_NEUTRAL_03",
+              "text": "Week progress: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S2_NEUTRAL_04",
+              "text": "You've passed {percent}% of the week.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "TP_S2_FRIENDLY_01",
+              "text": "{percent}% through the week. Keep going.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S2_FRIENDLY_02",
+              "text": "The weekend is {remaining_percent}% of the week away, roughly.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S2_FRIENDLY_03",
+              "text": "Week progress: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S2_FRIENDLY_04",
+              "text": "You're moving through it.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "TP_S2_DRY_01",
+              "text": "Week consumed: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S2_DRY_02",
+              "text": "Remaining weekly inventory: {remaining_percent}%.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S2_DRY_03",
+              "text": "The week continues according to policy.",
+              "vars": []
+            },
+            {
+              "id": "TP_S2_DRY_04",
+              "text": "{percent}% elapsed. Friday remains a future condition.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "TP_S2_SARCASTIC_01",
+              "text": "The week is {percent}% done. Somehow Monday was both yesterday and a century ago.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S2_SARCASTIC_02",
+              "text": "{remaining_percent}% of the week remains. Use this information irresponsibly.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S2_SARCASTIC_03",
+              "text": "Week progress: {percent}%. The weekend has entered visual range.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S2_SARCASTIC_04",
+              "text": "Time has been stealing weekdays again.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "TP_S2_CHAOTIC_01",
+              "text": "WEEK PROGRESS: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S2_CHAOTIC_02",
+              "text": "WEEKEND QUEST MARKER: GETTING CLOSER.",
+              "vars": []
+            },
+            {
+              "id": "TP_S2_CHAOTIC_03",
+              "text": "{remaining_percent}% UNTIL WEEK RESET.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S2_CHAOTIC_04",
+              "text": "THE WEEK BAR IS MOVING. WE RIDE.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "TP_S3",
+      "label": "Month-specific alternate",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "TP_S3_NEUTRAL_01",
+              "text": "The month is {percent}% complete.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S3_NEUTRAL_02",
+              "text": "Month progress: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S3_NEUTRAL_03",
+              "text": "{remaining_percent}% of the month remains.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S3_NEUTRAL_04",
+              "text": "You've passed {percent}% of this month.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "TP_S3_FRIENDLY_01",
+              "text": "{percent}% through the month. Plenty can still happen.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S3_FRIENDLY_02",
+              "text": "The month is moving: {percent}% complete.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S3_FRIENDLY_03",
+              "text": "{remaining_percent}% left in the month.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S3_FRIENDLY_04",
+              "text": "Month progress: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "TP_S3_DRY_01",
+              "text": "Month consumed: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S3_DRY_02",
+              "text": "Remaining monthly inventory: {remaining_percent}%.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S3_DRY_03",
+              "text": "The month continues depreciating.",
+              "vars": []
+            },
+            {
+              "id": "TP_S3_DRY_04",
+              "text": "{percent}% elapsed. Billing cycles rejoice.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "TP_S3_SARCASTIC_01",
+              "text": "The month is already {percent}% gone. Very efficient of it.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S3_SARCASTIC_02",
+              "text": "Only {remaining_percent}% left. Remember when it was the first?",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S3_SARCASTIC_03",
+              "text": "Month progress: {percent}%. Time has once again ignored your calendar plans.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S3_SARCASTIC_04",
+              "text": "The month is leaving faster than several subscriptions.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "TP_S3_CHAOTIC_01",
+              "text": "MONTH BAR: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S3_CHAOTIC_02",
+              "text": "{remaining_percent}% UNTIL MONTHLY RESPAWN.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S3_CHAOTIC_03",
+              "text": "THE MONTH IS SPEEDRUNNING.",
+              "vars": []
+            },
+            {
+              "id": "TP_S3_CHAOTIC_04",
+              "text": "CALENDAR PAGE INTEGRITY: DECLINING.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "TP_S4",
+      "label": "Year-specific alternate",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "TP_S4_NEUTRAL_01",
+              "text": "The year is {percent}% complete.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S4_NEUTRAL_02",
+              "text": "Year progress: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S4_NEUTRAL_03",
+              "text": "{remaining_percent}% of the year remains.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S4_NEUTRAL_04",
+              "text": "You've passed {percent}% of the year.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "TP_S4_FRIENDLY_01",
+              "text": "{percent}% through the year. There's still time for a lot.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S4_FRIENDLY_02",
+              "text": "The year is moving: {percent}% complete.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S4_FRIENDLY_03",
+              "text": "{remaining_percent}% left this year.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S4_FRIENDLY_04",
+              "text": "Year progress: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "TP_S4_DRY_01",
+              "text": "Year consumed: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S4_DRY_02",
+              "text": "Remaining annual inventory: {remaining_percent}%.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S4_DRY_03",
+              "text": "The year is depreciating according to schedule.",
+              "vars": []
+            },
+            {
+              "id": "TP_S4_DRY_04",
+              "text": "{percent}% elapsed. January is no longer available.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "TP_S4_SARCASTIC_01",
+              "text": "The year is {percent}% complete. Remember January? Barely.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S4_SARCASTIC_02",
+              "text": "Only {remaining_percent}% left. Time remains alarmingly efficient.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S4_SARCASTIC_03",
+              "text": "Year progress: {percent}%. Those resolutions would like a status update.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S4_SARCASTIC_04",
+              "text": "The year is moving like it has somewhere to be.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "TP_S4_CHAOTIC_01",
+              "text": "YEAR PROGRESS: {percent}%.",
+              "vars": [
+                "percent"
+              ]
+            },
+            {
+              "id": "TP_S4_CHAOTIC_02",
+              "text": "ANNUAL ENDGAME STATUS: {remaining_percent}% REMAINS.",
+              "vars": [
+                "remaining_percent"
+              ]
+            },
+            {
+              "id": "TP_S4_CHAOTIC_03",
+              "text": "THE YEAR IS SPEEDRUNNING ITSELF.",
+              "vars": []
+            },
+            {
+              "id": "TP_S4_CHAOTIC_04",
+              "text": "CALENDAR BOSS BAR: {percent}% DEPLETED.",
+              "vars": [
+                "percent"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

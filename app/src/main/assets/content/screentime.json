@@ -1,0 +1,1500 @@
+{
+  "schemaVersion": 1,
+  "widget": "SCREEN_TIME",
+  "locale": "en",
+  "states": [
+    {
+      "key": "ST_B1",
+      "label": "Under 30 min",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "ST_B1_NEUTRAL_01",
+              "text": "{minutes} min today. Light usage.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_NEUTRAL_02",
+              "text": "Only {minutes} min so far.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_NEUTRAL_03",
+              "text": "Screen time is still in the 'barely started' range.",
+              "vars": []
+            },
+            {
+              "id": "ST_B1_NEUTRAL_04",
+              "text": "{minutes} min. Your home screen has mostly behaved.",
+              "vars": [
+                "minutes"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "ST_B1_FRIENDLY_01",
+              "text": "Only {minutes} min today. Nicely restrained.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_FRIENDLY_02",
+              "text": "{minutes} min. Your eyes send their regards.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_FRIENDLY_03",
+              "text": "A very reasonable {minutes} min so far.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_FRIENDLY_04",
+              "text": "{minutes} min. Plenty of day left for things with depth perception.",
+              "vars": [
+                "minutes"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "ST_B1_DRY_01",
+              "text": "{minutes} min. Remarkably normal.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_DRY_02",
+              "text": "Screen time: {minutes} min. No intervention required.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_DRY_03",
+              "text": "{minutes} min. The rectangle has not won yet.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_DRY_04",
+              "text": "Usage remains suspiciously sensible.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "ST_B1_SARCASTIC_01",
+              "text": "{minutes} min? Look at you, participating in reality.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_SARCASTIC_02",
+              "text": "Only {minutes} min. Did the Wi-Fi break?",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_SARCASTIC_03",
+              "text": "{minutes} min. Your phone is beginning to feel ignored.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_SARCASTIC_04",
+              "text": "At {minutes} min, this barely qualifies as a relationship.",
+              "vars": [
+                "minutes"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "ST_B1_CHAOTIC_01",
+              "text": "{minutes} MINUTES. THE PROPHECY HAS NOT BEGUN.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_CHAOTIC_02",
+              "text": "Your screen time is tiny. Protect this timeline.",
+              "vars": []
+            },
+            {
+              "id": "ST_B1_CHAOTIC_03",
+              "text": "{minutes} min. GO TOUCH A TREE BEFORE THE SPELL BREAKS.",
+              "vars": [
+                "minutes"
+              ]
+            },
+            {
+              "id": "ST_B1_CHAOTIC_04",
+              "text": "The rectangle hungers. You have resisted.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ST_B2",
+      "label": "30-89 min",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "ST_B2_NEUTRAL_01",
+              "text": "{hours_short} today. Still relatively light.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_NEUTRAL_02",
+              "text": "Screen time: {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_NEUTRAL_03",
+              "text": "You've spent {hours_short} on-screen today.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_NEUTRAL_04",
+              "text": "{hours_short}. A manageable amount so far.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "ST_B2_FRIENDLY_01",
+              "text": "{hours_short}. Pretty balanced so far.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_FRIENDLY_02",
+              "text": "You're at {hours_short}. Nothing alarming here.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_FRIENDLY_03",
+              "text": "{hours_short}. Enough for some scrolling, not a full residency.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_FRIENDLY_04",
+              "text": "A comfortable {hours_short} so far.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "ST_B2_DRY_01",
+              "text": "{hours_short}. The device has been consulted.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_DRY_02",
+              "text": "Usage: {hours_short}. Acceptable rectangle exposure.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_DRY_03",
+              "text": "{hours_short}. We can call this 'using a phone.'",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_DRY_04",
+              "text": "You have allocated {hours_short} to glowing glass.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "ST_B2_SARCASTIC_01",
+              "text": "{hours_short}. A healthy little appetizer.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_SARCASTIC_02",
+              "text": "Only {hours_short}. Amateur numbers, frankly.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_SARCASTIC_03",
+              "text": "{hours_short}. Your phone would like to discuss commitment.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_SARCASTIC_04",
+              "text": "At {hours_short}, you're still technically visiting.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "ST_B2_CHAOTIC_01",
+              "text": "{hours_short}. THE SCROLL ENGINE IS WARMING UP.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_CHAOTIC_02",
+              "text": "You have entered the rectangle zone: {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_CHAOTIC_03",
+              "text": "{hours_short}. The portal is open.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B2_CHAOTIC_04",
+              "text": "SCREEN TIME HAS ACHIEVED SENTIENCE: {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ST_B3",
+      "label": "1.5-2.9 h",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "ST_B3_NEUTRAL_01",
+              "text": "{hours_short} today. Moderate usage.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_NEUTRAL_02",
+              "text": "You've logged {hours_short} of screen time.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_NEUTRAL_03",
+              "text": "{hours_short}. That's a noticeable chunk of the day.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_NEUTRAL_04",
+              "text": "Screen time is currently {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "ST_B3_FRIENDLY_01",
+              "text": "{hours_short}. A decent amount, but not your whole day.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_FRIENDLY_02",
+              "text": "You're at {hours_short}. Maybe a good moment for a screen break.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_FRIENDLY_03",
+              "text": "{hours_short}. Enough to count, not enough to panic about.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_FRIENDLY_04",
+              "text": "Your phone got {hours_short}; the rest of the day is still yours.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "ST_B3_DRY_01",
+              "text": "{hours_short}. The rectangle has had its meeting.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_DRY_02",
+              "text": "Usage: {hours_short}. We are now beyond 'quick check.'",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_DRY_03",
+              "text": "{hours_short}. A meaningful allocation of human existence.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_DRY_04",
+              "text": "Your screen has received {hours_short} of attention. It noticed.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "ST_B3_SARCASTIC_01",
+              "text": "{hours_short}. That 'quick scroll' developed a plot.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_SARCASTIC_02",
+              "text": "You've hit {hours_short}. The phone is no longer a side character.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_SARCASTIC_03",
+              "text": "{hours_short}. We may need to stop calling it 'checking something.'",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_SARCASTIC_04",
+              "text": "At {hours_short}, your thumb has completed a shift.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "ST_B3_CHAOTIC_01",
+              "text": "{hours_short}. THE SCROLL HAS LORE NOW.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_CHAOTIC_02",
+              "text": "You have crossed into MULTI-HOUR RECTANGLE TERRITORY.",
+              "vars": []
+            },
+            {
+              "id": "ST_B3_CHAOTIC_03",
+              "text": "{hours_short}. Your thumb is grinding XP.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B3_CHAOTIC_04",
+              "text": "The screen has become a biome. Time inside: {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ST_B4",
+      "label": "3-4.9 h",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "ST_B4_NEUTRAL_01",
+              "text": "{hours_short} today. High usage.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_NEUTRAL_02",
+              "text": "Screen time has reached {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_NEUTRAL_03",
+              "text": "You've spent {hours_short} on-screen today.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_NEUTRAL_04",
+              "text": "{hours_short}. That's a significant part of the day.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "ST_B4_FRIENDLY_01",
+              "text": "{hours_short}. That's a lot of screen time; a break might feel good.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_FRIENDLY_02",
+              "text": "You're at {hours_short}. Maybe give your eyes a different focal distance.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_FRIENDLY_03",
+              "text": "{hours_short}. No judgment, but a stretch would be nice.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_FRIENDLY_04",
+              "text": "Your screen got {hours_short}. Consider reclaiming the next half-hour.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "ST_B4_DRY_01",
+              "text": "{hours_short}. The rectangle has secured a large budget.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_DRY_02",
+              "text": "Usage: {hours_short}. This is now a lifestyle statistic.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_DRY_03",
+              "text": "{hours_short}. The device has achieved partial custody of the day.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_DRY_04",
+              "text": "Your phone has been promoted from tool to location.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "ST_B4_SARCASTIC_01",
+              "text": "{hours_short}. That's not screen time; that's a tenancy agreement.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_SARCASTIC_02",
+              "text": "At {hours_short}, your charger should probably get employee benefits.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_SARCASTIC_03",
+              "text": "{hours_short}. The phone has seen more of you than some relatives.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_SARCASTIC_04",
+              "text": "Your screen got {hours_short}. Very demanding relationship.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "ST_B4_CHAOTIC_01",
+              "text": "{hours_short}. YOU LIVE HERE NOW.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_CHAOTIC_02",
+              "text": "THE RECTANGLE CLAIMS {hours_short} OF THE REALM.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_CHAOTIC_03",
+              "text": "{hours_short}. YOUR THUMB HAS ENTERED ENDGAME CONTENT.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B4_CHAOTIC_04",
+              "text": "Screen time: {hours_short}. REALITY HAS SUBMITTED A SUPPORT TICKET.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ST_B5",
+      "label": "5-7.9 h",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "ST_B5_NEUTRAL_01",
+              "text": "{hours_short} today. Very high usage.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_NEUTRAL_02",
+              "text": "You've logged {hours_short} of screen time.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_NEUTRAL_03",
+              "text": "{hours_short}. That's close to a full workday.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_NEUTRAL_04",
+              "text": "Screen time is now {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "ST_B5_FRIENDLY_01",
+              "text": "{hours_short}. That's a heavy screen day. Be kind to your eyes.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_FRIENDLY_02",
+              "text": "You're at {hours_short}. A proper offline break would be worthwhile.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_FRIENDLY_03",
+              "text": "{hours_short}. Maybe let the next activity happen without a display.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_FRIENDLY_04",
+              "text": "Your screen has had plenty of you today: {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "ST_B5_DRY_01",
+              "text": "{hours_short}. The rectangle has completed most of a shift.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_DRY_02",
+              "text": "Usage: {hours_short}. We can stop pretending this was incidental.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_DRY_03",
+              "text": "{hours_short}. Your device has logged serious billable hours.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_DRY_04",
+              "text": "The screen has become today's primary venue.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "ST_B5_SARCASTIC_01",
+              "text": "{hours_short}. Congrats on your unpaid internship at Phone.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_SARCASTIC_02",
+              "text": "At {hours_short}, your screen should start paying rent.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_SARCASTIC_03",
+              "text": "{hours_short}. You could have developed a minor skill by accident.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_SARCASTIC_04",
+              "text": "Your phone got {hours_short}. Extremely committed relationship.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "ST_B5_CHAOTIC_01",
+              "text": "{hours_short}. THE RECTANGLE HAS WON A MAJORITY SHARE.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_CHAOTIC_02",
+              "text": "YOUR THUMB HAS CLOCKED OVERTIME: {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_CHAOTIC_03",
+              "text": "{hours_short}. WE ARE APPROACHING BOSS FIGHT NUMBERS.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B5_CHAOTIC_04",
+              "text": "The screen has consumed {hours_short}. SEND A SEARCH PARTY.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ST_B6",
+      "label": "8 h or more",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "ST_B6_NEUTRAL_01",
+              "text": "{hours_short} today. Extremely high usage.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_NEUTRAL_02",
+              "text": "Screen time has reached {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_NEUTRAL_03",
+              "text": "You've spent more than a full workday on-screen.",
+              "vars": []
+            },
+            {
+              "id": "ST_B6_NEUTRAL_04",
+              "text": "{hours_short}. This is the highest usage band.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "ST_B6_FRIENDLY_01",
+              "text": "{hours_short}. That's an intense screen day. A real break is probably overdue.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_FRIENDLY_02",
+              "text": "You've passed a full workday of screen time. Your eyes deserve a change of scenery.",
+              "vars": []
+            },
+            {
+              "id": "ST_B6_FRIENDLY_03",
+              "text": "{hours_short}. No guilt; just consider giving yourself some offline time.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_FRIENDLY_04",
+              "text": "This was a very screen-heavy day: {hours_short}.",
+              "vars": [
+                "hours_short"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "ST_B6_DRY_01",
+              "text": "{hours_short}. The rectangle has completed a full shift.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_DRY_02",
+              "text": "Usage: {hours_short}. Human resources has been notified.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_DRY_03",
+              "text": "{hours_short}. Your phone qualifies as a workplace.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_DRY_04",
+              "text": "The screen has now occupied an industrial quantity of time.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "ST_B6_SARCASTIC_01",
+              "text": "{hours_short}. Your phone owes you overtime pay.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_SARCASTIC_02",
+              "text": "At {hours_short}, I think the phone should start contributing to utilities.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_SARCASTIC_03",
+              "text": "{hours_short}. The rectangle has seen enough. Release the human.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_SARCASTIC_04",
+              "text": "You've spent a full workday plus on-screen. Bold strategy.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "ST_B6_CHAOTIC_01",
+              "text": "{hours_short}. THE RECTANGLE HAS ANNEXED THE DAY.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_CHAOTIC_02",
+              "text": "FULL WORKDAY ACHIEVED. ON A PHONE. ABSOLUTE CINEMA.",
+              "vars": []
+            },
+            {
+              "id": "ST_B6_CHAOTIC_03",
+              "text": "{hours_short}. YOUR THUMB HAS UNLOCKED PRESTIGE MODE.",
+              "vars": [
+                "hours_short"
+              ]
+            },
+            {
+              "id": "ST_B6_CHAOTIC_04",
+              "text": "SCREEN TIME HAS BECOME A GEOGRAPHICAL REGION.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "ST_EQ",
+      "label": "Apply after selecting an equivalent",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "ST_EQ_NEUTRAL_01",
+              "text": "Equivalent to about {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_NEUTRAL_02",
+              "text": "That's roughly {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_NEUTRAL_03",
+              "text": "In perspective: about {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_NEUTRAL_04",
+              "text": "Another way to put it: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "ST_EQ_FRIENDLY_01",
+              "text": "For perspective, that's about {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_FRIENDLY_02",
+              "text": "You could fit roughly {ratio}× {equivalent} into that time.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_FRIENDLY_03",
+              "text": "Translated into something human: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_FRIENDLY_04",
+              "text": "That time could also be about {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "ST_EQ_DRY_01",
+              "text": "Alternative unit: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_DRY_02",
+              "text": "Converted: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_DRY_03",
+              "text": "In less official units: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_DRY_04",
+              "text": "The metric nobody requested: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "ST_EQ_SARCASTIC_01",
+              "text": "That's about {ratio}× {equivalent}. Efficient use of a finite lifespan.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_SARCASTIC_02",
+              "text": "Converted into unnecessarily specific units: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_SARCASTIC_03",
+              "text": "For anyone keeping score: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_SARCASTIC_04",
+              "text": "The same time could have contained {ratio}× {equivalent}. Just mentioning it.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "ST_EQ_CHAOTIC_01",
+              "text": "TIME CONVERSION COMPLETE: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_CHAOTIC_02",
+              "text": "THE FORBIDDEN UNIT: {ratio}× {equivalent}.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_CHAOTIC_03",
+              "text": "YOUR DAY CONTAINS {ratio}× {equivalent}. SOMEHOW.",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            },
+            {
+              "id": "ST_EQ_CHAOTIC_04",
+              "text": "RECTANGLE TIME = {ratio}× {equivalent}. SCIENCE* (*vibes).",
+              "vars": [
+                "equivalent",
+                "ratio"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "equivalencyUnits": [
+    {
+      "id": "ST01",
+      "category": "POP_CULTURE",
+      "minutes": 558.0,
+      "label": "the theatrical Lord of the Rings trilogy"
+    },
+    {
+      "id": "ST02",
+      "category": "POP_CULTURE",
+      "minutes": 726.0,
+      "label": "the extended Lord of the Rings trilogy"
+    },
+    {
+      "id": "ST03",
+      "category": "ENTERTAINMENT",
+      "minutes": 120.0,
+      "label": "a feature-length movie"
+    },
+    {
+      "id": "ST04",
+      "category": "ENTERTAINMENT",
+      "minutes": 45.0,
+      "label": "an hour-long TV episode without the ads"
+    },
+    {
+      "id": "ST05",
+      "category": "ENTERTAINMENT",
+      "minutes": 22.0,
+      "label": "a sitcom episode"
+    },
+    {
+      "id": "ST06",
+      "category": "ENTERTAINMENT",
+      "minutes": 30.0,
+      "label": "a short documentary"
+    },
+    {
+      "id": "ST07",
+      "category": "ENTERTAINMENT",
+      "minutes": 180.0,
+      "label": "a long movie night"
+    },
+    {
+      "id": "ST08",
+      "category": "ENTERTAINMENT",
+      "minutes": 480.0,
+      "label": "an eight-episode limited series"
+    },
+    {
+      "id": "ST09",
+      "category": "ENTERTAINMENT",
+      "minutes": 90.0,
+      "label": "a compact movie"
+    },
+    {
+      "id": "ST10",
+      "category": "ENTERTAINMENT",
+      "minutes": 105.0,
+      "label": "a football match including halftime"
+    },
+    {
+      "id": "ST11",
+      "category": "LIFE",
+      "minutes": 480.0,
+      "label": "a standard eight-hour workday"
+    },
+    {
+      "id": "ST12",
+      "category": "LIFE",
+      "minutes": 60.0,
+      "label": "a decent gym session"
+    },
+    {
+      "id": "ST13",
+      "category": "LIFE",
+      "minutes": 90.0,
+      "label": "a full sleep cycle"
+    },
+    {
+      "id": "ST14",
+      "category": "LIFE",
+      "minutes": 20.0,
+      "label": "a power nap"
+    },
+    {
+      "id": "ST15",
+      "category": "LIFE",
+      "minutes": 45.0,
+      "label": "a city commute"
+    },
+    {
+      "id": "ST16",
+      "category": "LIFE",
+      "minutes": 90.0,
+      "label": "a laundry cycle"
+    },
+    {
+      "id": "ST17",
+      "category": "LIFE",
+      "minutes": 30.0,
+      "label": "a proper lunch break"
+    },
+    {
+      "id": "ST18",
+      "category": "LIFE",
+      "minutes": 10.0,
+      "label": "a very leisurely shower"
+    },
+    {
+      "id": "ST19",
+      "category": "LIFE",
+      "minutes": 15.0,
+      "label": "a coffee break"
+    },
+    {
+      "id": "ST20",
+      "category": "LIFE",
+      "minutes": 40.0,
+      "label": "a brisk neighborhood walk"
+    },
+    {
+      "id": "ST21",
+      "category": "PRODUCTIVITY",
+      "minutes": 25.0,
+      "label": "a Pomodoro focus block"
+    },
+    {
+      "id": "ST22",
+      "category": "PRODUCTIVITY",
+      "minutes": 50.0,
+      "label": "two Pomodoro focus blocks"
+    },
+    {
+      "id": "ST23",
+      "category": "PRODUCTIVITY",
+      "minutes": 30.0,
+      "label": "a focused inbox-cleanup session"
+    },
+    {
+      "id": "ST24",
+      "category": "PRODUCTIVITY",
+      "minutes": 60.0,
+      "label": "an uninterrupted deep-work hour"
+    },
+    {
+      "id": "ST25",
+      "category": "PRODUCTIVITY",
+      "minutes": 15.0,
+      "label": "a desk reset"
+    },
+    {
+      "id": "ST26",
+      "category": "PRODUCTIVITY",
+      "minutes": 45.0,
+      "label": "a language lesson"
+    },
+    {
+      "id": "ST27",
+      "category": "PRODUCTIVITY",
+      "minutes": 60.0,
+      "label": "a beginner tutorial session"
+    },
+    {
+      "id": "ST28",
+      "category": "PRODUCTIVITY",
+      "minutes": 120.0,
+      "label": "a substantial study block"
+    },
+    {
+      "id": "ST29",
+      "category": "ABSURD",
+      "minutes": 5.0,
+      "label": "the time it takes to make a cup of coffee"
+    },
+    {
+      "id": "ST30",
+      "category": "ABSURD",
+      "minutes": 3.0,
+      "label": "the time it takes to microwave leftovers"
+    },
+    {
+      "id": "ST31",
+      "category": "ABSURD",
+      "minutes": 8.0,
+      "label": "an aggressively long toaster cycle"
+    },
+    {
+      "id": "ST32",
+      "category": "ABSURD",
+      "minutes": 2.0,
+      "label": "a dramatic stare into the fridge"
+    },
+    {
+      "id": "ST33",
+      "category": "ABSURD",
+      "minutes": 12.0,
+      "label": "a minor existential crisis"
+    },
+    {
+      "id": "ST34",
+      "category": "ABSURD",
+      "minutes": 7.0,
+      "label": "looking for the thing that was in your hand"
+    },
+    {
+      "id": "ST35",
+      "category": "ABSURD",
+      "minutes": 4.0,
+      "label": "checking one notification and regretting it"
+    },
+    {
+      "id": "ST36",
+      "category": "ABSURD",
+      "minutes": 6.0,
+      "label": "pretending to tidy a room"
+    },
+    {
+      "id": "ST37",
+      "category": "ABSURD",
+      "minutes": 15.0,
+      "label": "a convincing attempt to choose what to watch"
+    },
+    {
+      "id": "ST38",
+      "category": "ABSURD",
+      "minutes": 10.0,
+      "label": "a 'quick' trip to the kitchen"
+    },
+    {
+      "id": "ST39",
+      "category": "AUDIO",
+      "minutes": 3.5,
+      "label": "an average song"
+    },
+    {
+      "id": "ST40",
+      "category": "AUDIO",
+      "minutes": 45.0,
+      "label": "a podcast episode"
+    },
+    {
+      "id": "ST41",
+      "category": "AUDIO",
+      "minutes": 60.0,
+      "label": "a full album"
+    },
+    {
+      "id": "ST42",
+      "category": "AUDIO",
+      "minutes": 15.0,
+      "label": "four average songs"
+    },
+    {
+      "id": "ST43",
+      "category": "READING",
+      "minutes": 6.0,
+      "label": "a short article"
+    },
+    {
+      "id": "ST44",
+      "category": "READING",
+      "minutes": 20.0,
+      "label": "a magazine feature"
+    },
+    {
+      "id": "ST45",
+      "category": "READING",
+      "minutes": 45.0,
+      "label": "a solid chapter of a book"
+    },
+    {
+      "id": "ST46",
+      "category": "READING",
+      "minutes": 120.0,
+      "label": "a short book-reading session"
+    },
+    {
+      "id": "ST47",
+      "category": "SOCIAL",
+      "minutes": 0.5,
+      "label": "a 30-second short-form video"
+    },
+    {
+      "id": "ST48",
+      "category": "SOCIAL",
+      "minutes": 1.0,
+      "label": "a one-minute short-form video"
+    },
+    {
+      "id": "ST49",
+      "category": "GAMING",
+      "minutes": 30.0,
+      "label": "a quick gaming session"
+    },
+    {
+      "id": "ST50",
+      "category": "GAMING",
+      "minutes": 120.0,
+      "label": "a serious gaming session"
+    }
+  ]
+}

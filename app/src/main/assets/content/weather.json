@@ -1,0 +1,1593 @@
+{
+  "schemaVersion": 1,
+  "widget": "WEATHER",
+  "locale": "en",
+  "states": [
+    {
+      "key": "WX1",
+      "label": "Extreme heat: temp >= 38°C or feels-like >= 40°C",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX1_NEUTRAL_01",
+              "text": "{temp}° • Extreme heat. Limit prolonged exposure.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_NEUTRAL_02",
+              "text": "Very hot outside: {temp}°.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_NEUTRAL_03",
+              "text": "{temp}° with extreme heat conditions.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_NEUTRAL_04",
+              "text": "High heat today. Stay hydrated.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX1_FRIENDLY_01",
+              "text": "{temp}°. Seriously hot. Water and shade are your friends.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_FRIENDLY_02",
+              "text": "It's properly hot out there at {temp}°.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_FRIENDLY_03",
+              "text": "{temp}°. Take the heat seriously today.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_FRIENDLY_04",
+              "text": "Very hot. Shorter outdoor plans may feel much better.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX1_DRY_01",
+              "text": "{temp}°. Outside has exceeded recommended settings.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_DRY_02",
+              "text": "Heat level: excessive.",
+              "vars": []
+            },
+            {
+              "id": "WX1_DRY_03",
+              "text": "The atmosphere is operating above comfort specifications.",
+              "vars": []
+            },
+            {
+              "id": "WX1_DRY_04",
+              "text": "{temp}°. Air has become a texture.",
+              "vars": [
+                "temp"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX1_SARCASTIC_01",
+              "text": "{temp}°. Outside has been preheated.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_SARCASTIC_02",
+              "text": "The sun has selected 'broil.'",
+              "vars": []
+            },
+            {
+              "id": "WX1_SARCASTIC_03",
+              "text": "{temp}°. Going outside now counts as baking.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_SARCASTIC_04",
+              "text": "Weather update: the planet would like you indoors.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX1_CHAOTIC_01",
+              "text": "{temp}°! THE SKY IS AN AIR FRYER.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX1_CHAOTIC_02",
+              "text": "HEAT BOSS ACTIVE. SEEK SHADE BUFFS.",
+              "vars": []
+            },
+            {
+              "id": "WX1_CHAOTIC_03",
+              "text": "OUTSIDE IS COOKING WITHOUT CONSENT.",
+              "vars": []
+            },
+            {
+              "id": "WX1_CHAOTIC_04",
+              "text": "THE SUN HAS ENTERED ITS VILLAIN ARC.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX2",
+      "label": "Hot: 32-37°C",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX2_NEUTRAL_01",
+              "text": "{temp}° • Hot.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX2_NEUTRAL_02",
+              "text": "Hot conditions at {temp}°.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX2_NEUTRAL_03",
+              "text": "{temp}°. Expect a warm day.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX2_NEUTRAL_04",
+              "text": "High temperature today: {temp}°.",
+              "vars": [
+                "temp"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX2_FRIENDLY_01",
+              "text": "{temp}°. Definitely a cold-drink day.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX2_FRIENDLY_02",
+              "text": "Hot out there. Shade will feel excellent.",
+              "vars": []
+            },
+            {
+              "id": "WX2_FRIENDLY_03",
+              "text": "{temp}°. Dress for the heat.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX2_FRIENDLY_04",
+              "text": "Warm enough to plan around it.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX2_DRY_01",
+              "text": "{temp}°. Summer is making a point.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX2_DRY_02",
+              "text": "Temperature: unnecessarily confident.",
+              "vars": []
+            },
+            {
+              "id": "WX2_DRY_03",
+              "text": "Heat level: notable.",
+              "vars": []
+            },
+            {
+              "id": "WX2_DRY_04",
+              "text": "{temp}°. The air is doing too much.",
+              "vars": [
+                "temp"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX2_SARCASTIC_01",
+              "text": "{temp}°. Outside is lightly preheated.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX2_SARCASTIC_02",
+              "text": "The weather has chosen sweat as a feature.",
+              "vars": []
+            },
+            {
+              "id": "WX2_SARCASTIC_03",
+              "text": "{temp}°. Your deodorant has a workday ahead.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX2_SARCASTIC_04",
+              "text": "Hot. The sun would like credit.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX2_CHAOTIC_01",
+              "text": "{temp}°! SWEAT MODE ENABLED.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX2_CHAOTIC_02",
+              "text": "THE AIR HAS BECOME SOUP-ADJACENT.",
+              "vars": []
+            },
+            {
+              "id": "WX2_CHAOTIC_03",
+              "text": "SUN DAMAGE DLC: ACTIVE.",
+              "vars": []
+            },
+            {
+              "id": "WX2_CHAOTIC_04",
+              "text": "WEATHER DIFFICULTY: SPICY.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX3",
+      "label": "High UV: UV index >= 8 (when not extreme heat primary)",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX3_NEUTRAL_01",
+              "text": "UV {uv} • Very high. Sun protection recommended.",
+              "vars": [
+                "uv"
+              ]
+            },
+            {
+              "id": "WX3_NEUTRAL_02",
+              "text": "High UV today: {uv}.",
+              "vars": [
+                "uv"
+              ]
+            },
+            {
+              "id": "WX3_NEUTRAL_03",
+              "text": "UV index is {uv}. Protect exposed skin.",
+              "vars": [
+                "uv"
+              ]
+            },
+            {
+              "id": "WX3_NEUTRAL_04",
+              "text": "Strong UV conditions.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX3_FRIENDLY_01",
+              "text": "UV {uv}. Sunscreen earns its keep today.",
+              "vars": [
+                "uv"
+              ]
+            },
+            {
+              "id": "WX3_FRIENDLY_02",
+              "text": "Strong sun today. Hat, shade, sunscreen — the classics.",
+              "vars": []
+            },
+            {
+              "id": "WX3_FRIENDLY_03",
+              "text": "UV {uv}. Worth protecting your skin.",
+              "vars": [
+                "uv"
+              ]
+            },
+            {
+              "id": "WX3_FRIENDLY_04",
+              "text": "The sun is intense even if the temperature feels fine.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX3_DRY_01",
+              "text": "UV {uv}. The sun has measurable intentions.",
+              "vars": [
+                "uv"
+              ]
+            },
+            {
+              "id": "WX3_DRY_02",
+              "text": "Ultraviolet activity: enthusiastic.",
+              "vars": []
+            },
+            {
+              "id": "WX3_DRY_03",
+              "text": "Solar exposure is operating at elevated levels.",
+              "vars": []
+            },
+            {
+              "id": "WX3_DRY_04",
+              "text": "UV {uv}. Visible light is not the whole story.",
+              "vars": [
+                "uv"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX3_SARCASTIC_01",
+              "text": "UV {uv}. The sun has chosen violence.",
+              "vars": [
+                "uv"
+              ]
+            },
+            {
+              "id": "WX3_SARCASTIC_02",
+              "text": "The sun is handing out consequences today.",
+              "vars": []
+            },
+            {
+              "id": "WX3_SARCASTIC_03",
+              "text": "UV {uv}. Sunscreen is not decorative.",
+              "vars": [
+                "uv"
+              ]
+            },
+            {
+              "id": "WX3_SARCASTIC_04",
+              "text": "Today's forecast includes invisible aggression.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX3_CHAOTIC_01",
+              "text": "UV {uv}! THE SUN HAS AGGRO.",
+              "vars": [
+                "uv"
+              ]
+            },
+            {
+              "id": "WX3_CHAOTIC_02",
+              "text": "SOLAR BOSS FIGHT. EQUIP SPF.",
+              "vars": []
+            },
+            {
+              "id": "WX3_CHAOTIC_03",
+              "text": "INVISIBLE LASERS FROM SPACE: HIGH.",
+              "vars": []
+            },
+            {
+              "id": "WX3_CHAOTIC_04",
+              "text": "THE SKY IS RUNNING A DAMAGE-OVER-TIME EFFECT.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX4",
+      "label": "Thunder / heavy rain",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX4_NEUTRAL_01",
+              "text": "Heavy rain or thunderstorms expected.",
+              "vars": []
+            },
+            {
+              "id": "WX4_NEUTRAL_02",
+              "text": "Stormy conditions. Check local alerts.",
+              "vars": []
+            },
+            {
+              "id": "WX4_NEUTRAL_03",
+              "text": "Rain may be intense today.",
+              "vars": []
+            },
+            {
+              "id": "WX4_NEUTRAL_04",
+              "text": "Thunderstorm conditions are possible.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX4_FRIENDLY_01",
+              "text": "Stormy one. An umbrella may not be enough if it gets heavy.",
+              "vars": []
+            },
+            {
+              "id": "WX4_FRIENDLY_02",
+              "text": "Rain is serious today. Take a proper jacket if you're heading out.",
+              "vars": []
+            },
+            {
+              "id": "WX4_FRIENDLY_03",
+              "text": "Thunderstorms around — worth checking the radar before leaving.",
+              "vars": []
+            },
+            {
+              "id": "WX4_FRIENDLY_04",
+              "text": "Wet and noisy weather today.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX4_DRY_01",
+              "text": "Atmosphere: confrontational.",
+              "vars": []
+            },
+            {
+              "id": "WX4_DRY_02",
+              "text": "Rain has escalated beyond a polite drizzle.",
+              "vars": []
+            },
+            {
+              "id": "WX4_DRY_03",
+              "text": "Clouds are conducting operations.",
+              "vars": []
+            },
+            {
+              "id": "WX4_DRY_04",
+              "text": "Weather has entered incident-management mode.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX4_SARCASTIC_01",
+              "text": "The sky is having a meeting without an agenda.",
+              "vars": []
+            },
+            {
+              "id": "WX4_SARCASTIC_02",
+              "text": "Rain has upgraded to a full production.",
+              "vars": []
+            },
+            {
+              "id": "WX4_SARCASTIC_03",
+              "text": "The clouds are being extremely dramatic today.",
+              "vars": []
+            },
+            {
+              "id": "WX4_SARCASTIC_04",
+              "text": "Weather forecast: free car wash, questionable timing.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX4_CHAOTIC_01",
+              "text": "SKY BOSS FIGHT ACTIVE.",
+              "vars": []
+            },
+            {
+              "id": "WX4_CHAOTIC_02",
+              "text": "THE CLOUDS HAVE DECLARED WAR.",
+              "vars": []
+            },
+            {
+              "id": "WX4_CHAOTIC_03",
+              "text": "WATER FROM ABOVE: MAXIMUM.",
+              "vars": []
+            },
+            {
+              "id": "WX4_CHAOTIC_04",
+              "text": "THUNDER DLC INSTALLED. UMBRELLA STATS UNCERTAIN.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX5",
+      "label": "Rain / showers",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX5_NEUTRAL_01",
+              "text": "Rain likely today.",
+              "vars": []
+            },
+            {
+              "id": "WX5_NEUTRAL_02",
+              "text": "Showers expected.",
+              "vars": []
+            },
+            {
+              "id": "WX5_NEUTRAL_03",
+              "text": "Wet conditions are possible.",
+              "vars": []
+            },
+            {
+              "id": "WX5_NEUTRAL_04",
+              "text": "Rain chance: {rain_chance}%.",
+              "vars": [
+                "rain_chance"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX5_FRIENDLY_01",
+              "text": "Looks rainy. Umbrella weather.",
+              "vars": []
+            },
+            {
+              "id": "WX5_FRIENDLY_02",
+              "text": "A wet one today — probably worth bringing cover.",
+              "vars": []
+            },
+            {
+              "id": "WX5_FRIENDLY_03",
+              "text": "Rain is in the plan. Shoes may have opinions.",
+              "vars": []
+            },
+            {
+              "id": "WX5_FRIENDLY_04",
+              "text": "Showers around. Cozy if you don't need to be outside.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX5_DRY_01",
+              "text": "Water will arrive from the sky.",
+              "vars": []
+            },
+            {
+              "id": "WX5_DRY_02",
+              "text": "Precipitation: operational.",
+              "vars": []
+            },
+            {
+              "id": "WX5_DRY_03",
+              "text": "Rain has been scheduled.",
+              "vars": []
+            },
+            {
+              "id": "WX5_DRY_04",
+              "text": "Atmospheric moisture is becoming your problem.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX5_SARCASTIC_01",
+              "text": "The sky has remembered it owns water.",
+              "vars": []
+            },
+            {
+              "id": "WX5_SARCASTIC_02",
+              "text": "Umbrella employment opportunity detected.",
+              "vars": []
+            },
+            {
+              "id": "WX5_SARCASTIC_03",
+              "text": "Rain chance {rain_chance}%. Your hair has been informed.",
+              "vars": [
+                "rain_chance"
+              ]
+            },
+            {
+              "id": "WX5_SARCASTIC_04",
+              "text": "The clouds are leaking again.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX5_CHAOTIC_01",
+              "text": "SKY WATER ACTIVATED.",
+              "vars": []
+            },
+            {
+              "id": "WX5_CHAOTIC_02",
+              "text": "UMBRELLA QUEST: ACCEPTED.",
+              "vars": []
+            },
+            {
+              "id": "WX5_CHAOTIC_03",
+              "text": "THE CLOUDS ARE DOING THE THING.",
+              "vars": []
+            },
+            {
+              "id": "WX5_CHAOTIC_04",
+              "text": "RAIN CHANCE {rain_chance}%. FOOTWEAR, CHOOSE WISELY.",
+              "vars": [
+                "rain_chance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX6",
+      "label": "Very cold: <= 3°C",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX6_NEUTRAL_01",
+              "text": "{temp}° • Very cold.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX6_NEUTRAL_02",
+              "text": "Near-freezing conditions: {temp}°.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX6_NEUTRAL_03",
+              "text": "Very cold outside today.",
+              "vars": []
+            },
+            {
+              "id": "WX6_NEUTRAL_04",
+              "text": "{temp}°. Dress warmly.",
+              "vars": [
+                "temp"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX6_FRIENDLY_01",
+              "text": "{temp}°. Proper coat weather.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX6_FRIENDLY_02",
+              "text": "Very cold out there. Layer up.",
+              "vars": []
+            },
+            {
+              "id": "WX6_FRIENDLY_03",
+              "text": "{temp}°. Your warmest layer has a job today.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX6_FRIENDLY_04",
+              "text": "Cold enough to take seriously.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX6_DRY_01",
+              "text": "{temp}°. The environment is withholding heat.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX6_DRY_02",
+              "text": "Thermal conditions: unfriendly.",
+              "vars": []
+            },
+            {
+              "id": "WX6_DRY_03",
+              "text": "Temperature has become a logistical concern.",
+              "vars": []
+            },
+            {
+              "id": "WX6_DRY_04",
+              "text": "{temp}°. Outside is refrigerated.",
+              "vars": [
+                "temp"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX6_SARCASTIC_01",
+              "text": "{temp}°. The outdoors has become a fridge.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX6_SARCASTIC_02",
+              "text": "Cold enough for your face to file a complaint.",
+              "vars": []
+            },
+            {
+              "id": "WX6_SARCASTIC_03",
+              "text": "{temp}°. Fashion has been replaced by insulation.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX6_SARCASTIC_04",
+              "text": "The air is personally offended by exposed skin.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX6_CHAOTIC_01",
+              "text": "{temp}°! EQUIP ALL FABRIC.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX6_CHAOTIC_02",
+              "text": "THE OUTSIDE WORLD IS A WALK-IN FREEZER.",
+              "vars": []
+            },
+            {
+              "id": "WX6_CHAOTIC_03",
+              "text": "COLD DAMAGE ACTIVE.",
+              "vars": []
+            },
+            {
+              "id": "WX6_CHAOTIC_04",
+              "text": "TEMPERATURE: ABSOLUTELY NOT.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX7",
+      "label": "Cold: 4-10°C",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX7_NEUTRAL_01",
+              "text": "{temp}° • Cold.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX7_NEUTRAL_02",
+              "text": "Cool conditions at {temp}°.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX7_NEUTRAL_03",
+              "text": "{temp}°. You'll want a warm layer.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX7_NEUTRAL_04",
+              "text": "Cold day ahead.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX7_FRIENDLY_01",
+              "text": "{temp}°. Jacket weather, definitely.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX7_FRIENDLY_02",
+              "text": "A chilly one. Layers will help.",
+              "vars": []
+            },
+            {
+              "id": "WX7_FRIENDLY_03",
+              "text": "{temp}°. Warm drink energy.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX7_FRIENDLY_04",
+              "text": "Cold, but manageable with the right clothes.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX7_DRY_01",
+              "text": "{temp}°. Heat has been rationed.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX7_DRY_02",
+              "text": "Temperature: jacket-compatible.",
+              "vars": []
+            },
+            {
+              "id": "WX7_DRY_03",
+              "text": "Cold enough to justify pockets.",
+              "vars": []
+            },
+            {
+              "id": "WX7_DRY_04",
+              "text": "{temp}°. The air has edges.",
+              "vars": [
+                "temp"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX7_SARCASTIC_01",
+              "text": "{temp}°. Your hoodie has been promoted.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX7_SARCASTIC_02",
+              "text": "Cold enough to regret leaving without a jacket.",
+              "vars": []
+            },
+            {
+              "id": "WX7_SARCASTIC_03",
+              "text": "The weather would like you to stop pretending you're not cold.",
+              "vars": []
+            },
+            {
+              "id": "WX7_SARCASTIC_04",
+              "text": "{temp}°. Hands-in-pockets season.",
+              "vars": [
+                "temp"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX7_CHAOTIC_01",
+              "text": "{temp}°! HOODIE BUFF REQUIRED.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX7_CHAOTIC_02",
+              "text": "THE AIR BITES NOW.",
+              "vars": []
+            },
+            {
+              "id": "WX7_CHAOTIC_03",
+              "text": "JACKET QUEST: NONOPTIONAL.",
+              "vars": []
+            },
+            {
+              "id": "WX7_CHAOTIC_04",
+              "text": "COLD MODE ENABLED. POCKETS ARE BASE CAMP.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX8",
+      "label": "Strong wind: sustained >= 35 km/h or gusts >= 50 km/h",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX8_NEUTRAL_01",
+              "text": "Windy conditions: {wind} km/h.",
+              "vars": [
+                "wind"
+              ]
+            },
+            {
+              "id": "WX8_NEUTRAL_02",
+              "text": "Strong winds today.",
+              "vars": []
+            },
+            {
+              "id": "WX8_NEUTRAL_03",
+              "text": "Wind may affect outdoor plans.",
+              "vars": []
+            },
+            {
+              "id": "WX8_NEUTRAL_04",
+              "text": "Breezy to windy conditions.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX8_FRIENDLY_01",
+              "text": "Very windy today. Secure the light stuff.",
+              "vars": []
+            },
+            {
+              "id": "WX8_FRIENDLY_02",
+              "text": "Wind has some energy today. Keep that in mind outside.",
+              "vars": []
+            },
+            {
+              "id": "WX8_FRIENDLY_03",
+              "text": "Strong breeze — maybe not the best umbrella day.",
+              "vars": []
+            },
+            {
+              "id": "WX8_FRIENDLY_04",
+              "text": "It's windy enough to notice.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX8_DRY_01",
+              "text": "Air is moving with intent.",
+              "vars": []
+            },
+            {
+              "id": "WX8_DRY_02",
+              "text": "Wind speed: professionally relevant.",
+              "vars": []
+            },
+            {
+              "id": "WX8_DRY_03",
+              "text": "Atmosphere has enabled horizontal mode.",
+              "vars": []
+            },
+            {
+              "id": "WX8_DRY_04",
+              "text": "The weather is rearranging lightweight objects.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX8_SARCASTIC_01",
+              "text": "The air is trying to steal your belongings.",
+              "vars": []
+            },
+            {
+              "id": "WX8_SARCASTIC_02",
+              "text": "Hair styling has been cancelled.",
+              "vars": []
+            },
+            {
+              "id": "WX8_SARCASTIC_03",
+              "text": "Windy enough to make umbrellas reconsider their career.",
+              "vars": []
+            },
+            {
+              "id": "WX8_SARCASTIC_04",
+              "text": "The atmosphere is being pushy.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX8_CHAOTIC_01",
+              "text": "WIND EVENT! HOLD ONTO YOUR HAT AND YOUR NARRATIVE.",
+              "vars": []
+            },
+            {
+              "id": "WX8_CHAOTIC_02",
+              "text": "THE AIR HAS TURNED SIDEWAYS.",
+              "vars": []
+            },
+            {
+              "id": "WX8_CHAOTIC_03",
+              "text": "ATMOSPHERE: YEET MODE.",
+              "vars": []
+            },
+            {
+              "id": "WX8_CHAOTIC_04",
+              "text": "GUSTS HAVE SPAWNED. LOOSE OBJECTS BEWARE.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX9",
+      "label": "Humid / feels-like >= temp + 4°C",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX9_NEUTRAL_01",
+              "text": "{temp}°, feels like {feels}°. Humid.",
+              "vars": [
+                "feels",
+                "temp"
+              ]
+            },
+            {
+              "id": "WX9_NEUTRAL_02",
+              "text": "Humidity is making it feel warmer: {feels}°.",
+              "vars": [
+                "feels"
+              ]
+            },
+            {
+              "id": "WX9_NEUTRAL_03",
+              "text": "Warm and humid conditions.",
+              "vars": []
+            },
+            {
+              "id": "WX9_NEUTRAL_04",
+              "text": "Feels-like temperature: {feels}°.",
+              "vars": [
+                "feels"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX9_FRIENDLY_01",
+              "text": "{temp}°, but it feels like {feels}°. Sticky one.",
+              "vars": [
+                "feels",
+                "temp"
+              ]
+            },
+            {
+              "id": "WX9_FRIENDLY_02",
+              "text": "Humidity is doing some extra work today.",
+              "vars": []
+            },
+            {
+              "id": "WX9_FRIENDLY_03",
+              "text": "Warm and muggy. Light clothes will help.",
+              "vars": []
+            },
+            {
+              "id": "WX9_FRIENDLY_04",
+              "text": "It feels warmer than the number suggests.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX9_DRY_01",
+              "text": "Humidity has added hidden fees.",
+              "vars": []
+            },
+            {
+              "id": "WX9_DRY_02",
+              "text": "Official temperature: {temp}°. Experiential temperature: {feels}°.",
+              "vars": [
+                "feels",
+                "temp"
+              ]
+            },
+            {
+              "id": "WX9_DRY_03",
+              "text": "The air contains more water than necessary.",
+              "vars": []
+            },
+            {
+              "id": "WX9_DRY_04",
+              "text": "Atmosphere: damply inefficient.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX9_SARCASTIC_01",
+              "text": "{temp}° pretending to be {feels}°. Fraud.",
+              "vars": [
+                "feels",
+                "temp"
+              ]
+            },
+            {
+              "id": "WX9_SARCASTIC_02",
+              "text": "The air has become soup-adjacent.",
+              "vars": []
+            },
+            {
+              "id": "WX9_SARCASTIC_03",
+              "text": "Humidity: because regular heat lacked ambition.",
+              "vars": []
+            },
+            {
+              "id": "WX9_SARCASTIC_04",
+              "text": "Weather update: your skin will know.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX9_CHAOTIC_01",
+              "text": "THE AIR IS DRINKABLE NOW.",
+              "vars": []
+            },
+            {
+              "id": "WX9_CHAOTIC_02",
+              "text": "HUMIDITY HAS ENABLED SOUP MODE.",
+              "vars": []
+            },
+            {
+              "id": "WX9_CHAOTIC_03",
+              "text": "{temp}° → FEELS {feels}°. WEATHER IS LYING.",
+              "vars": [
+                "feels",
+                "temp"
+              ]
+            },
+            {
+              "id": "WX9_CHAOTIC_04",
+              "text": "MOISTURE CONTENT: PERSONAL.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX10",
+      "label": "Pleasant: 18-26°C, rain <20%, wind <25",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX10_NEUTRAL_01",
+              "text": "{temp}° • Pleasant conditions.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX10_NEUTRAL_02",
+              "text": "Comfortable weather today.",
+              "vars": []
+            },
+            {
+              "id": "WX10_NEUTRAL_03",
+              "text": "{temp}°. Mild and dry.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX10_NEUTRAL_04",
+              "text": "Weather looks favorable.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX10_FRIENDLY_01",
+              "text": "{temp}°. Honestly, pretty lovely.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX10_FRIENDLY_02",
+              "text": "Nice weather. Good day to be outside.",
+              "vars": []
+            },
+            {
+              "id": "WX10_FRIENDLY_03",
+              "text": "Comfortable, mild, and cooperative.",
+              "vars": []
+            },
+            {
+              "id": "WX10_FRIENDLY_04",
+              "text": "The weather is making this easy for once.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX10_DRY_01",
+              "text": "Weather status: acceptable.",
+              "vars": []
+            },
+            {
+              "id": "WX10_DRY_02",
+              "text": "Atmosphere has met baseline expectations.",
+              "vars": []
+            },
+            {
+              "id": "WX10_DRY_03",
+              "text": "Conditions are unexpectedly reasonable.",
+              "vars": []
+            },
+            {
+              "id": "WX10_DRY_04",
+              "text": "{temp}°. No complaint available.",
+              "vars": [
+                "temp"
+              ]
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX10_SARCASTIC_01",
+              "text": "The weather has decided not to be a problem today.",
+              "vars": []
+            },
+            {
+              "id": "WX10_SARCASTIC_02",
+              "text": "{temp}°. Suspiciously perfect.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX10_SARCASTIC_03",
+              "text": "Outside is behaving. Consider taking advantage before it changes its mind.",
+              "vars": []
+            },
+            {
+              "id": "WX10_SARCASTIC_04",
+              "text": "Forecast: annoyingly pleasant.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX10_CHAOTIC_01",
+              "text": "RARE DROP: GOOD WEATHER.",
+              "vars": []
+            },
+            {
+              "id": "WX10_CHAOTIC_02",
+              "text": "THE SKY HAS CHOSEN PEACE.",
+              "vars": []
+            },
+            {
+              "id": "WX10_CHAOTIC_03",
+              "text": "OUTSIDE IS ACTUALLY NICE. GO VERIFY.",
+              "vars": []
+            },
+            {
+              "id": "WX10_CHAOTIC_04",
+              "text": "WEATHER DIFFICULTY: STORY MODE.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "WX11",
+      "label": "Cloudy / default fallback",
+      "pools": [
+        {
+          "mode": "NEUTRAL",
+          "responses": [
+            {
+              "id": "WX11_NEUTRAL_01",
+              "text": "{temp}° • Mostly cloudy.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX11_NEUTRAL_02",
+              "text": "Cloudy conditions today.",
+              "vars": []
+            },
+            {
+              "id": "WX11_NEUTRAL_03",
+              "text": "{temp}° with plenty of cloud cover.",
+              "vars": [
+                "temp"
+              ]
+            },
+            {
+              "id": "WX11_NEUTRAL_04",
+              "text": "A fairly neutral weather day.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "FRIENDLY",
+          "responses": [
+            {
+              "id": "WX11_FRIENDLY_01",
+              "text": "Cloudy and pretty manageable.",
+              "vars": []
+            },
+            {
+              "id": "WX11_FRIENDLY_02",
+              "text": "A grey-sky kind of day.",
+              "vars": []
+            },
+            {
+              "id": "WX11_FRIENDLY_03",
+              "text": "Nothing too dramatic out there.",
+              "vars": []
+            },
+            {
+              "id": "WX11_FRIENDLY_04",
+              "text": "Cloud cover today. Cozy potential: decent.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "DRY",
+          "responses": [
+            {
+              "id": "WX11_DRY_01",
+              "text": "Sky status: grey.",
+              "vars": []
+            },
+            {
+              "id": "WX11_DRY_02",
+              "text": "Clouds are present in administrative quantities.",
+              "vars": []
+            },
+            {
+              "id": "WX11_DRY_03",
+              "text": "Weather has selected default settings.",
+              "vars": []
+            },
+            {
+              "id": "WX11_DRY_04",
+              "text": "Atmosphere: visually noncommittal.",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "SARCASTIC",
+          "responses": [
+            {
+              "id": "WX11_SARCASTIC_01",
+              "text": "The sky has put on its grey hoodie.",
+              "vars": []
+            },
+            {
+              "id": "WX11_SARCASTIC_02",
+              "text": "Clouds everywhere, opinions nowhere.",
+              "vars": []
+            },
+            {
+              "id": "WX11_SARCASTIC_03",
+              "text": "The weather is buffering.",
+              "vars": []
+            },
+            {
+              "id": "WX11_SARCASTIC_04",
+              "text": "Today's sky is giving 'draft version.'",
+              "vars": []
+            }
+          ]
+        },
+        {
+          "mode": "CHAOTIC",
+          "responses": [
+            {
+              "id": "WX11_CHAOTIC_01",
+              "text": "THE SKY HAS ENABLED GREYSCALE MODE.",
+              "vars": []
+            },
+            {
+              "id": "WX11_CHAOTIC_02",
+              "text": "CLOUD COVER: FULL VIBES, LOW PLOT.",
+              "vars": []
+            },
+            {
+              "id": "WX11_CHAOTIC_03",
+              "text": "ATMOSPHERE SET TO MYSTERY GREY.",
+              "vars": []
+            },
+            {
+              "id": "WX11_CHAOTIC_04",
+              "text": "THE SUN HAS LEFT THE GROUP CHAT.",
+              "vars": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
