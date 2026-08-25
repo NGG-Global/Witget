@@ -330,7 +330,7 @@ raw network error is never shown.
 ```bash
 ./gradlew :app:testDebugUnitTest          # 134 tests, JVM + Robolectric
 ./gradlew :app:connectedDebugAndroidTest  # requires a device or emulator
-./gradlew :app:lintDebug                  # 0 errors
+./gradlew :app:lintDebug                  # clean: no issues found
 ```
 
 | Suite | Covers |
@@ -369,7 +369,7 @@ built from.
 **Verification.** The build environment had no emulator and no attached device
 (no KVM, no hardware virtualisation). Everything statically verifiable was
 verified: the debug and minified release APKs build, 134 unit tests pass, lint
-reports zero errors, all eight widget receivers and providers are present in the
+reports no issues, all eight widget receivers and providers are present in the
 merged manifest, and the instrumented tests compile. **Not yet exercised on a
 device:** rendering in a real launcher, the pin-widget flow, granting Usage
 Access, a live calendar read, a live weather fetch, and widget deletion cleanup.

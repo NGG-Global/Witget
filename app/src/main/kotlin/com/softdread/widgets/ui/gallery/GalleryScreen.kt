@@ -18,7 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -89,8 +90,11 @@ fun GalleryScreen(
 @Composable
 private fun WidgetGalleryCard(card: GalleryCard, onClick: () -> Unit) {
     val chrome = SoftDreadTheme.chrome
-    val configuration = LocalConfiguration.current
-    val isWide = configuration.screenWidthDp >= 600
+    // Window size rather than screen size, so a widget card laid out in
+    // split-screen or a freeform window sizes to the window it is actually in.
+    val density = LocalDensity.current
+    val containerWidth = LocalWindowInfo.current.containerSize.width
+    val isWide = with(density) { containerWidth.toDp() } >= 600.dp
 
     SoftDreadCard(onClick = onClick) {
         Row(verticalAlignment = Alignment.Top) {

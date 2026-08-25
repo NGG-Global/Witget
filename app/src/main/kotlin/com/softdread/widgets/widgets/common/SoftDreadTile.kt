@@ -59,6 +59,11 @@ fun SoftDreadTile(
 ) {
     val context = LocalContext.current
     val size = LocalSize.current
+    // Glance provides neither LocalDensity nor LocalResources, so display
+    // metrics are the only way to convert the dp size the host reports into the
+    // pixel dimensions the tile art needs. The Compose lint check that flags
+    // this does not apply to a Glance composition.
+    @Suppress("LocalContextResourcesRead")
     val density = context.resources.displayMetrics.density
     val widthPx = (size.width.value * density).toInt().coerceAtLeast(1)
     val heightPx = (size.height.value * density).toInt().coerceAtLeast(1)
