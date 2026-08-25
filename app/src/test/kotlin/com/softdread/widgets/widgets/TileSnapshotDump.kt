@@ -40,7 +40,7 @@ class TileSnapshotDump {
             val colours = SoftDreadTiles.colours(type.colourRole, ThemePack.CLAY_HOUSE, dark)
             val w = breakpoint.widthDp * 3
             val h = breakpoint.heightDp * 3
-            val bitmap = TileRenderer.render(context, type.colourRole, breakpoint, colours, content, w, h)
+            val bitmap = TileRenderer.render(context, type.colourRole, breakpoint, colours, content, w, h, densityPx = 3f)
             FileOutputStream(File(out, "$name.png")).use {
                 bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)
             }
@@ -96,6 +96,16 @@ class TileSnapshotDump {
                 callToAction = "tap to ask again",
                 contentDescription = "d",
             ))
+        save("battery_hero", WidgetType.BATTERY, WidgetBreakpoint.HERO, false,
+            TileContent(
+                label = "battery prognosis",
+                metric = "~ 2h 10m left",
+                pill = "23% — optimism is no longer appropriate, but the charger is within reach.",
+                leading = LeadingVisual.Ring(0.23f, centreLabel = "23%", centreDetail = "~ 2h 10m"),
+                contentDescription = "d",
+            ))
+        save("weather_hero", WidgetType.WEATHER, WidgetBreakpoint.HERO, false,
+            SampleData.content(WidgetType.WEATHER, WidgetBreakpoint.HERO))
         save("ball_expanded", WidgetType.MAGIC_8_BALL, WidgetBreakpoint.EXPANDED, true,
             TileContent(
                 label = "magic 8 ball",

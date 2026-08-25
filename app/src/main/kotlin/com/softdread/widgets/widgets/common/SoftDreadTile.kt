@@ -55,6 +55,7 @@ fun SoftDreadTile(
         content = content,
         widthPx = widthPx,
         heightPx = heightPx,
+        densityPx = density,
     )
 
     var modifier = GlanceModifier

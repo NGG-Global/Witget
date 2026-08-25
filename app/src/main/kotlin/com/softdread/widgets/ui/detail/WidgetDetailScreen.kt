@@ -56,6 +56,7 @@ import com.softdread.widgets.ui.PinWidget
 import com.softdread.widgets.ui.WidgetCatalog
 import com.softdread.widgets.ui.components.PillGroup
 import com.softdread.widgets.ui.components.ChoicePill
+import com.softdread.widgets.ui.components.ContentFrame
 import com.softdread.widgets.ui.components.ScreenHeader
 import com.softdread.widgets.ui.components.SoftDreadButton
 import com.softdread.widgets.ui.components.SoftDreadOutlinedButton
@@ -80,7 +81,7 @@ fun WidgetDetailScreen(
     type: WidgetType,
     appWidgetId: Int?,
     viewModel: WidgetDetailViewModel,
-    onBack: () -> Unit,
+    onBack: (() -> Unit)?,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -112,7 +113,7 @@ fun WidgetDetailScreen(
     }
 
     Scaffold(modifier = modifier, containerColor = chrome.wallpaper) { padding ->
-        Column(
+        ContentFrame(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
@@ -120,6 +121,7 @@ fun WidgetDetailScreen(
                 .padding(horizontal = SoftDreadSpacing.XLarge)
                 .padding(top = SoftDreadSpacing.Large, bottom = SoftDreadSpacing.XXLarge),
         ) {
+            Column {
             Box(Modifier.entrance(0)) {
                 ScreenHeader(
                     title = stringResource(entry.nameRes),
@@ -191,6 +193,7 @@ fun WidgetDetailScreen(
                     WidgetBreakpoint.COMPACT to R.string.size_compact,
                     WidgetBreakpoint.STANDARD to R.string.size_standard,
                     WidgetBreakpoint.EXPANDED to R.string.size_expanded,
+                    WidgetBreakpoint.HERO to R.string.size_hero,
                 ).forEach { (breakpoint, labelRes) ->
                     ChoicePill(
                         label = stringResource(labelRes),
@@ -328,6 +331,7 @@ fun WidgetDetailScreen(
                         }
                     }
                 }
+            }
             }
         }
     }

@@ -53,6 +53,7 @@ import com.softdread.widgets.ui.SoftDreadViewModel
 import com.softdread.widgets.ui.blurbRes
 import com.softdread.widgets.ui.components.PillGroup
 import com.softdread.widgets.ui.components.ChoicePill
+import com.softdread.widgets.ui.components.ContentFrame
 import com.softdread.widgets.ui.components.Masthead
 import com.softdread.widgets.ui.components.SectionLabel
 import com.softdread.widgets.ui.components.Rule
@@ -140,12 +141,13 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
     var query by remember { mutableStateOf("") }
     var historyCleared by remember { mutableStateOf(false) }
 
-    Column(
+    ContentFrame(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(SoftDreadSpacing.XLarge),
     ) {
+        Column {
         Box(Modifier.entrance(0)) {
             Masthead(
                 title = stringResource(R.string.settings_title),
@@ -338,6 +340,7 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
                     )
                 }
             }
+        }
         }
     }
 }

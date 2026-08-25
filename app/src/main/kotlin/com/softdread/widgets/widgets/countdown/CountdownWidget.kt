@@ -119,7 +119,7 @@ class CountdownWidget : SoftDreadWidget(WidgetType.COUNTDOWN) {
                     contentDescription = description,
                 )
 
-                WidgetBreakpoint.EXPANDED -> TileContent(
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> TileContent(
                     label = "countdown · ${config.countdownTitle}",
                     heroValue = leadNumber(reading),
                     heroSuffix = unitWord(reading),

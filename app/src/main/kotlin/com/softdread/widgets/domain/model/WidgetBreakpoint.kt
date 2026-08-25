@@ -35,11 +35,20 @@ enum class WidgetBreakpoint(
     /** 5x2 (462 x 179): 4x2 rules, circle 20% larger, copy <= 78 chars. */
     WIDE(462, 179, 78, 34, 18, 22, showsCircle = true, showsPill = false),
 
-    /** 4x4 (368): the only size that sets copy in a cream pill. */
+    /** 4x4 (368): the only phone size that sets copy in a cream pill. */
     EXPANDED(368, 368, 96, 34, 20, 22, showsCircle = true, showsPill = true),
+
+    /**
+     * The tablet canvas (roughly a 6x4 cell and up). Not in the sheet's matrix;
+     * derived from its scaling note — the 5x2 rule grows the circle 20% and the
+     * copy budget with it — and extended in the same spirit: more copy and more
+     * metadata rather than magnified glyphs. The renderer's fit-based unit is
+     * what stops a big tile from simply blowing the 4x4 up.
+     */
+    HERO(560, 340, 120, 34, 24, 28, showsCircle = true, showsPill = true),
     ;
 
-    val isLarge: Boolean get() = this == EXPANDED
+    val isLarge: Boolean get() = this == EXPANDED || this == HERO
 
     /** True for tiles wide enough to carry secondary metadata (chips, metrics). */
     val showsSecondaryMetadata: Boolean get() = this != TINY && this != COMPACT
@@ -54,6 +63,8 @@ enum class WidgetBreakpoint(
         fun forSize(widthDp: Float, heightDp: Float): WidgetBreakpoint = when {
             heightDp < 130f -> if (widthDp < 260f) TINY else STANDARD
             widthDp < 260f -> COMPACT
+            // Tablet canvases: enough width AND height for the hero treatment.
+            widthDp >= 520f && heightDp >= 300f -> HERO
             heightDp >= 260f -> EXPANDED
             widthDp >= 430f -> WIDE
             else -> STANDARD

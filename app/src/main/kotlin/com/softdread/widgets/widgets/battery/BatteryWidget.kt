@@ -58,9 +58,9 @@ class BatteryWidget : SoftDreadWidget(WidgetType.BATTERY) {
             TileContent(
                 label = if (breakpoint.isLarge) "battery prognosis" else "battery",
                 labelDetail = chargingNote,
-                heroValue = if (breakpoint == WidgetBreakpoint.EXPANDED) null else percentText,
+                heroValue = if (breakpoint.isLarge) null else percentText,
                 metric = estimate.takeIf { breakpoint.showsSecondaryMetadata && !breakpoint.isLarge },
-                voice = voice.takeIf { breakpoint != WidgetBreakpoint.EXPANDED },
+                voice = voice.takeIf { !breakpoint.isLarge },
                 pill = if (breakpoint.isLarge) "$percentText — ${voice.replaceFirstChar { it.lowercase() }}" else null,
                 leading = LeadingVisual.Ring(
                     fraction = reading.percent / 100f,

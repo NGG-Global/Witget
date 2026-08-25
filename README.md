@@ -55,10 +55,13 @@ Settings chosen in the gallery before a widget is placed are kept as a per-type
 template that new instances inherit, so nothing you set there is discarded.
 Editing a widget that is already on the home screen changes only that one.
 
-Widgets adapt their content, not just their scale, across four breakpoints
-(2×1, 2×2, 4×2 / 5×2, 4×4). A compact battery tile shows the percentage and one
-line; the large one adds the charge ring, the estimated remaining time and a
-copy pill.
+Widgets adapt their content, not just their scale, across six breakpoints —
+2×1, 2×2, 4×2, 5×2, 4×4 and a tablet hero canvas (≥520×300dp). A compact
+battery tile shows the percentage and one line; the large ones add the charge
+ring, the estimated remaining time and a copy pill; on tablets the tile gains
+copy and breathing room rather than magnified glyphs. The app itself is
+window-size aware: phones get bottom tabs, tablets get a left rail, a
+list-detail gallery and side-by-side onboarding.
 
 ### Screenshots and previews
 

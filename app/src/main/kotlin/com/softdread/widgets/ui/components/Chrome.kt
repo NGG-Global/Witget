@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -248,5 +249,66 @@ fun ScreenHeader(
         }
         Spacer(Modifier.height(SoftDreadSpacing.Medium))
         Rule(thickness = 2.dp, colour = chrome.onSurface)
+    }
+}
+
+/**
+ * The expanded-width counterpart to [NavTabs]: a left rail in the same
+ * language — the mark on top, destinations as a dot over a micro-label, a hard
+ * ink rule along the content edge.
+ */
+@Composable
+fun NavRail(
+    destinations: List<Pair<String, Boolean>>,
+    onSelect: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val chrome = SoftDreadTheme.chrome
+    Row(modifier = modifier.background(chrome.surface)) {
+        Column(
+            modifier = Modifier
+                .width(112.dp)
+                .padding(vertical = SoftDreadSpacing.XLarge),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            WitgetMark(size = 48)
+            Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
+            destinations.forEachIndexed { index, (label, selected) ->
+                val dotColour by androidx.compose.animation.animateColorAsState(
+                    targetValue = if (selected) chrome.brandDot else chrome.hairline,
+                    animationSpec = com.softdread.widgets.design.SoftDreadMotion.settle(),
+                    label = "railDot",
+                )
+                val labelColour by androidx.compose.animation.animateColorAsState(
+                    targetValue = if (selected) chrome.onSurface else chrome.secondaryType,
+                    animationSpec = com.softdread.widgets.design.SoftDreadMotion.settle(),
+                    label = "railLabel",
+                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 64.dp)
+                        .clickable(role = Role.Tab) { onSelect(index) }
+                        .padding(vertical = SoftDreadSpacing.Medium),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    Dot(colour = dotColour, size = if (selected) 10.dp else 8.dp)
+                    Spacer(Modifier.height(SoftDreadSpacing.Small))
+                    Text(
+                        text = label.uppercase(java.util.Locale.getDefault()),
+                        style = SoftDreadType.SectionLabel,
+                        color = labelColour,
+                    )
+                }
+            }
+        }
+        // The rail's content edge carries the sheet's rule, vertically.
+        Box(
+            Modifier
+                .width(2.dp)
+                .fillMaxHeight()
+                .background(chrome.onSurface),
+        )
     }
 }

@@ -36,39 +36,39 @@ object TileGeometry {
         return when (role) {
             ColourRole.CLAY -> when (breakpoint) {
                 WidgetBreakpoint.COMPACT -> CircleSpec(cream, 0.74f, CircleAnchor.BOTTOM_END, 0.30f)
-                WidgetBreakpoint.EXPANDED -> CircleSpec(cream, 0.82f, CircleAnchor.BOTTOM_END, 0.43f)
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> CircleSpec(cream, 0.82f, CircleAnchor.BOTTOM_END, 0.43f)
                 else -> CircleSpec(tint, 0.84f, CircleAnchor.BOTTOM_START, 0.34f)
             }
             ColourRole.AMBER -> when (breakpoint) {
                 WidgetBreakpoint.COMPACT -> CircleSpec(cream, 0.74f, CircleAnchor.BOTTOM_END, 0.30f)
-                WidgetBreakpoint.EXPANDED -> CircleSpec(cream, 0.79f, CircleAnchor.BOTTOM_START, 0.31f)
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> CircleSpec(cream, 0.79f, CircleAnchor.BOTTOM_START, 0.31f)
                 else -> CircleSpec(cream, 0.95f, CircleAnchor.BOTTOM_END, 0.34f)
             }
             ColourRole.SAGE -> when (breakpoint) {
                 // The 2x2 battery tile is all ring; the sheet gives it no field circle.
                 WidgetBreakpoint.COMPACT -> null
-                WidgetBreakpoint.EXPANDED -> CircleSpec(tint, 0.73f, CircleAnchor.BOTTOM_START, 0.26f)
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> CircleSpec(tint, 0.73f, CircleAnchor.BOTTOM_START, 0.26f)
                 else -> CircleSpec(tint, 0.84f, CircleAnchor.TOP_END, 0.32f)
             }
             ColourRole.CREAM -> when (breakpoint) {
                 WidgetBreakpoint.COMPACT -> CircleSpec(colours.contrastCircle, 0.63f, CircleAnchor.TOP_END, 0.24f)
-                WidgetBreakpoint.EXPANDED -> CircleSpec(colours.contrastCircle, 0.68f, CircleAnchor.TOP_END, 0.28f)
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> CircleSpec(colours.contrastCircle, 0.68f, CircleAnchor.TOP_END, 0.28f)
                 else -> CircleSpec(colours.contrastCircle, 0.78f, CircleAnchor.BOTTOM_START, 0.24f)
             }
             ColourRole.EMBER -> when (breakpoint) {
                 WidgetBreakpoint.COMPACT -> CircleSpec(colours.satellite, 0.58f, CircleAnchor.TOP_END, 0.20f)
-                WidgetBreakpoint.EXPANDED -> CircleSpec(colours.satellite, 0.71f, CircleAnchor.TOP_END, 0.28f)
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> CircleSpec(colours.satellite, 0.71f, CircleAnchor.TOP_END, 0.28f)
                 else -> CircleSpec(colours.satellite, 0.84f, CircleAnchor.TOP_START, 0.22f)
             }
             ColourRole.SLATE -> when (breakpoint) {
                 WidgetBreakpoint.COMPACT -> CircleSpec(tint, 0.70f, CircleAnchor.BOTTOM_START, 0.26f)
-                WidgetBreakpoint.EXPANDED -> CircleSpec(tint, 0.79f, CircleAnchor.BOTTOM_START, 0.36f)
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> CircleSpec(tint, 0.79f, CircleAnchor.BOTTOM_START, 0.36f)
                 else -> CircleSpec(tint, 0.89f, CircleAnchor.BOTTOM_END, 0.32f)
             }
             ColourRole.INK -> when (breakpoint) {
                 // The compact year tile is a ring and a number; no field circle.
                 WidgetBreakpoint.COMPACT -> null
-                WidgetBreakpoint.EXPANDED -> CircleSpec(colours.circle, 0.68f, CircleAnchor.BOTTOM_START, 0.28f)
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> CircleSpec(colours.circle, 0.68f, CircleAnchor.BOTTOM_START, 0.28f)
                 else -> CircleSpec(colours.circle, 0.84f, CircleAnchor.TOP_END, 0.32f)
             }
             // The 8 ball tile: the ball IS its one circle, so the field stays
@@ -88,7 +88,7 @@ object TileGeometry {
         breakpoint: WidgetBreakpoint,
         colours: TileColours,
     ): SatelliteSpec? {
-        if (breakpoint != WidgetBreakpoint.EXPANDED) return null
+        if (!breakpoint.isLarge) return null
         return when (role) {
             ColourRole.CLAY -> SatelliteSpec(colours.satellite, 0.18f, 0.87f, 0.71f)
             ColourRole.AMBER -> SatelliteSpec(colours.satellite, 0.16f, 0.85f, 0.25f)

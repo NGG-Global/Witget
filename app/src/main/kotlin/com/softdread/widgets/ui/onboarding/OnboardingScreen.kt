@@ -46,13 +46,16 @@ import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.ui.blurbRes
 import com.softdread.widgets.ui.components.WitgetMark
 import com.softdread.widgets.ui.components.ChoicePill
+import com.softdread.widgets.ui.components.ContentFrame
 import com.softdread.widgets.ui.components.PillGroup
 import com.softdread.widgets.ui.components.PreviewTile
 import com.softdread.widgets.ui.components.Rule
 import com.softdread.widgets.ui.components.SoftDreadButton
 import com.softdread.widgets.ui.components.SoftDreadTextAction
 import com.softdread.widgets.ui.components.SpecLine
+import com.softdread.widgets.ui.WindowWidthClass
 import com.softdread.widgets.ui.labelRes
+import com.softdread.widgets.ui.rememberWindowWidthClass
 import com.softdread.widgets.ui.preview.SampleData
 import com.softdread.widgets.widgets.common.LeadingVisual
 import com.softdread.widgets.widgets.common.TileContent
@@ -80,11 +83,13 @@ fun OnboardingScreen(
     Box(modifier = modifier.fillMaxSize().background(chrome.wallpaper)) {
         CircleField(isDark = chrome.isDark)
 
-        Column(
+        ContentFrame(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(SoftDreadSpacing.XLarge),
+            maxWidth = 920.dp,
         ) {
+            Column(modifier = Modifier.fillMaxSize()) {
             Row(
                 modifier = Modifier.fillMaxWidth().entrance(0),
                 verticalAlignment = Alignment.CenterVertically,
@@ -220,6 +225,7 @@ fun OnboardingScreen(
                 )
             }
         }
+        }
     }
 }
 
@@ -230,23 +236,58 @@ private fun OnboardingPage(
     illustration: @Composable () -> Unit,
 ) {
     val chrome = SoftDreadTheme.chrome
-    Column(modifier = Modifier.fillMaxSize()) {
-        Box(Modifier.entrance(0).floating(amplitude = 5.dp, periodMs = 5600)) { illustration() }
-        Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
-        Box(Modifier.entrance(2)) {
-            Text(
-                text = stringResource(titleRes),
-                style = MaterialTheme.typography.headlineLarge,
-                color = chrome.onSurface,
-            )
+    val wide = rememberWindowWidthClass() == WindowWidthClass.EXPANDED
+
+    if (wide) {
+        // Tablets: the illustration and the copy sit side by side, the way the
+        // sheet pairs a tile with its notes.
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Box(
+                modifier = Modifier.weight(0.45f),
+                contentAlignment = Alignment.Center,
+            ) {
+                Box(Modifier.entrance(0).floating(amplitude = 5.dp, periodMs = 5600)) { illustration() }
+            }
+            Column(modifier = Modifier.weight(0.55f).padding(start = SoftDreadSpacing.XXLarge)) {
+                Box(Modifier.entrance(2)) {
+                    Text(
+                        text = stringResource(titleRes),
+                        style = MaterialTheme.typography.headlineLarge,
+                        color = chrome.onSurface,
+                    )
+                }
+                Spacer(Modifier.height(SoftDreadSpacing.Medium))
+                Box(Modifier.entrance(3)) {
+                    Text(
+                        text = stringResource(bodyRes),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = chrome.secondaryType,
+                    )
+                }
+            }
         }
-        Spacer(Modifier.height(SoftDreadSpacing.Medium))
-        Box(Modifier.entrance(3)) {
-            Text(
-                text = stringResource(bodyRes),
-                style = MaterialTheme.typography.bodyLarge,
-                color = chrome.secondaryType,
-            )
+    } else {
+        Column(modifier = Modifier.fillMaxSize()) {
+            Box(Modifier.entrance(0).floating(amplitude = 5.dp, periodMs = 5600)) { illustration() }
+            Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
+            Box(Modifier.entrance(2)) {
+                Text(
+                    text = stringResource(titleRes),
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = chrome.onSurface,
+                )
+            }
+            Spacer(Modifier.height(SoftDreadSpacing.Medium))
+            Box(Modifier.entrance(3)) {
+                Text(
+                    text = stringResource(bodyRes),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = chrome.secondaryType,
+                )
+            }
         }
     }
 }

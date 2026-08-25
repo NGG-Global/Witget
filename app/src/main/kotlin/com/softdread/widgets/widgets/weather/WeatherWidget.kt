@@ -130,7 +130,7 @@ class WeatherWidget : SoftDreadWidget(WidgetType.WEATHER) {
                     satelliteRole = WeatherLogic.skyRole(condition),
                 )
 
-                WidgetBreakpoint.EXPANDED -> TileContent(
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> TileContent(
                     label = "weather, translated",
                     labelDetail = detail ?: reading.locationName,
                     heroValue = temperature,

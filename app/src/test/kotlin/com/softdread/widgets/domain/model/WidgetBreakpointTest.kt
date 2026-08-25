@@ -37,8 +37,24 @@ class WidgetBreakpointTest {
     }
 
     @Test
-    fun `a tablet-sized slot resolves to the largest layout`() {
-        assertThat(at(600f, 500f)).isEqualTo(WidgetBreakpoint.EXPANDED)
+    fun `tablet slots resolve to the hero canvas`() {
+        // A Pixel Tablet 6x4 cell and larger.
+        assertThat(at(600f, 500f)).isEqualTo(WidgetBreakpoint.HERO)
+        assertThat(at(520f, 300f)).isEqualTo(WidgetBreakpoint.HERO)
+        assertThat(at(800f, 400f)).isEqualTo(WidgetBreakpoint.HERO)
+    }
+
+    @Test
+    fun `almost-hero slots stay expanded rather than stretching`() {
+        assertThat(at(500f, 500f)).isEqualTo(WidgetBreakpoint.EXPANDED)
+        assertThat(at(600f, 280f)).isEqualTo(WidgetBreakpoint.EXPANDED)
+        // A tablet's larger 2x2 cell is already an expanded-worthy canvas.
+        assertThat(at(340f, 340f)).isEqualTo(WidgetBreakpoint.EXPANDED)
+    }
+
+    @Test
+    fun `a very wide short tablet slot is wide, not hero`() {
+        assertThat(at(700f, 180f)).isEqualTo(WidgetBreakpoint.WIDE)
     }
 
     @Test
@@ -53,11 +69,12 @@ class WidgetBreakpointTest {
 
     @Test
     fun `copy budgets follow the design sheet's limits`() {
-        // 2x2 <= 34, 4x2 <= 62, 5x2 <= 78, 4x4 <= 96.
+        // 2x2 <= 34, 4x2 <= 62, 5x2 <= 78, 4x4 <= 96; hero extends the scale.
         assertThat(WidgetBreakpoint.COMPACT.maxResponseChars).isEqualTo(34)
         assertThat(WidgetBreakpoint.STANDARD.maxResponseChars).isEqualTo(62)
         assertThat(WidgetBreakpoint.WIDE.maxResponseChars).isEqualTo(78)
         assertThat(WidgetBreakpoint.EXPANDED.maxResponseChars).isEqualTo(96)
+        assertThat(WidgetBreakpoint.HERO.maxResponseChars).isEqualTo(120)
     }
 
     @Test
@@ -68,8 +85,8 @@ class WidgetBreakpointTest {
     }
 
     @Test
-    fun `only the largest tile carries a copy pill`() {
+    fun `only the large tiles carry a copy pill`() {
         val withPill = WidgetBreakpoint.entries.filter { it.showsPill }
-        assertThat(withPill).containsExactly(WidgetBreakpoint.EXPANDED)
+        assertThat(withPill).containsExactly(WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO)
     }
 }

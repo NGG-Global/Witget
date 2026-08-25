@@ -99,7 +99,7 @@ class TimeProgressWidget : SoftDreadWidget(WidgetType.TIME_PROGRESS) {
                     contentDescription = "$description ${allBars.joinToString(", ") { "${it.label} ${it.valueText}" }}.",
                 )
 
-                WidgetBreakpoint.EXPANDED -> TileContent(
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> TileContent(
                     label = "time progress · ${reading.headline}",
                     bars = allBars,
                     pill = voice,

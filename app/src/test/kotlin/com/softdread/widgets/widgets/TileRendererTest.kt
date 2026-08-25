@@ -44,7 +44,7 @@ class TileRendererTest {
                     val content = SampleData.content(type, breakpoint, Personality.SARCASTIC)
                     val colours = SoftDreadTiles.colours(type.colourRole, ThemePack.CLAY_HOUSE, dark)
                     val (w, h) = sizeFor(breakpoint)
-                    val bitmap = TileRenderer.render(context, type.colourRole, breakpoint, colours, content, w, h)
+                    val bitmap = TileRenderer.render(context, type.colourRole, breakpoint, colours, content, w, h, densityPx = 2f)
                     assertThat(bitmap.width).isEqualTo(w)
                     assertThat(bitmap.height).isEqualTo(h)
                 }
@@ -78,7 +78,7 @@ class TileRendererTest {
             ColourRole.entries.forEach { role ->
                 val colours = SoftDreadTiles.colours(role)
                 val (w, h) = sizeFor(breakpoint)
-                val bitmap = TileRenderer.render(context, role, breakpoint, colours, content, w, h)
+                val bitmap = TileRenderer.render(context, role, breakpoint, colours, content, w, h, densityPx = 2f)
                 assertThat(bitmap.width).isEqualTo(w)
             }
         }
@@ -96,8 +96,34 @@ class TileRendererTest {
         val colours = SoftDreadTiles.colours(ColourRole.NIGHT)
         WidgetBreakpoint.entries.forEach { breakpoint ->
             val (w, h) = sizeFor(breakpoint)
-            val bitmap = TileRenderer.render(context, ColourRole.NIGHT, breakpoint, colours, content, w, h)
+            val bitmap = TileRenderer.render(context, ColourRole.NIGHT, breakpoint, colours, content, w, h, densityPx = 2f)
             assertThat(bitmap.width).isEqualTo(w)
+        }
+    }
+
+    @Test
+    fun `an oversized same-breakpoint tile gains room instead of magnifying`() {
+        // A 500x500dp EXPANDED tile at density 2: the unit must stay at the
+        // height-fit (which equals the cap here), not stretch to the width fit.
+        val content = SampleData.content(WidgetType.SCREEN_TIME, WidgetBreakpoint.EXPANDED)
+        val colours = SoftDreadTiles.colours(ColourRole.CLAY)
+        val bitmap = TileRenderer.render(
+            context, ColourRole.CLAY, WidgetBreakpoint.EXPANDED, colours, content,
+            1000, 1000, densityPx = 2f,
+        )
+        assertThat(bitmap.width).isEqualTo(1000)
+    }
+
+    @Test
+    fun `hero tiles render for every widget`() {
+        WidgetType.entries.forEach { type ->
+            val content = SampleData.content(type, WidgetBreakpoint.HERO, Personality.CHAOTIC)
+            val colours = SoftDreadTiles.colours(type.colourRole)
+            val bitmap = TileRenderer.render(
+                context, type.colourRole, WidgetBreakpoint.HERO, colours, content,
+                1120, 680, densityPx = 2f,
+            )
+            assertThat(bitmap.width).isEqualTo(1120)
         }
     }
 
@@ -106,9 +132,9 @@ class TileRendererTest {
         val content = SampleData.content(WidgetType.BATTERY, WidgetBreakpoint.EXPANDED)
         val colours = SoftDreadTiles.colours(ColourRole.SAGE)
         val bitmap = TileRenderer.render(
-            context, ColourRole.SAGE, WidgetBreakpoint.EXPANDED, colours, content, 2200, 2200,
+            context, ColourRole.SAGE, WidgetBreakpoint.EXPANDED, colours, content, 2400, 2400, densityPx = 3f,
         )
-        assertThat(bitmap.width).isEqualTo(1024)
-        assertThat(bitmap.height).isEqualTo(1024)
+        assertThat(bitmap.width).isEqualTo(1600)
+        assertThat(bitmap.height).isEqualTo(1600)
     }
 }

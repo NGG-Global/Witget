@@ -226,6 +226,14 @@ from the sheet's scaling panel:
 | `STANDARD` | 368 × 179 | 62 | leading visual beside label, hero, metric, voice |
 | `WIDE` | 462 × 179 | 78 | standard rules, circle +20% |
 | `EXPANDED` | 368 × 368 | 96 | adds subhead, bars, chips and the copy pill |
+| `HERO` | 560 × 340 | 120 | the tablet canvas: the expanded structure at a larger scale, bigger leading marks, the longest copy |
+
+`HERO` is not in the sheet's matrix; it extends the sheet's own 5×2 scaling
+note (circle +20%, budget up) to tablet cells. Two rules make big tiles behave:
+`forSize` sends anything ≥520×300dp to `HERO`, and the renderer's unit is
+**fit-based and density-capped** — a tile larger than its breakpoint's design
+canvas gains breathing room and longer lines, it does not magnify its glyphs
+(cap: 1.25× device density).
 
 Adaptation is by **content density**, not scale. A widget produces a different
 `TileContent` per breakpoint; the compact battery tile drops the remaining-time
@@ -315,7 +323,19 @@ all in `design/Motion.kt`:
 
 Screens slide as blocks through the NavHost; the detail preview morphs between
 sizes and cross-fades when a control changes its copy, so customisation is
-visibly live. When the system's "remove animations" setting is on, the ambient
+visibly live.
+
+### Window size classes
+
+The app follows Material's width classes, measured from the window (so
+split-screen counts): under 600dp compact, under 840dp medium, then expanded.
+Compact keeps the phone layouts. Every screen's content sits in a
+`ContentFrame` that caps measure (720dp; onboarding 920dp) so nothing stretches
+edge-to-edge on a tablet. On expanded windows the bottom tabs become `NavRail`
+— the same dot-and-micro-label language, vertical, with the sheet's 2px rule on
+its content edge — the gallery becomes **list-detail** (the matrix on the left,
+the selected widget's full customisation beside it), and onboarding pairs the
+illustration and copy side by side. When the system's "remove animations" setting is on, the ambient
 drift and breathing hold still; entrances and presses remain, as they carry
 state.
 

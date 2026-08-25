@@ -128,7 +128,7 @@ class DayVibeWidget : SoftDreadWidget(WidgetType.DAY_VIBE) {
                     contentDescription = description,
                 )
 
-                WidgetBreakpoint.EXPANDED -> TileContent(
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> TileContent(
                     label = "day vibe · ${now.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()).lowercase()}",
                     heroValue = reading.meetingCount.toString(),
                     subhead = "$meetingWord, $bookedText",

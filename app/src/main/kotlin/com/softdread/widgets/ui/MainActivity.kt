@@ -6,7 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.animation.fadeIn
@@ -19,7 +24,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -35,6 +42,7 @@ import com.softdread.widgets.design.SoftDreadMotion
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.ThemePack
 import com.softdread.widgets.domain.model.WidgetType
+import com.softdread.widgets.ui.components.NavRail
 import com.softdread.widgets.ui.components.NavTabs
 import com.softdread.widgets.ui.detail.WidgetDetailScreen
 import com.softdread.widgets.ui.detail.WidgetDetailViewModel
@@ -130,6 +138,8 @@ private fun SoftDreadApp(
     val backStackEntry by navController.currentBackStackEntryAsState()
     val route = backStackEntry?.destination?.route
     val chrome = SoftDreadTheme.chrome
+    val windowClass = rememberWindowWidthClass()
+    val expanded = windowClass == WindowWidthClass.EXPANDED
 
     LaunchedEffect(isDark) { viewModel.refresh(isDark) }
 
@@ -142,32 +152,71 @@ private fun SoftDreadApp(
         }
     }
 
+    val destinations = listOf(
+        stringResource(R.string.nav_gallery) to (route == Routes.GALLERY),
+        stringResource(R.string.nav_settings) to (route == Routes.SETTINGS),
+    )
+    val onSelectDestination: (Int) -> Unit = { index ->
+        val target = if (index == 0) Routes.GALLERY else Routes.SETTINGS
+        if (target != route) {
+            navController.navigate(target) {
+                popUpTo(Routes.GALLERY) { inclusive = target == Routes.GALLERY }
+                launchSingleTop = true
+            }
+        }
+    }
+
+    // Expanded windows: the tabs become a left rail in the same design
+    // language, freeing the bottom edge and matching how a tablet is held.
+    if (expanded) {
+        Row(Modifier.fillMaxSize().background(chrome.wallpaper)) {
+            if (route == Routes.GALLERY || route == Routes.SETTINGS) {
+                NavRail(destinations = destinations, onSelect = onSelectDestination)
+            }
+            AppNavHost(
+                navController = navController,
+                viewModel = viewModel,
+                detailViewModel = detailViewModel,
+                isDark = isDark,
+                twoPane = true,
+                modifier = Modifier.weight(1f),
+            )
+        }
+        return
+    }
+
     Scaffold(
         containerColor = chrome.wallpaper,
         bottomBar = {
             if (route == Routes.GALLERY || route == Routes.SETTINGS) {
-                NavTabs(
-                    destinations = listOf(
-                        stringResource(R.string.nav_gallery) to (route == Routes.GALLERY),
-                        stringResource(R.string.nav_settings) to (route == Routes.SETTINGS),
-                    ),
-                    onSelect = { index ->
-                        val target = if (index == 0) Routes.GALLERY else Routes.SETTINGS
-                        if (target != route) {
-                            navController.navigate(target) {
-                                popUpTo(Routes.GALLERY) { inclusive = target == Routes.GALLERY }
-                                launchSingleTop = true
-                            }
-                        }
-                    },
-                )
+                NavTabs(destinations = destinations, onSelect = onSelectDestination)
             }
         },
     ) { padding ->
+        AppNavHost(
+            navController = navController,
+            viewModel = viewModel,
+            detailViewModel = detailViewModel,
+            isDark = isDark,
+            twoPane = false,
+            modifier = Modifier.fillMaxSize().padding(padding),
+        )
+    }
+}
+
+@Composable
+private fun AppNavHost(
+    navController: androidx.navigation.NavHostController,
+    viewModel: SoftDreadViewModel,
+    detailViewModel: WidgetDetailViewModel,
+    isDark: Boolean,
+    twoPane: Boolean,
+    modifier: Modifier,
+) {
         NavHost(
             navController = navController,
             startDestination = Routes.GALLERY,
-            modifier = Modifier.fillMaxSize().padding(padding),
+            modifier = modifier,
             enterTransition = {
                 slideInHorizontally(SoftDreadMotion.settle()) { it / 4 } + fadeIn(SoftDreadMotion.settle())
             },
@@ -183,10 +232,38 @@ private fun SoftDreadApp(
         ) {
             composable(Routes.GALLERY) {
                 LaunchedEffect(Unit) { viewModel.refresh(isDark) }
-                GalleryScreen(
-                    viewModel = viewModel,
-                    onOpenWidget = { navController.navigate(Routes.detail(it)) },
-                )
+                if (twoPane) {
+                    // List-detail: the gallery keeps its matrix on the left and
+                    // the selected widget's full detail lives beside it, so a
+                    // tablet never shows a stretched list next to empty space.
+                    var selected by rememberSaveable { mutableStateOf(WidgetType.SCREEN_TIME.id) }
+                    Row(Modifier.fillMaxSize()) {
+                        GalleryScreen(
+                            viewModel = viewModel,
+                            onOpenWidget = { selected = it.id },
+                            modifier = Modifier.weight(0.44f),
+                        )
+                        Box(
+                            Modifier
+                                .width(2.dp)
+                                .fillMaxHeight()
+                                .background(SoftDreadTheme.chrome.hairline),
+                        )
+                        Box(Modifier.weight(0.56f)) {
+                            WidgetDetailScreen(
+                                type = WidgetType.fromId(selected) ?: WidgetType.SCREEN_TIME,
+                                appWidgetId = null,
+                                viewModel = detailViewModel,
+                                onBack = null,
+                            )
+                        }
+                    }
+                } else {
+                    GalleryScreen(
+                        viewModel = viewModel,
+                        onOpenWidget = { navController.navigate(Routes.detail(it)) },
+                    )
+                }
             }
             composable(Routes.SETTINGS) {
                 SettingsScreen(viewModel = viewModel)
@@ -215,7 +292,6 @@ private fun SoftDreadApp(
                 }
             }
         }
-    }
 }
 
 /** Kept for the deep link from a placed widget, which carries its own id. */

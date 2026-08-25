@@ -27,6 +27,7 @@
     <string name="size_compact">Compact</string>
     <string name="size_standard">Standard</string>
     <string name="size_expanded">Expanded</string>
+    <string name="size_hero">Tablet</string>
     <string name="personality_neutral">Neutral</string>
     <string name="personality_friendly">Friendly</string>
     <string name="personality_dry">Dry</string>

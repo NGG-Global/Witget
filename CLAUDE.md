@@ -113,12 +113,16 @@ Do not add ad-hoc `random()` picks inside a widget.
   clay at 0.82 of the tile). An early transcription doubled them and buried the
   expanded tiles under their own circles — the `TileSnapshotDump` test renders
   real PNGs under Robolectric; look at them before trusting any geometry change.
-- `buildFresh` builds content for **all five breakpoints every time** — resizing
+- `buildFresh` builds content for **all breakpoints every time** (six, with
+  the tablet `HERO`) — resizing
   recomposes without re-running the build, so a partial map would render copy
   budgeted for the wrong size and clip.
-- Hero values render through `GlanceType.heroFitted` (mirrored in `PreviewTile`);
-  Glance has no text auto-sizing, so long values step down by length instead of
-  clipping.
+- Hero values render through the renderer's fitted scale (mirrored in
+  `PreviewTile`); long values step down by length instead of clipping.
+- The renderer's `unit` is fit-based and capped at 1.25× density: oversized
+  tiles gain room, never magnified glyphs. `HERO` (≥520×300dp) is the tablet
+  canvas; when adding a breakpoint, every exhaustive `when` and the widgets'
+  `isLarge` checks are the compiler-guided checklist.
 
 ## Design rules
 

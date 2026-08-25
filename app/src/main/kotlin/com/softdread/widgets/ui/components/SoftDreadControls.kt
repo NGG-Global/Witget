@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -390,4 +391,21 @@ fun SpecLine(text: String, modifier: Modifier = Modifier) {
 @Composable
 fun Dot(colour: Color, modifier: Modifier = Modifier, size: Dp = 10.dp) {
     Box(modifier = modifier.size(size).clip(CircleShape).background(colour))
+}
+
+/**
+ * Centres content and caps its line length on wide windows. A settings column
+ * stretched across a 12" tablet is not "responsive", it is just wide; the cap
+ * keeps measure comfortable and the wallpaper (and its drifting circles)
+ * visible at the edges.
+ */
+@Composable
+fun ContentFrame(
+    modifier: Modifier = Modifier,
+    maxWidth: Dp = 720.dp,
+    content: @Composable () -> Unit,
+) {
+    Box(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
+        Box(Modifier.widthIn(max = maxWidth).fillMaxWidth()) { content() }
+    }
 }

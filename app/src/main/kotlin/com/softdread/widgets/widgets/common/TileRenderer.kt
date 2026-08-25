@@ -44,8 +44,13 @@ import kotlin.math.roundToInt
  */
 object TileRenderer {
 
-    /** Long-side cap: xxhdpi-native for a 4x4 tile, bounded for RemoteViews. */
-    private const val MAX_DIMENSION = 1024
+    /**
+     * Long-side cap. Sized for the hero tile on a 3x tablet (560dp -> 1680px,
+     * downscaled 5%, invisible); at RGB_565 a 1600x972 tile is ~3 MB, well under
+     * RemoteViews' bitmap budget of ~1.5x the screen's pixel bytes, which on any
+     * tablet running 3x is upwards of 20 MB.
+     */
+    private const val MAX_DIMENSION = 1600
 
     private val cache = object : LruCache<String, Bitmap>(16 * 1024 * 1024) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount
@@ -61,11 +66,12 @@ object TileRenderer {
         content: TileContent,
         widthPx: Int,
         heightPx: Int,
+        densityPx: Float,
     ): Bitmap {
         val fontScale = context.resources.configuration.fontScale.coerceIn(0.8f, 1.6f)
         val (width, height) = capped(widthPx, heightPx)
         val key = listOf(
-            "tile", role, breakpoint, width, height, fontScale,
+            "tile", role, breakpoint, width, height, fontScale, densityPx,
             colours.hashCode(), content.hashCode(), hostClipsCorners,
         ).joinToString(":")
         cache.get(key)?.let { return it }
@@ -73,7 +79,7 @@ object TileRenderer {
         val needsAlpha = !hostClipsCorners
         val bitmap = createBitmap(width, height, if (needsAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565)
         val canvas = Canvas(bitmap)
-        Pass(context, canvas, role, breakpoint, colours, content, width, height, fontScale).draw()
+        Pass(context, canvas, role, breakpoint, colours, content, width, height, fontScale, densityPx).draw()
         cache.put(key, bitmap)
         return bitmap
     }
@@ -97,9 +103,20 @@ object TileRenderer {
         val width: Int,
         val height: Int,
         val fontScale: Float,
+        val densityPx: Float,
     ) {
-        /** Pixels per dp at the drawn resolution. */
-        val unit: Float = width / breakpoint.widthDp.toFloat()
+        /**
+         * Pixels per design-dp. Fit-based — the smaller of the width and height
+         * ratios against the breakpoint's design canvas — and capped at 1.25x
+         * the device density. That cap is the tablet rule: a tile larger than
+         * its design size gains breathing room and longer lines, it does not
+         * simply magnify its glyphs.
+         */
+        val unit: Float = minOf(
+            width / breakpoint.widthDp.toFloat(),
+            height / breakpoint.heightDp.toFloat(),
+            densityPx * 1.25f,
+        )
 
         val padH = breakpoint.paddingHorizontalDp * unit
         val padV = breakpoint.paddingVerticalDp * unit
@@ -123,7 +140,7 @@ object TileRenderer {
                 WidgetBreakpoint.TINY -> tiny()
                 WidgetBreakpoint.COMPACT -> compact()
                 WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> standard()
-                WidgetBreakpoint.EXPANDED -> expanded()
+                WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> expanded()
             }
         }
 
@@ -266,10 +283,11 @@ object TileRenderer {
 
             content.leading?.let { leading ->
                 if (leading !is LeadingVisual.Numeral) {
+                    val hero = breakpoint == WidgetBreakpoint.HERO
                     val size = when (leading) {
-                        is LeadingVisual.Ring -> 150 * unit
-                        is LeadingVisual.EightBall -> 132 * unit
-                        else -> 104 * unit
+                        is LeadingVisual.Ring -> (if (hero) 176 else 150) * unit
+                        is LeadingVisual.EightBall -> (if (hero) 156 else 132) * unit
+                        else -> (if (hero) 120 else 104) * unit
                     }
                     y += 18 * unit
                     val x = if (leading is LeadingVisual.Ring || leading is LeadingVisual.EightBall) {
@@ -378,10 +396,15 @@ object TileRenderer {
                     )
                     canvas.drawBitmap(ring, null, rect(x, y, x + size, y + size), null)
                     leading.centreLabel?.let { label ->
-                        val paint = heroPaint(label, besideLeading = true)
+                        // Centre text is sized by the ring's own inner disc
+                        // (diameter 0.48x the ring), never by the breakpoint —
+                        // a hero-sized paint spills across the arcs.
+                        val paint = paint(colours.onSurface, size * 0.21f, 800, trackingEm = -0.03f)
                         val block = layout(label, paint, size, 1)
                         val detail = leading.centreDetail
-                        val detailBlock = detail?.let { layout(it, metricPaint(), size, 1) }
+                        val detailBlock = detail?.let {
+                            layout(it, paint(colours.onSurfaceMuted, size * 0.10f, 500), size, 1)
+                        }
                         val total = block.height + (detailBlock?.height ?: 0)
                         var ty = y + (size - total) / 2f
                         block.drawAt(x + (size - block.width) / 2f, ty)
@@ -637,6 +660,7 @@ object TileRenderer {
             val sp = when (breakpoint) {
                 WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 62f
                 WidgetBreakpoint.EXPANDED -> 92f
+                WidgetBreakpoint.HERO -> 100f
                 else -> 38f
             }
             return paint(colours.onSurface, spToPx(sp), 800, trackingEm = -0.04f)
@@ -652,6 +676,7 @@ object TileRenderer {
                     WidgetBreakpoint.TINY, WidgetBreakpoint.COMPACT -> 13f
                     WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 16f
                     WidgetBreakpoint.EXPANDED -> 20f
+                    WidgetBreakpoint.HERO -> 22f
                 },
             ),
             if (breakpoint == WidgetBreakpoint.COMPACT || breakpoint == WidgetBreakpoint.TINY) 500 else 600,
@@ -665,6 +690,7 @@ object TileRenderer {
                     WidgetBreakpoint.COMPACT -> 15f
                     WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 19f
                     WidgetBreakpoint.EXPANDED -> 30f
+                    WidgetBreakpoint.HERO -> 34f
                 },
             ),
             600,
@@ -707,6 +733,11 @@ object TileRenderer {
                 length <= 4 -> 76f
                 length <= 7 -> 64f
                 else -> 44f
+            }
+            WidgetBreakpoint.HERO -> when {
+                length <= 4 -> 88f
+                length <= 7 -> 72f
+                else -> 50f
             }
         }
 

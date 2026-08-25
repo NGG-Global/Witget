@@ -112,7 +112,7 @@ fun PreviewTile(
             .semantics { contentDescription = content.contentDescription },
     ) {
         when (breakpoint) {
-            WidgetBreakpoint.EXPANDED -> ExpandedPreview(content, colours, breakpoint)
+            WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> ExpandedPreview(content, colours, breakpoint)
             WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> StandardPreview(content, colours, breakpoint)
             else -> CompactPreview(content, colours, breakpoint)
         }

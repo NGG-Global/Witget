@@ -151,7 +151,7 @@ class ScreenTimeWidget : SoftDreadWidget(WidgetType.SCREEN_TIME) {
                 contentDescription = description,
             )
 
-            WidgetBreakpoint.EXPANDED -> TileContent(
+            WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> TileContent(
                 label = "screen time",
                 labelDetail = usageText,
                 heroValue = ratio ?: usageText,
