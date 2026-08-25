@@ -99,6 +99,7 @@ private fun GalleryList(
                 Masthead(
                     title = stringResource(R.string.gallery_title),
                     subtitle = stringResource(R.string.gallery_subtitle),
+                    wordmark = true,
                 )
             }
             Spacer(Modifier.height(SoftDreadSpacing.XLarge))

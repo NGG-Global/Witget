@@ -45,6 +45,7 @@ import com.softdread.widgets.data.prefs.AppearanceMode
 import com.softdread.widgets.design.SoftDreadMotion
 import com.softdread.widgets.design.SoftDreadSpacing
 import com.softdread.widgets.design.entrance
+import com.softdread.widgets.design.floating
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.SoftDreadTiles
 import com.softdread.widgets.design.SoftDreadType
@@ -139,7 +140,17 @@ fun WidgetDetailScreen(
                 // changes, so every control below shows its effect immediately
                 // and visibly.
                 Box(
-                    Modifier.fillMaxWidth().animateContentSize(SoftDreadMotion.settle()),
+                    Modifier
+                        .fillMaxWidth()
+                        .animateContentSize(SoftDreadMotion.settle())
+                        // The one object that should visibly hover.
+                        .then(
+                            if (type == WidgetType.MAGIC_8_BALL) {
+                                Modifier.floating(amplitude = 4.dp, periodMs = 4200)
+                            } else {
+                                Modifier
+                            },
+                        ),
                     contentAlignment = Alignment.Center,
                 ) {
                     AnimatedContent(

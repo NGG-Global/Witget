@@ -9,9 +9,7 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.action.ActionCallback
 import androidx.glance.appwidget.action.actionRunCallback
 import com.softdread.widgets.data.content.pool
-import com.softdread.widgets.design.SoftDreadTiles
 import com.softdread.widgets.domain.logic.Magic8BallLogic
-import com.softdread.widgets.domain.model.ColourRole
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.widgets.common.LeadingVisual
@@ -56,17 +54,15 @@ class Magic8BallWidget : SoftDreadWidget(WidgetType.MAGIC_8_BALL) {
         }
 
         val text = answer?.text ?: "The oracle is out of answers."
-        val discColour = SoftDreadTiles.colours(ColourRole.CREAM, dark = environment.isDark).surface
 
         val content = environment.breakpoints.associateWith { breakpoint ->
             TileContent(
                 label = if (breakpoint.isLarge) "magic 8 ball" else "8 ball",
                 voice = text,
-                leading = if (breakpoint.showsSecondaryMetadata) {
-                    LeadingVisual.Disc(discColour, label = "8")
-                } else {
-                    null
-                },
+                // The ball itself is the tile's one circle — the night field's
+                // decorative circles are removed in TileGeometry so this widget
+                // reads as the actual object.
+                leading = LeadingVisual.EightBall,
                 callToAction = "tap to ask again",
                 contentDescription = "Magic 8 ball says: $text. Double tap to ask again.",
             )

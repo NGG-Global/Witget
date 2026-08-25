@@ -123,6 +123,9 @@ data class TileColours(
     val contrastCircle: Color,
     val pillBackground: Color,
     val pillText: Color,
+    /** The emphasised metadata chip (joke's "regret level"): resolved clay. */
+    val chipEmphasisBg: Color,
+    val chipEmphasisOn: Color,
     val needsInsetStroke: Boolean,
 )
 
@@ -235,6 +238,14 @@ object SoftDreadTiles {
         // headroom gets a genuinely soft tone, a tight one barely mutes at all.
         val muted = Contrast.muted(onSurface, surface, Contrast.AA_NORMAL)
         val label = labelFor(role, surface, onSurface, dark)
+        // The emphasised chip borrows another resolved tile — clay normally,
+        // night on the clay tile itself — so its copy goes through the same
+        // legibility correction as everything else.
+        val emphasis = resolveField(
+            if (role == ColourRole.CLAY) ColourRole.NIGHT else ColourRole.CLAY,
+            pack,
+            dark,
+        )
         val circleFill = if (dark) SoftDreadPalette.CircleFillDark else SoftDreadPalette.Cream
 
         return TileColours(
@@ -256,8 +267,29 @@ object SoftDreadTiles {
             satellite = satelliteFor(role, pack, dark),
             contrastCircle = if (role == ColourRole.CREAM) field(ColourRole.SLATE, pack, dark) else circleFill,
             pillBackground = if (role == ColourRole.INK) circleFill else SoftDreadPalette.TypeOnColour,
+            chipEmphasisBg = emphasis.surface,
+            chipEmphasisOn = emphasis.onSurface,
             pillText = pillTextFor(role, surface, if (role == ColourRole.INK) circleFill else SoftDreadPalette.TypeOnColour),
             needsInsetStroke = role == ColourRole.CREAM || (dark && role == ColourRole.INK),
+        )
+    }
+
+    /** A field with the type colour that reads best on it, both solved. */
+    private data class ResolvedField(val surface: Color, val onSurface: Color)
+
+    private fun resolveField(role: ColourRole, pack: ThemePack, dark: Boolean): ResolvedField {
+        val surface = Contrast.legibleField(
+            surface = field(role, pack, dark),
+            light = if (dark) SoftDreadPalette.TypeDark else SoftDreadPalette.TypeOnColour,
+            dark = SoftDreadPalette.Ink,
+        )
+        return ResolvedField(
+            surface = surface,
+            onSurface = Contrast.bestOn(
+                surface,
+                if (dark) SoftDreadPalette.TypeDark else SoftDreadPalette.TypeOnColour,
+                SoftDreadPalette.Ink,
+            ),
         )
     }
 

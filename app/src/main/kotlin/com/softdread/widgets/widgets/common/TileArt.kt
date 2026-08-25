@@ -103,7 +103,27 @@ object TileArt {
             height,
             if (needsAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565,
         )
-        val canvas = Canvas(bitmap)
+        drawBackgroundInto(Canvas(bitmap), width, height, radius, surface, circle, satellite, insetStroke)
+        cache.put(key, bitmap)
+        return bitmap
+    }
+
+    /**
+     * Draws the field directly into [canvas] at native resolution — the
+     * full-tile renderer uses this so text drawn on top stays crisp instead of
+     * inheriting an upscaled background's softness.
+     */
+    fun drawBackgroundInto(
+        canvas: Canvas,
+        width: Int,
+        height: Int,
+        radius: Float,
+        surface: Color,
+        circle: CircleSpec?,
+        satellite: SatelliteSpec? = null,
+        insetStroke: Color? = null,
+    ) {
+        val needsAlpha = !hostClipsCorners
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
         // Field. Below API 31 the rounded corners are baked in; from API 31 the
@@ -159,7 +179,10 @@ object TileArt {
 
         insetStroke?.let { stroke ->
             paint.style = Paint.Style.STROKE
-            paint.strokeWidth = max(1f, scale)
+            // Roughly 1dp at the drawn resolution: the field is drawn either at
+            // its capped cache size or at native pixels; a ~1/400th-of-width
+            // stroke matches the sheet's hairline at both.
+            paint.strokeWidth = max(1f, width / 400f)
             paint.color = stroke.toArgb()
             val inset = paint.strokeWidth / 2f
             canvas.drawRoundRect(
@@ -170,7 +193,23 @@ object TileArt {
             )
             paint.style = Paint.Style.FILL
         }
+    }
 
+    /**
+     * The 8 ball: a near-black sphere with the classic white number disc. The
+     * "8" itself is real text drawn by the renderer, so it uses the pack's face.
+     */
+    fun eightBall(sizePx: Int, ballColour: Color, discColour: Color): Bitmap {
+        val size = min(sizePx, MAX_DIMENSION).coerceAtLeast(24)
+        val key = "ball:$size:${ballColour.value}:${discColour.value}"
+        cache.get(key)?.let { return it }
+        val bitmap = createBitmap(size, size)
+        val canvas = Canvas(bitmap)
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        paint.color = ballColour.toArgb()
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint)
+        paint.color = discColour.toArgb()
+        canvas.drawCircle(size / 2f, size / 2f, size * 0.27f, paint)
         cache.put(key, bitmap)
         return bitmap
     }

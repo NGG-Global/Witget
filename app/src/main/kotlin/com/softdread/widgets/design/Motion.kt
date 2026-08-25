@@ -198,6 +198,45 @@ fun BoxScope.CircleField(
     }
 }
 
+/**
+ * A slow vertical bob for marks and preview tiles — the ambient "alive" loop.
+ * Holds still under reduced motion.
+ */
+fun Modifier.floating(amplitude: Dp = 4.dp, periodMs: Int = 4600): Modifier = composed {
+    if (rememberReducedMotion()) return@composed this
+    val transition = rememberInfiniteTransition(label = "floating")
+    val phase by transition.animateFloat(
+        initialValue = -1f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(periodMs, easing = EaseInOutSine),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "floatPhase",
+    )
+    val amplitudePx = with(androidx.compose.ui.platform.LocalDensity.current) { amplitude.toPx() }
+    graphicsLayer { translationY = phase * amplitudePx }
+}
+
+/** A soft scale pulse for small stateful marks such as the brand dot. */
+fun Modifier.slowPulse(min: Float = 1f, max: Float = 1.12f, periodMs: Int = 2600): Modifier = composed {
+    if (rememberReducedMotion()) return@composed this
+    val transition = rememberInfiniteTransition(label = "slowPulse")
+    val scale by transition.animateFloat(
+        initialValue = min,
+        targetValue = max,
+        animationSpec = infiniteRepeatable(
+            animation = tween(periodMs, easing = EaseInOutSine),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "pulseScale",
+    )
+    graphicsLayer {
+        scaleX = scale
+        scaleY = scale
+    }
+}
+
 /** A gentle breathing scale for the app mark; holds still under reduced motion. */
 fun Modifier.breathing(): Modifier = composed {
     if (rememberReducedMotion()) return@composed this

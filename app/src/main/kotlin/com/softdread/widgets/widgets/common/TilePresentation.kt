@@ -19,8 +19,11 @@ sealed interface LeadingVisual {
     /** Day Vibe's meeting dots. */
     data class Dots(val filled: Int, val total: Int) : LeadingVisual
 
-    /** A plain disc: the weather sky, or the 8 ball. */
+    /** A plain disc: the weather sky. */
     data class Disc(val colour: Color, val label: String? = null) : LeadingVisual
+
+    /** The magic 8 ball: a near-black sphere with the white number disc. */
+    data object EightBall : LeadingVisual
 }
 
 /** A metadata chip, used by Daily Joke. */

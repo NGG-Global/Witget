@@ -321,7 +321,33 @@ state.
 
 ---
 
-## 6. Adaptation summary
+## 6. The tile renderer
+
+Every widget tile — field, art and text — is drawn into a single bitmap by
+`TileRenderer` and hosted by a one-image Glance layout. Two problems forced
+this, and both were user-visible: RemoteViews cannot reference a bundled font,
+so widgets rendered in the platform sans while every preview showed Bricolage;
+and Glance text has no idea where the tile art is, so copy could run across a
+solid cream circle and lose its contrast entirely.
+
+What the renderer guarantees:
+
+- **The real face.** Bricolage Grotesque, with the sheet's weights and
+  tracking, on the home screen itself.
+- **Geometry-safe text.** `TileTextGuard` computes each block's safe span
+  against the actual circle and satellite rectangles; label beats detail when
+  both cannot fit, and blocks clamp their width rather than crossing a shape.
+- **Accessibility intact.** The tile is one tap target carrying a full
+  `contentDescription` built from the real values, and every text size is
+  multiplied by the system font scale — the fitted hero steps absorb the growth.
+- **Bounded payloads.** Long side capped at 1024px, RGB_565 where the host
+  clips corners (API 31+), all layers cached by content hash.
+
+`TileSnapshotDump` renders representative tiles to PNG under Robolectric's
+native graphics; it exists because looking at the output caught a doubled
+circle-ratio transcription that had made expanded tiles unreadable. Keep it.
+
+## 7. Adaptation summary
 
 | Sheet element | Native treatment | Fidelity |
 |---|---|---|
@@ -335,7 +361,7 @@ state.
 | Metadata chips | bitmap background + real text | exact |
 | 1px inset stroke on cream | stroked into the bitmap | exact |
 | 34dp corner radius | baked in below API 31, host-clipped above | exact |
-| Bricolage Grotesque | app: exact · widgets: platform sans-serif | **adapted** |
-| Letter-spacing / line height | app: exact · widgets: omitted | **adapted** |
+| Bricolage Grotesque | exact everywhere — tiles are rendered to bitmaps by `TileRenderer` with the bundled face | exact |
+| Letter-spacing / line height | tracked in the renderer's paints | exact |
 | 8 ball 120ms crossfade | instant swap via `ActionCallback` | **not reproduced** |
 | No shadows, no gradients, no icons | never introduced | exact |

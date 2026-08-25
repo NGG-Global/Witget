@@ -119,7 +119,7 @@ fun PreviewTile(
     }
 }
 
-/** Mirrors GlanceType.heroFitted so the in-app preview clips exactly when the widget would. */
+/** Mirrors TileRenderer.heroSizeSp so the in-app preview clips exactly when the widget would. */
 private fun fittedHero(base: TextStyle, text: String, thresholds: List<Pair<Int, Float>>): TextStyle {
     val size = thresholds.firstOrNull { text.length <= it.first }?.second ?: thresholds.last().second
     return base.copy(fontSize = size.sp, lineHeight = (size * 0.95f).sp)
@@ -137,6 +137,9 @@ private fun CompactPreview(content: TileContent, colours: TileColours, breakpoin
             ring?.let {
                 RingView(it, colours, 46.dp)
                 Spacer(Modifier.width(10.dp))
+            }
+            if (content.leading is LeadingVisual.EightBall && content.heroValue == null) {
+                EightBallView(52.dp)
             }
             content.heroValue?.let {
                 val thresholds = if (ring != null) listOf(4 to 32f, 99 to 26f) else listOf(4 to 38f, 7 to 32f, 99 to 26f)
@@ -179,6 +182,10 @@ private fun CompactPreview(content: TileContent, colours: TileColours, breakpoin
 private fun StandardPreview(content: TileContent, colours: TileColours, breakpoint: WidgetBreakpoint) {
     Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
         when (val leading = content.leading) {
+            is LeadingVisual.EightBall -> {
+                EightBallView(82.dp)
+                Spacer(Modifier.width(18.dp))
+            }
             is LeadingVisual.Numeral -> {
                 Text(
                     text = leading.text,
@@ -266,6 +273,12 @@ private fun ExpandedPreview(content: TileContent, colours: TileColours, breakpoi
                 Spacer(Modifier.height(18.dp))
                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     RingView(leading, colours, 150.dp)
+                }
+            }
+            is LeadingVisual.EightBall -> {
+                Spacer(Modifier.height(18.dp))
+                Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    EightBallView(132.dp)
                 }
             }
             is LeadingVisual.Disc -> {
@@ -429,6 +442,26 @@ private fun RingView(ring: LeadingVisual.Ring, colours: TileColours, size: Dp) {
     }
 }
 
+/** The classic object: near-black sphere, white disc, ink 8. */
+@Composable
+private fun EightBallView(size: Dp) {
+    Box(
+        modifier = Modifier.size(size).clip(CircleShape).background(Color(0xFF13161D)),
+        contentAlignment = Alignment.Center,
+    ) {
+        Box(
+            modifier = Modifier.size(size * 0.54f).clip(CircleShape).background(Color(0xFFFFFBF2)),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = "8",
+                style = SoftDreadType.Hero2x2.copy(fontSize = (size.value * 0.3f).sp),
+                color = Color(0xFF13161D),
+            )
+        }
+    }
+}
+
 @Composable
 private fun DiscView(disc: LeadingVisual.Disc, colours: TileColours, size: Dp) {
     Box(
@@ -520,8 +553,8 @@ private fun LargeBarRow(bar: TileBar, colours: TileColours) {
 
 @Composable
 private fun ChipView(chip: TileChip, colours: TileColours) {
-    val background = if (chip.emphasised) SoftDreadTiles.colours(ColourRole.CLAY).surface else colours.pillBackground
-    val text = if (chip.emphasised) colours.pillBackground else colours.pillText
+    val background = if (chip.emphasised) colours.chipEmphasisBg else colours.pillBackground
+    val text = if (chip.emphasised) colours.chipEmphasisOn else colours.pillText
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(SoftDreadShape.ChipRadius))

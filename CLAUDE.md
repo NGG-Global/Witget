@@ -101,6 +101,18 @@ Do not add ad-hoc `random()` picks inside a widget.
   rebuilt inside the composition when `REFRESH_TICK` changes, and a bare update
   just redraws the stale model (the 8 ball ignored taps for a whole session
   lifetime this way once).
+- **Tiles are rendered by `TileRenderer` into one bitmap** — field, art and
+  text — because RemoteViews cannot load the bundled Bricolage and Glance text
+  cannot avoid the circles. `SoftDreadTile` is only the tap target and the
+  spoken `contentDescription`; keep it that way. Text sizes multiply by the
+  system font scale inside the renderer.
+- **Every text block goes through `TileTextGuard`.** It is the reason copy no
+  longer crosses a solid circle and disappears. Solid shapes are obstacles;
+  tints resolved by `Contrast.tint` are opaque and count as solid.
+- **`TileGeometry`'s 4x4 diameters are measured from the sheet** (largest is
+  clay at 0.82 of the tile). An early transcription doubled them and buried the
+  expanded tiles under their own circles — the `TileSnapshotDump` test renders
+  real PNGs under Robolectric; look at them before trusting any geometry change.
 - `buildFresh` builds content for **all five breakpoints every time** — resizing
   recomposes without re-running the build, so a partial map would render copy
   budgeted for the wrong size and clip.
@@ -166,6 +178,15 @@ to a bare `FlowRow` is what made wrapped rows collide.
   leave the device; keep it that way.
 - **Response IDs and the `manifest.json` SHA.** They tie the shipped content to a
   specific version of the Bible.
+
+## Brand assets
+
+- The wordmark is *drawn*, not typed: `WitgetWordmark` renders Baloo 700 and
+  paints the coral dot over the i's tittle and the amber counter under the g's
+  bowl at anchors measured by `WordmarkCalibration` (a pixel-scanning test).
+  If the Baloo file is ever updated, re-run the calibration and re-measure.
+- The 8 ball deliberately deviates from the sheet's night tile: the ball is the
+  tile's one circle. That was an owner decision; don't restore the field circles.
 
 ## Known gaps
 

@@ -1,8 +1,17 @@
 package com.softdread.widgets.ui.settings
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,8 +33,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.softdread.widgets.R
 import com.softdread.widgets.data.prefs.AppearanceMode
 import com.softdread.widgets.data.weather.OpenMeteoProvider
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.dp
+import com.softdread.widgets.design.SoftDreadMotion
+import com.softdread.widgets.design.SoftDreadShape
 import com.softdread.widgets.design.SoftDreadSpacing
+import com.softdread.widgets.design.SoftDreadTiles
 import com.softdread.widgets.design.entrance
+import com.softdread.widgets.design.pressScale
+import com.softdread.widgets.domain.model.ColourRole
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.SoftDreadType
 import com.softdread.widgets.design.ThemePack
@@ -44,6 +63,68 @@ import com.softdread.widgets.ui.components.SoftDreadTextAction
 import com.softdread.widgets.ui.components.SpecLine
 import com.softdread.widgets.ui.components.SwitchRow
 import com.softdread.widgets.ui.labelRes
+
+/**
+ * A theme pack choice that shows what it actually is: the pack's five field
+ * colours, resolved through the same legibility pipeline the widgets use, with
+ * the name underneath. Selection is the accent ring, so the swatches stay true.
+ */
+@Composable
+private fun ThemePackOption(
+    pack: ThemePack,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val chrome = SoftDreadTheme.chrome
+    val borderColour by animateColorAsState(
+        targetValue = if (selected) chrome.accentText else chrome.hairline,
+        animationSpec = SoftDreadMotion.settle(),
+        label = "packBorder",
+    )
+    val interactionSource = remember { MutableInteractionSource() }
+    val scale = pressScale(interactionSource)
+    Column(
+        modifier = modifier
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .clip(RoundedCornerShape(SoftDreadShape.CardRadius))
+            .border(
+                BorderStroke(if (selected) 2.dp else 1.dp, borderColour),
+                RoundedCornerShape(SoftDreadShape.CardRadius),
+            )
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                role = Role.RadioButton,
+                onClick = onClick,
+            )
+            .padding(horizontal = SoftDreadSpacing.Large, vertical = SoftDreadSpacing.Medium),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+            listOf(
+                ColourRole.CLAY, ColourRole.EMBER, ColourRole.AMBER,
+                ColourRole.SAGE, ColourRole.SLATE,
+            ).forEach { role ->
+                Box(
+                    modifier = Modifier
+                        .size(18.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(SoftDreadTiles.colours(role, pack, chrome.isDark).surface),
+                )
+            }
+        }
+        Spacer(Modifier.height(SoftDreadSpacing.Small))
+        Text(
+            text = stringResource(pack.labelRes),
+            style = MaterialTheme.typography.labelLarge,
+            color = if (selected) chrome.onSurface else chrome.secondaryType,
+        )
+    }
+}
 
 /**
  * Global settings: the default personality every widget inherits, the pack's
@@ -102,8 +183,8 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
         Spacer(Modifier.height(SoftDreadSpacing.Medium))
         PillGroup {
             ThemePack.entries.forEach { pack ->
-                ChoicePill(
-                    label = stringResource(pack.labelRes),
+                ThemePackOption(
+                    pack = pack,
                     selected = preferences.themePackKey == pack.displayKey,
                     onClick = { viewModel.setThemePack(pack) },
                 )

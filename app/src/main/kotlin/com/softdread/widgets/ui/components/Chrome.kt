@@ -36,6 +36,9 @@ import com.softdread.widgets.design.SoftDreadShape
 import com.softdread.widgets.design.SoftDreadSpacing
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.SoftDreadType
+import com.softdread.widgets.design.floating
+import com.softdread.widgets.design.slowPulse
+import androidx.compose.ui.unit.sp
 
 /**
  * App chrome built from the design sheet's own layout language: an eyebrow
@@ -52,27 +55,41 @@ fun SectionLabel(text: String, modifier: Modifier = Modifier) {
     )
 }
 
-/** The masthead: the Witget mark, the lowercase wordmark with its coral full stop, a mono strapline. */
+/**
+ * The masthead. When [wordmark] is set — the gallery — the title renders as the
+ * drawn witget wordmark with its coral i-dot and amber g-bowl; elsewhere the
+ * title is plain Baloo with the brand's coral full stop.
+ */
 @Composable
-fun Masthead(title: String, subtitle: String, modifier: Modifier = Modifier) {
+fun Masthead(
+    title: String,
+    subtitle: String,
+    modifier: Modifier = Modifier,
+    wordmark: Boolean = false,
+) {
     Column(modifier = modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            WitgetMark(size = 56)
+            Box(Modifier.floating(amplitude = 3.dp, periodMs = 5200)) { WitgetMark(size = 56) }
             Spacer(Modifier.width(SoftDreadSpacing.Large))
             Column {
-                Row(verticalAlignment = Alignment.Bottom) {
-                    Text(
-                        text = title.lowercase(java.util.Locale.getDefault()),
-                        style = MaterialTheme.typography.headlineLarge,
-                        color = SoftDreadTheme.chrome.onSurface,
-                    )
-                    Spacer(Modifier.width(3.dp))
-                    // The logo's i-dot, borrowed as the wordmark's full stop.
-                    Dot(
-                        colour = SoftDreadTheme.chrome.brandDot,
-                        size = 9.dp,
-                        modifier = Modifier.padding(bottom = 7.dp),
-                    )
+                if (wordmark) {
+                    WitgetWordmark(fontSize = 34.sp)
+                } else {
+                    Row(verticalAlignment = Alignment.Bottom) {
+                        Text(
+                            text = title.lowercase(java.util.Locale.getDefault()),
+                            style = MaterialTheme.typography.headlineLarge,
+                            color = SoftDreadTheme.chrome.onSurface,
+                        )
+                        Spacer(Modifier.width(3.dp))
+                        Dot(
+                            colour = SoftDreadTheme.chrome.brandDot,
+                            size = 9.dp,
+                            modifier = Modifier
+                                .padding(bottom = 7.dp)
+                                .slowPulse(),
+                        )
+                    }
                 }
                 Spacer(Modifier.height(4.dp))
                 Text(

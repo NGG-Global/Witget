@@ -39,6 +39,7 @@ import com.softdread.widgets.design.SoftDreadSpacing
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.breathing
 import com.softdread.widgets.design.entrance
+import com.softdread.widgets.design.floating
 import com.softdread.widgets.domain.model.Personality
 import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
@@ -230,7 +231,7 @@ private fun OnboardingPage(
 ) {
     val chrome = SoftDreadTheme.chrome
     Column(modifier = Modifier.fillMaxSize()) {
-        Box(Modifier.entrance(0)) { illustration() }
+        Box(Modifier.entrance(0).floating(amplitude = 5.dp, periodMs = 5600)) { illustration() }
         Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
         Box(Modifier.entrance(2)) {
             Text(

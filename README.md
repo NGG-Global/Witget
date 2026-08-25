@@ -392,15 +392,13 @@ feel alive. The Magic 8 Ball draws a new answer. Daily Joke and Countdown open
 the app (the joke is deliberately stable all day; the countdown's tap leads to
 its configuration), as do all setup states.
 
-**Glance cannot use the bundled typeface.** `androidx.glance.text.FontFamily`
-resolves a *system* family name through RemoteViews; it cannot reference a font
-resource. Home-screen widgets therefore render in the platform sans-serif while
-the app itself uses Bricolage Grotesque. Drawing widget copy into bitmaps would
-restore the face but would break font scaling and TalkBack, so hierarchy is
-carried by size, weight and case instead.
-
-**Glance has no letter-spacing or line-height.** The sheet's tight tracking on
-hero numerals is approximated by size alone.
+**Widget text is rendered, not composed.** Tiles are drawn to bitmaps by the
+app's own renderer so the home screen gets the real Bricolage Grotesque and so
+text can be laid out around the tile art (copy never crosses a solid circle).
+The trade-offs are deliberate and mitigated: the tile stays a single tap target
+with a full spoken description assembled from the real values, and all text
+sizes multiply by the system font scale. What is genuinely lost is per-word
+text selection on the tile, which home-screen widgets do not offer anyway.
 
 **No tap animation on the 8 ball.** The sheet asks for a 120 ms crossfade; Glance
 has no animation API, and the sheet's own platform note says so. The answer
