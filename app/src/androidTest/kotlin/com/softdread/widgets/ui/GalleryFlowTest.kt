@@ -63,34 +63,41 @@ class GalleryFlowTest {
     }
 
     @Test
-    fun onboardingLetsTheUserReachTheGalleryWithoutGrantingAnything() {
+    fun setupFlowLetsTheUserSkipToTheGalleryWithoutGrantingAnything() {
         var finished = false
         composeRule.setContent {
             SoftDreadTheme {
-                com.softdread.widgets.ui.onboarding.OnboardingScreen(
+                com.softdread.widgets.ui.onboarding.SetupFlow(
                     selectedPersonality = com.softdread.widgets.domain.model.Personality.NEUTRAL,
+                    selectedPack = com.softdread.widgets.design.ThemePack.CLAY_HOUSE,
                     onSelectPersonality = {},
+                    onSelectPack = {},
                     onFinish = { finished = true },
+                    skipSplash = true,
                 )
             }
         }
-        composeRule.onNodeWithText(context.getString(R.string.onboarding_skip)).performClick()
+        composeRule.onNodeWithText(context.getString(R.string.setup_skip)).performClick()
         assert(finished) { "Skip should reach the gallery without any permission prompt" }
     }
 
     @Test
-    fun personalitySelectionIsReportedBack() {
+    fun setupFlowReportsPersonalitySelection() {
         var selected: com.softdread.widgets.domain.model.Personality? = null
         composeRule.setContent {
             SoftDreadTheme {
-                com.softdread.widgets.ui.onboarding.OnboardingScreen(
+                com.softdread.widgets.ui.onboarding.SetupFlow(
                     selectedPersonality = com.softdread.widgets.domain.model.Personality.NEUTRAL,
+                    selectedPack = com.softdread.widgets.design.ThemePack.CLAY_HOUSE,
                     onSelectPersonality = { selected = it },
+                    onSelectPack = {},
                     onFinish = {},
+                    skipSplash = true,
                 )
             }
         }
-        composeRule.onNodeWithText(context.getString(R.string.onboarding_next)).performClick()
+        // Begin setup, then pick on the voice step.
+        composeRule.onNodeWithText(context.getString(R.string.setup_cta_begin)).performClick()
         composeRule.onNodeWithText(context.getString(R.string.personality_sarcastic))
             .performScrollTo()
             .performClick()

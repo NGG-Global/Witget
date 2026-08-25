@@ -308,53 +308,152 @@ object TileRenderer {
                 }
             }
 
-            // Bottom-anchored stack, drawn upward.
-            var bottom = height - padV
-            content.callToAction?.let {
-                val block = layout(it.uppercase(Locale.getDefault()), ctaPaint(), contentRight - contentLeft, 1)
-                bottom -= block.height
-                block.drawAt(contentLeft, bottom)
-                bottom -= 14 * unit
+            drawBottomStack(topLimit = y + 10 * unit)
+        }
+
+        /**
+         * The expanded tile's bottom-anchored group: strip, hero row, subhead
+         * (or the standalone statement), pill, chips, call to action.
+         *
+         * Measured before it is placed. The first tablet build drew this stack
+         * bottom-up with no ceiling, and on short-wide tiles the hero rose
+         * straight through the label ("4.1" over SCREEN TIME, "28°" over
+         * WEATHER, an answer across the 8 ball). Now, if the stack cannot fit
+         * between [topLimit] and the bottom padding, it gives things up in a
+         * fixed order — statement lines, a hero size step, the second subhead
+         * line, the call to action, the chips, the strip — and the pill is
+         * never dropped, because it is where the literal metric lives.
+         */
+        private fun drawBottomStack(topLimit: Float) {
+            val available = (height - padV) - topLimit
+            if (available <= 0f) return
+
+            var statementLines = 6
+            var heroShrink = 0
+            var subheadLines = 2
+            var showCta = content.callToAction != null
+            var showChips = content.chips.isNotEmpty()
+            var showStrip = content.strip.isNotEmpty()
+            var showSubhead = content.subhead != null
+
+            fun measure(): Float {
+                var total = 0f
+                if (showStrip) total += 5 * unit + 14 * unit
+                content.heroValue?.let { total += lineOf(heroPaintStepped(it, heroShrink)) }
+                if (showSubhead) {
+                    total += 6 * unit +
+                        layout(content.subhead!!, subheadPaint(), contentRight - contentLeft, subheadLines).height
+                }
+                if (content.heroValue == null && content.subhead == null) {
+                    content.voice?.let {
+                        total += layout(it, statementPaint(), contentRight - contentLeft, statementLines).height
+                    }
+                }
+                content.pill?.let { total += 16 * unit + measurePillHeight(it) }
+                if (showChips) total += 14 * unit + (lineOf(chipPaint(colours.pillText)) + 12 * unit)
+                if (showCta) total += 14 * unit + lineOf(ctaPaint())
+                return total
             }
-            if (content.chips.isNotEmpty()) {
+
+            // Give things up, cheapest first, until the stack fits.
+            val reductions = listOf<() -> Boolean>(
+                { if (statementLines > 3) { statementLines = 3; true } else false },
+                { if (heroShrink < 1) { heroShrink = 1; true } else false },
+                { if (subheadLines > 1) { subheadLines = 1; true } else false },
+                { if (statementLines > 2) { statementLines = 2; true } else false },
+                { if (heroShrink < 2) { heroShrink = 2; true } else false },
+                { if (showCta) { showCta = false; true } else false },
+                { if (showChips) { showChips = false; true } else false },
+                { if (showStrip) { showStrip = false; true } else false },
+                { if (showSubhead) { showSubhead = false; true } else false },
+            )
+            var index = 0
+            while (measure() > available && index < reductions.size) {
+                if (!reductions[index]()) index++
+            }
+
+            var bottom = height - padV
+            if (showCta) {
+                content.callToAction?.let {
+                    val block = layout(it.uppercase(Locale.getDefault()), ctaPaint(), contentRight - contentLeft, 1)
+                    bottom -= block.height
+                    block.drawAt(contentLeft, bottom.coerceAtLeast(topLimit))
+                    bottom -= 14 * unit
+                }
+            }
+            if (showChips) {
                 bottom -= chipRow(content.chips.take(2), bottom, anchorBottom = true)
                 bottom -= 14 * unit
             }
-            content.pill?.let { bottom -= pill(it, bottom) - 0f; bottom -= 16 * unit }
-            content.subhead?.let {
-                val block = layout(it, subheadPaint(), spanAt(bottom - 60 * unit, bottom).width, 2)
-                bottom -= block.height
-                block.drawAt(spanAt(bottom, bottom + block.height).left, bottom)
-                bottom -= 6 * unit
+            content.pill?.let {
+                bottom -= pill(it, bottom)
+                bottom -= 16 * unit
+            }
+            if (showSubhead) {
+                content.subhead?.let {
+                    val block = layout(it, subheadPaint(), spanAt(bottom - 60 * unit, bottom).width, subheadLines)
+                    bottom -= block.height
+                    block.drawAt(spanAt(bottom, bottom + block.height).left, bottom.coerceAtLeast(topLimit))
+                    bottom -= 6 * unit
+                }
             }
             content.heroValue?.let { hero ->
                 val block = rowBlock(
-                    hero to heroPaint(hero),
+                    hero to heroPaintStepped(hero, heroShrink),
                     content.heroSuffix?.let { it to subheadPaint() },
                     content.metric?.let { it to metricPaint() },
                     maxWidth = spanAt(bottom - 90 * unit, bottom).width,
                 )
                 bottom -= block.height
-                block.drawAt(spanAt(bottom, bottom + block.height).left, bottom)
+                block.drawAt(spanAt(bottom, bottom + block.height).left, bottom.coerceAtLeast(topLimit))
             }
             if (content.heroValue == null && content.subhead == null) {
                 content.voice?.let {
                     val paint = statementPaint()
-                    val estTop = bottom - lineOf(paint) * 6
-                    val block = layout(it, paint, spanAt(estTop, bottom).width, 6)
+                    // Never rise past the ceiling: fit the line count to what
+                    // the space between the art and the chips actually allows.
+                    val fitLines = ((bottom - topLimit) / lineOf(paint)).toInt().coerceIn(1, statementLines)
+                    val estTop = bottom - lineOf(paint) * fitLines
+                    val block = layout(it, paint, spanAt(estTop, bottom).width, fitLines)
                     bottom -= block.height
-                    block.drawAt(spanAt(bottom, bottom + block.height).left, bottom)
+                    block.drawAt(spanAt(bottom, bottom + block.height).left, bottom.coerceAtLeast(topLimit))
                 }
             }
 
-            if (content.strip.isNotEmpty()) {
+            if (showStrip) {
                 val stripHeight = 5 * unit
                 val stripBitmap = TileArt.strip(
                     (contentRight - contentLeft).toInt(), stripHeight.toInt(),
                     content.strip, colours.onSurface, colours.trackTint, 10 * unit,
                 )
-                canvas.drawBitmap(stripBitmap, null, rect(contentLeft, bottom - 14 * unit - stripHeight, contentRight, bottom - 14 * unit), null)
+                val stripBottom = (bottom - 14 * unit).coerceAtLeast(topLimit + stripHeight)
+                canvas.drawBitmap(
+                    stripBitmap, null,
+                    rect(contentLeft, stripBottom - stripHeight, contentRight, stripBottom), null,
+                )
             }
+        }
+
+        /** The pill's height as [pill] will draw it, without drawing it. */
+        private fun measurePillHeight(text: String): Float {
+            val paint = pillPaint()
+            val padding = 12 * unit
+            val block = layout(text, paint, (contentRight - contentLeft) - padding * 2, 3)
+            return block.height + padding * 2
+        }
+
+        /** The fitted hero paint, stepped down [shrink] extra sizes when space demands it. */
+        private fun heroPaintStepped(text: String, shrink: Int): TextPaint {
+            if (shrink <= 0) return heroPaint(text)
+            val steps = when (breakpoint) {
+                WidgetBreakpoint.HERO -> listOf(88f, 72f, 50f)
+                WidgetBreakpoint.EXPANDED -> listOf(76f, 64f, 44f)
+                else -> return heroPaint(text)
+            }
+            val base = heroSizeSp(breakpoint, text.length, besideLeading = false)
+            val start = steps.indexOfFirst { it <= base }.coerceAtLeast(0)
+            val sp = steps[(start + shrink).coerceAtMost(steps.size - 1)]
+            return paint(colours.onSurface, spToPx(sp), 800, trackingEm = -0.03f)
         }
 
         // -------------------------------------------------------- primitives
@@ -610,7 +709,10 @@ object TileRenderer {
                     parts.forEachIndexed { index, (text, paint) ->
                         val available = maxWidth - (cx - x)
                         if (available <= 0) return@forEachIndexed
-                        val clipped = TextUtils.ellipsize(text, paint, available, TextUtils.TruncateAt.END).toString()
+                        // A row draws one line; a newline that reaches it would
+                        // render as nothing and fuse the words together.
+                        val singleLine = text.replace('\n', ' ').replace("  ", " · ")
+                        val clipped = TextUtils.ellipsize(singleLine, paint, available, TextUtils.TruncateAt.END).toString()
                         canvas.drawText(clipped, cx, baseline, paint)
                         cx += paint.measureText(clipped) + if (index < parts.size - 1) gap else 0f
                     }

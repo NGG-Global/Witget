@@ -36,10 +36,18 @@ class TileSnapshotDump {
     @Test
     fun dumpRepresentativeTiles() {
         val out = File("build/tile-snapshots").apply { mkdirs() }
-        fun save(name: String, type: WidgetType, breakpoint: WidgetBreakpoint, dark: Boolean, content: TileContent) {
+        fun save(
+            name: String,
+            type: WidgetType,
+            breakpoint: WidgetBreakpoint,
+            dark: Boolean,
+            content: TileContent,
+            widthDp: Int = breakpoint.widthDp,
+            heightDp: Int = breakpoint.heightDp,
+        ) {
             val colours = SoftDreadTiles.colours(type.colourRole, ThemePack.CLAY_HOUSE, dark)
-            val w = breakpoint.widthDp * 3
-            val h = breakpoint.heightDp * 3
+            val w = widthDp * 3
+            val h = heightDp * 3
             val bitmap = TileRenderer.render(context, type.colourRole, breakpoint, colours, content, w, h, densityPx = 3f)
             FileOutputStream(File(out, "$name.png")).use {
                 bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)
@@ -106,6 +114,47 @@ class TileSnapshotDump {
             ))
         save("weather_hero", WidgetType.WEATHER, WidgetBreakpoint.HERO, false,
             SampleData.content(WidgetType.WEATHER, WidgetBreakpoint.HERO))
+
+        // The aspect ratios from the reported tablet screenshot: short-wide
+        // tiles where the bottom stack used to collide with the label.
+        save("regress_screentime", WidgetType.SCREEN_TIME, WidgetBreakpoint.EXPANDED, false,
+            TileContent(
+                label = "screen time",
+                labelDetail = "33 min",
+                heroValue = "4.1",
+                subhead = "an aggressively long toaster cycle",
+                pill = "You've spent 33 min on-screen today.",
+                contentDescription = "d",
+            ), widthDp = 500, heightDp = 290)
+        save("regress_weather", WidgetType.WEATHER, WidgetBreakpoint.HERO, false,
+            TileContent(
+                label = "weather, translated",
+                heroValue = "28°",
+                metric = "feels 34° · high 31 · low 23",
+                pill = "Warm and humid conditions.",
+                strip = listOf(0.2f, 0.4f, 0.5f, 0.3f, 0.2f),
+                satelliteRole = com.softdread.widgets.domain.model.ColourRole.AMBER,
+                contentDescription = "d",
+            ), widthDp = 560, heightDp = 320)
+        save("regress_ball", WidgetType.MAGIC_8_BALL, WidgetBreakpoint.EXPANDED, true,
+            TileContent(
+                label = "magic 8 ball",
+                voice = "Signs point to no.",
+                leading = LeadingVisual.EightBall,
+                callToAction = "tap to ask again",
+                contentDescription = "d",
+            ), widthDp = 420, heightDp = 280)
+        save("regress_joke", WidgetType.DAILY_JOKE, WidgetBreakpoint.EXPANDED, false,
+            TileContent(
+                label = "daily joke",
+                labelDetail = "25 aug",
+                voice = "My work-life balance is currently buffering.",
+                chips = listOf(
+                    com.softdread.widgets.widgets.common.TileChip("dad energy: maximum"),
+                    com.softdread.widgets.widgets.common.TileChip("absurdity index: 94%", emphasised = true),
+                ),
+                contentDescription = "d",
+            ), widthDp = 470, heightDp = 290)
         save("ball_expanded", WidgetType.MAGIC_8_BALL, WidgetBreakpoint.EXPANDED, true,
             TileContent(
                 label = "magic 8 ball",

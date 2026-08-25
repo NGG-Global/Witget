@@ -47,7 +47,7 @@ import com.softdread.widgets.ui.components.NavTabs
 import com.softdread.widgets.ui.detail.WidgetDetailScreen
 import com.softdread.widgets.ui.detail.WidgetDetailViewModel
 import com.softdread.widgets.ui.gallery.GalleryScreen
-import com.softdread.widgets.ui.onboarding.OnboardingScreen
+import com.softdread.widgets.ui.onboarding.SetupFlow
 import com.softdread.widgets.ui.settings.SettingsScreen
 import com.softdread.widgets.widgets.common.EXTRA_APP_WIDGET_ID
 import com.softdread.widgets.widgets.common.EXTRA_WIDGET_TYPE
@@ -91,9 +91,11 @@ class MainActivity : ComponentActivity() {
                 }
 
                 if (showOnboarding) {
-                    OnboardingScreen(
+                    SetupFlow(
                         selectedPersonality = preferences.defaultPersonality,
+                        selectedPack = ThemePack.fromKeyOrDefault(preferences.themePackKey),
                         onSelectPersonality = viewModel::setDefaultPersonality,
+                        onSelectPack = viewModel::setThemePack,
                         onFinish = {
                             viewModel.completeOnboarding()
                             showOnboarding = false

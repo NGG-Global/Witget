@@ -163,7 +163,8 @@ class WeatherWidget : SoftDreadWidget(WidgetType.WEATHER) {
     private fun highLow(reading: WeatherReading, feelsLike: String, useCelsius: Boolean): String {
         val high = reading.highCelsius?.let { Formatting.temperature(it, useCelsius) }
         val low = reading.lowCelsius?.let { Formatting.temperature(it, useCelsius) }
-        return if (high != null && low != null) "$feelsLike\nhigh $high · low $low" else feelsLike
+        // One line: the metric rides beside the hero, where a newline cannot render.
+        return if (high != null && low != null) "$feelsLike · high $high · low $low" else feelsLike
     }
 
 }

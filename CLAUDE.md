@@ -106,6 +106,12 @@ Do not add ad-hoc `random()` picks inside a widget.
   cannot avoid the circles. `SoftDreadTile` is only the tap target and the
   spoken `contentDescription`; keep it that way. Text sizes multiply by the
   system font scale inside the renderer.
+- **The expanded/hero bottom stack is measured before it is placed.** On
+  short-wide tablet tiles it used to rise straight through the label; now it
+  gives things up in a fixed order (statement lines, a hero size step, the
+  second subhead line, the call to action, chips, strip) and the pill is never
+  dropped because it carries the literal metric. `drawBottomStack` in
+  `TileRenderer` owns this; the `regress_*` snapshot dumps are its receipts.
 - **Every text block goes through `TileTextGuard`.** It is the reason copy no
   longer crosses a solid circle and disappears. Solid shapes are obstacles;
   tints resolved by `Contrast.tint` are opaque and count as solid.
@@ -182,6 +188,17 @@ to a bare `FlowRow` is what made wrapped rows collide.
   leave the device; keep it that way.
 - **Response IDs and the `manifest.json` SHA.** They tie the shipped content to a
   specific version of the Bible.
+
+## First-run flow
+
+`ui/onboarding/SetupFlow.kt` implements the owner's motion concept
+(`docs/references/witget_setup_concept.html`): a skippable brand splash, then
+five steps over a circle field whose four circles re-anchor per step and
+re-skin with the chosen pack. Everything previewed is real — the voice step
+speaks actual `BAT_B6` Bible lines per personality, the look step resolves
+through `SoftDreadTiles`, the access step asks only for what was picked, and
+the home step drives the real pin flow one widget at a time. Reduced motion
+skips the splash and snaps the field.
 
 ## Brand assets
 
