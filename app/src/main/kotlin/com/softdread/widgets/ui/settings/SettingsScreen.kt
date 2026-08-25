@@ -2,7 +2,6 @@ package com.softdread.widgets.ui.settings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,10 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,10 +30,16 @@ import com.softdread.widgets.design.ThemePack
 import com.softdread.widgets.domain.model.Personality
 import com.softdread.widgets.ui.SoftDreadViewModel
 import com.softdread.widgets.ui.blurbRes
+import com.softdread.widgets.ui.components.PillGroup
 import com.softdread.widgets.ui.components.ChoicePill
 import com.softdread.widgets.ui.components.Masthead
 import com.softdread.widgets.ui.components.SectionLabel
+import com.softdread.widgets.ui.components.Rule
 import com.softdread.widgets.ui.components.SoftDreadCard
+import com.softdread.widgets.ui.components.SoftDreadField
+import com.softdread.widgets.ui.components.SoftDreadOutlinedButton
+import com.softdread.widgets.ui.components.SoftDreadTextAction
+import com.softdread.widgets.ui.components.SpecLine
 import com.softdread.widgets.ui.components.SwitchRow
 import com.softdread.widgets.ui.labelRes
 
@@ -68,8 +70,8 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
         Spacer(Modifier.height(SoftDreadSpacing.XLarge))
 
         SectionLabel(stringResource(R.string.settings_personality))
-        Spacer(Modifier.height(SoftDreadSpacing.Small))
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+        Spacer(Modifier.height(SoftDreadSpacing.Medium))
+        PillGroup {
             Personality.entries.forEach { personality ->
                 ChoicePill(
                     label = stringResource(personality.labelRes),
@@ -91,10 +93,10 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
             color = chrome.secondaryType,
         )
 
-        Spacer(Modifier.height(SoftDreadSpacing.XLarge))
+        Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
         SectionLabel(stringResource(R.string.settings_theme))
-        Spacer(Modifier.height(SoftDreadSpacing.Small))
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+        Spacer(Modifier.height(SoftDreadSpacing.Medium))
+        PillGroup {
             ThemePack.entries.forEach { pack ->
                 ChoicePill(
                     label = stringResource(pack.labelRes),
@@ -110,10 +112,10 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
             color = chrome.secondaryType,
         )
 
-        Spacer(Modifier.height(SoftDreadSpacing.XLarge))
+        Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
         SectionLabel(stringResource(R.string.settings_appearance))
-        Spacer(Modifier.height(SoftDreadSpacing.Small))
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+        Spacer(Modifier.height(SoftDreadSpacing.Medium))
+        PillGroup {
             AppearanceMode.entries.forEach { mode ->
                 ChoicePill(
                     label = stringResource(mode.labelRes),
@@ -123,9 +125,9 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
             }
         }
 
-        Spacer(Modifier.height(SoftDreadSpacing.XLarge))
+        Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
         SectionLabel(stringResource(R.string.settings_units))
-        Spacer(Modifier.height(SoftDreadSpacing.Small))
+        Spacer(Modifier.height(SoftDreadSpacing.Medium))
         SoftDreadCard {
             Column {
                 SwitchRow(
@@ -141,9 +143,9 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
             }
         }
 
-        Spacer(Modifier.height(SoftDreadSpacing.XLarge))
+        Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
         SectionLabel(stringResource(R.string.settings_weather_location))
-        Spacer(Modifier.height(SoftDreadSpacing.Small))
+        Spacer(Modifier.height(SoftDreadSpacing.Medium))
         SoftDreadCard {
             Column {
                 Text(
@@ -153,58 +155,48 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
                     color = chrome.onSurface,
                 )
                 Spacer(Modifier.height(SoftDreadSpacing.Medium))
-                OutlinedTextField(
+                SoftDreadField(
                     value = query,
                     onValueChange = {
                         query = it
                         if (it.length >= 2) viewModel.searchLocations(it) else viewModel.clearLocationResults()
                     },
-                    label = { Text(stringResource(R.string.settings_weather_search)) },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(R.string.settings_weather_search),
+                    placeholder = "tel aviv",
                 )
                 if (isSearching) {
-                    Spacer(Modifier.height(SoftDreadSpacing.Small))
-                    Text(
-                        text = stringResource(R.string.settings_weather_searching),
-                        style = SoftDreadType.Mono,
-                        color = chrome.secondaryType,
-                    )
+                    Spacer(Modifier.height(SoftDreadSpacing.Medium))
+                    SpecLine(stringResource(R.string.settings_weather_searching))
                 } else if (query.length >= 2 && locationResults.isEmpty()) {
-                    Spacer(Modifier.height(SoftDreadSpacing.Small))
-                    Text(
-                        text = stringResource(R.string.settings_weather_no_results),
-                        style = SoftDreadType.Mono,
-                        color = chrome.secondaryType,
-                    )
+                    Spacer(Modifier.height(SoftDreadSpacing.Medium))
+                    SpecLine(stringResource(R.string.settings_weather_no_results))
                 }
-                locationResults.forEach { location ->
-                    TextButton(
+                locationResults.forEachIndexed { index, location ->
+                    if (index == 0) Spacer(Modifier.height(SoftDreadSpacing.Small))
+                    Rule()
+                    SoftDreadTextAction(
+                        label = listOfNotNull(location.name, location.country).joinToString(" · "),
                         onClick = {
                             viewModel.setDefaultLocation(location)
                             query = ""
                             viewModel.clearLocationResults()
                         },
                         modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text(
-                            text = listOfNotNull(location.name, location.country).joinToString(" · "),
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                    }
+                    )
                 }
                 if (preferences.defaultLocation != null) {
-                    Spacer(Modifier.height(SoftDreadSpacing.Small))
-                    OutlinedButton(onClick = { viewModel.setDefaultLocation(null) }) {
-                        Text(stringResource(R.string.settings_weather_auto))
-                    }
+                    Spacer(Modifier.height(SoftDreadSpacing.Large))
+                    SoftDreadOutlinedButton(
+                        label = stringResource(R.string.settings_weather_auto),
+                        onClick = { viewModel.setDefaultLocation(null) },
+                    )
                 }
             }
         }
 
-        Spacer(Modifier.height(SoftDreadSpacing.XLarge))
+        Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
         SectionLabel(stringResource(R.string.settings_reset_history))
-        Spacer(Modifier.height(SoftDreadSpacing.Small))
+        Spacer(Modifier.height(SoftDreadSpacing.Medium))
         SoftDreadCard {
             Column {
                 Text(
@@ -213,23 +205,20 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
                     color = chrome.secondaryType,
                 )
                 Spacer(Modifier.height(SoftDreadSpacing.Medium))
-                OutlinedButton(onClick = { viewModel.resetRepeatHistory { historyCleared = true } }) {
-                    Text(stringResource(R.string.settings_reset_history))
-                }
+                SoftDreadOutlinedButton(
+                    label = stringResource(R.string.settings_reset_history),
+                    onClick = { viewModel.resetRepeatHistory { historyCleared = true } },
+                )
                 if (historyCleared) {
-                    Spacer(Modifier.height(SoftDreadSpacing.Small))
-                    Text(
-                        text = stringResource(R.string.settings_reset_done),
-                        style = SoftDreadType.Mono,
-                        color = chrome.secondaryType,
-                    )
+                    Spacer(Modifier.height(SoftDreadSpacing.Medium))
+                    SpecLine(stringResource(R.string.settings_reset_done))
                 }
             }
         }
 
-        Spacer(Modifier.height(SoftDreadSpacing.XLarge))
+        Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
         SectionLabel(stringResource(R.string.settings_privacy))
-        Spacer(Modifier.height(SoftDreadSpacing.Small))
+        Spacer(Modifier.height(SoftDreadSpacing.Medium))
         SoftDreadCard {
             Column {
                 Text(
@@ -243,11 +232,7 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
                     style = MaterialTheme.typography.titleSmall,
                     color = chrome.onSurface,
                 )
-                Text(
-                    text = OpenMeteoProvider().attribution,
-                    style = SoftDreadType.Mono,
-                    color = chrome.secondaryType,
-                )
+                SpecLine(OpenMeteoProvider().attribution)
                 manifest?.let { content ->
                     Spacer(Modifier.height(SoftDreadSpacing.Medium))
                     Text(
@@ -258,15 +243,13 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
                     val stringCount = content.totalResponseCount +
                         content.jokeCount +
                         content.equivalencyUnitCount
-                    Text(
-                        text = pluralStringResource(
+                    SpecLine(
+                        pluralStringResource(
                             R.plurals.settings_content_pack_body,
                             stringCount,
                             stringCount,
                             content.files.size,
                         ),
-                        style = SoftDreadType.Mono,
-                        color = chrome.secondaryType,
                     )
                 }
             }

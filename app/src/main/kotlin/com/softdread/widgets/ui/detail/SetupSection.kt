@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,6 +16,7 @@ import com.softdread.widgets.design.SoftDreadSpacing
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.ui.components.SectionLabel
+import com.softdread.widgets.ui.components.SoftDreadOutlinedButton
 import com.softdread.widgets.ui.components.SoftDreadCard
 import com.softdread.widgets.ui.components.StatusBadge
 import com.softdread.widgets.ui.permissions.PermissionStatus
@@ -66,7 +66,7 @@ fun SetupSection(
     val chrome = SoftDreadTheme.chrome
     Column(modifier = modifier.fillMaxWidth()) {
         SectionLabel(stringResource(spec.titleRes))
-        Spacer(Modifier.height(SoftDreadSpacing.Small))
+        Spacer(Modifier.height(SoftDreadSpacing.Medium))
         SoftDreadCard {
             Column {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -88,9 +88,10 @@ fun SetupSection(
                 )
                 if (!spec.granted) {
                     Spacer(Modifier.height(SoftDreadSpacing.Medium))
-                    OutlinedButton(onClick = spec.onAction) {
-                        Text(stringResource(spec.actionRes))
-                    }
+                    SoftDreadOutlinedButton(
+                        label = stringResource(spec.actionRes),
+                        onClick = spec.onAction,
+                    )
                 }
             }
         }

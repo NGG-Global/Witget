@@ -10,10 +10,8 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
@@ -28,6 +26,8 @@ import androidx.compose.ui.window.Dialog
 import com.softdread.widgets.R
 import com.softdread.widgets.data.prefs.WidgetInstanceConfig
 import com.softdread.widgets.design.SoftDreadShape
+import com.softdread.widgets.ui.components.SoftDreadOutlinedButton
+import com.softdread.widgets.ui.components.SoftDreadTextAction
 import com.softdread.widgets.design.SoftDreadSpacing
 import java.time.Instant
 import java.time.LocalDate
@@ -81,13 +81,19 @@ fun CountdownDateField(
         }
     }
 
-    Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
-        OutlinedButton(onClick = { showDatePicker = true }, modifier = Modifier.weight(1f)) {
-            Text(current.toLocalDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
-        }
-        OutlinedButton(onClick = { showTimePicker = true }) {
-            Text(current.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")))
-        }
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Medium),
+    ) {
+        SoftDreadOutlinedButton(
+            label = current.toLocalDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)),
+            onClick = { showDatePicker = true },
+            modifier = Modifier.weight(1f),
+        )
+        SoftDreadOutlinedButton(
+            label = current.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")),
+            onClick = { showTimePicker = true },
+        )
     }
 
     if (showDatePicker) {
@@ -100,20 +106,25 @@ fun CountdownDateField(
         DatePickerDialog(
             onDismissRequest = { showDatePicker = false },
             confirmButton = {
-                TextButton(onClick = {
-                    // The picker reports UTC midnight; read it back in UTC so the
-                    // calendar date the user tapped is the date that is stored.
-                    pickerState.selectedDateMillis?.let { millis ->
-                        val date = Instant.ofEpochMilli(millis).atZone(ZoneId.of("UTC")).toLocalDate()
-                        commit(date, current.toLocalTime())
-                    }
-                    showDatePicker = false
-                }) { Text(stringResource(R.string.common_done)) }
+                SoftDreadTextAction(
+                    label = stringResource(R.string.common_done),
+                    onClick = {
+                        // The picker reports UTC midnight; read it back in UTC so
+                        // the calendar date the user tapped is the date stored.
+                        pickerState.selectedDateMillis?.let { millis ->
+                            val date = Instant.ofEpochMilli(millis).atZone(ZoneId.of("UTC")).toLocalDate()
+                            commit(date, current.toLocalTime())
+                        }
+                        showDatePicker = false
+                    },
+                )
             },
             dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) {
-                    Text(stringResource(R.string.config_cancel))
-                }
+                SoftDreadTextAction(
+                    label = stringResource(R.string.config_cancel),
+                    onClick = { showDatePicker = false },
+                    colour = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             },
         ) {
             DatePicker(state = pickerState)
@@ -134,13 +145,18 @@ fun CountdownDateField(
                 Column(modifier = Modifier.padding(SoftDreadSpacing.Large)) {
                     TimePicker(state = timeState)
                     Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
-                        TextButton(onClick = { showTimePicker = false }) {
-                            Text(stringResource(R.string.config_cancel))
-                        }
-                        TextButton(onClick = {
-                            commit(current.toLocalDate(), LocalTime.of(timeState.hour, timeState.minute))
-                            showTimePicker = false
-                        }) { Text(stringResource(R.string.common_done)) }
+                        SoftDreadTextAction(
+                            label = stringResource(R.string.config_cancel),
+                            onClick = { showTimePicker = false },
+                            colour = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        SoftDreadTextAction(
+                            label = stringResource(R.string.common_done),
+                            onClick = {
+                                commit(current.toLocalDate(), LocalTime.of(timeState.hour, timeState.minute))
+                                showTimePicker = false
+                            },
+                        )
                     }
                 }
             }

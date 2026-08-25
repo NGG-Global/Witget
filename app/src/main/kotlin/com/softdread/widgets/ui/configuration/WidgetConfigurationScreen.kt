@@ -3,7 +3,6 @@ package com.softdread.widgets.ui.configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,10 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,9 +36,13 @@ import com.softdread.widgets.domain.model.Personality
 import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.ui.WidgetCatalog
+import com.softdread.widgets.ui.components.PillGroup
 import com.softdread.widgets.ui.components.ChoicePill
 import com.softdread.widgets.ui.components.PreviewTile
+import com.softdread.widgets.ui.components.Rule
 import com.softdread.widgets.ui.components.SectionLabel
+import com.softdread.widgets.ui.components.SoftDreadButton
+import com.softdread.widgets.ui.components.SoftDreadOutlinedButton
 import com.softdread.widgets.ui.detail.WidgetSpecificSettings
 import com.softdread.widgets.ui.labelRes
 import com.softdread.widgets.ui.preview.WidgetPreview
@@ -91,17 +91,19 @@ fun WidgetConfigurationScreen(
                 .padding(SoftDreadSpacing.XLarge),
         ) {
             Text(
-                text = stringResource(entry.nameRes),
+                text = stringResource(entry.nameRes).lowercase(java.util.Locale.getDefault()),
                 style = MaterialTheme.typography.headlineLarge,
                 color = chrome.onSurface,
             )
-            Spacer(Modifier.height(SoftDreadSpacing.Small))
+            Spacer(Modifier.height(SoftDreadSpacing.Medium))
+            Rule(thickness = 2.dp, colour = chrome.onSurface)
+            Spacer(Modifier.height(SoftDreadSpacing.Large))
             Text(
                 text = stringResource(entry.descriptionRes),
                 style = MaterialTheme.typography.bodyMedium,
                 color = chrome.secondaryType,
             )
-            Spacer(Modifier.height(SoftDreadSpacing.Large))
+            Spacer(Modifier.height(SoftDreadSpacing.XLarge))
 
             preview?.let {
                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -124,10 +126,10 @@ fun WidgetConfigurationScreen(
                 )
             }
 
-            Spacer(Modifier.height(SoftDreadSpacing.XLarge))
+            Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
             SectionLabel(stringResource(R.string.detail_personality))
-            Spacer(Modifier.height(SoftDreadSpacing.Small))
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+            Spacer(Modifier.height(SoftDreadSpacing.Medium))
+            PillGroup {
                 ChoicePill(
                     label = stringResource(
                         R.string.detail_personality_global,
@@ -147,8 +149,8 @@ fun WidgetConfigurationScreen(
 
             Spacer(Modifier.height(SoftDreadSpacing.Large))
             SectionLabel(stringResource(R.string.detail_appearance))
-            Spacer(Modifier.height(SoftDreadSpacing.Small))
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+            Spacer(Modifier.height(SoftDreadSpacing.Medium))
+            PillGroup {
                 AppearanceMode.entries.forEach { mode ->
                     ChoicePill(
                         label = stringResource(mode.labelRes),
@@ -160,7 +162,7 @@ fun WidgetConfigurationScreen(
 
             Spacer(Modifier.height(SoftDreadSpacing.Large))
             SectionLabel(stringResource(R.string.detail_settings))
-            Spacer(Modifier.height(SoftDreadSpacing.Small))
+            Spacer(Modifier.height(SoftDreadSpacing.Medium))
             WidgetSpecificSettings(
                 type = type,
                 config = config,
@@ -170,20 +172,17 @@ fun WidgetConfigurationScreen(
 
             Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
             Row(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Medium)) {
-                OutlinedButton(onClick = onCancel, modifier = Modifier.weight(1f).height(52.dp)) {
-                    Text(stringResource(R.string.config_cancel))
-                }
-                Button(
+                SoftDreadOutlinedButton(
+                    label = stringResource(R.string.config_cancel),
+                    onClick = onCancel,
+                    modifier = Modifier.weight(1f),
+                )
+                SoftDreadButton(
+                    label = stringResource(R.string.config_save),
                     onClick = onSave,
                     enabled = config.isConfigured,
-                    modifier = Modifier.weight(1f).height(52.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = SoftDreadPalette.Clay,
-                        contentColor = SoftDreadPalette.TypeOnColour,
-                    ),
-                ) {
-                    Text(stringResource(R.string.config_save))
-                }
+                    modifier = Modifier.weight(1f),
+                )
             }
         }
     }

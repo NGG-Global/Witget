@@ -2,12 +2,10 @@ package com.softdread.widgets.ui.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,7 +20,9 @@ import com.softdread.widgets.data.prefs.WidgetInstanceConfig
 import com.softdread.widgets.design.SoftDreadSpacing
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.domain.model.WidgetType
+import com.softdread.widgets.ui.components.PillGroup
 import com.softdread.widgets.ui.components.ChoicePill
+import com.softdread.widgets.ui.components.SoftDreadField
 import com.softdread.widgets.ui.components.SwitchRow
 import com.softdread.widgets.ui.labelRes
 
@@ -47,7 +47,7 @@ fun WidgetSpecificSettings(
         when (type) {
             WidgetType.SCREEN_TIME -> {
                 Label(stringResource(R.string.screentime_category_label))
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+                PillGroup {
                     EquivalencyCategory.entries.forEach { category ->
                         ChoicePill(
                             label = stringResource(category.labelRes),
@@ -60,7 +60,7 @@ fun WidgetSpecificSettings(
 
             WidgetType.DAILY_JOKE -> {
                 Label(stringResource(R.string.joke_categories_label))
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+                PillGroup {
                     JokeCategory.entries.forEach { category ->
                         val enabled = category in config.jokeCategories
                         ChoicePill(
@@ -91,7 +91,7 @@ fun WidgetSpecificSettings(
                         color = chrome.secondaryType,
                     )
                 } else {
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+                    PillGroup {
                         ChoicePill(
                             label = stringResource(R.string.dayvibe_calendars_all),
                             selected = config.calendarIds.isEmpty(),
@@ -141,7 +141,7 @@ fun WidgetSpecificSettings(
 
             WidgetType.TIME_PROGRESS -> {
                 Label(stringResource(R.string.progress_scope_label))
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+                PillGroup {
                     ProgressScope.entries.forEach { scope ->
                         ChoicePill(
                             label = stringResource(scope.labelRes),
@@ -164,19 +164,17 @@ fun CountdownSettings(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-        OutlinedTextField(
+        SoftDreadField(
             value = config.countdownTitle,
             onValueChange = { value -> onChange { it.copy(countdownTitle = value.take(40)) } },
-            label = { Text(stringResource(R.string.countdown_title_label)) },
-            placeholder = { Text(stringResource(R.string.countdown_title_hint)) },
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
+            label = stringResource(R.string.countdown_title_label),
+            placeholder = stringResource(R.string.countdown_title_hint),
         )
         Spacer(Modifier.height(SoftDreadSpacing.Medium))
         CountdownDateField(config = config, onChange = onChange)
         Spacer(Modifier.height(SoftDreadSpacing.Medium))
         Label(stringResource(R.string.countdown_unit_label))
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+        PillGroup {
             CountdownUnit.entries.forEach { unit ->
                 ChoicePill(
                     label = stringResource(unit.labelRes),

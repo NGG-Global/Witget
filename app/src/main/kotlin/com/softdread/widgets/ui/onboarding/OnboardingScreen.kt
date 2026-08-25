@@ -13,11 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.background
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -38,6 +35,10 @@ import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.ui.blurbRes
 import com.softdread.widgets.ui.components.AppMark
 import com.softdread.widgets.ui.components.ChoicePill
+import com.softdread.widgets.ui.components.Rule
+import com.softdread.widgets.ui.components.SoftDreadButton
+import com.softdread.widgets.ui.components.SoftDreadTextAction
+import com.softdread.widgets.ui.components.SpecLine
 import com.softdread.widgets.ui.components.PreviewTile
 import com.softdread.widgets.ui.labelRes
 import com.softdread.widgets.ui.preview.SampleData
@@ -68,10 +69,18 @@ fun OnboardingScreen(
     ) {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             AppMark(size = 48)
+            Spacer(Modifier.width(SoftDreadSpacing.Medium))
+            SpecLine("SOFT DREAD · ${page + 1}/$pages")
             Spacer(Modifier.weight(1f))
-            TextButton(onClick = onFinish) { Text(stringResource(R.string.onboarding_skip)) }
+            SoftDreadTextAction(
+                label = stringResource(R.string.onboarding_skip),
+                onClick = onFinish,
+                colour = chrome.secondaryType,
+            )
         }
 
+        Spacer(Modifier.height(SoftDreadSpacing.Large))
+        Rule(thickness = 2.dp, colour = chrome.onSurface)
         Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
 
         Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
@@ -144,19 +153,12 @@ fun OnboardingScreen(
                     )
                 }
             }
-            Button(
-                onClick = { if (page < pages - 1) page++ else onFinish() },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = SoftDreadPalette.Clay,
-                    contentColor = SoftDreadPalette.TypeOnColour,
+            SoftDreadButton(
+                label = stringResource(
+                    if (page < pages - 1) R.string.onboarding_next else R.string.onboarding_done,
                 ),
-            ) {
-                Text(
-                    stringResource(
-                        if (page < pages - 1) R.string.onboarding_next else R.string.onboarding_done,
-                    ),
-                )
-            }
+                onClick = { if (page < pages - 1) page++ else onFinish() },
+            )
         }
     }
 }

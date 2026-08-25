@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -78,7 +79,7 @@ fun PreviewTile(
             .background(colours.surface)
             .then(
                 if (colours.needsInsetStroke) {
-                    Modifier.border(1.dp, colours.onSurface.copy(alpha = 0.16f), RoundedCornerShape(radius))
+                    Modifier.border(1.dp, colours.hairline, RoundedCornerShape(radius))
                 } else {
                     Modifier
                 },
@@ -157,7 +158,7 @@ private fun CompactPreview(content: TileContent, colours: TileColours, breakpoin
                 Text(
                     text = it.uppercase(Locale.getDefault()),
                     style = SoftDreadType.MicroLabel,
-                    color = colours.onSurface.copy(alpha = 0.6f),
+                    color = colours.callToAction,
                 )
             }
         }
@@ -234,7 +235,7 @@ private fun StandardPreview(content: TileContent, colours: TileColours, breakpoi
                 Text(
                     text = it.uppercase(Locale.getDefault()),
                     style = SoftDreadType.MicroLabel,
-                    color = colours.onSurface.copy(alpha = 0.6f),
+                    color = colours.callToAction,
                 )
             }
         }
@@ -281,8 +282,10 @@ private fun ExpandedPreview(content: TileContent, colours: TileColours, breakpoi
                             .weight(1f)
                             .height(5.dp)
                             .clip(RoundedCornerShape(3.dp))
+                            // Lowest segment sits at the track tint so an
+                            // empty hour is still visible, not invisible.
                             .background(
-                                colours.onSurface.copy(alpha = 0.3f + 0.7f * value.coerceIn(0f, 1f)),
+                                lerp(colours.trackTint, colours.onSurface, value.coerceIn(0f, 1f)),
                             ),
                     )
                 }
@@ -342,7 +345,7 @@ private fun ExpandedPreview(content: TileContent, colours: TileColours, breakpoi
             Text(
                 text = it.uppercase(Locale.getDefault()),
                 style = SoftDreadType.MicroLabel,
-                color = colours.onSurface.copy(alpha = 0.6f),
+                color = colours.callToAction,
             )
         }
     }
@@ -379,7 +382,7 @@ private fun RingView(ring: LeadingVisual.Ring, colours: TileColours, size: Dp) {
                 val inset = stroke / 2f
                 val arcSize = Size(this.size.width - stroke, this.size.height - stroke)
                 drawArc(
-                    color = colours.onSurface.copy(alpha = 0.26f),
+                    color = colours.trackTint,
                     startAngle = 0f,
                     sweepAngle = 360f,
                     useCenter = false,
@@ -436,7 +439,7 @@ private fun DotsView(dots: LeadingVisual.Dots, colours: TileColours, width: Dp) 
                             .size(width / 8)
                             .clip(CircleShape)
                             .background(
-                                if (index < dots.filled) colours.onSurface else colours.onSurface.copy(alpha = 0.2f),
+                                if (index < dots.filled) colours.onSurface else colours.trackTint,
                             ),
                     )
                 }
@@ -454,7 +457,7 @@ private fun BarRow(bar: TileBar, colours: TileColours) {
                 .weight(1f)
                 .height(9.dp)
                 .clip(RoundedCornerShape(5.dp))
-                .background(colours.onSurface.copy(alpha = 0.2f)),
+                .background(colours.trackTint),
         ) {
             Box(
                 modifier = Modifier
@@ -487,7 +490,7 @@ private fun LargeBarRow(bar: TileBar, colours: TileColours) {
                 .fillMaxWidth()
                 .height(14.dp)
                 .clip(RoundedCornerShape(7.dp))
-                .background(colours.onSurface.copy(alpha = 0.18f)),
+                .background(colours.trackTint),
         ) {
             Box(
                 modifier = Modifier

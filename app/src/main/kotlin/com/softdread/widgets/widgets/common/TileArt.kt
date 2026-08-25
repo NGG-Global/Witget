@@ -10,6 +10,7 @@ import android.util.LruCache
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.withSave
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.toArgb
 import kotlin.math.max
 import kotlin.math.min
@@ -328,12 +329,13 @@ object TileArt {
         heightPx: Int,
         values: List<Float>,
         colour: Color,
+        trackColour: Color,
         gapPx: Float,
     ): Bitmap {
         val width = min(widthPx, MAX_DIMENSION).coerceAtLeast(8)
         val height = min(heightPx, MAX_DIMENSION).coerceAtLeast(3)
         val safeValues = values.map { it.coerceIn(0f, 1f) }
-        val key = "strip:$width:$height:${colour.value}:$gapPx:" +
+        val key = "strip:$width:$height:${colour.value}:${trackColour.value}:$gapPx:" +
             safeValues.joinToString(",") { (it * 100).roundToInt().toString() }
         cache.get(key)?.let { return it }
 
@@ -346,9 +348,9 @@ object TileArt {
 
         safeValues.forEachIndexed { index, value ->
             // The sheet varies each segment's opacity rather than its length, so
-            // the strip reads as a shape first and a chart second. A floor keeps
-            // a zero-probability hour visible as an empty slot.
-            paint.color = colour.copy(alpha = 0.3f + 0.7f * value).toArgb()
+            // the strip reads as a shape first and a chart second. The lowest
+            // segment sits at the track tint, so an empty hour stays visible.
+            paint.color = lerp(trackColour, colour, value).toArgb()
             val left = index * (segmentWidth + gapPx)
             canvas.drawRoundRect(RectF(left, 0f, left + segmentWidth, height.toFloat()), radius, radius, paint)
         }

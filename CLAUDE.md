@@ -33,7 +33,7 @@ Two conflicts are already resolved; do not "fix" them back:
 
 ```bash
 ./gradlew :app:assembleDebug
-./gradlew :app:testDebugUnitTest          # 138 tests; keep this green
+./gradlew :app:testDebugUnitTest          # 147 tests; keep this green
 ./gradlew :app:lintDebug                  # keep at 0 errors
 ./gradlew :app:assembleRelease            # verifies R8 rules
 ./gradlew :app:connectedDebugAndroidTest  # needs a device; none in CI so far
@@ -106,6 +106,22 @@ as taste.
 
 Material You is an opt-in override, never the default. The sheet is explicit:
 "the pack keeps its own colour set."
+
+**Colour is derived, not assigned.** Never hardcode an alpha for muted text or
+pick a type colour by hand. `Contrast.legibleField` corrects a field's lightness
+until type can reach AA on it, `Contrast.bestOn` picks ink or cream by
+measurement, and `Contrast.muted` solves for the most muted tone that still
+passes. `ContrastTest` asserts every pairing in both modes across all four theme
+packs, and it is the reason the pack is readable — an earlier version failed 46
+of 96 pairings because the alphas were eyeballed.
+
+**Chrome uses the pack's controls, not Material's.** `ui/components/SoftDreadControls.kt`
+holds the buttons, field, toggle, pills and rules; `Chrome.kt` holds `NavTabs`
+and `ScreenHeader`. Adding a stock `Button`, `OutlinedTextField` or `Switch`
+puts the Material look straight back. There are no icons anywhere — the sheet
+forbids them and the icon dependency has been removed. Rows of pills go through
+`PillGroup`, which owns both spacing axes; passing only a horizontal arrangement
+to a bare `FlowRow` is what made wrapped rows collide.
 
 ## Things not to change casually
 

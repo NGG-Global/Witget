@@ -80,7 +80,7 @@ fun SoftDreadTile(
         surface = colours.surface,
         circle = TileGeometry.circle(role, breakpoint, satelliteColours),
         satellite = TileGeometry.satellite(role, breakpoint, satelliteColours),
-        insetStroke = if (colours.needsInsetStroke) colours.onSurface.copy(alpha = 0.16f) else null,
+        insetStroke = if (colours.needsInsetStroke) colours.hairline else null,
     )
 
     var modifier = GlanceModifier
@@ -173,7 +173,7 @@ private fun CompactLayout(
             Spacer(GlanceModifier.height(6.dp))
             Text(
                 text = it.uppercase(Locale.getDefault()),
-                style = GlanceType.CallToAction(colours.onSurface.copy(alpha = 0.6f)),
+                style = GlanceType.CallToAction(colours.callToAction),
                 maxLines = 1,
             )
         }
@@ -251,7 +251,7 @@ private fun StandardLayout(
                 Spacer(GlanceModifier.height(8.dp))
                 Text(
                     text = it.uppercase(Locale.getDefault()),
-                    style = GlanceType.CallToAction(colours.onSurface.copy(alpha = 0.6f)),
+                    style = GlanceType.CallToAction(colours.callToAction),
                     maxLines = 1,
                 )
             }
@@ -300,6 +300,7 @@ private fun ExpandedLayout(
                         heightPx = (5 * density).toInt(),
                         values = content.strip,
                         colour = colours.onSurface,
+                        trackColour = colours.trackTint,
                         gapPx = 10f * density,
                     ),
                 ),
@@ -354,7 +355,7 @@ private fun ExpandedLayout(
             Spacer(GlanceModifier.height(14.dp))
             Text(
                 text = it.uppercase(Locale.getDefault()),
-                style = GlanceType.CallToAction(colours.onSurface.copy(alpha = 0.6f)),
+                style = GlanceType.CallToAction(colours.callToAction),
                 maxLines = 1,
             )
         }
@@ -414,7 +415,7 @@ private fun LeadingVisualView(
                     TileArt.ring(
                         sizePx = sizePx,
                         fraction = visual.fraction,
-                        trackColour = colours.onSurface.copy(alpha = 0.26f),
+                        trackColour = colours.trackTint,
                         fillColour = visual.fillColour ?: colours.circle,
                         centreColour = if (visual.centreLabel != null) colours.surface else null,
                     ),
@@ -466,7 +467,7 @@ private fun LeadingVisualView(
                     filled = visual.filled,
                     total = visual.total,
                     dotColour = colours.onSurface,
-                    emptyColour = colours.onSurface.copy(alpha = 0.2f),
+                    emptyColour = colours.trackTint,
                 ),
             ),
             contentDescription = null,
@@ -499,7 +500,7 @@ private fun BarRow(bar: TileBar, colours: TileColours, density: Float) {
                     widthPx = (200 * density).toInt(),
                     heightPx = (9 * density).toInt(),
                     fraction = bar.fraction,
-                    trackColour = colours.onSurface.copy(alpha = 0.2f),
+                    trackColour = colours.trackTint,
                     fillColour = SoftDreadTiles.colours(bar.colourRole).surface,
                 ),
             ),
@@ -544,7 +545,7 @@ private fun LargeBarRow(
                     widthPx = (320 * density).toInt(),
                     heightPx = (14 * density).toInt(),
                     fraction = bar.fraction,
-                    trackColour = colours.onSurface.copy(alpha = 0.18f),
+                    trackColour = colours.trackTint,
                     fillColour = SoftDreadTiles.colours(bar.colourRole).surface,
                 ),
             ),

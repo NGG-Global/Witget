@@ -9,15 +9,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Widgets
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,10 +27,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.softdread.widgets.R
 import com.softdread.widgets.data.prefs.AppearanceMode
-import com.softdread.widgets.design.SoftDreadPalette
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.ThemePack
 import com.softdread.widgets.domain.model.WidgetType
+import com.softdread.widgets.ui.components.NavTabs
 import com.softdread.widgets.ui.detail.WidgetDetailScreen
 import com.softdread.widgets.ui.detail.WidgetDetailViewModel
 import com.softdread.widgets.ui.gallery.GalleryScreen
@@ -139,38 +131,21 @@ private fun SoftDreadApp(
         containerColor = chrome.wallpaper,
         bottomBar = {
             if (route == Routes.GALLERY || route == Routes.SETTINGS) {
-                NavigationBar(containerColor = chrome.surface) {
-                    NavigationBarItem(
-                        selected = route == Routes.GALLERY,
-                        onClick = {
-                            navController.navigate(Routes.GALLERY) {
-                                popUpTo(Routes.GALLERY) { inclusive = true }
+                NavTabs(
+                    destinations = listOf(
+                        stringResource(R.string.nav_gallery) to (route == Routes.GALLERY),
+                        stringResource(R.string.nav_settings) to (route == Routes.SETTINGS),
+                    ),
+                    onSelect = { index ->
+                        val target = if (index == 0) Routes.GALLERY else Routes.SETTINGS
+                        if (target != route) {
+                            navController.navigate(target) {
+                                popUpTo(Routes.GALLERY) { inclusive = target == Routes.GALLERY }
+                                launchSingleTop = true
                             }
-                        },
-                        icon = { Icon(Icons.Filled.Widgets, contentDescription = null) },
-                        label = { Text(stringResource(R.string.nav_gallery)) },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = SoftDreadPalette.TypeOnColour,
-                            indicatorColor = SoftDreadPalette.Clay,
-                            selectedTextColor = chrome.onSurface,
-                            unselectedIconColor = chrome.secondaryType,
-                            unselectedTextColor = chrome.secondaryType,
-                        ),
-                    )
-                    NavigationBarItem(
-                        selected = route == Routes.SETTINGS,
-                        onClick = { navController.navigate(Routes.SETTINGS) },
-                        icon = { Icon(Icons.Filled.Settings, contentDescription = null) },
-                        label = { Text(stringResource(R.string.nav_settings)) },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = SoftDreadPalette.TypeOnColour,
-                            indicatorColor = SoftDreadPalette.Clay,
-                            selectedTextColor = chrome.onSurface,
-                            unselectedIconColor = chrome.secondaryType,
-                            unselectedTextColor = chrome.secondaryType,
-                        ),
-                    )
-                }
+                        }
+                    },
+                )
             }
         },
     ) { padding ->

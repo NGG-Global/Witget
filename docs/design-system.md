@@ -51,6 +51,39 @@ Tiles drop 22–26% lightness, all type goes cream, the cream tile inverts.
 
 Type `#F2E7D8`, circle fill `#E2D3C1`, wallpaper `#1C1814`.
 
+### Legibility correction
+
+The sheet's swatches are kept verbatim in `SoftDreadPalette`, but four of the
+light fields cannot carry readable body copy at those exact values — measured
+against WCAG AA, the best either type colour manages is clay 3.96:1, ember
+4.11:1, sage 4.19:1 and slate 3.86:1, and the sheet's own contrast note already
+concedes the point for sage ("large type only, >= 19px 600"). Amber's dark
+variant has the same problem against cream type.
+
+`Contrast.legibleField` therefore nudges a field's **lightness only** — hue and
+saturation untouched — until one of the two type colours clears 4.5:1. In the
+default pack the corrections are 2-5%:
+
+| Field | Sheet | Rendered | Type |
+|---|---|---|---|
+| clay | `#C65B3C` | `#B95336` | cream |
+| ember | `#E0762E` | `#E38240` | ink |
+| sage | `#7F9C7A` | `#87A282` | ink |
+| slate | `#5F7FA8` | `#55749C` | cream |
+| amber (dark) | `#96701F` | `#85631C` | cream |
+
+Amber, night, ink and cream are unchanged. Because the correction is computed
+rather than hand-written, the three alternate theme packs — whose colours nobody
+hand-checked — are legible by construction too.
+
+Secondary tones follow the same principle. The first implementation muted text
+with a fixed opacity per tile, which read comfortably on ink and was unreadable
+on ember: 46 of 96 pairings failed AA. `Contrast.muted` now *solves* for the
+most muted tone that still clears the ratio, so a tile with headroom gets a
+genuinely soft secondary and a tight one barely mutes at all — hierarchy there
+comes from size and weight instead. `ContrastTest` asserts every pairing, in
+both modes, across all four packs.
+
 ### Two exceptions the sheet calls out
 
 - **Amber** is *"the only tile with ink type on colour"*.
@@ -67,8 +100,9 @@ the dark anchor tile stays dark and the light tile stays light.
 
 **Contrast.** The sheet records cream on clay at 5.1:1, ink on amber at 7.9:1,
 ink on cream at 11.2:1, and cream on sage at 3.4:1 — *large type only, ≥19px
-600*. The sage tile's voice line is therefore never set below the sheet's
-13sp/500 floor, and its hero value carries the meaning.
+600*. After the legibility correction above, every tile clears 4.5:1 for normal
+text in both modes, so the "large type only" caveat no longer applies to any
+tile in the pack.
 
 ---
 
@@ -215,6 +249,25 @@ clay upper-left and sage lower-right — with a monochrome layer for themed icon
 App chrome reuses the sheet's own layout language: a clay eyebrow label above
 every section, a 2px ink rule under the masthead, cream cards at 18dp radius,
 and IBM Plex Mono for metadata.
+
+Material 3 supplies layout and behaviour, but its default components read as a
+Material app in a custom palette, so the controls are the pack's own
+(`ui/components/SoftDreadControls.kt`):
+
+| Material default | Soft Dread control |
+|---|---|
+| `NavigationBar` with icons and a pill indicator | `NavTabs` — micro-labels over a 2px ink rule, state carried by the pack's circle |
+| `TopAppBar` | `ScreenHeader` — a typographic `←` back, headline title, mono spec, hard rule |
+| `Button` / `OutlinedButton` (stadium, elevated) | `SoftDreadButton` / `SoftDreadOutlinedButton` — flat blocks at the 16dp pill radius |
+| `OutlinedTextField` (floating label) | `SoftDreadField` — eyebrow label above a flat cream well |
+| `Switch` | `SoftDreadToggle` — a flat track and a circle |
+| ad-hoc `FlowRow` | `PillGroup` — owns both spacing axes at the sheet's 10dp tile gap |
+
+The icon library was removed outright: the sheet's fourth rule is "no icons, no
+illustration, no gradients", so a dependency that only supplies icons had no
+business in the build. The date and time pickers remain Material's, themed
+through the palette — rebuilding a calendar would cost far more in usability and
+accessibility than it would gain in style.
 
 ---
 

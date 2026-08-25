@@ -6,7 +6,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,19 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -46,16 +35,21 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.softdread.widgets.R
 import com.softdread.widgets.data.device.ScreenTimeDataSource
 import com.softdread.widgets.data.prefs.AppearanceMode
-import com.softdread.widgets.design.SoftDreadPalette
 import com.softdread.widgets.design.SoftDreadSpacing
 import com.softdread.widgets.design.SoftDreadTheme
+import com.softdread.widgets.design.SoftDreadTiles
 import com.softdread.widgets.design.SoftDreadType
 import com.softdread.widgets.domain.model.Personality
 import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.ui.PinWidget
 import com.softdread.widgets.ui.WidgetCatalog
+import com.softdread.widgets.ui.components.PillGroup
 import com.softdread.widgets.ui.components.ChoicePill
+import com.softdread.widgets.ui.components.ScreenHeader
+import com.softdread.widgets.ui.components.SoftDreadButton
+import com.softdread.widgets.ui.components.SoftDreadOutlinedButton
+import com.softdread.widgets.ui.components.SpecLine
 import com.softdread.widgets.ui.components.PreviewTile
 import com.softdread.widgets.ui.components.SectionLabel
 import com.softdread.widgets.ui.components.SoftDreadCard
@@ -71,7 +65,6 @@ import kotlinx.coroutines.launch
  * control below it — personality, appearance, and the widget's own settings —
  * shows its effect immediately rather than describing it.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WidgetDetailScreen(
     type: WidgetType,
@@ -108,42 +101,27 @@ fun WidgetDetailScreen(
         viewModel.load(type, appWidgetId, chrome.isDark)
     }
 
-    Scaffold(
-        modifier = modifier,
-        containerColor = chrome.wallpaper,
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(entry.nameRes), style = MaterialTheme.typography.titleLarge) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.common_back),
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = chrome.wallpaper,
-                    titleContentColor = chrome.onSurface,
-                    navigationIconContentColor = chrome.onSurface,
-                ),
-            )
-        },
-    ) { padding ->
+    Scaffold(modifier = modifier, containerColor = chrome.wallpaper) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = SoftDreadSpacing.XLarge)
-                .padding(bottom = SoftDreadSpacing.XXLarge),
+                .padding(top = SoftDreadSpacing.Large, bottom = SoftDreadSpacing.XXLarge),
         ) {
+            ScreenHeader(
+                title = stringResource(entry.nameRes),
+                onBack = onBack,
+                trailing = "%02d · %s".format(type.ordinal + 1, type.colourRole.name),
+            )
+            Spacer(Modifier.height(SoftDreadSpacing.Large))
             Text(
                 text = stringResource(entry.descriptionRes),
                 style = MaterialTheme.typography.bodyLarge,
                 color = chrome.secondaryType,
             )
-            Spacer(Modifier.height(SoftDreadSpacing.Large))
+            Spacer(Modifier.height(SoftDreadSpacing.XLarge))
 
             state.preview?.let { preview ->
                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -168,10 +146,10 @@ fun WidgetDetailScreen(
                 }
             }
 
-            Spacer(Modifier.height(SoftDreadSpacing.Large))
+            Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
             SectionLabel(stringResource(R.string.detail_size))
-            Spacer(Modifier.height(SoftDreadSpacing.Small))
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+            Spacer(Modifier.height(SoftDreadSpacing.Medium))
+            PillGroup {
                 listOf(
                     WidgetBreakpoint.COMPACT to R.string.size_compact,
                     WidgetBreakpoint.STANDARD to R.string.size_standard,
@@ -197,8 +175,8 @@ fun WidgetDetailScreen(
             )
 
             SectionLabel(stringResource(R.string.detail_personality))
-            Spacer(Modifier.height(SoftDreadSpacing.Small))
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+            Spacer(Modifier.height(SoftDreadSpacing.Medium))
+            PillGroup {
                 ChoicePill(
                     label = stringResource(
                         R.string.detail_personality_global,
@@ -218,10 +196,10 @@ fun WidgetDetailScreen(
                 }
             }
 
-            Spacer(Modifier.height(SoftDreadSpacing.XLarge))
+            Spacer(Modifier.height(SoftDreadSpacing.XXLarge))
             SectionLabel(stringResource(R.string.detail_appearance))
-            Spacer(Modifier.height(SoftDreadSpacing.Small))
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(SoftDreadSpacing.Small)) {
+            Spacer(Modifier.height(SoftDreadSpacing.Medium))
+            PillGroup {
                 AppearanceMode.entries.forEach { mode ->
                     ChoicePill(
                         label = stringResource(mode.labelRes),
@@ -243,7 +221,7 @@ fun WidgetDetailScreen(
             if (config != null && hasTypeSettings(type)) {
                 Spacer(Modifier.height(SoftDreadSpacing.XLarge))
                 SectionLabel(stringResource(R.string.detail_settings))
-                Spacer(Modifier.height(SoftDreadSpacing.Small))
+                Spacer(Modifier.height(SoftDreadSpacing.Medium))
                 WidgetSpecificSettings(
                     type = type,
                     config = config,
@@ -254,31 +232,24 @@ fun WidgetDetailScreen(
 
             if (entry.isInteractive) {
                 Spacer(Modifier.height(SoftDreadSpacing.Large))
-                OutlinedButton(
+                SoftDreadOutlinedButton(
+                    label = stringResource(R.string.detail_ask_again),
                     onClick = {
                         scope.launch {
                             refreshMagic8Ball(context)
                             viewModel.refreshPreview(chrome.isDark)
                         }
                     },
-                ) {
-                    Text(stringResource(R.string.detail_ask_again))
-                }
+                )
             }
 
             Spacer(Modifier.height(SoftDreadSpacing.XLarge))
-            Button(
-                onClick = {
-                    scope.launch { pinFailed = !PinWidget.request(context, type) }
-                },
-                modifier = Modifier.fillMaxWidth().height(52.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = SoftDreadPalette.Clay,
-                    contentColor = SoftDreadPalette.TypeOnColour,
-                ),
-            ) {
-                Text(stringResource(R.string.detail_add_to_home))
-            }
+            SoftDreadButton(
+                label = stringResource(R.string.detail_add_to_home),
+                onClick = { scope.launch { pinFailed = !PinWidget.request(context, type) } },
+                modifier = Modifier.fillMaxWidth(),
+                accent = SoftDreadTiles.colours(type.colourRole, dark = chrome.isDark).surface,
+            )
 
             if (pinFailed || !PinWidget.isSupported(context)) {
                 Spacer(Modifier.height(SoftDreadSpacing.Small))
@@ -291,7 +262,7 @@ fun WidgetDetailScreen(
 
             Spacer(Modifier.height(SoftDreadSpacing.Large))
             SectionLabel(stringResource(R.string.detail_instances))
-            Spacer(Modifier.height(SoftDreadSpacing.Small))
+            Spacer(Modifier.height(SoftDreadSpacing.Medium))
             SoftDreadCard {
                 if (state.placedInstances.isEmpty()) {
                     Text(
@@ -309,12 +280,10 @@ fun WidgetDetailScreen(
                                     color = chrome.onSurface,
                                     modifier = Modifier.weight(1f),
                                 )
-                                Text(
-                                    text = stringResource(
+                                SpecLine(
+                                    stringResource(
                                         instance.personality(state.preferences.defaultPersonality).labelRes,
                                     ),
-                                    style = SoftDreadType.Mono,
-                                    color = chrome.secondaryType,
                                 )
                             }
                         }

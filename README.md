@@ -147,7 +147,7 @@ app/src/main/
       <eight widget packages>
     work/                  refresh scheduling and the midnight rollover
   res/font/                Bricolage Grotesque (variable) + IBM Plex Mono
-app/src/test/              138 JVM and Robolectric unit tests
+app/src/test/              147 JVM and Robolectric unit tests
 app/src/androidTest/       Compose and on-device pipeline tests
 docs/
   design-system.md         design token mapping and Glance adaptations
@@ -189,7 +189,7 @@ git clone <this repo> && cd Witget
 echo "sdk.dir=/path/to/Android/sdk" > local.properties
 
 ./gradlew :app:assembleDebug        # debug APK
-./gradlew :app:testDebugUnitTest    # 138 unit tests
+./gradlew :app:testDebugUnitTest    # 147 unit tests
 ./gradlew :app:lintDebug            # Android lint
 ./gradlew :app:assembleRelease      # minified release APK (unsigned by default)
 ```
@@ -319,6 +319,10 @@ raw network error is never shown.
   scaling applies. Only the flat colour fields, circles, rings, bars and strips
   are drawn.
 - Body copy never drops below the design sheet's 13sp / 500 floor.
+- Every text colour the tiles render meets WCAG AA (4.5:1 for body, labels and
+  metrics), in both light and dark and in all four theme packs. It is not
+  hand-tuned: field lightness and muted tones are solved for at resolve time and
+  asserted by `ContrastTest`.
 - Every tap target in the app is at least 48dp.
 - Status is never carried by colour alone: a "needs setup" card says so in text,
   the battery ring is paired with the percentage, and Day Vibe's dots sit beside
@@ -332,7 +336,7 @@ raw network error is never shown.
 ## Testing
 
 ```bash
-./gradlew :app:testDebugUnitTest          # 138 tests, JVM + Robolectric
+./gradlew :app:testDebugUnitTest          # 147 tests, JVM + Robolectric
 ./gradlew :app:connectedDebugAndroidTest  # requires a device or emulator
 ./gradlew :app:lintDebug                  # clean: no issues found
 ```
@@ -350,6 +354,7 @@ raw network error is never shown.
 | `Magic8BallLogicTest` | 40/20/40 sentiment weighting and the 12-tap repeat rule. |
 | `WidgetInstanceConfigTest` | Two instances of one type staying independent, per-instance history, template inheritance, deletion cleanup, orphan pruning. |
 | `WidgetBreakpointTest` | Breakpoint selection including off-by-a-few-dp launcher sizes. |
+| `ContrastTest` | Every text and non-text pairing the tiles render, in light and dark, across all four theme packs, against WCAG AA. |
 | `GalleryFlowTest`, `WidgetRenderTest` (device) | Compose flows, and every widget × personality × size producing resolved copy. |
 
 ---
@@ -372,7 +377,7 @@ built from.
 
 **Verification.** The build environment had no emulator and no attached device
 (no KVM, no hardware virtualisation). Everything statically verifiable was
-verified: the debug and minified release APKs build, 138 unit tests pass, lint
+verified: the debug and minified release APKs build, 147 unit tests pass, lint
 reports no issues, all eight widget receivers and providers are present in the
 merged manifest, and the instrumented tests compile. **Not yet exercised on a
 device:** rendering in a real launcher, the pin-widget flow, granting Usage
