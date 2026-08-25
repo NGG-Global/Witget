@@ -240,11 +240,23 @@ few dp off the grid.
 
 ---
 
-## 5. App icon and chrome
+## 5. Brand, app icon and chrome
 
-*"Two overlapping circles on cream is the whole mark."* The adaptive icon is
-built from vector paths at the sheet's ratios — 0.58 and 0.38 of the icon box,
-clay upper-left and sage lower-right — with a monochrome layer for themed icons.
+The product's brand is **witget** — lowercase, from the supplied logo
+(`references/witget_logo.png`), which supersedes the sheet's provisional
+two-circle mark for everything brand-facing. Soft Dread remains the widget
+design system's codename; the tiles are untouched by the rebrand because the
+logo draws from the same palette family.
+
+What the logo contributes, and where it landed:
+
+| Logo element | In the app |
+|---|---|
+| The quartered squircle with the clay circle and speech-bubble "w" | The adaptive launcher icon (background = quadrants and circle, foreground = bubble and "w" inside the 66dp safe zone, plus a monochrome layer) and `WitgetMark`, the Compose mark in the masthead and onboarding. Both use the logo's sampled colours — clay `#CC6848`, sage `#94A082`, slate `#4C5C71`, amber `#F0B058`, panel `#F8E3C8`, ink `#3B2521` — because they render the brand asset itself. |
+| The pale warm cream ground | The light wallpaper, now `#FCEEDC`. Measured before adopting: every chrome text tone gains contrast on it (ink 11.1:1, secondary 5.4:1, accent 8.8:1). |
+| The chunky rounded wordmark | Chrome display type is **Baloo 2**; body and labels are **Nunito**, the same rounded family at reading sizes. Space Grotesk is retired. Tiles keep Bricolage Grotesque — the sheet governs them. |
+| The coral i-dot and amber g-bowl accents | `chrome.brandDot`: the coral appears as decorative marks only — the wordmark's full stop in the masthead, page indicators, the nav's state dot. Never as text: as a mark it clears the 3:1 non-text bar (3.5-3.7:1 light, 3.9-4.7:1 dark on `#CC6848`), which clay-as-text never could. The functional accent stays night. |
+| The soft, friendly geometry | Chrome radii rounded up: pills 24dp (stadium at control height), cards 22dp, copy pills 18dp. Tile radii stay the sheet's 34/28dp. |
 
 App chrome reuses the sheet's own layout language: a clay eyebrow label above
 every section, a 2px ink rule under the masthead, cream cards at 18dp radius,

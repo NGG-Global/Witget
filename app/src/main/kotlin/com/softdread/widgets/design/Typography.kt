@@ -38,20 +38,37 @@ val BricolageGrotesque = FontFamily(
 )
 
 @OptIn(ExperimentalTextApi::class)
-private fun spaceGrotesk(weight: FontWeight) = Font(
-    resId = R.font.space_grotesk,
+private fun baloo(weight: FontWeight) = Font(
+    resId = R.font.baloo2,
     weight = weight,
     style = FontStyle.Normal,
     variationSettings = FontVariation.Settings(weight, FontStyle.Normal),
 )
 
-/** The app chrome's face. Tiles never use it. */
-val SpaceGrotesk = FontFamily(
-    spaceGrotesk(FontWeight.W300),
-    spaceGrotesk(FontWeight.W400),
-    spaceGrotesk(FontWeight.W500),
-    spaceGrotesk(FontWeight.W600),
-    spaceGrotesk(FontWeight.W700),
+@OptIn(ExperimentalTextApi::class)
+private fun nunito(weight: FontWeight) = Font(
+    resId = R.font.nunito,
+    weight = weight,
+    style = FontStyle.Normal,
+    variationSettings = FontVariation.Settings(weight, FontStyle.Normal),
+)
+
+/** The wordmark's display face: chunky, rounded, friendly. Tiles never use it. */
+val Baloo = FontFamily(
+    baloo(FontWeight.W400),
+    baloo(FontWeight.W500),
+    baloo(FontWeight.W600),
+    baloo(FontWeight.W700),
+    baloo(FontWeight.W800),
+)
+
+/** The chrome's reading face: rounded like the mark, built for body sizes. */
+val Nunito = FontFamily(
+    nunito(FontWeight.W400),
+    nunito(FontWeight.W500),
+    nunito(FontWeight.W600),
+    nunito(FontWeight.W700),
+    nunito(FontWeight.W800),
 )
 
 val PlexMono = FontFamily(
@@ -156,8 +173,8 @@ object SoftDreadType {
 
     /** Section eyebrow used throughout the sheet: 600 · 11 · .16em · uppercase. */
     val SectionLabel = TextStyle(
-        fontFamily = SpaceGrotesk,
-        fontWeight = FontWeight.W600,
+        fontFamily = Nunito,
+        fontWeight = FontWeight.W800,
         fontSize = 11.sp,
         lineHeight = 12.sp,
         letterSpacing = 0.16.em,
@@ -171,68 +188,68 @@ object SoftDreadType {
  * Grotesk, the widgets speak the sheet.
  */
 val SoftDreadTypography = Typography(
-    displayLarge = SoftDreadType.Hero4x4.copy(fontSize = 64.sp, lineHeight = 60.sp, fontFamily = SpaceGrotesk),
-    displayMedium = SoftDreadType.Hero4x2.copy(fontFamily = SpaceGrotesk),
-    displaySmall = SoftDreadType.Hero2x2.copy(fontFamily = SpaceGrotesk),
+    displayLarge = SoftDreadType.Hero4x4.copy(fontSize = 64.sp, lineHeight = 60.sp, fontFamily = Nunito),
+    displayMedium = SoftDreadType.Hero4x2.copy(fontFamily = Nunito),
+    displaySmall = SoftDreadType.Hero2x2.copy(fontFamily = Nunito),
     headlineLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Baloo,
         fontWeight = FontWeight.W800,
         fontSize = 30.sp,
         lineHeight = 34.sp,
         letterSpacing = (-0.03).em,
     ),
     headlineMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Baloo,
         fontWeight = FontWeight.W600,
         fontSize = 25.sp,
         lineHeight = 33.sp,
         letterSpacing = (-0.01).em,
     ),
-    headlineSmall = SoftDreadType.Subhead.copy(fontFamily = SpaceGrotesk),
+    headlineSmall = SoftDreadType.Subhead.copy(fontFamily = Nunito),
     titleLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Baloo,
         fontWeight = FontWeight.W600,
         fontSize = 20.sp,
         lineHeight = 24.sp,
         letterSpacing = (-0.01).em,
     ),
     titleMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Baloo,
         fontWeight = FontWeight.W600,
         fontSize = 17.sp,
         lineHeight = 20.sp,
         letterSpacing = (-0.01).em,
     ),
     titleSmall = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Nunito,
         fontWeight = FontWeight.W600,
         fontSize = 14.sp,
         lineHeight = 18.sp,
     ),
     bodyLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Nunito,
         fontWeight = FontWeight.W400,
         fontSize = 15.sp,
         lineHeight = 23.sp,
     ),
     bodyMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Nunito,
         fontWeight = FontWeight.W400,
         fontSize = 13.5.sp,
         lineHeight = 20.sp,
     ),
     bodySmall = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Nunito,
         fontWeight = FontWeight.W400,
         fontSize = 12.sp,
         lineHeight = 17.sp,
     ),
     labelLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Nunito,
         fontWeight = FontWeight.W600,
         fontSize = 14.sp,
         lineHeight = 18.sp,
     ),
     labelMedium = SoftDreadType.SectionLabel,
-    labelSmall = SoftDreadType.MicroLabel.copy(fontFamily = SpaceGrotesk),
+    labelSmall = SoftDreadType.MicroLabel.copy(fontFamily = Nunito),
 )

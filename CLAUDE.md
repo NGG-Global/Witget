@@ -5,9 +5,11 @@ file covers the conventions that are easy to break without noticing.
 
 ## What this is
 
-A native Android widget pack: eight Glance home-screen widgets that interpret
-device data with personality, plus a Compose app for browsing and customising
-them. Codename and design system: **Soft Dread**.
+**witget** — a native Android widget pack: eight Glance home-screen widgets that
+interpret device data with personality, plus a Compose app for browsing and
+customising them. The widget design system's codename is **Soft Dread**; the
+brand (name, launcher icon, app chrome voice) comes from the logo at
+`docs/references/witget_logo.png`. Package and class names keep the codename.
 
 ## Source-of-truth hierarchy
 
@@ -131,8 +133,14 @@ Anthropic's palette; `chrome.accent`/`onAccent`/`accentText` are the only accent
 tokens. Clay belongs to the Screen Time tile.
 
 **Two type voices.** Tiles and their previews are Bricolage Grotesque (the
-sheet's scale); app chrome is Space Grotesk (owner-directed, see
-design-system.md). Don't mix them.
+sheet's scale); app chrome is the logo's rounded pairing — Baloo 2 for display,
+Nunito for body (see design-system.md). Don't mix them, and don't reintroduce a
+squarish grotesque into the chrome.
+
+**The brand dot is decorative only.** `chrome.brandDot` (the logo's coral) marks
+state — page dots, nav dots, the wordmark's full stop — and is contrast-tested
+as a non-text element. It is never a text colour; the functional accent stays
+night.
 
 **Chrome uses the pack's controls, not Material's.** `ui/components/SoftDreadControls.kt`
 holds the buttons, field, toggle, pills and rules; `Chrome.kt` holds `NavTabs`

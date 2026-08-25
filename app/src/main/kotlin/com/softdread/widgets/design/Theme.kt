@@ -27,10 +27,14 @@ object SoftDreadShape {
     /** TILE GAP ..... 10PX. */
     val TileGap: Dp = 10.dp
 
-    /** Pill radius read off the 4x4 copy pills. */
-    val PillRadius: Dp = 16.dp
-    val ChipRadius: Dp = 20.dp
-    val CardRadius: Dp = 18.dp
+    /**
+     * Chrome radii, rounder than the sheet's tile radii on purpose: the Witget
+     * mark is a soft squircle and the wordmark is chunky-rounded, so the app's
+     * own furniture follows it. Tile radii above stay the sheet's.
+     */
+    val PillRadius: Dp = 18.dp
+    val ChipRadius: Dp = 24.dp
+    val CardRadius: Dp = 22.dp
 
     /** CIRCLE 0 ..... 0.55-1.7x TILE WIDTH, ALWAYS CROPPED. */
     const val CIRCLE_MIN_RATIO = 0.55f
@@ -72,6 +76,8 @@ data class SoftDreadChrome(
     val onAccent: androidx.compose.ui.graphics.Color,
     /** The accent used as text or a small mark on wallpaper/surface. */
     val accentText: androidx.compose.ui.graphics.Color,
+    /** The logo's coral, for decorative marks only — never text. */
+    val brandDot: androidx.compose.ui.graphics.Color,
     val isDark: Boolean,
     val pack: ThemePack,
 )
@@ -93,6 +99,7 @@ private fun chromeFor(dark: Boolean, pack: ThemePack) = if (dark) {
         accent = SoftDreadPalette.CircleFillDark,
         onAccent = SoftDreadPalette.Ink,
         accentText = SoftDreadPalette.CircleFillDark,
+        brandDot = SoftDreadPalette.BrandDotDark,
         isDark = true,
         pack = pack,
     )
@@ -107,6 +114,7 @@ private fun chromeFor(dark: Boolean, pack: ThemePack) = if (dark) {
         accent = SoftDreadPalette.Night,
         onAccent = SoftDreadPalette.TypeOnColour,
         accentText = SoftDreadPalette.Night,
+        brandDot = SoftDreadPalette.BrandDotLight,
         isDark = false,
         pack = pack,
     )

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Soft Dread</string>
+    <string name="app_name">witget</string>
     <string name="configure_widget">Configure widget</string>
     <string name="app_tagline">Your phone already has the data. These widgets give it a personality.</string>
     <string name="nav_gallery">Widgets</string>
     <string name="nav_settings">Settings</string>
-    <string name="gallery_title">soft dread</string>
+    <string name="gallery_title">witget</string>
     <string name="gallery_subtitle">eight widgets · one colour each</string>
     <string name="gallery_needs_setup">Needs setup</string>
     <string name="gallery_ready">Ready</string>
     <string name="gallery_sample_label">Sample preview</string>
     <string name="gallery_section_widgets">the pack</string>
     <string name="detail_add_to_home">Add to home screen</string>
-    <string name="detail_add_manual">Your launcher does not support adding widgets from inside an app. Long-press the home screen, choose Widgets, then pick Soft Dread.</string>
+    <string name="detail_add_manual">Your launcher does not support adding widgets from inside an app. Long-press the home screen, choose Widgets, then pick witget.</string>
     <string name="detail_personality">Personality</string>
     <string name="detail_personality_global">Use global (%1$s)</string>
     <string name="detail_appearance">Appearance</string>
@@ -72,7 +72,7 @@
     <string name="onboarding_3_title">Permissions when you need them</string>
     <string name="onboarding_3_body">Five of the eight widgets need nothing at all. Screen Time, Day Vibe and Weather ask only when you add them, and everything else keeps working if you say no.</string>
     <string name="permission_usage_title">Usage access</string>
-    <string name="permission_usage_body">Android keeps screen time behind a special permission that only Settings can grant. Soft Dread reads the daily total on this device and never sends it anywhere.</string>
+    <string name="permission_usage_body">Android keeps screen time behind a special permission that only Settings can grant. witget reads the daily total on this device and never sends it anywhere.</string>
     <string name="permission_usage_action">Open Settings</string>
     <string name="permission_calendar_title">Calendar access</string>
     <string name="permission_calendar_body">Day Vibe reads today\'s events to count meetings and booked hours. Titles stay on the device and are never shown unless you turn them on.</string>

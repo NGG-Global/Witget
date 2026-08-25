@@ -52,19 +52,28 @@ fun SectionLabel(text: String, modifier: Modifier = Modifier) {
     )
 }
 
-/** The sheet's masthead: the two-circle mark, the wordmark and a mono strapline. */
+/** The masthead: the Witget mark, the lowercase wordmark with its coral full stop, a mono strapline. */
 @Composable
 fun Masthead(title: String, subtitle: String, modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            AppMark(size = 56)
+            WitgetMark(size = 56)
             Spacer(Modifier.width(SoftDreadSpacing.Large))
             Column {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.headlineLarge,
-                    color = SoftDreadTheme.chrome.onSurface,
-                )
+                Row(verticalAlignment = Alignment.Bottom) {
+                    Text(
+                        text = title.lowercase(java.util.Locale.getDefault()),
+                        style = MaterialTheme.typography.headlineLarge,
+                        color = SoftDreadTheme.chrome.onSurface,
+                    )
+                    Spacer(Modifier.width(3.dp))
+                    // The logo's i-dot, borrowed as the wordmark's full stop.
+                    Dot(
+                        colour = SoftDreadTheme.chrome.brandDot,
+                        size = 9.dp,
+                        modifier = Modifier.padding(bottom = 7.dp),
+                    )
+                }
                 Spacer(Modifier.height(4.dp))
                 Text(
                     text = subtitle,
@@ -76,34 +85,6 @@ fun Masthead(title: String, subtitle: String, modifier: Modifier = Modifier) {
         Spacer(Modifier.height(SoftDreadSpacing.Large))
         // The sheet's masthead rule: 2px ink, hard edge, full bleed.
         Rule(thickness = 2.dp, colour = SoftDreadTheme.chrome.onSurface)
-    }
-}
-
-/** "Two overlapping circles on cream is the whole mark." */
-@Composable
-fun AppMark(size: Int, modifier: Modifier = Modifier) {
-    val chrome = SoftDreadTheme.chrome
-    Box(
-        modifier = modifier
-            .size(size.dp)
-            .clip(RoundedCornerShape((size * 0.29f).dp))
-            .background(if (chrome.isDark) SoftDreadPalette.CreamDark else SoftDreadPalette.Cream),
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(start = (size * 0.086f).dp, top = (size * 0.115f).dp)
-                .size((size * 0.58f).dp)
-                .clip(CircleShape)
-                .background(if (chrome.isDark) SoftDreadPalette.ClayDark else SoftDreadPalette.Clay),
-        )
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = (size * 0.105f).dp, bottom = (size * 0.086f).dp)
-                .size((size * 0.38f).dp)
-                .clip(CircleShape)
-                .background(if (chrome.isDark) SoftDreadPalette.SageDark else SoftDreadPalette.Sage),
-        )
     }
 }
 
@@ -187,7 +168,7 @@ fun NavTabs(
                         label = "navDot",
                     )
                     val dotColour by androidx.compose.animation.animateColorAsState(
-                        targetValue = if (selected) chrome.accentText else chrome.hairline,
+                        targetValue = if (selected) chrome.brandDot else chrome.hairline,
                         animationSpec = com.softdread.widgets.design.SoftDreadMotion.settle(),
                         label = "navDotColour",
                     )

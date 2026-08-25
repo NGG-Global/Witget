@@ -33,8 +33,12 @@ object SoftDreadPalette {
 
     /** Type on a colour field. */
     val TypeOnColour = Color(0xFFFFF6EC)
-    /** Light wallpaper / app canvas. */
-    val WallpaperLight = Color(0xFFE7DED3)
+    /**
+     * Light wallpaper / app canvas: the Witget logo's own cream. Warmer and
+     * lighter than the sheet's #E7DED3, and measured — every chrome text tone
+     * gains contrast on it (ink 11.1:1, secondary 5.4:1, accent 8.8:1).
+     */
+    val WallpaperLight = Color(0xFFFCEEDC)
     /** Micro-label on a cream surface. */
     /** Sheet #A2664A, darkened so the eyebrow label clears AA on cream. */
     val LabelOnCream = Color(0xFF87553E)
@@ -66,6 +70,15 @@ object SoftDreadPalette {
     val CircleFillDark = Color(0xFFE2D3C1)
     val WallpaperDark = Color(0xFF1C1814)
     val LabelOnCreamDark = Color(0xFFC08D6B)
+
+    /**
+     * The logo's coral, used for decorative brand marks only — the i-dot motif:
+     * page indicators, nav dots, the wordmark's full stop. Never text: as a
+     * mark it clears the 3:1 non-text bar (3.5-3.7:1 light, 3.9-4.7:1 dark),
+     * which clay-as-text never could.
+     */
+    val BrandDotLight = Color(0xFFC65B3C)
+    val BrandDotDark = Color(0xFFCC6848)
     val SecondaryTypeDark = Color(0xFFA89579)
 }
 

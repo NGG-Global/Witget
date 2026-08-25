@@ -1,9 +1,11 @@
-# Soft Dread — a personality-driven Android widget pack
+# witget — a personality-driven Android widget pack
 
 > Your phone already has the data. These widgets give it a personality.
 
 Eight native Android home-screen widgets that interpret the information your
-phone already holds, instead of just displaying it. Screen time becomes
+phone already holds, instead of just displaying it. The widget design system is
+codenamed **Soft Dread**; the product brand is **witget**, from the logo in
+`docs/references/witget_logo.png`. Screen time becomes
 *"0.7 Lord of the Rings trilogies"*. Eighteen per cent battery becomes
 *"optimism is no longer appropriate"*. The number you actually need never
 disappears — the joke sits beside it, never on top of it.

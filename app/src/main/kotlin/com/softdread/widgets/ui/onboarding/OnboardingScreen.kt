@@ -43,7 +43,7 @@ import com.softdread.widgets.domain.model.Personality
 import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.ui.blurbRes
-import com.softdread.widgets.ui.components.AppMark
+import com.softdread.widgets.ui.components.WitgetMark
 import com.softdread.widgets.ui.components.ChoicePill
 import com.softdread.widgets.ui.components.PillGroup
 import com.softdread.widgets.ui.components.PreviewTile
@@ -88,9 +88,9 @@ fun OnboardingScreen(
                 modifier = Modifier.fillMaxWidth().entrance(0),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Box(Modifier.breathing()) { AppMark(size = 48) }
+                Box(Modifier.breathing()) { WitgetMark(size = 48) }
                 Spacer(Modifier.width(SoftDreadSpacing.Medium))
-                SpecLine("SOFT DREAD · ${page + 1}/$pages")
+                SpecLine("WITGET · ${page + 1}/$pages")
                 Spacer(Modifier.weight(1f))
                 SoftDreadTextAction(
                     label = stringResource(R.string.onboarding_skip),
@@ -205,7 +205,7 @@ fun OnboardingScreen(
                                 .height(8.dp)
                                 .clip(CircleShape)
                                 .background(
-                                    if (index == page) chrome.accentText
+                                    if (index == page) chrome.brandDot
                                     else chrome.onSurface.copy(alpha = 0.2f),
                                 ),
                         )

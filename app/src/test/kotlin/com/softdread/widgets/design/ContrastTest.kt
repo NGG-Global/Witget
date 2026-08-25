@@ -114,6 +114,12 @@ class ContrastTest {
             assertAA("$mode accent text on wallpaper", chrome.accentText, chrome.wallpaper, Contrast.AA_NORMAL)
             assertAA("$mode accent text on card", chrome.accentText, chrome.surface, Contrast.AA_NORMAL)
 
+            // The brand dot is decorative but stateful (page/nav indicators),
+            // so it must clear the non-text bar on both grounds.
+            val brandDot = if (dark) SoftDreadPalette.BrandDotDark else SoftDreadPalette.BrandDotLight
+            assertAA("$mode brand dot on wallpaper", brandDot, chrome.wallpaper, Contrast.AA_NON_TEXT)
+            assertAA("$mode brand dot on card", brandDot, chrome.surface, Contrast.AA_NON_TEXT)
+
             // Status badges borrow the resolved sage and amber tiles.
             listOf(ColourRole.SAGE, ColourRole.AMBER).forEach { role ->
                 val tile = SoftDreadTiles.colours(role, ThemePack.CLAY_HOUSE, dark)
