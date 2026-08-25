@@ -16,6 +16,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.animateContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -35,7 +42,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.softdread.widgets.R
 import com.softdread.widgets.data.device.ScreenTimeDataSource
 import com.softdread.widgets.data.prefs.AppearanceMode
+import com.softdread.widgets.design.SoftDreadMotion
 import com.softdread.widgets.design.SoftDreadSpacing
+import com.softdread.widgets.design.entrance
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.SoftDreadTiles
 import com.softdread.widgets.design.SoftDreadType
@@ -110,11 +119,13 @@ fun WidgetDetailScreen(
                 .padding(horizontal = SoftDreadSpacing.XLarge)
                 .padding(top = SoftDreadSpacing.Large, bottom = SoftDreadSpacing.XXLarge),
         ) {
-            ScreenHeader(
-                title = stringResource(entry.nameRes),
-                onBack = onBack,
-                trailing = "%02d · %s".format(type.ordinal + 1, type.colourRole.name),
-            )
+            Box(Modifier.entrance(0)) {
+                ScreenHeader(
+                    title = stringResource(entry.nameRes),
+                    onBack = onBack,
+                    trailing = "%02d · %s".format(type.ordinal + 1, type.colourRole.name),
+                )
+            }
             Spacer(Modifier.height(SoftDreadSpacing.Large))
             Text(
                 text = stringResource(entry.descriptionRes),
@@ -124,16 +135,31 @@ fun WidgetDetailScreen(
             Spacer(Modifier.height(SoftDreadSpacing.XLarge))
 
             state.preview?.let { preview ->
-                Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    PreviewTile(
-                        role = type.colourRole,
-                        breakpoint = state.breakpoint,
-                        content = preview.content,
-                        isDark = chrome.isDark,
-                        modifier = Modifier.fillMaxWidth(
-                            if (state.breakpoint == WidgetBreakpoint.COMPACT) 0.55f else 1f,
-                        ),
-                    )
+                // The tile morphs between sizes and cross-fades when its copy
+                // changes, so every control below shows its effect immediately
+                // and visibly.
+                Box(
+                    Modifier.fillMaxWidth().animateContentSize(SoftDreadMotion.settle()),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    AnimatedContent(
+                        targetState = Pair(state.breakpoint, preview.content),
+                        transitionSpec = {
+                            (fadeIn(SoftDreadMotion.settle()) + scaleIn(SoftDreadMotion.settle(), initialScale = 0.94f))
+                                .togetherWith(fadeOut(SoftDreadMotion.settle()) + scaleOut(SoftDreadMotion.settle(), targetScale = 0.97f))
+                        },
+                        label = "detailPreview",
+                    ) { (breakpoint, content) ->
+                        PreviewTile(
+                            role = type.colourRole,
+                            breakpoint = breakpoint,
+                            content = content,
+                            isDark = chrome.isDark,
+                            modifier = Modifier.fillMaxWidth(
+                                if (breakpoint == WidgetBreakpoint.COMPACT) 0.55f else 1f,
+                            ),
+                        )
+                    }
                 }
                 if (preview.isSample) {
                     Spacer(Modifier.height(SoftDreadSpacing.Small))
@@ -244,11 +270,13 @@ fun WidgetDetailScreen(
             }
 
             Spacer(Modifier.height(SoftDreadSpacing.XLarge))
+            val tileColours = SoftDreadTiles.colours(type.colourRole, chrome.pack, chrome.isDark)
             SoftDreadButton(
                 label = stringResource(R.string.detail_add_to_home),
                 onClick = { scope.launch { pinFailed = !PinWidget.request(context, type) } },
                 modifier = Modifier.fillMaxWidth(),
-                accent = SoftDreadTiles.colours(type.colourRole, dark = chrome.isDark).surface,
+                accent = tileColours.surface,
+                onAccent = tileColours.onSurface,
             )
 
             if (pinFailed || !PinWidget.isSupported(context)) {

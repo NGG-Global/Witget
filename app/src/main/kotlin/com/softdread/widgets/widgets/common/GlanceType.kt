@@ -31,17 +31,52 @@ import com.softdread.widgets.domain.model.WidgetBreakpoint
  */
 object GlanceType {
 
-    fun hero(breakpoint: WidgetBreakpoint, colour: Color): TextStyle = TextStyle(
-        color = ColorProvider(colour),
-        fontSize = when (breakpoint) {
-            WidgetBreakpoint.TINY -> 26.sp
-            WidgetBreakpoint.COMPACT -> 38.sp
-            WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 46.sp
-            WidgetBreakpoint.EXPANDED -> 76.sp
-        },
-        fontWeight = FontWeight.Bold,
-        fontFamily = FontFamily.SansSerif,
-    )
+    fun hero(breakpoint: WidgetBreakpoint, colour: Color): TextStyle =
+        heroFitted(breakpoint, colour, text = "")
+
+    /**
+     * The hero style, stepped down for long values.
+     *
+     * Glance has no text auto-sizing and no measurement pass, so a value like
+     * "100%" beside the battery ring, "365 days" on a compact countdown or
+     * "12 meetings" on a standard Day Vibe would clip at the sheet's nominal
+     * sizes. The step-downs below are derived from the tiles' inner widths at
+     * the bold face's ~0.55em advance; short values render at the sheet's exact
+     * scale and only the long tail shrinks.
+     */
+    fun heroFitted(
+        breakpoint: WidgetBreakpoint,
+        colour: Color,
+        text: String,
+        besideLeading: Boolean = false,
+    ): TextStyle {
+        val length = text.length
+        val size = when (breakpoint) {
+            WidgetBreakpoint.TINY -> if (length <= 6) 26.sp else 22.sp
+            WidgetBreakpoint.COMPACT -> when {
+                besideLeading -> if (length <= 4) 32.sp else 26.sp
+                length <= 4 -> 38.sp
+                length <= 7 -> 32.sp
+                else -> 26.sp
+            }
+            WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> when {
+                length <= 4 -> 46.sp
+                length <= 8 -> 40.sp
+                else -> 32.sp
+            }
+            WidgetBreakpoint.EXPANDED -> when {
+                length <= 4 -> 76.sp
+                length <= 7 -> 64.sp
+                else -> 44.sp
+            }
+        }
+        return TextStyle(
+            color = ColorProvider(colour),
+            fontSize = size,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.SansSerif,
+        )
+    }
 
     /** The oversized numeral the sheet uses on 4x2 and 4x4 lead-with-a-number tiles. */
     fun heroNumeral(breakpoint: WidgetBreakpoint, colour: Color): TextStyle = TextStyle(

@@ -20,6 +20,7 @@ import com.softdread.widgets.data.prefs.WidgetInstanceConfig
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.ThemePack
 import com.softdread.widgets.domain.model.WidgetType
+import com.softdread.widgets.widgets.common.forceRefresh
 import com.softdread.widgets.work.WidgetRefreshWorker
 import kotlinx.coroutines.launch
 
@@ -96,7 +97,7 @@ class WidgetConfigurationActivity : ComponentActivity() {
                                     val widget = WidgetRefreshWorker.widgetFor(type)
                                     val glanceId = GlanceAppWidgetManager(applicationContext)
                                         .getGlanceIdBy(appWidgetId)
-                                    widget.update(applicationContext, glanceId)
+                                    widget.forceRefresh(applicationContext, glanceId)
                                 }
                                 setResult(Activity.RESULT_OK, resultIntent(appWidgetId))
                                 finish()

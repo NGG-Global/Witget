@@ -116,9 +116,10 @@ private fun TinyLayout(content: TileContent, colours: TileColours, breakpoint: W
     Column(modifier = GlanceModifier.fillMaxSize(), verticalAlignment = Alignment.Vertical.CenterVertically) {
         LabelRow(content, colours, breakpoint)
         Spacer(GlanceModifier.height(4.dp))
+        val heroText = content.heroValue ?: content.voice.orEmpty()
         Text(
-            text = content.heroValue ?: content.voice.orEmpty(),
-            style = GlanceType.hero(breakpoint, colours.onSurface),
+            text = heroText,
+            style = GlanceType.heroFitted(breakpoint, colours.onSurface, heroText),
             maxLines = 1,
         )
     }
@@ -138,18 +139,20 @@ private fun CompactLayout(
         val leading = content.leading
         if (leading != null && content.heroValue != null) {
             Row(verticalAlignment = Alignment.Vertical.CenterVertically) {
-                LeadingVisualView(leading, colours, sizeDp = 52.dp, density = density)
+                LeadingVisualView(leading, colours, sizeDp = 46.dp, density = density)
                 Spacer(GlanceModifier.width(10.dp))
                 Text(
                     text = content.heroValue,
-                    style = GlanceType.hero(breakpoint, colours.onSurface),
+                    style = GlanceType.heroFitted(
+                        breakpoint, colours.onSurface, content.heroValue, besideLeading = true,
+                    ),
                     maxLines = 1,
                 )
             }
         } else if (content.heroValue != null) {
             Text(
                 text = content.heroValue,
-                style = GlanceType.hero(breakpoint, colours.onSurface),
+                style = GlanceType.heroFitted(breakpoint, colours.onSurface, content.heroValue),
                 maxLines = 1,
             )
         } else if (leading != null) {
@@ -161,7 +164,11 @@ private fun CompactLayout(
             Text(
                 text = it,
                 style = GlanceType.voice(breakpoint, colours.onSurfaceMuted),
-                maxLines = if (content.heroValue == null) 4 else 3,
+                maxLines = when {
+                    content.heroValue != null -> 3
+                    content.chips.isNotEmpty() -> 3
+                    else -> 4
+                },
             )
         }
         // The sheet shows at most one metadata chip at 2x2.
@@ -211,7 +218,7 @@ private fun StandardLayout(
                 Row(verticalAlignment = Alignment.Vertical.Bottom) {
                     Text(
                         text = content.heroValue,
-                        style = GlanceType.hero(breakpoint, colours.onSurface),
+                        style = GlanceType.heroFitted(breakpoint, colours.onSurface, content.heroValue),
                         maxLines = 1,
                     )
                     content.heroSuffix?.let {
@@ -315,7 +322,7 @@ private fun ExpandedLayout(
             Row(verticalAlignment = Alignment.Vertical.Bottom) {
                 Text(
                     text = hero,
-                    style = GlanceType.hero(breakpoint, colours.onSurface),
+                    style = GlanceType.heroFitted(breakpoint, colours.onSurface, hero),
                     maxLines = 1,
                 )
                 content.heroSuffix?.let {

@@ -18,7 +18,7 @@ import com.softdread.widgets.widgets.common.TileBar
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
-import com.softdread.widgets.widgets.common.openAppAction
+import com.softdread.widgets.widgets.common.refreshAction
 import kotlin.random.Random
 
 /**
@@ -41,7 +41,7 @@ class TimeProgressWidget : SoftDreadWidget(WidgetType.TIME_PROGRESS) {
         val reading = TimeProgressLogic.read(scope, environment.clock, weekStartsOnMonday)
         val document = environment.content.document(WidgetType.TIME_PROGRESS)
         val variables = TimeProgressLogic.variables(reading)
-        val percentText = "${Formatting.percent(reading.percent)}%"
+        val percentText = "${reading.percent.toInt()}%"
         val previousPeriod = TimeProgressLogic.previousPeriodKey(reading, weekStartsOnMonday)
 
         // Week, month and year at once on the wider tiles, exactly as the sheet
@@ -51,7 +51,7 @@ class TimeProgressWidget : SoftDreadWidget(WidgetType.TIME_PROGRESS) {
             TileBar(
                 label = barReading.label,
                 fraction = (barReading.percent / 100.0).toFloat(),
-                valueText = "${Formatting.percent(barReading.percent)}%",
+                valueText = "${barReading.percent.toInt()}%",
                 colourRole = when (barScope) {
                     ProgressScope.WEEK -> ColourRole.SAGE
                     ProgressScope.MONTH -> ColourRole.EMBER
@@ -107,10 +107,7 @@ class TimeProgressWidget : SoftDreadWidget(WidgetType.TIME_PROGRESS) {
                 )
             }
         }
-        return WidgetPayload(
-            content,
-            onClick = openAppAction(environment.context, WidgetType.TIME_PROGRESS, environment.config.appWidgetId),
-        )
+        return WidgetPayload(content, onClick = refreshAction(WidgetType.TIME_PROGRESS))
     }
 
     /**

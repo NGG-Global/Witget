@@ -29,7 +29,6 @@ import com.softdread.widgets.R
 import com.softdread.widgets.data.prefs.AppearanceMode
 import com.softdread.widgets.data.prefs.GlobalPreferences
 import com.softdread.widgets.data.prefs.WidgetInstanceConfig
-import com.softdread.widgets.design.SoftDreadPalette
 import com.softdread.widgets.design.SoftDreadSpacing
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.domain.model.Personality
@@ -122,7 +121,7 @@ fun WidgetConfigurationScreen(
                 Text(
                     text = stringResource(R.string.countdown_needs_title),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = SoftDreadPalette.Clay,
+                    color = SoftDreadTheme.chrome.accentText,
                 )
             }
 

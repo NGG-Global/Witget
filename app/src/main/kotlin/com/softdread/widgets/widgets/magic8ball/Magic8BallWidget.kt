@@ -19,6 +19,7 @@ import com.softdread.widgets.widgets.common.SoftDreadWidget
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
+import com.softdread.widgets.widgets.common.forceRefresh
 import kotlin.random.Random
 
 /**
@@ -80,13 +81,14 @@ class Magic8BallWidget : SoftDreadWidget(WidgetType.MAGIC_8_BALL) {
 }
 
 /**
- * Redraws the widget, which draws a new answer. Nothing is persisted beyond the
- * anti-repeat history the update itself writes, so the tile never stores a
- * question or anything about the person asking it.
+ * Draws a new answer. Goes through [forceRefresh] because a bare `update()`
+ * only recomposes the session's stale model — the tap would do nothing until
+ * the session expired. Nothing is persisted beyond the anti-repeat history, so
+ * the tile never stores a question or anything about the person asking it.
  */
 class AskAgainAction : ActionCallback {
     override suspend fun onAction(context: Context, glanceId: GlanceId, parameters: ActionParameters) {
-        Magic8BallWidget().update(context, glanceId)
+        Magic8BallWidget().forceRefresh(context, glanceId)
     }
 }
 
@@ -98,6 +100,6 @@ class Magic8BallWidgetReceiver : GlanceAppWidgetReceiver() {
 suspend fun refreshMagic8Ball(context: Context) {
     val widget = Magic8BallWidget()
     GlanceAppWidgetManager(context).getGlanceIds(Magic8BallWidget::class.java).forEach { id ->
-        widget.update(context, id)
+        widget.forceRefresh(context, id)
     }
 }

@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -128,8 +129,17 @@ fun SoftDreadCard(
 
 @Composable
 fun StatusBadge(text: String, positive: Boolean, modifier: Modifier = Modifier) {
-    val background = if (positive) SoftDreadPalette.Sage else SoftDreadPalette.Amber
-    val textColour = if (positive) SoftDreadPalette.TypeOnColour else SoftDreadPalette.LabelOnAmber
+    // The badge borrows the sage and amber tiles' resolved colours, so it goes
+    // through the same legibility correction as the widgets themselves.
+    val chrome = SoftDreadTheme.chrome
+    val tile = com.softdread.widgets.design.SoftDreadTiles.colours(
+        if (positive) com.softdread.widgets.domain.model.ColourRole.SAGE
+        else com.softdread.widgets.domain.model.ColourRole.AMBER,
+        chrome.pack,
+        chrome.isDark,
+    )
+    val background = tile.surface
+    val textColour = tile.onSurface
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(SoftDreadShape.ChipRadius),
@@ -171,15 +181,27 @@ fun NavTabs(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-                    Dot(
-                        colour = if (selected) SoftDreadPalette.Clay else chrome.hairline,
-                        size = if (selected) 10.dp else 8.dp,
+                    val dotSize by androidx.compose.animation.core.animateDpAsState(
+                        targetValue = if (selected) 10.dp else 8.dp,
+                        animationSpec = com.softdread.widgets.design.SoftDreadMotion.pop(),
+                        label = "navDot",
                     )
+                    val dotColour by androidx.compose.animation.animateColorAsState(
+                        targetValue = if (selected) chrome.accentText else chrome.hairline,
+                        animationSpec = com.softdread.widgets.design.SoftDreadMotion.settle(),
+                        label = "navDotColour",
+                    )
+                    val labelColour by androidx.compose.animation.animateColorAsState(
+                        targetValue = if (selected) chrome.onSurface else chrome.secondaryType,
+                        animationSpec = com.softdread.widgets.design.SoftDreadMotion.settle(),
+                        label = "navLabelColour",
+                    )
+                    Dot(colour = dotColour, size = dotSize)
                     Spacer(Modifier.height(SoftDreadSpacing.Small))
                     Text(
                         text = label.uppercase(java.util.Locale.getDefault()),
                         style = SoftDreadType.SectionLabel,
-                        color = if (selected) chrome.onSurface else chrome.secondaryType,
+                        color = labelColour,
                     )
                 }
             }

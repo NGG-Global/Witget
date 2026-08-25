@@ -269,6 +269,44 @@ business in the build. The date and time pickers remain Material's, themed
 through the palette — rebuilding a calendar would cost far more in usability and
 accessibility than it would gain in style.
 
+### The chrome accent is night, not clay
+
+Clay as an app accent failed twice over: it cannot carry normal-size text on
+cream (3.5:1), and cream-plus-coral is Anthropic's own product identity, so the
+chrome read as a Claude skin. The accent is now night `#34435C` — 7.5:1 on the
+wallpaper, 8.2:1 on cards, 9.3:1 under cream type as a fill — inverting to the
+light circle-fill tone in dark mode, the same move the sheet's cream tile makes.
+Clay remains exactly what the sheet made it: Screen Time's colour.
+
+### Two type voices
+
+The tiles — and their in-app previews — keep **Bricolage Grotesque**: they are
+the sheet's artefacts and the sheet's scale is law there. The app chrome around
+them is set in **Space Grotesk** (variable, OFL, bundled), at the owner's
+direction: the warm grotesque against this palette read too close to Anthropic's
+styling, and the chrome needed its own voice. IBM Plex Mono still carries every
+spec-style annotation. The pairing is deliberate — chrome speaks Space Grotesk,
+specimens speak the sheet — and `docs/references/OFL-Space-Grotesk.txt` carries
+the licence.
+
+### Motion
+
+The sheet's motion row ("NONE, EXCEPT 8 BALL TAP SWAP") governs the tiles, where
+RemoteViews cannot animate anyway. The app around them moves, by three rules,
+all in `design/Motion.kt`:
+
+- **springs for anything the user causes** — pill selection, presses (a physical
+  squeeze, not a ripple), the page dot's stretch;
+- **one stagger rhythm** — every group entrance fades up 22dp at 60 ms per item;
+- **drift, not spectacle** — the pack's circles float behind onboarding and the
+  gallery on 22-34 s cycles, translation only, no per-frame allocation.
+
+Screens slide as blocks through the NavHost; the detail preview morphs between
+sizes and cross-fades when a control changes its copy, so customisation is
+visibly live. When the system's "remove animations" setting is on, the ambient
+drift and breathing hold still; entrances and presses remain, as they carry
+state.
+
 ---
 
 ## 6. Adaptation summary

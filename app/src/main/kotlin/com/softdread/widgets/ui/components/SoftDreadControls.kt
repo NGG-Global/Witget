@@ -36,11 +36,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.softdread.widgets.design.SoftDreadPalette
+import com.softdread.widgets.design.pressScale
 import com.softdread.widgets.design.SoftDreadShape
 import com.softdread.widgets.design.SoftDreadSpacing
 import com.softdread.widgets.design.SoftDreadTheme
@@ -89,17 +91,25 @@ fun ChoicePill(
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    accent: Color = SoftDreadPalette.Clay,
+    accent: Color? = null,
+    onAccent: Color? = null,
 ) {
     val chrome = SoftDreadTheme.chrome
     val background by animateColorAsState(
-        targetValue = if (selected) accent else Color.Transparent,
+        targetValue = if (selected) (accent ?: chrome.accent) else Color.Transparent,
+        animationSpec = com.softdread.widgets.design.SoftDreadMotion.settle(),
         label = "pillBackground",
     )
-    val textColour = if (selected) SoftDreadPalette.TypeOnColour else chrome.onSurface
+    val textColour = if (selected) (onAccent ?: chrome.onAccent) else chrome.onSurface
+    val interactionSource = remember { MutableInteractionSource() }
+    val scale = pressScale(interactionSource)
 
     Box(
         modifier = modifier
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
             .heightIn(min = 48.dp)
             .clip(RoundedCornerShape(SoftDreadShape.ChipRadius))
             .background(background)
@@ -109,7 +119,12 @@ fun ChoicePill(
                     RoundedCornerShape(SoftDreadShape.ChipRadius),
                 ),
             )
-            .clickable(role = Role.RadioButton, onClick = onClick)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                role = Role.RadioButton,
+                onClick = onClick,
+            )
             .padding(horizontal = SoftDreadSpacing.Large, vertical = SoftDreadSpacing.Medium),
         contentAlignment = Alignment.Center,
     ) {
@@ -129,17 +144,30 @@ fun SoftDreadButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    accent: Color = SoftDreadPalette.Clay,
+    accent: Color? = null,
+    onAccent: Color? = null,
 ) {
     val chrome = SoftDreadTheme.chrome
-    val background = if (enabled) accent else chrome.hairline
-    val textColour = if (enabled) SoftDreadPalette.TypeOnColour else chrome.secondaryType
+    val background = if (enabled) (accent ?: chrome.accent) else chrome.hairline
+    val textColour = if (enabled) (onAccent ?: chrome.onAccent) else chrome.secondaryType
+    val interactionSource = remember { MutableInteractionSource() }
+    val scale = pressScale(interactionSource)
     Box(
         modifier = modifier
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
             .heightIn(min = 54.dp)
             .clip(RoundedCornerShape(SoftDreadShape.PillRadius))
             .background(background)
-            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                enabled = enabled,
+                role = Role.Button,
+                onClick = onClick,
+            )
             .padding(horizontal = SoftDreadSpacing.XLarge, vertical = SoftDreadSpacing.Medium),
         contentAlignment = Alignment.Center,
     ) {
@@ -160,12 +188,24 @@ fun SoftDreadOutlinedButton(
     enabled: Boolean = true,
 ) {
     val chrome = SoftDreadTheme.chrome
+    val interactionSource = remember { MutableInteractionSource() }
+    val scale = pressScale(interactionSource)
     Box(
         modifier = modifier
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
             .heightIn(min = 54.dp)
             .clip(RoundedCornerShape(SoftDreadShape.PillRadius))
             .border(BorderStroke(1.dp, chrome.onSurface), RoundedCornerShape(SoftDreadShape.PillRadius))
-            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                enabled = enabled,
+                role = Role.Button,
+                onClick = onClick,
+            )
             .padding(horizontal = SoftDreadSpacing.XLarge, vertical = SoftDreadSpacing.Medium),
         contentAlignment = Alignment.Center,
     ) {
@@ -183,7 +223,7 @@ fun SoftDreadTextAction(
     label: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    colour: Color = SoftDreadPalette.Clay,
+    colour: Color? = null,
 ) {
     Box(
         modifier = modifier
@@ -196,7 +236,7 @@ fun SoftDreadTextAction(
         Text(
             text = label.uppercase(Locale.getDefault()),
             style = SoftDreadType.SectionLabel,
-            color = colour,
+            color = colour ?: SoftDreadTheme.chrome.accentText,
         )
     }
 }
@@ -218,7 +258,7 @@ fun SoftDreadField(
     val interactionSource = remember { MutableInteractionSource() }
     val focused by interactionSource.collectIsFocusedAsState()
     val border by animateColorAsState(
-        targetValue = if (focused) SoftDreadPalette.Clay else chrome.hairline,
+        targetValue = if (focused) chrome.accentText else chrome.hairline,
         label = "fieldBorder",
     )
 
@@ -250,7 +290,7 @@ fun SoftDreadField(
                 textStyle = LocalTextStyle.current.merge(
                     MaterialTheme.typography.bodyLarge.copy(color = chrome.onSurface),
                 ),
-                cursorBrush = SolidColor(SoftDreadPalette.Clay),
+                cursorBrush = SolidColor(chrome.accentText),
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -269,7 +309,7 @@ fun SoftDreadToggle(
 ) {
     val chrome = SoftDreadTheme.chrome
     val trackColour by animateColorAsState(
-        targetValue = if (checked) SoftDreadPalette.Clay else chrome.hairline,
+        targetValue = if (checked) chrome.accent else chrome.hairline,
         label = "toggleTrack",
     )
     val knobOffset by animateDpAsState(
@@ -289,7 +329,7 @@ fun SoftDreadToggle(
                 .align(Alignment.CenterStart)
                 .size(24.dp)
                 .clip(CircleShape)
-                .background(if (checked) SoftDreadPalette.TypeOnColour else chrome.surface),
+                .background(if (checked) chrome.onAccent else chrome.surface),
         )
     }
 }

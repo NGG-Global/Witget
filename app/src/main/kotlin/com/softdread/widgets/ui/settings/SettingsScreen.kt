@@ -1,6 +1,7 @@
 package com.softdread.widgets.ui.settings
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +25,7 @@ import com.softdread.widgets.R
 import com.softdread.widgets.data.prefs.AppearanceMode
 import com.softdread.widgets.data.weather.OpenMeteoProvider
 import com.softdread.widgets.design.SoftDreadSpacing
+import com.softdread.widgets.design.entrance
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.SoftDreadType
 import com.softdread.widgets.design.ThemePack
@@ -63,10 +65,12 @@ fun SettingsScreen(viewModel: SoftDreadViewModel, modifier: Modifier = Modifier)
             .verticalScroll(rememberScrollState())
             .padding(SoftDreadSpacing.XLarge),
     ) {
-        Masthead(
-            title = stringResource(R.string.settings_title),
-            subtitle = stringResource(R.string.gallery_subtitle),
-        )
+        Box(Modifier.entrance(0)) {
+            Masthead(
+                title = stringResource(R.string.settings_title),
+                subtitle = stringResource(R.string.gallery_subtitle),
+            )
+        }
         Spacer(Modifier.height(SoftDreadSpacing.XLarge))
 
         SectionLabel(stringResource(R.string.settings_personality))

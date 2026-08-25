@@ -5,6 +5,7 @@ import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.softdread.widgets.domain.model.WidgetType
+import com.softdread.widgets.widgets.common.forceRefresh
 
 /**
  * Runs just after local midnight: rolls Daily Joke onto the new day's selection
@@ -29,7 +30,7 @@ class DailyRolloverWorker(
             types.forEach { type ->
                 val widget = WidgetRefreshWorker.widgetFor(type)
                 manager.getGlanceIds(widget.javaClass).forEach { id ->
-                    widget.update(applicationContext, id)
+                    widget.forceRefresh(applicationContext, id)
                 }
             }
         }

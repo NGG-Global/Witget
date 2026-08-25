@@ -37,6 +37,23 @@ val BricolageGrotesque = FontFamily(
     bricolage(FontWeight.W800),
 )
 
+@OptIn(ExperimentalTextApi::class)
+private fun spaceGrotesk(weight: FontWeight) = Font(
+    resId = R.font.space_grotesk,
+    weight = weight,
+    style = FontStyle.Normal,
+    variationSettings = FontVariation.Settings(weight, FontStyle.Normal),
+)
+
+/** The app chrome's face. Tiles never use it. */
+val SpaceGrotesk = FontFamily(
+    spaceGrotesk(FontWeight.W300),
+    spaceGrotesk(FontWeight.W400),
+    spaceGrotesk(FontWeight.W500),
+    spaceGrotesk(FontWeight.W600),
+    spaceGrotesk(FontWeight.W700),
+)
+
 val PlexMono = FontFamily(
     Font(R.font.ibm_plex_mono_regular, FontWeight.W400),
     Font(R.font.ibm_plex_mono_medium, FontWeight.W500),
@@ -139,7 +156,7 @@ object SoftDreadType {
 
     /** Section eyebrow used throughout the sheet: 600 · 11 · .16em · uppercase. */
     val SectionLabel = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W600,
         fontSize = 11.sp,
         lineHeight = 12.sp,
@@ -148,72 +165,74 @@ object SoftDreadType {
 }
 
 /**
- * Material 3 typography mapped onto the sheet's scale, so any stock M3
- * component in the app inherits the brand voice instead of Roboto.
+ * Material 3 typography for the app chrome: the sheet's scale, set in Space
+ * Grotesk. Tile specimens keep Bricolage through [SoftDreadType]'s hero/voice
+ * styles, so the two voices meet on every screen — chrome speaks Space
+ * Grotesk, the widgets speak the sheet.
  */
 val SoftDreadTypography = Typography(
-    displayLarge = SoftDreadType.Hero4x4.copy(fontSize = 64.sp, lineHeight = 60.sp),
-    displayMedium = SoftDreadType.Hero4x2,
-    displaySmall = SoftDreadType.Hero2x2,
+    displayLarge = SoftDreadType.Hero4x4.copy(fontSize = 64.sp, lineHeight = 60.sp, fontFamily = SpaceGrotesk),
+    displayMedium = SoftDreadType.Hero4x2.copy(fontFamily = SpaceGrotesk),
+    displaySmall = SoftDreadType.Hero2x2.copy(fontFamily = SpaceGrotesk),
     headlineLarge = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W800,
         fontSize = 30.sp,
         lineHeight = 34.sp,
         letterSpacing = (-0.03).em,
     ),
     headlineMedium = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W600,
         fontSize = 25.sp,
         lineHeight = 33.sp,
         letterSpacing = (-0.01).em,
     ),
-    headlineSmall = SoftDreadType.Subhead,
+    headlineSmall = SoftDreadType.Subhead.copy(fontFamily = SpaceGrotesk),
     titleLarge = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W600,
         fontSize = 20.sp,
         lineHeight = 24.sp,
         letterSpacing = (-0.01).em,
     ),
     titleMedium = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W600,
         fontSize = 17.sp,
         lineHeight = 20.sp,
         letterSpacing = (-0.01).em,
     ),
     titleSmall = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W600,
         fontSize = 14.sp,
         lineHeight = 18.sp,
     ),
     bodyLarge = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W400,
         fontSize = 15.sp,
         lineHeight = 23.sp,
     ),
     bodyMedium = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W400,
         fontSize = 13.5.sp,
         lineHeight = 20.sp,
     ),
     bodySmall = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W400,
         fontSize = 12.sp,
         lineHeight = 17.sp,
     ),
     labelLarge = TextStyle(
-        fontFamily = BricolageGrotesque,
+        fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.W600,
         fontSize = 14.sp,
         lineHeight = 18.sp,
     ),
     labelMedium = SoftDreadType.SectionLabel,
-    labelSmall = SoftDreadType.MicroLabel,
+    labelSmall = SoftDreadType.MicroLabel.copy(fontFamily = SpaceGrotesk),
 )

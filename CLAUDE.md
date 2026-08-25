@@ -94,6 +94,17 @@ Do not add ad-hoc `random()` picks inside a widget.
   would build one RemoteViews per declared size.
 - A widget must never fabricate data. Missing permission or missing setup renders
   a setup state via `setupContent(...)`.
+- **Refreshing a widget means `forceRefresh(context, glanceId)`, never a bare
+  `update()`.** Glance keeps the composition session alive; the payload is
+  rebuilt inside the composition when `REFRESH_TICK` changes, and a bare update
+  just redraws the stale model (the 8 ball ignored taps for a whole session
+  lifetime this way once).
+- `buildFresh` builds content for **all five breakpoints every time** — resizing
+  recomposes without re-running the build, so a partial map would render copy
+  budgeted for the wrong size and clip.
+- Hero values render through `GlanceType.heroFitted` (mirrored in `PreviewTile`);
+  Glance has no text auto-sizing, so long values step down by length instead of
+  clipping.
 
 ## Design rules
 
@@ -114,6 +125,14 @@ measurement, and `Contrast.muted` solves for the most muted tone that still
 passes. `ContrastTest` asserts every pairing in both modes across all four theme
 packs, and it is the reason the pack is readable — an earlier version failed 46
 of 96 pairings because the alphas were eyeballed.
+
+**The chrome accent is night, never clay.** Clay on cream fails AA and reads as
+Anthropic's palette; `chrome.accent`/`onAccent`/`accentText` are the only accent
+tokens. Clay belongs to the Screen Time tile.
+
+**Two type voices.** Tiles and their previews are Bricolage Grotesque (the
+sheet's scale); app chrome is Space Grotesk (owner-directed, see
+design-system.md). Don't mix them.
 
 **Chrome uses the pack's controls, not Material's.** `ui/components/SoftDreadControls.kt`
 holds the buttons, field, toggle, pills and rules; `Chrome.kt` holds `NavTabs`

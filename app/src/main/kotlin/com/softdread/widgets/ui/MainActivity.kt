@@ -9,6 +9,10 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +31,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.softdread.widgets.R
 import com.softdread.widgets.data.prefs.AppearanceMode
+import com.softdread.widgets.design.SoftDreadMotion
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.ThemePack
 import com.softdread.widgets.domain.model.WidgetType
@@ -53,9 +58,13 @@ class MainActivity : ComponentActivity() {
     private val viewModel: SoftDreadViewModel by viewModels()
     private val detailViewModel: WidgetDetailViewModel by viewModels()
 
+    /** Deep-link target from a widget tap; state so onNewIntent can navigate too. */
+    private val deepLink = mutableStateOf<WidgetType?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        deepLink.value = deepLinkFrom(intent)
         setContent {
             val preferences by viewModel.preferences.collectAsStateWithLifecycle()
             val systemDark = isSystemInDarkTheme()
@@ -87,7 +96,8 @@ class MainActivity : ComponentActivity() {
                         viewModel = viewModel,
                         detailViewModel = detailViewModel,
                         isDark = isDark,
-                        initialDeepLink = intent?.let(::deepLinkFrom),
+                        deepLink = deepLink.value,
+                        onDeepLinkConsumed = { deepLink.value = null },
                     )
                 }
             }
@@ -97,6 +107,7 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        deepLink.value = deepLinkFrom(intent)
     }
 
     private fun deepLinkFrom(intent: Intent): WidgetType? {
@@ -112,7 +123,8 @@ private fun SoftDreadApp(
     viewModel: SoftDreadViewModel,
     detailViewModel: WidgetDetailViewModel,
     isDark: Boolean,
-    initialDeepLink: WidgetType?,
+    deepLink: WidgetType?,
+    onDeepLinkConsumed: () -> Unit,
 ) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -121,10 +133,13 @@ private fun SoftDreadApp(
 
     LaunchedEffect(isDark) { viewModel.refresh(isDark) }
 
-    // A tap on a placed widget opens that widget's detail screen, so the tile
-    // itself is the entry point to its own settings.
-    LaunchedEffect(initialDeepLink) {
-        initialDeepLink?.let { navController.navigate(Routes.detail(it)) }
+    // A tap on a placed widget opens that widget's detail screen — including
+    // when the app is already in the back stack, which is the common case.
+    LaunchedEffect(deepLink) {
+        deepLink?.let {
+            navController.navigate(Routes.detail(it))
+            onDeepLinkConsumed()
+        }
     }
 
     Scaffold(
@@ -153,6 +168,18 @@ private fun SoftDreadApp(
             navController = navController,
             startDestination = Routes.GALLERY,
             modifier = Modifier.fillMaxSize().padding(padding),
+            enterTransition = {
+                slideInHorizontally(SoftDreadMotion.settle()) { it / 4 } + fadeIn(SoftDreadMotion.settle())
+            },
+            exitTransition = {
+                slideOutHorizontally(SoftDreadMotion.settle()) { -it / 6 } + fadeOut(SoftDreadMotion.settle())
+            },
+            popEnterTransition = {
+                slideInHorizontally(SoftDreadMotion.settle()) { -it / 6 } + fadeIn(SoftDreadMotion.settle())
+            },
+            popExitTransition = {
+                slideOutHorizontally(SoftDreadMotion.settle()) { it / 4 } + fadeOut(SoftDreadMotion.settle())
+            },
         ) {
             composable(Routes.GALLERY) {
                 LaunchedEffect(Unit) { viewModel.refresh(isDark) }

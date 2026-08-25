@@ -17,6 +17,7 @@ import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
 import com.softdread.widgets.widgets.common.openAppAction
+import com.softdread.widgets.widgets.common.refreshAction
 import com.softdread.widgets.widgets.common.setupContent
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -137,7 +138,7 @@ class DayVibeWidget : SoftDreadWidget(WidgetType.DAY_VIBE) {
                 )
             }
         }
-        return WidgetPayload(content, onClick = action)
+        return WidgetPayload(content, onClick = refreshAction(WidgetType.DAY_VIBE))
     }
 
     /** "Dots = meetings, max 8 then 8+." — the sheet's Day Vibe note. */

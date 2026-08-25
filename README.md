@@ -189,7 +189,7 @@ git clone <this repo> && cd Witget
 echo "sdk.dir=/path/to/Android/sdk" > local.properties
 
 ./gradlew :app:assembleDebug        # debug APK
-./gradlew :app:testDebugUnitTest    # 147 unit tests
+./gradlew :app:testDebugUnitTest    # 149 unit tests
 ./gradlew :app:lintDebug            # Android lint
 ./gradlew :app:assembleRelease      # minified release APK (unsigned by default)
 ```
@@ -336,7 +336,7 @@ raw network error is never shown.
 ## Testing
 
 ```bash
-./gradlew :app:testDebugUnitTest          # 147 tests, JVM + Robolectric
+./gradlew :app:testDebugUnitTest          # 149 tests, JVM + Robolectric
 ./gradlew :app:connectedDebugAndroidTest  # requires a device or emulator
 ./gradlew :app:lintDebug                  # clean: no issues found
 ```
@@ -377,11 +377,18 @@ built from.
 
 **Verification.** The build environment had no emulator and no attached device
 (no KVM, no hardware virtualisation). Everything statically verifiable was
-verified: the debug and minified release APKs build, 147 unit tests pass, lint
+verified: the debug and minified release APKs build, 149 unit tests pass, lint
 reports no issues, all eight widget receivers and providers are present in the
 merged manifest, and the instrumented tests compile. **Not yet exercised on a
 device:** rendering in a real launcher, the pin-widget flow, granting Usage
 Access, a live calendar read, a live weather fetch, and widget deletion cleanup.
+
+**Tap behaviour.** The five data widgets (Battery, Screen Time, Weather, Day
+Vibe, Time Progress) rebuild in place when tapped — the anti-repeat engine
+guarantees the personality line actually changes, which is what makes a tile
+feel alive. The Magic 8 Ball draws a new answer. Daily Joke and Countdown open
+the app (the joke is deliberately stable all day; the countdown's tap leads to
+its configuration), as do all setup states.
 
 **Glance cannot use the bundled typeface.** `androidx.glance.text.FontFamily`
 resolves a *system* family name through RemoteViews; it cannot reference a font

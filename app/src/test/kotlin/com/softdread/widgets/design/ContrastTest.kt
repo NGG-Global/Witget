@@ -102,6 +102,83 @@ class ContrastTest {
     }
 
     @Test
+    fun `chrome controls meet AA in both modes`() {
+        // These are the pairings that failed in the second device build: raw
+        // clay as an accent reads 2.8-4.0:1. The chrome accent must clear AA as
+        // a fill, as text on the wallpaper and as text on a card.
+        listOf(false, true).forEach { dark ->
+            val chrome = chromeFixture(dark)
+            val mode = if (dark) "dark" else "light"
+
+            assertAA("$mode onAccent on accent fill", chrome.onAccent, chrome.accent, Contrast.AA_NORMAL)
+            assertAA("$mode accent text on wallpaper", chrome.accentText, chrome.wallpaper, Contrast.AA_NORMAL)
+            assertAA("$mode accent text on card", chrome.accentText, chrome.surface, Contrast.AA_NORMAL)
+
+            // Status badges borrow the resolved sage and amber tiles.
+            listOf(ColourRole.SAGE, ColourRole.AMBER).forEach { role ->
+                val tile = SoftDreadTiles.colours(role, ThemePack.CLAY_HOUSE, dark)
+                assertAA("$mode badge ${role.name}", tile.onSurface, tile.surface, Contrast.AA_NORMAL)
+            }
+        }
+    }
+
+    @Test
+    fun `widget picker preview type reads on its corrected field`() {
+        // Mirrors res/layout/widget_preview_*.xml + values(-night)/colors.xml.
+        val light = mapOf(
+            Color(0xFFB95336) to Color(0xFFFFF6EC), // screen time
+            Color(0xFFF0B23F) to Color(0xFF3B3128), // daily joke
+            Color(0xFF87A282) to Color(0xFF3B3128), // battery
+            Color(0xFFF2E7D8) to Color(0xFF3B3128), // day vibe
+            Color(0xFFE38240) to Color(0xFF3B3128), // weather
+            Color(0xFF55749C) to Color(0xFFFFF6EC), // countdown
+            Color(0xFF3B3128) to Color(0xFFF2E7D8), // time progress
+            Color(0xFF34435C) to Color(0xFFFFF6EC), // magic 8 ball
+        )
+        val dark = listOf(
+            Color(0xFFA34630), Color(0xFF85631C), Color(0xFF4E6349), Color(0xFF302921),
+            Color(0xFF8F4A1C), Color(0xFF3F5674), Color(0xFF14110E), Color(0xFF232D3D),
+        )
+        light.forEach { (field, ink) ->
+            assertAA("picker light on ${field.value}", ink, field, Contrast.AA_NORMAL)
+        }
+        dark.forEach { field ->
+            assertAA("picker dark on ${field.value}", Color(0xFFF2E7D8), field, Contrast.AA_NORMAL)
+        }
+    }
+
+    /**
+     * Rebuilds the chrome tokens without composing. Must stay in step with
+     * chromeFor() in Theme.kt; the values are simple enough that drift would be
+     * caught by eye, and the alternative is composing a theme in a unit test.
+     */
+    private fun chromeFixture(dark: Boolean) = if (dark) {
+        ChromeColours(
+            wallpaper = SoftDreadPalette.WallpaperDark,
+            surface = SoftDreadPalette.CreamDark,
+            accent = SoftDreadPalette.CircleFillDark,
+            onAccent = SoftDreadPalette.Ink,
+            accentText = SoftDreadPalette.CircleFillDark,
+        )
+    } else {
+        ChromeColours(
+            wallpaper = SoftDreadPalette.WallpaperLight,
+            surface = SoftDreadPalette.Cream,
+            accent = SoftDreadPalette.Night,
+            onAccent = SoftDreadPalette.TypeOnColour,
+            accentText = SoftDreadPalette.Night,
+        )
+    }
+
+    private data class ChromeColours(
+        val wallpaper: Color,
+        val surface: Color,
+        val accent: Color,
+        val onAccent: Color,
+        val accentText: Color,
+    )
+
+    @Test
     fun `the muting solver never returns something unreadable`() {
         // Across the whole luminance range, a solved muted tone must clear AA.
         val surfaces = (0..20).map { Color(it / 20f, it / 20f, it / 20f) }

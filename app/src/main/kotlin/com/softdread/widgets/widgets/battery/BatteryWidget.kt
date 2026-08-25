@@ -18,7 +18,7 @@ import com.softdread.widgets.widgets.common.SoftDreadWidget
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
-import com.softdread.widgets.widgets.common.openAppAction
+import com.softdread.widgets.widgets.common.refreshAction
 
 /**
  * Battery Prognosis.
@@ -71,7 +71,7 @@ class BatteryWidget : SoftDreadWidget(WidgetType.BATTERY) {
                 contentDescription = describe(reading, voice, estimate),
             )
         }
-        return WidgetPayload(content, onClick = openAppAction(environment.context, WidgetType.BATTERY))
+        return WidgetPayload(content, onClick = refreshAction(WidgetType.BATTERY))
     }
 
     private fun describe(reading: BatteryReading, voice: String, estimate: String?): String = buildString {

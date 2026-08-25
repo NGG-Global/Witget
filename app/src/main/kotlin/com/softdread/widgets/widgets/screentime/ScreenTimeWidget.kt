@@ -17,6 +17,7 @@ import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
 import com.softdread.widgets.widgets.common.openAppAction
+import com.softdread.widgets.widgets.common.refreshAction
 import com.softdread.widgets.widgets.common.setupContent
 import kotlin.random.Random
 
@@ -107,7 +108,9 @@ class ScreenTimeWidget : SoftDreadWidget(WidgetType.SCREEN_TIME) {
 
             build(breakpoint, usageText, match, commentary, framing)
         }
-        return WidgetPayload(content, onClick = action)
+        // Data is live: a tap re-reads today's usage. Setup states above keep
+        // the open-app action so the user lands on the permission explanation.
+        return WidgetPayload(content, onClick = refreshAction(WidgetType.SCREEN_TIME))
     }
 
     private fun build(

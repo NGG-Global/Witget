@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="preview_ink_screen_time">#F2E7D8</color>
+    <color name="preview_ink_daily_joke">#F2E7D8</color>
+    <color name="preview_ink_battery">#F2E7D8</color>
+    <color name="preview_ink_day_vibe">#F2E7D8</color>
+    <color name="preview_ink_weather">#F2E7D8</color>
+    <color name="preview_ink_countdown">#F2E7D8</color>
+    <color name="preview_ink_time_progress">#F2E7D8</color>
+    <color name="preview_ink_magic_8_ball">#F2E7D8</color>
+</resources>

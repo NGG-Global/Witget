@@ -50,7 +50,15 @@ object SoftDreadSpacing {
     val XXLarge: Dp = 34.dp
 }
 
-/** App-chrome colours, distinct from tile colours. */
+/**
+ * App-chrome colours, distinct from tile colours.
+ *
+ * The chrome accent is night, not clay. Two reasons, both deliberate: clay on
+ * cream fails AA for normal text (3.5:1) so every clay control was unreadable,
+ * and cream-plus-coral is Anthropic's own identity — the app read as a Claude
+ * skin. Night clears 7.5-9.3:1 on every chrome surface, and clay stays what the
+ * sheet made it: Screen Time's colour, not the app's.
+ */
 data class SoftDreadChrome(
     val wallpaper: androidx.compose.ui.graphics.Color,
     val surface: androidx.compose.ui.graphics.Color,
@@ -58,6 +66,12 @@ data class SoftDreadChrome(
     val secondaryType: androidx.compose.ui.graphics.Color,
     val sectionLabel: androidx.compose.ui.graphics.Color,
     val hairline: androidx.compose.ui.graphics.Color,
+    /** Fill colour for selected pills, primary buttons, toggles. */
+    val accent: androidx.compose.ui.graphics.Color,
+    /** Type on an [accent] fill. */
+    val onAccent: androidx.compose.ui.graphics.Color,
+    /** The accent used as text or a small mark on wallpaper/surface. */
+    val accentText: androidx.compose.ui.graphics.Color,
     val isDark: Boolean,
     val pack: ThemePack,
 )
@@ -74,6 +88,11 @@ private fun chromeFor(dark: Boolean, pack: ThemePack) = if (dark) {
         secondaryType = SoftDreadPalette.SecondaryTypeDark,
         sectionLabel = SoftDreadPalette.LabelOnCreamDark,
         hairline = SoftDreadPalette.TypeDark.copy(alpha = 0.18f),
+        // In dark mode the accent inverts: a light block with ink type, the same
+        // move the sheet's cream tile makes.
+        accent = SoftDreadPalette.CircleFillDark,
+        onAccent = SoftDreadPalette.Ink,
+        accentText = SoftDreadPalette.CircleFillDark,
         isDark = true,
         pack = pack,
     )
@@ -85,6 +104,9 @@ private fun chromeFor(dark: Boolean, pack: ThemePack) = if (dark) {
         secondaryType = SoftDreadPalette.SecondaryType,
         sectionLabel = SoftDreadPalette.LabelOnCream,
         hairline = SoftDreadPalette.Ink.copy(alpha = 0.2f),
+        accent = SoftDreadPalette.Night,
+        onAccent = SoftDreadPalette.TypeOnColour,
+        accentText = SoftDreadPalette.Night,
         isDark = false,
         pack = pack,
     )
@@ -116,9 +138,9 @@ fun SoftDreadTheme(
     val chrome = chromeFor(darkTheme, pack)
     val scheme = if (darkTheme) {
         darkColorScheme(
-            primary = SoftDreadPalette.ClayDark,
-            onPrimary = SoftDreadPalette.TypeDark,
-            primaryContainer = SoftDreadPalette.ClayDark,
+            primary = chrome.accent,
+            onPrimary = chrome.onAccent,
+            primaryContainer = SoftDreadPalette.NightDark,
             onPrimaryContainer = SoftDreadPalette.TypeDark,
             secondary = SoftDreadPalette.SageDark,
             onSecondary = SoftDreadPalette.TypeDark,
@@ -132,15 +154,15 @@ fun SoftDreadTheme(
             onSurfaceVariant = chrome.secondaryType,
             outline = chrome.hairline,
             outlineVariant = chrome.hairline,
-            error = SoftDreadPalette.Clay,
-            onError = SoftDreadPalette.TypeOnColour,
+            error = SoftDreadPalette.ClayDark,
+            onError = SoftDreadPalette.TypeDark,
         )
     } else {
         lightColorScheme(
-            primary = SoftDreadPalette.Clay,
-            onPrimary = SoftDreadPalette.TypeOnColour,
+            primary = chrome.accent,
+            onPrimary = chrome.onAccent,
             primaryContainer = SoftDreadPalette.Cream,
-            onPrimaryContainer = SoftDreadPalette.TypeInsidePill,
+            onPrimaryContainer = SoftDreadPalette.Night,
             secondary = SoftDreadPalette.Sage,
             onSecondary = SoftDreadPalette.TypeOnColour,
             tertiary = SoftDreadPalette.Amber,

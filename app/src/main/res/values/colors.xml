@@ -3,4 +3,14 @@
     <!-- Referenced from themes.xml as the pre-Compose window background. -->
     <color name="wallpaper_light">#E7DED3</color>
     <color name="wallpaper_dark">#1C1814</color>
+
+    <!-- Widget-picker preview type, per widget; night variants override. -->
+    <color name="preview_ink_screen_time">#FFF6EC</color>
+    <color name="preview_ink_daily_joke">#3B3128</color>
+    <color name="preview_ink_battery">#3B3128</color>
+    <color name="preview_ink_day_vibe">#3B3128</color>
+    <color name="preview_ink_weather">#3B3128</color>
+    <color name="preview_ink_countdown">#FFF6EC</color>
+    <color name="preview_ink_time_progress">#F2E7D8</color>
+    <color name="preview_ink_magic_8_ball">#FFF6EC</color>
 </resources>

@@ -44,6 +44,8 @@ import com.softdread.widgets.widgets.common.TileBar
 import com.softdread.widgets.widgets.common.TileChip
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.TileGeometry
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 import java.util.Locale
 import kotlin.math.min
 
@@ -117,6 +119,12 @@ fun PreviewTile(
     }
 }
 
+/** Mirrors GlanceType.heroFitted so the in-app preview clips exactly when the widget would. */
+private fun fittedHero(base: TextStyle, text: String, thresholds: List<Pair<Int, Float>>): TextStyle {
+    val size = thresholds.firstOrNull { text.length <= it.first }?.second ?: thresholds.last().second
+    return base.copy(fontSize = size.sp, lineHeight = (size * 0.95f).sp)
+}
+
 @Composable
 private fun CompactPreview(content: TileContent, colours: TileColours, breakpoint: WidgetBreakpoint) {
     Column(
@@ -125,14 +133,16 @@ private fun CompactPreview(content: TileContent, colours: TileColours, breakpoin
     ) {
         LabelRow(content, colours)
         Row(verticalAlignment = Alignment.CenterVertically) {
-            (content.leading as? LeadingVisual.Ring)?.let {
-                RingView(it, colours, 52.dp)
+            val ring = content.leading as? LeadingVisual.Ring
+            ring?.let {
+                RingView(it, colours, 46.dp)
                 Spacer(Modifier.width(10.dp))
             }
             content.heroValue?.let {
+                val thresholds = if (ring != null) listOf(4 to 32f, 99 to 26f) else listOf(4 to 38f, 7 to 32f, 99 to 26f)
                 Text(
                     text = it,
-                    style = SoftDreadType.Hero2x2,
+                    style = fittedHero(SoftDreadType.Hero2x2, it, thresholds),
                     color = colours.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -197,7 +207,12 @@ private fun StandardPreview(content: TileContent, colours: TileColours, breakpoi
             content.heroValue?.let {
                 Spacer(Modifier.height(7.dp))
                 Row(verticalAlignment = Alignment.Bottom) {
-                    Text(it, style = SoftDreadType.Hero4x2, color = colours.onSurface, maxLines = 1)
+                    Text(
+                        text = it,
+                        style = fittedHero(SoftDreadType.Hero4x2, it, listOf(4 to 46f, 8 to 40f, 99 to 32f)),
+                        color = colours.onSurface,
+                        maxLines = 1,
+                    )
                     content.metric?.let { metric ->
                         Spacer(Modifier.width(8.dp))
                         Text(
@@ -296,7 +311,7 @@ private fun ExpandedPreview(content: TileContent, colours: TileColours, breakpoi
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     text = it,
-                    style = SoftDreadType.Hero4x4.copy(fontSize = SoftDreadType.Hero4x4.fontSize * 0.7f),
+                    style = fittedHero(SoftDreadType.Hero4x4, it, listOf(4 to 76f, 7 to 64f, 99 to 44f)),
                     color = colours.onSurface,
                     maxLines = 1,
                 )

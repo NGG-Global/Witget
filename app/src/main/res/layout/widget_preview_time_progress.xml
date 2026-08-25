@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Widget-picker preview. Deliberately static: the picker renders this before the
-  widget exists, so it shows representative sample values rather than live data.
+  Widget-picker preview. Static by design: the picker renders this before the
+  widget exists, so it shows representative sample values. Colours come from
+  per-mode resources so the preview stays readable in dark launchers too.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -16,7 +17,7 @@
         android:letterSpacing="0.14"
         android:text="@string/widget_time_progress_label"
         android:textAllCaps="true"
-        android:textColor="#F2E7D8"
+        android:textColor="@color/preview_ink_time_progress"
         android:textSize="11sp"
         android:textStyle="bold" />
 
@@ -25,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/widget_time_progress_preview_hero"
-        android:textColor="#F2E7D8"
+        android:textColor="@color/preview_ink_time_progress"
         android:textSize="34sp"
         android:textStyle="bold" />
 
@@ -39,6 +40,6 @@
         android:layout_height="wrap_content"
         android:maxLines="3"
         android:text="@string/widget_time_progress_preview_voice"
-        android:textColor="#F2E7D8"
+        android:textColor="@color/preview_ink_time_progress"
         android:textSize="13sp" />
 </LinearLayout>

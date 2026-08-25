@@ -19,6 +19,7 @@ import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
 import com.softdread.widgets.widgets.common.openAppAction
+import com.softdread.widgets.widgets.common.refreshAction
 import com.softdread.widgets.widgets.common.setupContent
 
 /**
@@ -141,7 +142,9 @@ class WeatherWidget : SoftDreadWidget(WidgetType.WEATHER) {
                 )
             }
         }
-        return WidgetPayload(content, onClick = action)
+        // A tap re-fetches (or falls back to cache); setup states keep the
+        // open-app action for the location picker.
+        return WidgetPayload(content, onClick = refreshAction(WidgetType.WEATHER))
     }
 
     private fun setup(

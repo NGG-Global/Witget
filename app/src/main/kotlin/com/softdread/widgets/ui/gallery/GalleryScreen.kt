@@ -2,6 +2,7 @@ package com.softdread.widgets.ui.gallery
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,7 +33,12 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.softdread.widgets.R
+import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.graphicsLayer
+import com.softdread.widgets.design.CircleField
 import com.softdread.widgets.design.SoftDreadSpacing
+import com.softdread.widgets.design.entrance
+import com.softdread.widgets.design.pressScale
 import com.softdread.widgets.design.SoftDreadTheme
 import com.softdread.widgets.design.SoftDreadTiles
 import com.softdread.widgets.design.SoftDreadType
@@ -67,8 +73,20 @@ fun GalleryScreen(
     val cards by viewModel.cards.collectAsStateWithLifecycle()
     val chrome = SoftDreadTheme.chrome
 
+    Box(modifier = modifier.fillMaxSize()) {
+        CircleField(isDark = chrome.isDark, dim = 0.6f)
+        GalleryList(cards = cards, chrome = chrome, onOpenWidget = onOpenWidget)
+    }
+}
+
+@Composable
+private fun GalleryList(
+    cards: List<GalleryCard>,
+    chrome: com.softdread.widgets.design.SoftDreadChrome,
+    onOpenWidget: (WidgetType) -> Unit,
+) {
     LazyColumn(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
             start = SoftDreadSpacing.XLarge,
             end = SoftDreadSpacing.XLarge,
@@ -77,28 +95,36 @@ fun GalleryScreen(
         ),
     ) {
         item {
-            Masthead(
-                title = stringResource(R.string.gallery_title),
-                subtitle = stringResource(R.string.gallery_subtitle),
-            )
+            Box(Modifier.entrance(0)) {
+                Masthead(
+                    title = stringResource(R.string.gallery_title),
+                    subtitle = stringResource(R.string.gallery_subtitle),
+                )
+            }
             Spacer(Modifier.height(SoftDreadSpacing.XLarge))
-            Text(
-                text = stringResource(R.string.app_tagline),
-                style = MaterialTheme.typography.headlineMedium,
-                color = chrome.onSurface,
-            )
+            Box(Modifier.entrance(1)) {
+                Text(
+                    text = stringResource(R.string.app_tagline),
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = chrome.onSurface,
+                )
+            }
             Spacer(Modifier.height(SoftDreadSpacing.XLarge))
 
             // The sheet opens with its palette; so does the pack.
-            SwatchStrip(isDark = chrome.isDark)
+            Box(Modifier.entrance(2)) { SwatchStrip(isDark = chrome.isDark) }
             Spacer(Modifier.height(SoftDreadSpacing.XLarge))
 
-            SectionLabel(stringResource(R.string.gallery_section_widgets))
+            Box(Modifier.entrance(3)) {
+                SectionLabel(stringResource(R.string.gallery_section_widgets))
+            }
             Spacer(Modifier.height(SoftDreadSpacing.Medium))
         }
 
-        items(cards, key = { it.entry.type.id }) { card ->
-            WidgetMatrixRow(card = card, onClick = { onOpenWidget(card.entry.type) })
+        itemsIndexed(cards, key = { _, card -> card.entry.type.id }) { index, card ->
+            Box(Modifier.entrance(index + 4)) {
+                WidgetMatrixRow(card = card, onClick = { onOpenWidget(card.entry.type) })
+            }
         }
     }
 }
@@ -130,10 +156,21 @@ private fun WidgetMatrixRow(card: GalleryCard, onClick: () -> Unit) {
     val isWide = with(LocalDensity.current) { containerWidth.toDp() } >= 600.dp
     val tileWidth = if (isWide) 172.dp else 136.dp
 
+    val interactionSource = remember { MutableInteractionSource() }
+    val scale = pressScale(interactionSource)
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(role = Role.Button, onClick = onClick),
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                role = Role.Button,
+                onClick = onClick,
+            ),
     ) {
         Rule()
         Row(

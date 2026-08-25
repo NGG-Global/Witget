@@ -140,7 +140,10 @@ object TimeProgressLogic {
     }
 
     fun variables(reading: ProgressReading): Map<String, String> {
-        val whole = Formatting.percent(reading.percent)
+        // Floor rather than round: the Bible clamps a period to 99.9% before
+        // rollover, and rounding 99.9 up would put "100%" on a tile that is
+        // explicitly never supposed to say that.
+        val whole = reading.percent.toInt().coerceIn(0, 99).toString()
         val remaining = (100 - whole.toInt()).coerceIn(0, 100)
         val period = reading.scope.key
         return mapOf(

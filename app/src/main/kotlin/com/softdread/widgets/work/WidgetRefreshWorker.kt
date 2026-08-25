@@ -7,6 +7,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.softdread.widgets.data.prefs.SoftDreadStore
 import com.softdread.widgets.domain.model.WidgetType
+import com.softdread.widgets.widgets.common.forceRefresh
 import com.softdread.widgets.widgets.battery.BatteryWidget
 import com.softdread.widgets.widgets.countdown.CountdownWidget
 import com.softdread.widgets.widgets.dayvibe.DayVibeWidget
@@ -45,7 +46,7 @@ class WidgetRefreshWorker(
         val widget = widgetFor(type)
         val manager = GlanceAppWidgetManager(applicationContext)
         manager.getGlanceIds(widget.javaClass).forEach { id ->
-            widget.update(applicationContext, id)
+            widget.forceRefresh(applicationContext, id)
         }
     }
 
