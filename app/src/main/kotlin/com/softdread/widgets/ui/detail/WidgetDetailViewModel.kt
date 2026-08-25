@@ -10,7 +10,6 @@ import com.softdread.widgets.data.prefs.SoftDreadStore
 import com.softdread.widgets.data.prefs.WidgetInstanceConfig
 import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
-import com.softdread.widgets.ui.SoftDreadViewModel
 import com.softdread.widgets.ui.preview.WidgetPreview
 import com.softdread.widgets.ui.preview.WidgetPreviewer
 import com.softdread.widgets.work.WidgetRefreshScheduler
@@ -48,17 +47,19 @@ class WidgetDetailViewModel(application: Application) : AndroidViewModel(applica
     fun load(type: WidgetType, appWidgetId: Int?, isDark: Boolean) {
         viewModelScope.launch {
             val preferences = store.currentPreferences()
-            val all = store.allConfigs().filter { it.widgetTypeId == type.id }
+            val placed = store.placedConfigs().filter { it.widgetTypeId == type.id }
+            // Opened from a placed widget: edit that instance. Opened from the
+            // gallery: edit the type's template, which new instances inherit.
             val config = appWidgetId
-                ?.let { id -> all.firstOrNull { it.appWidgetId == id } }
-                ?: all.firstOrNull()
-                ?: WidgetInstanceConfig.default(SoftDreadViewModel.PREVIEW_WIDGET_ID, type)
+                ?.let { id -> placed.firstOrNull { it.appWidgetId == id } }
+                ?: placed.singleOrNull()
+                ?: store.template(type)
 
             _state.value = _state.value.copy(
                 type = type,
                 config = config,
                 preferences = preferences,
-                placedInstances = all.filter { it.appWidgetId >= 0 },
+                placedInstances = placed,
                 calendars = if (type == WidgetType.DAY_VIBE) {
                     CalendarDataSource(getApplication()).calendars()
                 } else {
@@ -79,8 +80,10 @@ class WidgetDetailViewModel(application: Application) : AndroidViewModel(applica
         val updated = transform(current)
         _state.value = _state.value.copy(config = updated)
         viewModelScope.launch {
-            if (updated.appWidgetId >= 0) {
-                store.saveConfig(updated)
+            // Both instance and template edits persist. Only an instance edit
+            // needs the home screen redrawn.
+            store.saveConfig(updated)
+            if (!updated.isTemplate) {
                 updated.widgetType?.let { WidgetRefreshScheduler.refreshNow(getApplication(), listOf(it)) }
             }
             refreshPreview(isDark)

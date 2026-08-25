@@ -62,10 +62,12 @@ class WidgetConfigurationActivity : ComponentActivity() {
             androidx.compose.runtime.LaunchedEffect(appWidgetId) {
                 preferences = store.currentPreferences()
                 val existing = store.currentConfig(appWidgetId)
-                config = existing ?: WidgetInstanceConfig.default(
-                    appWidgetId = appWidgetId,
-                    type = typeForProvider(appWidgetId) ?: WidgetType.COUNTDOWN,
-                )
+                config = existing ?: run {
+                    // A widget being placed for the first time inherits the
+                    // settings chosen in the gallery for its type.
+                    val type = typeForProvider(appWidgetId) ?: WidgetType.COUNTDOWN
+                    store.template(type).copy(appWidgetId = appWidgetId)
+                }
             }
 
             val systemDark = isSystemInDarkTheme()

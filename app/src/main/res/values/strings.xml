@@ -129,4 +129,5 @@
         <item quantity="one">%1$d response across %2$d widgets, generated from the Widget Pack Content Bible.</item>
         <item quantity="other">%1$d responses across %2$d widgets, generated from the Widget Pack Content Bible.</item>
     </plurals>
+    <string name="detail_template_note">These settings apply to widgets you add from here. Widgets already on your home screen keep their own.</string>
 </resources>

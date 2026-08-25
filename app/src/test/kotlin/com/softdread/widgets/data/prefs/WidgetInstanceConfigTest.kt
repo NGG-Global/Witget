@@ -142,6 +142,58 @@ class WidgetInstanceConfigTest {
     }
 
     @Test
+    fun `a new instance inherits the type's template`() = runBlocking<Unit> {
+        store.saveConfig(
+            WidgetInstanceConfig.template(WidgetType.TIME_PROGRESS)
+                .copy(progressScopeKey = "week", personalityKey = "DRY"),
+        )
+
+        val placed = store.configOrCreate(701, WidgetType.TIME_PROGRESS)
+
+        assertThat(placed.appWidgetId).isEqualTo(701)
+        assertThat(placed.isTemplate).isFalse()
+        assertThat(placed.progressScope).isEqualTo(ProgressScope.WEEK)
+        assertThat(placed.personality(Personality.NEUTRAL)).isEqualTo(Personality.DRY)
+    }
+
+    @Test
+    fun `editing a placed instance does not disturb the template or its siblings`() = runBlocking<Unit> {
+        store.saveConfig(
+            WidgetInstanceConfig.template(WidgetType.MAGIC_8_BALL).copy(personalityKey = "FRIENDLY"),
+        )
+        val first = store.configOrCreate(801, WidgetType.MAGIC_8_BALL)
+        val second = store.configOrCreate(802, WidgetType.MAGIC_8_BALL)
+        assertThat(first.personality(Personality.NEUTRAL)).isEqualTo(Personality.FRIENDLY)
+
+        store.saveConfig(second.copy(personalityKey = "CHAOTIC"))
+
+        assertThat(store.currentConfig(801)!!.personalityKey).isEqualTo("FRIENDLY")
+        assertThat(store.template(WidgetType.MAGIC_8_BALL).personalityKey).isEqualTo("FRIENDLY")
+    }
+
+    @Test
+    fun `templates are never counted as placed widgets and survive pruning`() = runBlocking<Unit> {
+        store.saveConfig(WidgetInstanceConfig.template(WidgetType.WEATHER))
+        store.saveConfig(WidgetInstanceConfig.default(901, WidgetType.WEATHER))
+
+        assertThat(store.placedConfigs().map { it.appWidgetId }).contains(901)
+        assertThat(store.placedConfigs().none { it.isTemplate }).isTrue()
+
+        store.pruneOrphans(liveAppWidgetIds = emptySet())
+
+        assertThat(store.currentConfig(901)).isNull()
+        assertThat(store.currentConfig(WidgetInstanceConfig.templateId(WidgetType.WEATHER))).isNotNull()
+    }
+
+    @Test
+    fun `each widget type gets a distinct template id`() {
+        val ids = WidgetType.entries.map { WidgetInstanceConfig.templateId(it) }
+        assertThat(ids).containsNoDuplicates()
+        // Every template id must sit below any id the platform can allocate.
+        ids.forEach { assertThat(it).isAtMost(WidgetInstanceConfig.TEMPLATE_ID_BASE) }
+    }
+
+    @Test
     fun `history is bounded when recorded through the store`() = runBlocking<Unit> {
         val config = WidgetInstanceConfig.default(601, WidgetType.DAILY_JOKE)
         store.saveConfig(config)

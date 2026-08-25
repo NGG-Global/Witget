@@ -11,7 +11,6 @@ import com.softdread.widgets.data.prefs.AppearanceMode
 import com.softdread.widgets.data.prefs.GlobalPreferences
 import com.softdread.widgets.data.prefs.SavedLocation
 import com.softdread.widgets.data.prefs.SoftDreadStore
-import com.softdread.widgets.data.prefs.WidgetInstanceConfig
 import com.softdread.widgets.data.weather.GeocodingDataSource
 import com.softdread.widgets.design.ThemePack
 import com.softdread.widgets.domain.model.Personality
@@ -77,11 +76,14 @@ class SoftDreadViewModel(application: Application) : AndroidViewModel(applicatio
         _permissions.value = PermissionStatus.read(getApplication())
         viewModelScope.launch {
             val prefs = store.currentPreferences()
-            val configs = store.allConfigs()
+            val placedConfigs = store.placedConfigs()
             _cards.value = WidgetCatalog.entries.map { entry ->
-                val placed = configs.count { it.widgetTypeId == entry.type.id }
-                val config = configs.firstOrNull { it.widgetTypeId == entry.type.id }
-                    ?: previewConfig(entry.type)
+                val placed = placedConfigs.count { it.widgetTypeId == entry.type.id }
+                // Preview the first placed instance if there is one, otherwise
+                // the type's template, so the card reflects the user's settings
+                // whether or not the widget is on a home screen yet.
+                val config = placedConfigs.firstOrNull { it.widgetTypeId == entry.type.id }
+                    ?: store.template(entry.type)
                 GalleryCard(
                     entry = entry,
                     preview = runCatching {
@@ -99,14 +101,6 @@ class SoftDreadViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
     }
-
-    /**
-     * A stand-in configuration for a widget that has not been placed yet.
-     * Countdown gets a representative target so its gallery card can show the
-     * shape of a real countdown instead of a setup prompt.
-     */
-    private fun previewConfig(type: WidgetType): WidgetInstanceConfig =
-        WidgetInstanceConfig.default(PREVIEW_WIDGET_ID, type)
 
     fun setDefaultPersonality(personality: Personality) = update {
         it.copy(defaultPersonalityKey = personality.key)
@@ -141,7 +135,7 @@ class SoftDreadViewModel(application: Application) : AndroidViewModel(applicatio
     /** Clears every instance's anti-repeat history, per the settings action. */
     fun resetRepeatHistory(onDone: () -> Unit) {
         viewModelScope.launch {
-            store.allConfigs().forEach { store.clearHistory(it.instanceKey) }
+            store.placedConfigs().forEach { store.clearHistory(it.instanceKey) }
             WidgetRefreshScheduler.refreshNow(getApplication(), WidgetType.entries)
             onDone()
         }
@@ -154,8 +148,5 @@ class SoftDreadViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    companion object {
-        /** Reserved id for previews; the platform never allocates a negative id. */
-        const val PREVIEW_WIDGET_ID = -1
-    }
+
 }

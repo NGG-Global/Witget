@@ -49,6 +49,10 @@ widget can be placed more than once, and every instance keeps its own
 configuration and its own anti-repeat history: a Japan countdown and a birthday
 countdown, or a sarcastic 8 ball beside a chaotic one.
 
+Settings chosen in the gallery before a widget is placed are kept as a per-type
+template that new instances inherit, so nothing you set there is discarded.
+Editing a widget that is already on the home screen changes only that one.
+
 Widgets adapt their content, not just their scale, across four breakpoints
 (2×1, 2×2, 4×2 / 5×2, 4×4). A compact battery tile shows the percentage and one
 line; the large one adds the charge ring, the estimated remaining time and a
@@ -143,7 +147,7 @@ app/src/main/
       <eight widget packages>
     work/                  refresh scheduling and the midnight rollover
   res/font/                Bricolage Grotesque (variable) + IBM Plex Mono
-app/src/test/              134 JVM and Robolectric unit tests
+app/src/test/              138 JVM and Robolectric unit tests
 app/src/androidTest/       Compose and on-device pipeline tests
 docs/
   design-system.md         design token mapping and Glance adaptations
@@ -185,7 +189,7 @@ git clone <this repo> && cd Witget
 echo "sdk.dir=/path/to/Android/sdk" > local.properties
 
 ./gradlew :app:assembleDebug        # debug APK
-./gradlew :app:testDebugUnitTest    # 134 unit tests
+./gradlew :app:testDebugUnitTest    # 138 unit tests
 ./gradlew :app:lintDebug            # Android lint
 ./gradlew :app:assembleRelease      # minified release APK (unsigned by default)
 ```
@@ -328,7 +332,7 @@ raw network error is never shown.
 ## Testing
 
 ```bash
-./gradlew :app:testDebugUnitTest          # 134 tests, JVM + Robolectric
+./gradlew :app:testDebugUnitTest          # 138 tests, JVM + Robolectric
 ./gradlew :app:connectedDebugAndroidTest  # requires a device or emulator
 ./gradlew :app:lintDebug                  # clean: no issues found
 ```
@@ -344,7 +348,7 @@ raw network error is never shown.
 | `DayVibeLogicTest` | The busy-score formula, both penalties, all five bands, back-to-back detection, lunch-gap detection, tasks-are-not-meetings. |
 | `WeatherLogicTest` | Every threshold and the full priority ordering. |
 | `Magic8BallLogicTest` | 40/20/40 sentiment weighting and the 12-tap repeat rule. |
-| `WidgetInstanceConfigTest` | Two instances of one type staying independent, per-instance history, deletion cleanup, orphan pruning. |
+| `WidgetInstanceConfigTest` | Two instances of one type staying independent, per-instance history, template inheritance, deletion cleanup, orphan pruning. |
 | `WidgetBreakpointTest` | Breakpoint selection including off-by-a-few-dp launcher sizes. |
 | `GalleryFlowTest`, `WidgetRenderTest` (device) | Compose flows, and every widget × personality × size producing resolved copy. |
 
@@ -368,7 +372,7 @@ built from.
 
 **Verification.** The build environment had no emulator and no attached device
 (no KVM, no hardware virtualisation). Everything statically verifiable was
-verified: the debug and minified release APKs build, 134 unit tests pass, lint
+verified: the debug and minified release APKs build, 138 unit tests pass, lint
 reports no issues, all eight widget receivers and providers are present in the
 merged manifest, and the instrumented tests compile. **Not yet exercised on a
 device:** rendering in a real launcher, the pin-widget flow, granting Usage

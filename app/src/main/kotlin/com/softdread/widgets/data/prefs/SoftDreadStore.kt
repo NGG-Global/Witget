@@ -64,18 +64,28 @@ class SoftDreadStore(private val context: Context) {
     suspend fun currentConfig(appWidgetId: Int): WidgetInstanceConfig? = config(appWidgetId).first()
 
     /**
-     * Reads the config for [appWidgetId], creating a default for [type] when the
+     * Reads the config for [appWidgetId], creating one for [type] when the
      * widget was placed without passing through the configuration activity —
      * which is what happens for widget types that do not declare one.
+     *
+     * A newly created instance inherits [type]'s template, so settings the user
+     * chose in the gallery before placing anything are carried over instead of
+     * being silently discarded.
      */
     suspend fun configOrCreate(appWidgetId: Int, type: WidgetType): WidgetInstanceConfig {
         currentConfig(appWidgetId)?.let { existing ->
             if (existing.widgetTypeId == type.id) return existing
         }
-        val created = WidgetInstanceConfig.default(appWidgetId, type)
+        val created = template(type).copy(appWidgetId = appWidgetId)
         saveConfig(created)
         return created
     }
+
+    /** [type]'s template configuration, or a fresh default if none was saved. */
+    suspend fun template(type: WidgetType): WidgetInstanceConfig =
+        currentConfig(WidgetInstanceConfig.templateId(type))
+            ?.takeIf { it.widgetTypeId == type.id }
+            ?: WidgetInstanceConfig.template(type)
 
     suspend fun saveConfig(config: WidgetInstanceConfig) {
         store.edit { prefs ->
@@ -115,6 +125,8 @@ class SoftDreadStore(private val context: Context) {
                 .filter { it.name.startsWith(CONFIG_PREFIX) }
                 .filter { key ->
                     val id = key.name.removePrefix(CONFIG_PREFIX).toIntOrNull()
+                    // Templates are not widgets and must survive pruning.
+                    if (id != null && id <= WidgetInstanceConfig.TEMPLATE_ID_BASE) return@filter false
                     id == null || id !in liveAppWidgetIds
                 }
             val staleInstanceKeys = staleConfigKeys.mapNotNull { key ->
@@ -127,11 +139,15 @@ class SoftDreadStore(private val context: Context) {
         }
     }
 
+    /** Every stored configuration, templates included. */
     suspend fun allConfigs(): List<WidgetInstanceConfig> = store.data.first().asMap()
         .filterKeys { it.name.startsWith(CONFIG_PREFIX) }
         .values
         .filterIsInstance<String>()
         .mapNotNull { decodeOrNull(WidgetInstanceConfig.serializer(), it) }
+
+    /** Only widgets actually on a home screen. */
+    suspend fun placedConfigs(): List<WidgetInstanceConfig> = allConfigs().filterNot { it.isTemplate }
 
     // --- anti-repeat history ------------------------------------------------
 

@@ -33,7 +33,7 @@ Two conflicts are already resolved; do not "fix" them back:
 
 ```bash
 ./gradlew :app:assembleDebug
-./gradlew :app:testDebugUnitTest          # 134 tests; keep this green
+./gradlew :app:testDebugUnitTest          # 138 tests; keep this green
 ./gradlew :app:lintDebug                  # keep at 0 errors
 ./gradlew :app:assembleRelease            # verifies R8 rules
 ./gradlew :app:connectedDebugAndroidTest  # needs a device; none in CI so far
@@ -85,6 +85,11 @@ Do not add ad-hoc `random()` picks inside a widget.
   Compose for the app. Changing one without the other creates drift.
 - Configuration is keyed by `appWidgetId`, never by widget type. Multiple
   instances must stay independent — there are tests for this.
+- Ids at or below `WidgetInstanceConfig.TEMPLATE_ID_BASE` (-100) are per-type
+  **templates**, not placed widgets: they hold what the gallery edits before
+  anything is placed, and `configOrCreate` seeds new instances from them.
+  Anything that walks stored configs must use `placedConfigs()` unless it really
+  means templates too — `pruneOrphans` and the gallery's placed count both do.
 - `SizeMode.Exact`, not `Responsive`: the tile field is a bitmap, and Responsive
   would build one RemoteViews per declared size.
 - A widget must never fabricate data. Missing permission or missing setup renders

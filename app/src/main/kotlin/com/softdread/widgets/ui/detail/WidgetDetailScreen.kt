@@ -232,6 +232,14 @@ fun WidgetDetailScreen(
             }
 
             val config = state.config
+            if (config?.isTemplate == true) {
+                Spacer(Modifier.height(SoftDreadSpacing.Medium))
+                Text(
+                    text = stringResource(R.string.detail_template_note),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = chrome.secondaryType,
+                )
+            }
             if (config != null && hasTypeSettings(type)) {
                 Spacer(Modifier.height(SoftDreadSpacing.XLarge))
                 SectionLabel(stringResource(R.string.detail_settings))

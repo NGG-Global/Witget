@@ -148,9 +148,27 @@ data class WidgetInstanceConfig(
             else -> true
         }
 
+    /** True for the per-type template rather than a widget on the home screen. */
+    val isTemplate: Boolean get() = appWidgetId <= TEMPLATE_ID_BASE
+
     companion object {
+        /**
+         * Template ids live below this value. The platform allocates
+         * `appWidgetId`s from 1 upwards, so no real widget can collide.
+         */
+        const val TEMPLATE_ID_BASE = -100
+
         fun default(appWidgetId: Int, type: WidgetType) =
             WidgetInstanceConfig(appWidgetId = appWidgetId, widgetTypeId = type.id)
+
+        /**
+         * The id of [type]'s template: the settings the user edits from the
+         * gallery before placing anything, which every new instance inherits.
+         */
+        fun templateId(type: WidgetType): Int = TEMPLATE_ID_BASE - type.ordinal
+
+        fun template(type: WidgetType) =
+            WidgetInstanceConfig(appWidgetId = templateId(type), widgetTypeId = type.id)
     }
 }
 
