@@ -75,6 +75,78 @@ JOKE_MODE_WEIGHTS = {
 }
 
 VARIABLE_RE = re.compile(r"\{([a-z_]+)\}")
+
+# ---------------------------------------------------------------------------
+# Motifs: a hand-curated visual for every joke and every equivalency unit.
+#
+# The pack renders these as flat geometric pictograms on the tile (the glyph)
+# and, for jokes, may retint the tile's field to a palette role (the colour) —
+# a joke about blue paint gets a slate tile, the toaster joke gets a toast
+# glyph. Curated per ID rather than keyword-matched at runtime: the libraries
+# are fixed, so every assignment below was reviewed against the actual text.
+# Glyph names must exist in MotifGlyph (Kotlin); colours are ColourRole names.
+# ContentPackTest enforces both.
+# ---------------------------------------------------------------------------
+
+JOKE_MOTIFS = {
+    "J001": ("CALENDAR", "SLATE"), "J002": ("BROOM", "SAGE"), "J003": ("PLATE", "EMBER"),
+    "J004": ("ARROW", "SLATE"), "J005": ("WIFI", "SLATE"), "J006": ("CHAIR", "SAGE"),
+    "J007": ("BROOM", "AMBER"), "J008": ("TOAST", "AMBER"), "J009": ("BULB", "AMBER"),
+    "J010": ("FRIDGE", "SLATE"), "J011": ("BOOK", "EMBER"), "J012": ("SOCK", "SLATE"),
+    "J013": ("SPINNER", "SLATE"), "J014": ("MIRROR", "SLATE"), "J015": ("DOC", "AMBER"),
+    "J016": ("PENCIL", "AMBER"), "J017": ("CLOCK", "NIGHT"), "J018": ("KETTLE", "EMBER"),
+    "J019": ("DROP", "NIGHT"), "J020": ("UMBRELLA", "SLATE"), "J021": ("CLOCK", "EMBER"),
+    "J022": ("BOOK", "SAGE"), "J023": ("BATTERY", "SAGE"), "J024": ("PHONE", "NIGHT"),
+    "J025": ("LAPTOP", "SLATE"), "J026": ("LOCK", "NIGHT"), "J027": ("BUG", "SAGE"),
+    "J028": ("LAPTOP", "NIGHT"), "J029": ("CLOUD", "SLATE"), "J030": ("WIFI", "NIGHT"),
+    "J031": ("SPINNER", "SLATE"), "J032": ("BUG", "NIGHT"), "J033": ("GRID", "SLATE"),
+    "J034": ("BULB", "SLATE"), "J035": ("LAPTOP", "EMBER"), "J036": ("PENCIL", "SLATE"),
+    "J037": ("GRID", "EMBER"), "J038": ("GRID", "SAGE"), "J039": ("PLANE", "SLATE"),
+    "J040": ("WIFI", "EMBER"), "J041": ("SPINNER", "AMBER"), "J042": ("BRANCH", "SAGE"),
+    "J043": ("LOCK", "SLATE"), "J044": ("LAPTOP", "CLAY"), "J045": ("HOUSE", "SAGE"),
+    "J046": ("CLOUD", "SAGE"), "J047": ("ALERT", "CLAY"), "J048": ("BATTERY", "SAGE"),
+    "J049": ("DOC", "AMBER"), "J050": ("DOC", "SAGE"), "J051": ("MAIL", "SLATE"),
+    "J052": ("SPINNER", "NIGHT"), "J053": ("BROOM", "SLATE"), "J054": ("CALENDAR", "EMBER"),
+    "J055": ("MAIL", "CLAY"), "J056": ("CLOCK", "AMBER"), "J057": ("CALENDAR", "CLAY"),
+    "J058": ("MAIL", "SAGE"), "J059": ("SPINNER", "EMBER"), "J060": ("DOC", "EMBER"),
+    "J061": ("CLOCK", "SAGE"), "J062": ("CUP", "EMBER"), "J063": ("BULB", "CLAY"),
+    "J064": ("CLOCK", "SLATE"), "J065": ("CALENDAR", "AMBER"), "J066": ("GRID", "SAGE"),
+    "J067": ("CLOCK", "EMBER"), "J068": ("MOON", "SLATE"), "J069": ("CALENDAR", "SAGE"),
+    "J070": ("PLATE", "AMBER"), "J071": ("BELL", "AMBER"), "J072": ("MOON", "SLATE"),
+    "J073": ("DROP", "SLATE"), "J074": ("BIRD", "EMBER"), "J075": ("HOUSE", "AMBER"),
+    "J076": ("PAINT", "SLATE"),  # blue paint: the canonical example — a blue tile.
+    "J077": ("BOX", "EMBER"), "J078": ("DOOR", "SAGE"), "J079": ("BONE", "AMBER"),
+    "J080": ("BOOK", "SLATE"), "J081": ("DOOR", "EMBER"), "J082": ("PHONE", "SAGE"),
+    "J083": ("PLANT", "SAGE"), "J084": ("BELL", "SAGE"), "J085": ("DOC", "NIGHT"),
+    "J086": ("BOX", "AMBER"), "J087": ("BELL", "NIGHT"), "J088": ("FRIDGE", "SAGE"),
+    "J089": ("SUN", "AMBER"), "J090": ("SPINNER", "EMBER"), "J091": ("DOC", "SLATE"),
+    "J092": ("MIRROR", "AMBER"), "J093": ("BONE", "NIGHT"), "J094": ("ARROW", "SLATE"),
+    "J095": ("PHONE", "EMBER"), "J096": ("CLOCK", "SLATE"), "J097": ("BIRD", "SLATE"),
+    "J098": ("SOCK", "CLAY"), "J099": ("MAIL", "NIGHT"), "J100": ("MOON", "NIGHT"),
+    "J101": ("WIFI", "EMBER"), "J102": ("PLANT", "SAGE"), "J103": ("SPOON", "NIGHT"),
+    "J104": ("MIRROR", "EMBER"), "J105": ("MICRO", "CLAY"), "J106": ("LAUNDRY", "SLATE"),
+    "J107": ("DOOR", "SLATE"), "J108": ("POTATO", "EMBER"), "J109": ("CHAIR", "NIGHT"),
+    "J110": ("DOOR", "AMBER"), "J111": ("PHONE", "SLATE"), "J112": ("HOUSE", "NIGHT"),
+    "J113": ("FRIDGE", "NIGHT"), "J114": ("CLOCK", "CLAY"), "J115": ("SOCK", "SAGE"),
+    "J116": ("TOAST", "CLAY"),  # the toaster: the other canonical example.
+    "J117": ("CLOUD", "AMBER"), "J118": ("DOOR", "NIGHT"), "J119": ("BOX", "SLATE"),
+    "J120": ("DOC", "EMBER"),
+}
+
+UNIT_GLYPHS = {
+    "ST01": "FILM", "ST02": "FILM", "ST03": "FILM", "ST04": "TV", "ST05": "TV",
+    "ST06": "FILM", "ST07": "FILM", "ST08": "TV", "ST09": "FILM", "ST10": "BALL",
+    "ST11": "BRIEFCASE", "ST12": "DUMBBELL", "ST13": "MOON", "ST14": "MOON",
+    "ST15": "BUS", "ST16": "LAUNDRY", "ST17": "PLATE", "ST18": "DROP", "ST19": "CUP",
+    "ST20": "WALK", "ST21": "TOMATO", "ST22": "TOMATO", "ST23": "MAIL", "ST24": "BULB",
+    "ST25": "BROOM", "ST26": "SPEECH", "ST27": "BOOK", "ST28": "BOOK", "ST29": "CUP",
+    "ST30": "MICRO", "ST31": "TOAST", "ST32": "FRIDGE", "ST33": "SPIRAL",
+    "ST34": "MAGNIFIER", "ST35": "BELL", "ST36": "BROOM", "ST37": "TV", "ST38": "PLATE",
+    "ST39": "NOTE", "ST40": "MIC", "ST41": "NOTE", "ST42": "NOTE", "ST43": "DOC",
+    "ST44": "DOC", "ST45": "BOOK", "ST46": "BOOK", "ST47": "PHONE", "ST48": "PHONE",
+    "ST49": "GAMEPAD", "ST50": "GAMEPAD",
+}
+
 NUMBERED_RE = re.compile(r"^\s*(\d+)\.\s*")
 
 
@@ -180,12 +252,15 @@ def parse_equivalencies(table) -> list[dict]:
             continue
         if category not in EQUIVALENCY_CATEGORY_KEYS:
             raise ValueError(f"Unknown equivalency category {category!r}")
+        if unit_id not in UNIT_GLYPHS:
+            raise ValueError(f"Equivalency unit {unit_id} has no motif glyph")
         units.append(
             {
                 "id": unit_id,
                 "category": EQUIVALENCY_CATEGORY_KEYS[category],
                 "minutes": float(minutes),
                 "label": label,
+                "glyph": UNIT_GLYPHS[unit_id],
             }
         )
     return units
@@ -199,7 +274,18 @@ def parse_jokes(table) -> list[dict]:
             continue
         if category not in JOKE_CATEGORY_KEYS:
             raise ValueError(f"Unknown joke category {category!r}")
-        jokes.append({"id": joke_id, "category": JOKE_CATEGORY_KEYS[category], "text": text})
+        if joke_id not in JOKE_MOTIFS:
+            raise ValueError(f"Joke {joke_id} has no motif")
+        glyph, colour = JOKE_MOTIFS[joke_id]
+        jokes.append(
+            {
+                "id": joke_id,
+                "category": JOKE_CATEGORY_KEYS[category],
+                "text": text,
+                "glyph": glyph,
+                "colour": colour,
+            }
+        )
     return jokes
 
 

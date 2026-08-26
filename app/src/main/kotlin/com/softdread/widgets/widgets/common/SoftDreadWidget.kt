@@ -28,7 +28,6 @@ import com.softdread.widgets.data.prefs.SoftDreadStore
 import com.softdread.widgets.data.prefs.WidgetInstanceConfig
 import com.softdread.widgets.design.SoftDreadTiles
 import com.softdread.widgets.design.ThemePack
-import com.softdread.widgets.design.TileColours
 import com.softdread.widgets.domain.model.Personality
 import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
@@ -53,10 +52,17 @@ data class WidgetPayload(
     val onClick: Action? = null,
 )
 
-/** One fully built render pass: payload plus the colours it should draw in. */
+/**
+ * One fully built render pass: payload plus what colour resolution needs.
+ * Colours are resolved per rendered content rather than stored, because a
+ * content-matched [TileContent.fieldRole] can retint the tile per string — the
+ * blue-paint joke renders on a slate field through exactly the same
+ * [SoftDreadTiles.colours] pipeline as the widget's own role.
+ */
 private data class RenderModel(
     val payload: WidgetPayload,
-    val colours: TileColours,
+    val pack: ThemePack,
+    val isDark: Boolean,
 )
 
 /**
@@ -111,10 +117,11 @@ abstract class SoftDreadWidget(protected val type: WidgetType) : GlanceAppWidget
             val breakpoint = WidgetBreakpoint.forSize(size.width.value, size.height.value)
             val content = model.payload.contentByBreakpoint[breakpoint]
                 ?: model.payload.contentByBreakpoint.values.first()
+            val role = content.fieldRole ?: type.colourRole
             SoftDreadTile(
-                role = type.colourRole,
+                role = role,
                 breakpoint = breakpoint,
-                colours = model.colours,
+                colours = SoftDreadTiles.colours(role, model.pack, model.isDark),
                 content = content,
                 onClick = model.payload.onClick,
             )
@@ -149,10 +156,10 @@ abstract class SoftDreadWidget(protected val type: WidgetType) : GlanceAppWidget
         val payload = buildPayload(environment)
         store.recordHistories(config.instanceKey, session.historyUpdates)
 
-        val pack = ThemePack.fromKeyOrDefault(preferences.themePackKey)
         return RenderModel(
             payload = payload,
-            colours = SoftDreadTiles.colours(type.colourRole, pack, isDark),
+            pack = ThemePack.fromKeyOrDefault(preferences.themePackKey),
+            isDark = isDark,
         )
     }
 

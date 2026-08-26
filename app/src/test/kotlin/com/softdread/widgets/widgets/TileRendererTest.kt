@@ -10,6 +10,7 @@ import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.ui.preview.SampleData
 import com.softdread.widgets.widgets.common.LeadingVisual
+import com.softdread.widgets.widgets.common.MotifGlyph
 import com.softdread.widgets.widgets.common.TileBar
 import com.softdread.widgets.widgets.common.TileChip
 import com.softdread.widgets.widgets.common.TileContent
@@ -35,6 +36,36 @@ class TileRendererTest {
 
     private fun sizeFor(breakpoint: WidgetBreakpoint): Pair<Int, Int> =
         (breakpoint.widthDp * 2) to (breakpoint.heightDp * 2)
+
+    @Test
+    fun `every motif glyph renders on every retint role without crashing`() {
+        // One tile per glyph x role would be 472 renders; the glyph drawing is
+        // role-independent, so each glyph renders once on a rotating role —
+        // every glyph's path code runs, and every role's plate-colour maths
+        // runs, in both modes.
+        val roles = listOf(
+            ColourRole.AMBER, ColourRole.SLATE, ColourRole.SAGE,
+            ColourRole.EMBER, ColourRole.NIGHT, ColourRole.CLAY,
+        )
+        MotifGlyph.entries.forEachIndexed { index, glyph ->
+            val role = roles[index % roles.size]
+            listOf(false, true).forEach { dark ->
+                val content = TileContent(
+                    label = "daily joke",
+                    voice = "A test line for the ${glyph.name.lowercase()} motif.",
+                    motif = glyph,
+                    fieldRole = role,
+                    contentDescription = "motif test",
+                )
+                val colours = SoftDreadTiles.colours(role, ThemePack.CLAY_HOUSE, dark)
+                listOf(WidgetBreakpoint.COMPACT, WidgetBreakpoint.STANDARD, WidgetBreakpoint.EXPANDED).forEach { bp ->
+                    val (w, h) = sizeFor(bp)
+                    val bitmap = TileRenderer.render(context, role, bp, colours, content, w, h, densityPx = 2f)
+                    assertThat(bitmap.width).isEqualTo(w)
+                }
+            }
+        }
+    }
 
     @Test
     fun `every sample tile renders at every breakpoint in both modes`() {

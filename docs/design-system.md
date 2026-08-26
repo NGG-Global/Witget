@@ -367,6 +367,38 @@ What the renderer guarantees:
 native graphics; it exists because looking at the output caught a doubled
 circle-ratio transcription that had made expanded tiles unreadable. Keep it.
 
+### Motifs: the content-matched pictogram and retint
+
+Jokes and Screen Time reduce cognitive load with a visual anchor for what the
+copy is about: the blue-paint joke arrives on a slate field with a paint
+roller, the toaster equivalency shows toast. Two channels, both curated per
+string in the content pack (see `content-model.md`):
+
+- **The glyph** — one of ~60 pictograms in `MotifGlyph`, drawn by `MotifArt`
+  on a solid plate. These are deliberately *not* an icon font, which the sheet
+  forbids; they are drawn in the pack's own geometry — flat shapes, round
+  caps, exactly two tones (ink detail over the tile's own field colour as the
+  accent) — and both the widget renderer and the Compose previews draw them
+  from the same implementation.
+- **The retint** — a joke may re-role the whole tile (`TileContent.fieldRole`),
+  resolved through `SoftDreadTiles.colours` so a retinted field carries the
+  same measured contrast guarantees as the widget's own colour. Screen Time
+  never retints: clay is that widget's identity; only the glyph changes.
+
+The plate honours the sheet's shape budget by taking the satellite's place —
+one cropped circle plus one companion — sitting at the satellite's measured
+anchor when that anchor is in the tile's upper half, else in the top-end slot
+under the label. Its colours are measured, not assigned: the plate must be
+perceptible against whatever actually sits under it (field or field circle,
+via `Contrast.perceptibleShape`), and the glyph ink is whichever pack extreme
+reads best on the plate (`Contrast.bestOn`).
+
+Copy always outranks the pictogram. Before any text is cut, the renderer
+steps the expanded statement's display size down, gives up the compact chip,
+then steps the compact voice down; if a block would still be cut or would
+cross the plate, the whole tile re-renders without the plate — the retint
+stays, because a coloured field costs the copy nothing.
+
 ## 7. Adaptation summary
 
 | Sheet element | Native treatment | Fidelity |

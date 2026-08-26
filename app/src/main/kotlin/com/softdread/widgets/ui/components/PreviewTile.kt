@@ -22,16 +22,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.softdread.widgets.design.Contrast
+import com.softdread.widgets.design.SoftDreadPalette
 import com.softdread.widgets.design.SoftDreadShape
 import com.softdread.widgets.design.SoftDreadTiles
 import com.softdread.widgets.design.SoftDreadType
@@ -40,6 +48,7 @@ import com.softdread.widgets.domain.model.ColourRole
 import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.widgets.common.CircleAnchor
 import com.softdread.widgets.widgets.common.LeadingVisual
+import com.softdread.widgets.widgets.common.MotifArt
 import com.softdread.widgets.widgets.common.TileBar
 import com.softdread.widgets.widgets.common.TileChip
 import com.softdread.widgets.widgets.common.TileContent
@@ -48,6 +57,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import java.util.Locale
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 /**
  * The in-app tile renderer.
@@ -66,12 +76,33 @@ fun PreviewTile(
     modifier: Modifier = Modifier,
     isDark: Boolean = false,
 ) {
-    val baseColours = SoftDreadTiles.colours(role, dark = isDark)
+    // A content-matched fieldRole retints the whole preview, exactly as it
+    // retints the placed widget — same resolution pipeline, same geometry.
+    val effectiveRole = content.fieldRole ?: role
+    val baseColours = SoftDreadTiles.colours(effectiveRole, dark = isDark)
     val colours = content.satelliteRole
         ?.let { baseColours.copy(satellite = SoftDreadTiles.colours(it, dark = isDark).surface) }
         ?: baseColours
-    val circle = TileGeometry.circle(role, breakpoint, colours)
-    val satellite = TileGeometry.satellite(role, breakpoint, colours)
+    val circle = TileGeometry.circle(effectiveRole, breakpoint, colours)
+    // Only an upper-half satellite slot hosts the plate — same rule as the
+    // widget renderer, where clay and cream would otherwise sit on the pill.
+    val satelliteSlot = TileGeometry.satellite(effectiveRole, breakpoint, colours)
+    val plateSlot = satelliteSlot?.takeIf { it.centreYRatio <= 0.5f }
+    // The widget renderer re-renders without the plate when copy would lose to
+    // it; Compose lays text out on its own, so the preview approximates that
+    // valve with a per-size copy budget. Slightly conservative on purpose:
+    // the preview may drop a plate the widget keeps, never the reverse risk.
+    val motifBudget = when (breakpoint) {
+        WidgetBreakpoint.TINY -> 0
+        WidgetBreakpoint.COMPACT -> 40
+        WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 80
+        WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> 130
+    }
+    val motif = content.motif.takeIf {
+        !content.isSetupState && (content.voice?.length ?: 0) <= motifBudget
+    }
+    // The motif plate takes the satellite's slot; the two never render together.
+    val satellite = if (motif != null) null else satelliteSlot
     val radius = breakpoint.cornerRadiusDp.dp
 
     Box(
@@ -105,6 +136,58 @@ fun PreviewTile(
                     )
                 }
             }
+            .then(
+                if (motif != null) {
+                    Modifier.drawWithCache {
+                        // Mirrors TileRenderer.buildMotifPlate: same slot, same
+                        // measured colours, and the glyph itself comes from the
+                        // one drawing implementation in MotifArt.
+                        val unit = min(size.width / breakpoint.widthDp, size.height / breakpoint.heightDp)
+                        val reference = min(size.width, size.height)
+                        val plateRadius = reference * when (breakpoint) {
+                            WidgetBreakpoint.COMPACT -> 0.155f
+                            WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 0.15f
+                            else -> 0.13f
+                        }
+                        val labelLine = (if (breakpoint.isLarge) 12f else 11f) * 1.3f * unit
+                        var cx = plateSlot?.let { size.width * it.centreXRatio }
+                            ?: (size.width - breakpoint.paddingHorizontalDp * unit - plateRadius)
+                        var cy = plateSlot?.let { size.height * it.centreYRatio }
+                            ?: (breakpoint.paddingVerticalDp * unit + labelLine + 6 * unit + plateRadius)
+                        val margin = 4 * unit
+                        cx = cx.coerceIn(plateRadius + margin, size.width - plateRadius - margin)
+                        cy = cy.coerceIn(plateRadius + margin, size.height - plateRadius - margin)
+
+                        val backdrop = circle?.let { spec ->
+                            val diameter = reference * spec.diameterRatio
+                            val centre = anchorCentre(spec.anchor, size, diameter, reference * spec.overhangRatio)
+                            val dx = cx - centre.x
+                            val dy = cy - centre.y
+                            if (dx * dx + dy * dy <= diameter * diameter / 4f) {
+                                if (spec.colour.alpha == 1f) spec.colour else spec.colour.compositeOver(colours.surface)
+                            } else {
+                                colours.surface
+                            }
+                        } ?: colours.surface
+                        val plate = Contrast.perceptibleShape(colours.contrastCircle, backdrop, colours.satellite)
+                        val ink = Contrast.bestOn(plate, SoftDreadPalette.Ink, SoftDreadPalette.Cream)
+                        val accent = Contrast.perceptibleShape(colours.surface, plate, ink)
+                        val bitmap = MotifArt.plateBitmap(
+                            (plateRadius * 2).roundToInt().coerceAtLeast(8),
+                            motif, plate.toArgb(), ink.toArgb(), accent.toArgb(),
+                        ).asImageBitmap()
+                        onDrawBehind {
+                            drawImage(
+                                bitmap,
+                                dstOffset = IntOffset((cx - plateRadius).roundToInt(), (cy - plateRadius).roundToInt()),
+                                dstSize = IntSize(bitmap.width, bitmap.height),
+                            )
+                        }
+                    }
+                } else {
+                    Modifier
+                },
+            )
             .padding(
                 horizontal = breakpoint.paddingHorizontalDp.dp,
                 vertical = breakpoint.paddingVerticalDp.dp,

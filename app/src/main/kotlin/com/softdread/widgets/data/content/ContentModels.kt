@@ -50,6 +50,8 @@ data class EquivalencyUnit(
     val category: String,
     val minutes: Double,
     val label: String,
+    /** Motif glyph name, curated per unit in the extractor ("FILM", "TOAST"). */
+    val glyph: String? = null,
 )
 
 @Serializable
@@ -57,6 +59,10 @@ data class Joke(
     val id: String,
     val category: String,
     val text: String,
+    /** Motif glyph name, curated per joke in the extractor ("PAINT", "SOCK"). */
+    val glyph: String? = null,
+    /** ColourRole name the tile retints to for this joke ("SLATE" for blue paint). */
+    val colour: String? = null,
 )
 
 @Serializable

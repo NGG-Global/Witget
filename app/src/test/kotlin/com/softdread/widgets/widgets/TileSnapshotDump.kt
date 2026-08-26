@@ -8,6 +8,7 @@ import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.ui.preview.SampleData
 import com.softdread.widgets.widgets.common.LeadingVisual
+import com.softdread.widgets.widgets.common.MotifGlyph
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.TileRenderer
 import java.io.File
@@ -45,10 +46,13 @@ class TileSnapshotDump {
             widthDp: Int = breakpoint.widthDp,
             heightDp: Int = breakpoint.heightDp,
         ) {
-            val colours = SoftDreadTiles.colours(type.colourRole, ThemePack.CLAY_HOUSE, dark)
+            // Same resolution the real pipeline uses: a content-matched
+            // fieldRole retints the whole tile.
+            val role = content.fieldRole ?: type.colourRole
+            val colours = SoftDreadTiles.colours(role, ThemePack.CLAY_HOUSE, dark)
             val w = widthDp * 3
             val h = heightDp * 3
-            val bitmap = TileRenderer.render(context, type.colourRole, breakpoint, colours, content, w, h, densityPx = 3f)
+            val bitmap = TileRenderer.render(context, role, breakpoint, colours, content, w, h, densityPx = 3f)
             FileOutputStream(File(out, "$name.png")).use {
                 bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)
             }
@@ -163,5 +167,73 @@ class TileSnapshotDump {
                 callToAction = "tap to ask again",
                 contentDescription = "d",
             ))
+
+        // Content-matched motifs. The two canonical cases from the request:
+        // the blue-paint joke arrives on a slate field with the roller, and
+        // the toaster shows toast. Screen time keeps clay and gains the glyph.
+        val paintJoke = "What is blue and smells like blue paint? Blue paint."
+        listOf(
+            WidgetBreakpoint.COMPACT to "motif_paint_compact",
+            WidgetBreakpoint.STANDARD to "motif_paint_standard",
+            WidgetBreakpoint.EXPANDED to "motif_paint_expanded",
+        ).forEach { (bp, name) ->
+            save(name, WidgetType.DAILY_JOKE, bp, false,
+                TileContent(
+                    label = "daily joke",
+                    labelDetail = if (bp.isLarge) "26 aug" else null,
+                    voice = paintJoke,
+                    chips = if (bp != WidgetBreakpoint.TINY) {
+                        listOf(com.softdread.widgets.widgets.common.TileChip("anti-joke certified"))
+                    } else {
+                        emptyList()
+                    },
+                    motif = MotifGlyph.PAINT,
+                    fieldRole = com.softdread.widgets.domain.model.ColourRole.SLATE,
+                    contentDescription = "d",
+                ))
+        }
+        save("motif_toaster_joke_dark", WidgetType.DAILY_JOKE, WidgetBreakpoint.STANDARD, true,
+            TileContent(
+                label = "daily joke",
+                voice = "The toaster has one setting: legal dispute.",
+                chips = listOf(com.softdread.widgets.widgets.common.TileChip("regret: medium")),
+                motif = MotifGlyph.TOAST,
+                fieldRole = com.softdread.widgets.domain.model.ColourRole.CLAY,
+                contentDescription = "d",
+            ))
+        save("motif_screentime_toast", WidgetType.SCREEN_TIME, WidgetBreakpoint.EXPANDED, false,
+            TileContent(
+                label = "screen time",
+                labelDetail = "33 min",
+                heroValue = "4.1",
+                subhead = "an aggressively long toaster cycle",
+                pill = "You've spent 33 min on-screen today.",
+                motif = MotifGlyph.TOAST,
+                contentDescription = "d",
+            ), widthDp = 500, heightDp = 290)
+        save("motif_screentime_film_compact", WidgetType.SCREEN_TIME, WidgetBreakpoint.COMPACT, false,
+            SampleData.content(WidgetType.SCREEN_TIME, WidgetBreakpoint.COMPACT))
+        save("motif_moon_joke_dark", WidgetType.DAILY_JOKE, WidgetBreakpoint.EXPANDED, true,
+            TileContent(
+                label = "daily joke",
+                labelDetail = "26 aug",
+                voice = "The moon has not replied to my email. Typical management.",
+                chips = listOf(com.softdread.widgets.widgets.common.TileChip("absurdity index: 94%")),
+                motif = MotifGlyph.MOON,
+                fieldRole = com.softdread.widgets.domain.model.ColourRole.NIGHT,
+                contentDescription = "d",
+            ))
+
+        // A contact sheet of the full glyph vocabulary: every pictogram on a
+        // joke tile, so a human pass can judge the whole family at once.
+        MotifGlyph.entries.forEach { glyph ->
+            save("glyph_${glyph.name.lowercase()}", WidgetType.DAILY_JOKE, WidgetBreakpoint.COMPACT, false,
+                TileContent(
+                    label = glyph.name.lowercase(),
+                    voice = "the ${glyph.name.lowercase()} motif",
+                    motif = glyph,
+                    contentDescription = "d",
+                ))
+        }
     }
 }

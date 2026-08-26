@@ -2,11 +2,14 @@ package com.softdread.widgets.data.content
 
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import com.softdread.widgets.data.prefs.EquivalencyCategory
 import com.softdread.widgets.data.prefs.JokeCategory
+import com.softdread.widgets.domain.model.ColourRole
 import com.softdread.widgets.domain.model.Personality
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.domain.selection.Interpolation
+import com.softdread.widgets.widgets.common.MotifGlyph
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -192,6 +195,24 @@ class ContentPackTest {
         // The Bible specifies 24 jokes in each of the five categories.
         document.jokes.groupBy { it.category }.forEach { (_, jokes) ->
             assertThat(jokes).hasSize(24)
+        }
+    }
+
+    @Test
+    fun `every joke and equivalency unit carries a valid curated motif`() = runBlocking<Unit> {
+        // The extractor's curated names and the MotifGlyph/ColourRole enums are
+        // two spellings of one set; this is the test that keeps them from
+        // drifting. A joke or unit without a motif would silently render a
+        // plain tile — the whole point of the feature is that none do.
+        val glyphNames = MotifGlyph.entries.map { it.name }.toSet()
+        val colourNames = ColourRole.entries.map { it.name }.toSet()
+
+        repository.document(WidgetType.DAILY_JOKE).jokes.forEach { joke ->
+            assertWithMessage("joke ${joke.id} glyph").that(joke.glyph).isIn(glyphNames)
+            assertWithMessage("joke ${joke.id} colour").that(joke.colour).isIn(colourNames)
+        }
+        repository.document(WidgetType.SCREEN_TIME).equivalencyUnits.forEach { unit ->
+            assertWithMessage("unit ${unit.id} glyph").that(unit.glyph).isIn(glyphNames)
         }
     }
 

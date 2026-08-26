@@ -72,6 +72,19 @@ data class TileContent(
     val contentDescription: String,
     /** Overrides the tile's satellite colour (Weather uses it for the sky). */
     val satelliteRole: ColourRole? = null,
+    /**
+     * A content-matched pictogram drawn on a plate over the field — the visual
+     * anchor for what the copy is about (the toaster joke shows toast). Curated
+     * per string in the content pack, never guessed at runtime.
+     */
+    val motif: MotifGlyph? = null,
+    /**
+     * Retints the whole tile to another palette role for this content ("blue
+     * paint" turns the joke tile slate). Resolution still goes through
+     * [com.softdread.widgets.design.SoftDreadTiles], so the retinted field keeps
+     * the same contrast guarantees as the widget's own colour.
+     */
+    val fieldRole: ColourRole? = null,
     /** True when the tile needs setup rather than data. */
     val isSetupState: Boolean = false,
 )

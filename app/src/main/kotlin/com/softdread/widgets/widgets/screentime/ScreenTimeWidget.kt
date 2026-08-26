@@ -12,6 +12,7 @@ import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.widgets.common.LeadingVisual
+import com.softdread.widgets.widgets.common.MotifGlyph
 import com.softdread.widgets.widgets.common.SoftDreadWidget
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
@@ -121,6 +122,11 @@ class ScreenTimeWidget : SoftDreadWidget(WidgetType.SCREEN_TIME) {
         framing: String?,
     ): TileContent {
         val ratio = match?.displayRatio
+        // The unit's curated pictogram — "1.4 movies" gets a clapperboard, the
+        // toaster cycle gets toast — so the equivalency reads at a glance
+        // before the words do. The tile keeps clay: the colour is this
+        // widget's identity, the glyph is the content's.
+        val motif = MotifGlyph.fromName(match?.unit?.glyph)
         val description = buildString {
             append("Screen time today $usageText")
             match?.let { append(", about ${it.displayRatio} of ${it.unit.label}") }
@@ -140,6 +146,7 @@ class ScreenTimeWidget : SoftDreadWidget(WidgetType.SCREEN_TIME) {
                 labelDetail = usageText,
                 heroValue = ratio?.let { if (match.asPercentage) it else "$it x" } ?: usageText,
                 voice = match?.unit?.label ?: commentary,
+                motif = motif,
                 contentDescription = description,
             )
 
@@ -148,6 +155,7 @@ class ScreenTimeWidget : SoftDreadWidget(WidgetType.SCREEN_TIME) {
                 labelDetail = usageText,
                 voice = framing ?: commentary,
                 leading = ratio?.let { LeadingVisual.Numeral(it.removeSuffix("%")) },
+                motif = motif,
                 contentDescription = description,
             )
 
@@ -157,6 +165,7 @@ class ScreenTimeWidget : SoftDreadWidget(WidgetType.SCREEN_TIME) {
                 heroValue = ratio ?: usageText,
                 subhead = match?.unit?.label,
                 pill = commentary,
+                motif = motif,
                 contentDescription = description,
             )
         }

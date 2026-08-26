@@ -57,6 +57,11 @@ the Bible, re-run the extractor, then run `ContentPackTest`.
 - Every state must carry a pool for all five personalities. `ContentPackTest`
   enforces this, along with unique IDs, balanced braces, known variables, and
   counts matching the Bible's inventory.
+- **Motifs are curated, never guessed.** Every joke carries a glyph + retint
+  colour and every equivalency unit a glyph, hand-assigned per ID in the
+  extractor's `JOKE_MOTIFS`/`UNIT_GLYPHS` tables (blue paint → `PAINT`+`SLATE`,
+  toaster → `TOAST`). The names must exist in `MotifGlyph`/`ColourRole`;
+  `ContentPackTest` fails on any drift or gap. No keyword matching at runtime.
 
 ## Selection engine rules
 
@@ -115,6 +120,21 @@ Do not add ad-hoc `random()` picks inside a widget.
 - **Every text block goes through `TileTextGuard`.** It is the reason copy no
   longer crosses a solid circle and disappears. Solid shapes are obstacles;
   tints resolved by `Contrast.tint` are opaque and count as solid.
+- **The motif plate is content, drawn by the renderer.** Jokes and Screen Time
+  carry a curated `TileContent.motif` pictogram (drawn once, in `MotifArt`, for
+  both renderers) and jokes may carry a `fieldRole` that retints the whole tile
+  through `SoftDreadTiles.colours` — same pipeline, same contrast guarantees.
+  The plate takes the satellite's slot when that slot is in the tile's upper
+  half, else the top-end slot under the label; it is always an obstacle. Plate,
+  ink and accent colours are measured against the actual backdrop
+  (`perceptibleShape`/`bestOn`), never assigned.
+- **Copy always outranks the pictogram.** The renderer holds a fixed surrender
+  order before any text is cut: the expanded statement steps its size down
+  (`STATEMENT_STEPS`), the compact tile gives up its chip and then steps the
+  voice down (`VOICE_STEPS`), and if a text block would still be cut or would
+  cross the plate, the pass sets `copyLostToMotif` and the tile re-renders
+  without the plate (the retint stays). Never let a motif truncate a punchline
+  or a metric.
 - **`TileGeometry`'s 4x4 diameters are measured from the sheet** (largest is
   clay at 0.82 of the tile). An early transcription doubled them and buried the
   expanded tiles under their own circles — the `TileSnapshotDump` test renders

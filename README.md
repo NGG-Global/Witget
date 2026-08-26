@@ -93,6 +93,16 @@ The four rules the sheet says must not break, and how they are enforced:
 | Copy sits in a cream pill on 4×4 only | `TileContent.pill`, rendered only by the expanded layout |
 | Lowercase everywhere except micro-labels | `SoftDreadTile` uppercases the micro-label and nothing else |
 
+**Content-matched motifs.** Daily Joke and Screen Time pair their copy with a
+visual anchor so the tile reads before the words do: the blue-paint joke
+arrives on a slate field with a paint roller, the toaster equivalency shows
+toast on the companion plate. The pictograms (~60, drawn in the pack's own
+flat geometry — no icon font) and the jokes' retint colours are hand-curated
+per string in the content pack, never keyword-guessed at runtime, and a
+motif is always given up before it may cost a single word of copy. The rules
+live in [`docs/design-system.md`](docs/design-system.md) and
+[`docs/content-model.md`](docs/content-model.md).
+
 ---
 
 ## Architecture
@@ -320,9 +330,10 @@ raw network error is never shown.
 - Every tile carries a `contentDescription` assembled from the real values, not
   the humour — TalkBack reads *"Battery 23 percent, about 2 hours 10 minutes
   remaining"* before the punchline.
-- All widget text is real text, never baked into a bitmap, so system font
-  scaling applies. Only the flat colour fields, circles, rings, bars and strips
-  are drawn.
+- Widget tiles are rendered as a single bitmap (the only way to carry the
+  bundled typeface and geometry-safe text through RemoteViews), and every text
+  size inside it is multiplied by the system font scale, so large-type users
+  get large type; the fitted size steps absorb the growth instead of clipping.
 - Body copy never drops below the design sheet's 13sp / 500 floor.
 - Every text colour the tiles render meets WCAG AA (4.5:1 for body, labels and
   metrics), in both light and dark and in all four theme packs. It is not
@@ -341,7 +352,7 @@ raw network error is never shown.
 ## Testing
 
 ```bash
-./gradlew :app:testDebugUnitTest          # 149 tests, JVM + Robolectric
+./gradlew :app:testDebugUnitTest          # 168 tests, JVM + Robolectric
 ./gradlew :app:connectedDebugAndroidTest  # requires a device or emulator
 ./gradlew :app:lintDebug                  # clean: no issues found
 ```

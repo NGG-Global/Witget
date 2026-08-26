@@ -7,9 +7,11 @@ import com.softdread.widgets.data.content.ContentResponse
 import com.softdread.widgets.data.content.Joke
 import com.softdread.widgets.data.content.pool
 import com.softdread.widgets.domain.logic.JokeLogic
+import com.softdread.widgets.domain.model.ColourRole
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.domain.selection.PoolHistory
+import com.softdread.widgets.widgets.common.MotifGlyph
 import com.softdread.widgets.widgets.common.SoftDreadWidget
 import com.softdread.widgets.widgets.common.TileChip
 import com.softdread.widgets.widgets.common.TileContent
@@ -47,6 +49,13 @@ class DailyJokeWidget : SoftDreadWidget(WidgetType.DAILY_JOKE) {
         val metadataVariables = JokeLogic.metadataVariables(metadataValues)
         val metadataCandidates = document.pool(JokeLogic.METADATA_STATE_KEY, environment.personality)
 
+        // The joke's curated motif: the pictogram anchors what the joke is
+        // about, and the colour retints the field to match it — the blue-paint
+        // joke arrives on a slate tile. Both come from the content pack, so an
+        // unknown name simply renders the tile without them.
+        val motif = MotifGlyph.fromName(joke.glyph)
+        val fieldRole = joke.colour?.let { name -> ColourRole.entries.firstOrNull { it.name == name } }
+
         val content = environment.breakpoints.associateWith { breakpoint ->
             val chips = if (breakpoint.showsCircle) {
                 metadataChips(environment, metadataCandidates, metadataVariables, if (breakpoint.isLarge) 2 else 1)
@@ -58,6 +67,8 @@ class DailyJokeWidget : SoftDreadWidget(WidgetType.DAILY_JOKE) {
                 labelDetail = if (breakpoint.isLarge) today.format(DAY_FORMAT) else null,
                 voice = joke.text,
                 chips = chips,
+                motif = motif,
+                fieldRole = fieldRole,
                 contentDescription = buildString {
                     append(joke.text)
                     chips.firstOrNull()?.let { append(". ${it.text}") }

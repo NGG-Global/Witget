@@ -1200,301 +1200,351 @@
       "id": "ST01",
       "category": "POP_CULTURE",
       "minutes": 558.0,
-      "label": "the theatrical Lord of the Rings trilogy"
+      "label": "the theatrical Lord of the Rings trilogy",
+      "glyph": "FILM"
     },
     {
       "id": "ST02",
       "category": "POP_CULTURE",
       "minutes": 726.0,
-      "label": "the extended Lord of the Rings trilogy"
+      "label": "the extended Lord of the Rings trilogy",
+      "glyph": "FILM"
     },
     {
       "id": "ST03",
       "category": "ENTERTAINMENT",
       "minutes": 120.0,
-      "label": "a feature-length movie"
+      "label": "a feature-length movie",
+      "glyph": "FILM"
     },
     {
       "id": "ST04",
       "category": "ENTERTAINMENT",
       "minutes": 45.0,
-      "label": "an hour-long TV episode without the ads"
+      "label": "an hour-long TV episode without the ads",
+      "glyph": "TV"
     },
     {
       "id": "ST05",
       "category": "ENTERTAINMENT",
       "minutes": 22.0,
-      "label": "a sitcom episode"
+      "label": "a sitcom episode",
+      "glyph": "TV"
     },
     {
       "id": "ST06",
       "category": "ENTERTAINMENT",
       "minutes": 30.0,
-      "label": "a short documentary"
+      "label": "a short documentary",
+      "glyph": "FILM"
     },
     {
       "id": "ST07",
       "category": "ENTERTAINMENT",
       "minutes": 180.0,
-      "label": "a long movie night"
+      "label": "a long movie night",
+      "glyph": "FILM"
     },
     {
       "id": "ST08",
       "category": "ENTERTAINMENT",
       "minutes": 480.0,
-      "label": "an eight-episode limited series"
+      "label": "an eight-episode limited series",
+      "glyph": "TV"
     },
     {
       "id": "ST09",
       "category": "ENTERTAINMENT",
       "minutes": 90.0,
-      "label": "a compact movie"
+      "label": "a compact movie",
+      "glyph": "FILM"
     },
     {
       "id": "ST10",
       "category": "ENTERTAINMENT",
       "minutes": 105.0,
-      "label": "a football match including halftime"
+      "label": "a football match including halftime",
+      "glyph": "BALL"
     },
     {
       "id": "ST11",
       "category": "LIFE",
       "minutes": 480.0,
-      "label": "a standard eight-hour workday"
+      "label": "a standard eight-hour workday",
+      "glyph": "BRIEFCASE"
     },
     {
       "id": "ST12",
       "category": "LIFE",
       "minutes": 60.0,
-      "label": "a decent gym session"
+      "label": "a decent gym session",
+      "glyph": "DUMBBELL"
     },
     {
       "id": "ST13",
       "category": "LIFE",
       "minutes": 90.0,
-      "label": "a full sleep cycle"
+      "label": "a full sleep cycle",
+      "glyph": "MOON"
     },
     {
       "id": "ST14",
       "category": "LIFE",
       "minutes": 20.0,
-      "label": "a power nap"
+      "label": "a power nap",
+      "glyph": "MOON"
     },
     {
       "id": "ST15",
       "category": "LIFE",
       "minutes": 45.0,
-      "label": "a city commute"
+      "label": "a city commute",
+      "glyph": "BUS"
     },
     {
       "id": "ST16",
       "category": "LIFE",
       "minutes": 90.0,
-      "label": "a laundry cycle"
+      "label": "a laundry cycle",
+      "glyph": "LAUNDRY"
     },
     {
       "id": "ST17",
       "category": "LIFE",
       "minutes": 30.0,
-      "label": "a proper lunch break"
+      "label": "a proper lunch break",
+      "glyph": "PLATE"
     },
     {
       "id": "ST18",
       "category": "LIFE",
       "minutes": 10.0,
-      "label": "a very leisurely shower"
+      "label": "a very leisurely shower",
+      "glyph": "DROP"
     },
     {
       "id": "ST19",
       "category": "LIFE",
       "minutes": 15.0,
-      "label": "a coffee break"
+      "label": "a coffee break",
+      "glyph": "CUP"
     },
     {
       "id": "ST20",
       "category": "LIFE",
       "minutes": 40.0,
-      "label": "a brisk neighborhood walk"
+      "label": "a brisk neighborhood walk",
+      "glyph": "WALK"
     },
     {
       "id": "ST21",
       "category": "PRODUCTIVITY",
       "minutes": 25.0,
-      "label": "a Pomodoro focus block"
+      "label": "a Pomodoro focus block",
+      "glyph": "TOMATO"
     },
     {
       "id": "ST22",
       "category": "PRODUCTIVITY",
       "minutes": 50.0,
-      "label": "two Pomodoro focus blocks"
+      "label": "two Pomodoro focus blocks",
+      "glyph": "TOMATO"
     },
     {
       "id": "ST23",
       "category": "PRODUCTIVITY",
       "minutes": 30.0,
-      "label": "a focused inbox-cleanup session"
+      "label": "a focused inbox-cleanup session",
+      "glyph": "MAIL"
     },
     {
       "id": "ST24",
       "category": "PRODUCTIVITY",
       "minutes": 60.0,
-      "label": "an uninterrupted deep-work hour"
+      "label": "an uninterrupted deep-work hour",
+      "glyph": "BULB"
     },
     {
       "id": "ST25",
       "category": "PRODUCTIVITY",
       "minutes": 15.0,
-      "label": "a desk reset"
+      "label": "a desk reset",
+      "glyph": "BROOM"
     },
     {
       "id": "ST26",
       "category": "PRODUCTIVITY",
       "minutes": 45.0,
-      "label": "a language lesson"
+      "label": "a language lesson",
+      "glyph": "SPEECH"
     },
     {
       "id": "ST27",
       "category": "PRODUCTIVITY",
       "minutes": 60.0,
-      "label": "a beginner tutorial session"
+      "label": "a beginner tutorial session",
+      "glyph": "BOOK"
     },
     {
       "id": "ST28",
       "category": "PRODUCTIVITY",
       "minutes": 120.0,
-      "label": "a substantial study block"
+      "label": "a substantial study block",
+      "glyph": "BOOK"
     },
     {
       "id": "ST29",
       "category": "ABSURD",
       "minutes": 5.0,
-      "label": "the time it takes to make a cup of coffee"
+      "label": "the time it takes to make a cup of coffee",
+      "glyph": "CUP"
     },
     {
       "id": "ST30",
       "category": "ABSURD",
       "minutes": 3.0,
-      "label": "the time it takes to microwave leftovers"
+      "label": "the time it takes to microwave leftovers",
+      "glyph": "MICRO"
     },
     {
       "id": "ST31",
       "category": "ABSURD",
       "minutes": 8.0,
-      "label": "an aggressively long toaster cycle"
+      "label": "an aggressively long toaster cycle",
+      "glyph": "TOAST"
     },
     {
       "id": "ST32",
       "category": "ABSURD",
       "minutes": 2.0,
-      "label": "a dramatic stare into the fridge"
+      "label": "a dramatic stare into the fridge",
+      "glyph": "FRIDGE"
     },
     {
       "id": "ST33",
       "category": "ABSURD",
       "minutes": 12.0,
-      "label": "a minor existential crisis"
+      "label": "a minor existential crisis",
+      "glyph": "SPIRAL"
     },
     {
       "id": "ST34",
       "category": "ABSURD",
       "minutes": 7.0,
-      "label": "looking for the thing that was in your hand"
+      "label": "looking for the thing that was in your hand",
+      "glyph": "MAGNIFIER"
     },
     {
       "id": "ST35",
       "category": "ABSURD",
       "minutes": 4.0,
-      "label": "checking one notification and regretting it"
+      "label": "checking one notification and regretting it",
+      "glyph": "BELL"
     },
     {
       "id": "ST36",
       "category": "ABSURD",
       "minutes": 6.0,
-      "label": "pretending to tidy a room"
+      "label": "pretending to tidy a room",
+      "glyph": "BROOM"
     },
     {
       "id": "ST37",
       "category": "ABSURD",
       "minutes": 15.0,
-      "label": "a convincing attempt to choose what to watch"
+      "label": "a convincing attempt to choose what to watch",
+      "glyph": "TV"
     },
     {
       "id": "ST38",
       "category": "ABSURD",
       "minutes": 10.0,
-      "label": "a 'quick' trip to the kitchen"
+      "label": "a 'quick' trip to the kitchen",
+      "glyph": "PLATE"
     },
     {
       "id": "ST39",
       "category": "AUDIO",
       "minutes": 3.5,
-      "label": "an average song"
+      "label": "an average song",
+      "glyph": "NOTE"
     },
     {
       "id": "ST40",
       "category": "AUDIO",
       "minutes": 45.0,
-      "label": "a podcast episode"
+      "label": "a podcast episode",
+      "glyph": "MIC"
     },
     {
       "id": "ST41",
       "category": "AUDIO",
       "minutes": 60.0,
-      "label": "a full album"
+      "label": "a full album",
+      "glyph": "NOTE"
     },
     {
       "id": "ST42",
       "category": "AUDIO",
       "minutes": 15.0,
-      "label": "four average songs"
+      "label": "four average songs",
+      "glyph": "NOTE"
     },
     {
       "id": "ST43",
       "category": "READING",
       "minutes": 6.0,
-      "label": "a short article"
+      "label": "a short article",
+      "glyph": "DOC"
     },
     {
       "id": "ST44",
       "category": "READING",
       "minutes": 20.0,
-      "label": "a magazine feature"
+      "label": "a magazine feature",
+      "glyph": "DOC"
     },
     {
       "id": "ST45",
       "category": "READING",
       "minutes": 45.0,
-      "label": "a solid chapter of a book"
+      "label": "a solid chapter of a book",
+      "glyph": "BOOK"
     },
     {
       "id": "ST46",
       "category": "READING",
       "minutes": 120.0,
-      "label": "a short book-reading session"
+      "label": "a short book-reading session",
+      "glyph": "BOOK"
     },
     {
       "id": "ST47",
       "category": "SOCIAL",
       "minutes": 0.5,
-      "label": "a 30-second short-form video"
+      "label": "a 30-second short-form video",
+      "glyph": "PHONE"
     },
     {
       "id": "ST48",
       "category": "SOCIAL",
       "minutes": 1.0,
-      "label": "a one-minute short-form video"
+      "label": "a one-minute short-form video",
+      "glyph": "PHONE"
     },
     {
       "id": "ST49",
       "category": "GAMING",
       "minutes": 30.0,
-      "label": "a quick gaming session"
+      "label": "a quick gaming session",
+      "glyph": "GAMEPAD"
     },
     {
       "id": "ST50",
       "category": "GAMING",
       "minutes": 120.0,
-      "label": "a serious gaming session"
+      "label": "a serious gaming session",
+      "glyph": "GAMEPAD"
     }
   ]
 }

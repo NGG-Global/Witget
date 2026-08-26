@@ -5,6 +5,7 @@ import com.softdread.widgets.domain.model.Personality
 import com.softdread.widgets.domain.model.WidgetBreakpoint
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.widgets.common.LeadingVisual
+import com.softdread.widgets.widgets.common.MotifGlyph
 import com.softdread.widgets.widgets.common.TileChip
 import com.softdread.widgets.widgets.common.TileContent
 
@@ -51,6 +52,9 @@ object SampleData {
         },
         pill = if (breakpoint.isLarge) "6h 30m. The rectangle has completed most of a shift." else null,
         leading = if (breakpoint == WidgetBreakpoint.STANDARD) LeadingVisual.Numeral("0.7") else null,
+        // The sample equivalency is a film trilogy, so the sample motif is the
+        // clapperboard — the same glyph ST01 carries in the content pack.
+        motif = MotifGlyph.FILM,
         contentDescription = "Sample: screen time 6 hours 30 minutes, about 0.7 of the Lord of the Rings trilogy.",
     )
 

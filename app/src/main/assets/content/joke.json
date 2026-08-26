@@ -271,602 +271,842 @@
     {
       "id": "J001",
       "category": "DAD_WORDPLAY",
-      "text": "I bought a calendar with no dates. It was a timeless investment."
+      "text": "I bought a calendar with no dates. It was a timeless investment.",
+      "glyph": "CALENDAR",
+      "colour": "SLATE"
     },
     {
       "id": "J002",
       "category": "DAD_WORDPLAY",
-      "text": "My vacuum cleaner and I have a lot in common: we both lose interest when things get messy."
+      "text": "My vacuum cleaner and I have a lot in common: we both lose interest when things get messy.",
+      "glyph": "BROOM",
+      "colour": "SAGE"
     },
     {
       "id": "J003",
       "category": "DAD_WORDPLAY",
-      "text": "I tried to organize my spices alphabetically. It was a seasoned decision."
+      "text": "I tried to organize my spices alphabetically. It was a seasoned decision.",
+      "glyph": "PLATE",
+      "colour": "EMBER"
     },
     {
       "id": "J004",
       "category": "DAD_WORDPLAY",
-      "text": "The elevator told me a joke. It worked on so many levels."
+      "text": "The elevator told me a joke. It worked on so many levels.",
+      "glyph": "ARROW",
+      "colour": "SLATE"
     },
     {
       "id": "J005",
       "category": "DAD_WORDPLAY",
-      "text": "I named my Wi-Fi 'The Past.' Now everyone keeps trying to connect with it."
+      "text": "I named my Wi-Fi 'The Past.' Now everyone keeps trying to connect with it.",
+      "glyph": "WIFI",
+      "colour": "SLATE"
     },
     {
       "id": "J006",
       "category": "DAD_WORDPLAY",
-      "text": "My chair applied for a promotion. It wanted a higher position."
+      "text": "My chair applied for a promotion. It wanted a higher position.",
+      "glyph": "CHAIR",
+      "colour": "SAGE"
     },
     {
       "id": "J007",
       "category": "DAD_WORDPLAY",
-      "text": "The broom quit. It was tired of being pushed around."
+      "text": "The broom quit. It was tired of being pushed around.",
+      "glyph": "BROOM",
+      "colour": "AMBER"
     },
     {
       "id": "J008",
       "category": "DAD_WORDPLAY",
-      "text": "I opened a bakery for introverts. We specialize in small rolls."
+      "text": "I opened a bakery for introverts. We specialize in small rolls.",
+      "glyph": "TOAST",
+      "colour": "AMBER"
     },
     {
       "id": "J009",
       "category": "DAD_WORDPLAY",
-      "text": "My lamp is very supportive. It always brightens the room when I walk in."
+      "text": "My lamp is very supportive. It always brightens the room when I walk in.",
+      "glyph": "BULB",
+      "colour": "AMBER"
     },
     {
       "id": "J010",
       "category": "DAD_WORDPLAY",
-      "text": "The fridge has started journaling. It has a lot to unpack."
+      "text": "The fridge has started journaling. It has a lot to unpack.",
+      "glyph": "FRIDGE",
+      "colour": "SLATE"
     },
     {
       "id": "J011",
       "category": "DAD_WORDPLAY",
-      "text": "I tried to write a book about glue. I got stuck on chapter one."
+      "text": "I tried to write a book about glue. I got stuck on chapter one.",
+      "glyph": "BOOK",
+      "colour": "EMBER"
     },
     {
       "id": "J012",
       "category": "DAD_WORDPLAY",
-      "text": "My socks started a podcast. Every episode is about finding their other half."
+      "text": "My socks started a podcast. Every episode is about finding their other half.",
+      "glyph": "SOCK",
+      "colour": "SLATE"
     },
     {
       "id": "J013",
       "category": "DAD_WORDPLAY",
-      "text": "The ceiling fan is my biggest supporter. It keeps saying, 'I'm a huge fan.'"
+      "text": "The ceiling fan is my biggest supporter. It keeps saying, 'I'm a huge fan.'",
+      "glyph": "SPINNER",
+      "colour": "SLATE"
     },
     {
       "id": "J014",
       "category": "DAD_WORDPLAY",
-      "text": "I challenged my mirror to a staring contest. It copied my strategy."
+      "text": "I challenged my mirror to a staring contest. It copied my strategy.",
+      "glyph": "MIRROR",
+      "colour": "SLATE"
     },
     {
       "id": "J015",
       "category": "DAD_WORDPLAY",
-      "text": "My notebook is very dramatic. Every problem becomes a whole page."
+      "text": "My notebook is very dramatic. Every problem becomes a whole page.",
+      "glyph": "DOC",
+      "colour": "AMBER"
     },
     {
       "id": "J016",
       "category": "DAD_WORDPLAY",
-      "text": "The pencil refused to argue. It didn't want to make a point."
+      "text": "The pencil refused to argue. It didn't want to make a point.",
+      "glyph": "PENCIL",
+      "colour": "AMBER"
     },
     {
       "id": "J017",
       "category": "DAD_WORDPLAY",
-      "text": "I asked the clock for advice. It said timing is everything, then refused to elaborate."
+      "text": "I asked the clock for advice. It said timing is everything, then refused to elaborate.",
+      "glyph": "CLOCK",
+      "colour": "NIGHT"
     },
     {
       "id": "J018",
       "category": "DAD_WORDPLAY",
-      "text": "My kettle has one personality trait: reaching a boiling point."
+      "text": "My kettle has one personality trait: reaching a boiling point.",
+      "glyph": "KETTLE",
+      "colour": "EMBER"
     },
     {
       "id": "J019",
       "category": "DAD_WORDPLAY",
-      "text": "I bought invisible ink. I can't see myself using it."
+      "text": "I bought invisible ink. I can't see myself using it.",
+      "glyph": "DROP",
+      "colour": "NIGHT"
     },
     {
       "id": "J020",
       "category": "DAD_WORDPLAY",
-      "text": "My umbrella is an optimist. It always assumes things will blow over."
+      "text": "My umbrella is an optimist. It always assumes things will blow over.",
+      "glyph": "UMBRELLA",
+      "colour": "SLATE"
     },
     {
       "id": "J021",
       "category": "DAD_WORDPLAY",
-      "text": "I tried to make a belt out of watches. Total waist of time."
+      "text": "I tried to make a belt out of watches. Total waist of time.",
+      "glyph": "CLOCK",
+      "colour": "EMBER"
     },
     {
       "id": "J022",
       "category": "DAD_WORDPLAY",
-      "text": "My bookshelf is judgmental. It keeps bringing up my unfinished business."
+      "text": "My bookshelf is judgmental. It keeps bringing up my unfinished business.",
+      "glyph": "BOOK",
+      "colour": "SAGE"
     },
     {
       "id": "J023",
       "category": "DAD_WORDPLAY",
-      "text": "The battery went to therapy. It was tired of feeling drained."
+      "text": "The battery went to therapy. It was tired of feeling drained.",
+      "glyph": "BATTERY",
+      "colour": "SAGE"
     },
     {
       "id": "J024",
       "category": "DAD_WORDPLAY",
-      "text": "My phone wanted a day off. I told it to disconnect for a while."
+      "text": "My phone wanted a day off. I told it to disconnect for a while.",
+      "glyph": "PHONE",
+      "colour": "NIGHT"
     },
     {
       "id": "J025",
       "category": "NERD_TECH",
-      "text": "I told my computer I needed space. It deleted three temporary files and called it growth."
+      "text": "I told my computer I needed space. It deleted three temporary files and called it growth.",
+      "glyph": "LAPTOP",
+      "colour": "SLATE"
     },
     {
       "id": "J026",
       "category": "NERD_TECH",
-      "text": "My password is emotionally secure. Nobody can get through to it."
+      "text": "My password is emotionally secure. Nobody can get through to it.",
+      "glyph": "LOCK",
+      "colour": "NIGHT"
     },
     {
       "id": "J027",
       "category": "NERD_TECH",
-      "text": "The bug said it wasn't a bug. It preferred 'unexpected feature with confidence.'"
+      "text": "The bug said it wasn't a bug. It preferred 'unexpected feature with confidence.'",
+      "glyph": "BUG",
+      "colour": "SAGE"
     },
     {
       "id": "J028",
       "category": "NERD_TECH",
-      "text": "My code works perfectly until someone watches."
+      "text": "My code works perfectly until someone watches.",
+      "glyph": "LAPTOP",
+      "colour": "NIGHT"
     },
     {
       "id": "J029",
       "category": "NERD_TECH",
-      "text": "I asked the cloud where my file went. It said, 'Define went.'"
+      "text": "I asked the cloud where my file went. It said, 'Define went.'",
+      "glyph": "CLOUD",
+      "colour": "SLATE"
     },
     {
       "id": "J030",
       "category": "NERD_TECH",
-      "text": "My router has trust issues. It keeps asking everyone for credentials."
+      "text": "My router has trust issues. It keeps asking everyone for credentials.",
+      "glyph": "WIFI",
+      "colour": "NIGHT"
     },
     {
       "id": "J031",
       "category": "NERD_TECH",
-      "text": "I installed an update for stability. Everything moved."
+      "text": "I installed an update for stability. Everything moved.",
+      "glyph": "SPINNER",
+      "colour": "SLATE"
     },
     {
       "id": "J032",
       "category": "NERD_TECH",
-      "text": "My app has dark mode because the bugs prefer low light."
+      "text": "My app has dark mode because the bugs prefer low light.",
+      "glyph": "BUG",
+      "colour": "NIGHT"
     },
     {
       "id": "J033",
       "category": "NERD_TECH",
-      "text": "The server isn't down. It's practicing horizontal scaling."
+      "text": "The server isn't down. It's practicing horizontal scaling.",
+      "glyph": "GRID",
+      "colour": "SLATE"
     },
     {
       "id": "J034",
       "category": "NERD_TECH",
-      "text": "I gave my AI a simple task. It returned a framework and three follow-up questions."
+      "text": "I gave my AI a simple task. It returned a framework and three follow-up questions.",
+      "glyph": "BULB",
+      "colour": "SLATE"
     },
     {
       "id": "J035",
       "category": "NERD_TECH",
-      "text": "My keyboard and I are in a committed relationship. We have a lot of space between us."
+      "text": "My keyboard and I are in a committed relationship. We have a lot of space between us.",
+      "glyph": "LAPTOP",
+      "colour": "EMBER"
     },
     {
       "id": "J036",
       "category": "NERD_TECH",
-      "text": "I wrote one line of code and spent forty minutes choosing the variable name. Architecture matters."
+      "text": "I wrote one line of code and spent forty minutes choosing the variable name. Architecture matters.",
+      "glyph": "PENCIL",
+      "colour": "SLATE"
     },
     {
       "id": "J037",
       "category": "NERD_TECH",
-      "text": "My cache remembers everything except what I actually need."
+      "text": "My cache remembers everything except what I actually need.",
+      "glyph": "GRID",
+      "colour": "EMBER"
     },
     {
       "id": "J038",
       "category": "NERD_TECH",
-      "text": "The database and I agreed to see other tables."
+      "text": "The database and I agreed to see other tables.",
+      "glyph": "GRID",
+      "colour": "SAGE"
     },
     {
       "id": "J039",
       "category": "NERD_TECH",
-      "text": "I put my phone in airplane mode. It still refuses to fly."
+      "text": "I put my phone in airplane mode. It still refuses to fly.",
+      "glyph": "PLANE",
+      "colour": "SLATE"
     },
     {
       "id": "J040",
       "category": "NERD_TECH",
-      "text": "My Bluetooth relationship status is 'paired, technically.'"
+      "text": "My Bluetooth relationship status is 'paired, technically.'",
+      "glyph": "WIFI",
+      "colour": "EMBER"
     },
     {
       "id": "J041",
       "category": "NERD_TECH",
-      "text": "The loading spinner has a great career. It is always going places without arriving."
+      "text": "The loading spinner has a great career. It is always going places without arriving.",
+      "glyph": "SPINNER",
+      "colour": "AMBER"
     },
     {
       "id": "J042",
       "category": "NERD_TECH",
-      "text": "I asked Git for closure. It offered me another branch."
+      "text": "I asked Git for closure. It offered me another branch.",
+      "glyph": "BRANCH",
+      "colour": "SAGE"
     },
     {
       "id": "J043",
       "category": "NERD_TECH",
-      "text": "My API is very private. Even I don't know what it's returning."
+      "text": "My API is very private. Even I don't know what it's returning.",
+      "glyph": "LOCK",
+      "colour": "SLATE"
     },
     {
       "id": "J044",
       "category": "NERD_TECH",
-      "text": "The compiler and I have different definitions of 'obvious.'"
+      "text": "The compiler and I have different definitions of 'obvious.'",
+      "glyph": "LAPTOP",
+      "colour": "CLAY"
     },
     {
       "id": "J045",
       "category": "NERD_TECH",
-      "text": "My smart home is so smart it has started ignoring me strategically."
+      "text": "My smart home is so smart it has started ignoring me strategically.",
+      "glyph": "HOUSE",
+      "colour": "SAGE"
     },
     {
       "id": "J046",
       "category": "NERD_TECH",
-      "text": "I backed everything up. Emotionally, less so."
+      "text": "I backed everything up. Emotionally, less so.",
+      "glyph": "CLOUD",
+      "colour": "SAGE"
     },
     {
       "id": "J047",
       "category": "NERD_TECH",
-      "text": "The app said 'Something went wrong.' Finally, a precise diagnosis."
+      "text": "The app said 'Something went wrong.' Finally, a precise diagnosis.",
+      "glyph": "ALERT",
+      "colour": "CLAY"
     },
     {
       "id": "J048",
       "category": "NERD_TECH",
-      "text": "My battery saver is excellent at saving battery for a future I apparently won't use it in."
+      "text": "My battery saver is excellent at saving battery for a future I apparently won't use it in.",
+      "glyph": "BATTERY",
+      "colour": "SAGE"
     },
     {
       "id": "J049",
       "category": "WORK_LIFE",
-      "text": "I had a productive morning. I moved three tasks to tomorrow."
+      "text": "I had a productive morning. I moved three tasks to tomorrow.",
+      "glyph": "DOC",
+      "colour": "AMBER"
     },
     {
       "id": "J050",
       "category": "WORK_LIFE",
-      "text": "My to-do list is less of a plan and more of a historical document."
+      "text": "My to-do list is less of a plan and more of a historical document.",
+      "glyph": "DOC",
+      "colour": "SAGE"
     },
     {
       "id": "J051",
       "category": "WORK_LIFE",
-      "text": "I joined a meeting that could have been an email. The email could have been a sentence."
+      "text": "I joined a meeting that could have been an email. The email could have been a sentence.",
+      "glyph": "MAIL",
+      "colour": "SLATE"
     },
     {
       "id": "J052",
       "category": "WORK_LIFE",
-      "text": "My work-life balance is currently buffering."
+      "text": "My work-life balance is currently buffering.",
+      "glyph": "SPINNER",
+      "colour": "NIGHT"
     },
     {
       "id": "J053",
       "category": "WORK_LIFE",
-      "text": "I cleaned my desk and immediately lost everything."
+      "text": "I cleaned my desk and immediately lost everything.",
+      "glyph": "BROOM",
+      "colour": "SLATE"
     },
     {
       "id": "J054",
       "category": "WORK_LIFE",
-      "text": "I made a five-year plan. It starts with getting through Thursday."
+      "text": "I made a five-year plan. It starts with getting through Thursday.",
+      "glyph": "CALENDAR",
+      "colour": "EMBER"
     },
     {
       "id": "J055",
       "category": "WORK_LIFE",
-      "text": "My inbox and I are taking some time apart. There are 2,417 unread reasons."
+      "text": "My inbox and I are taking some time apart. There are 2,417 unread reasons.",
+      "glyph": "MAIL",
+      "colour": "CLAY"
     },
     {
       "id": "J056",
       "category": "WORK_LIFE",
-      "text": "I scheduled time to be spontaneous. It's at 16:30."
+      "text": "I scheduled time to be spontaneous. It's at 16:30.",
+      "glyph": "CLOCK",
+      "colour": "AMBER"
     },
     {
       "id": "J057",
       "category": "WORK_LIFE",
-      "text": "I love deadlines. They make excellent whooshing sounds in my calendar."
+      "text": "I love deadlines. They make excellent whooshing sounds in my calendar.",
+      "glyph": "CALENDAR",
+      "colour": "CLAY"
     },
     {
       "id": "J058",
       "category": "WORK_LIFE",
-      "text": "Today I achieved inbox zero. Then someone emailed me."
+      "text": "Today I achieved inbox zero. Then someone emailed me.",
+      "glyph": "MAIL",
+      "colour": "SAGE"
     },
     {
       "id": "J059",
       "category": "WORK_LIFE",
-      "text": "My productivity system has become a hobby that prevents productivity."
+      "text": "My productivity system has become a hobby that prevents productivity.",
+      "glyph": "SPINNER",
+      "colour": "EMBER"
     },
     {
       "id": "J060",
       "category": "WORK_LIFE",
-      "text": "I wrote 'quick task' on my list. That was optimistic fiction."
+      "text": "I wrote 'quick task' on my list. That was optimistic fiction.",
+      "glyph": "DOC",
+      "colour": "EMBER"
     },
     {
       "id": "J061",
       "category": "WORK_LIFE",
-      "text": "I took a break from procrastinating. Very refreshing."
+      "text": "I took a break from procrastinating. Very refreshing.",
+      "glyph": "CLOCK",
+      "colour": "SAGE"
     },
     {
       "id": "J062",
       "category": "WORK_LIFE",
-      "text": "My coffee and I have a performance-based partnership."
+      "text": "My coffee and I have a performance-based partnership.",
+      "glyph": "CUP",
+      "colour": "EMBER"
     },
     {
       "id": "J063",
       "category": "WORK_LIFE",
-      "text": "I finally found my motivation. It was under 'maybe tomorrow.'"
+      "text": "I finally found my motivation. It was under 'maybe tomorrow.'",
+      "glyph": "BULB",
+      "colour": "CLAY"
     },
     {
       "id": "J064",
       "category": "WORK_LIFE",
-      "text": "The meeting ended early. Nobody knew what to do with the remaining six minutes."
+      "text": "The meeting ended early. Nobody knew what to do with the remaining six minutes.",
+      "glyph": "CLOCK",
+      "colour": "SLATE"
     },
     {
       "id": "J065",
       "category": "WORK_LIFE",
-      "text": "My calendar is color-coded, which makes the panic easier to categorize."
+      "text": "My calendar is color-coded, which makes the panic easier to categorize.",
+      "glyph": "CALENDAR",
+      "colour": "AMBER"
     },
     {
       "id": "J066",
       "category": "WORK_LIFE",
-      "text": "I opened a spreadsheet for fun. This is how I know I need a holiday."
+      "text": "I opened a spreadsheet for fun. This is how I know I need a holiday.",
+      "glyph": "GRID",
+      "colour": "SAGE"
     },
     {
       "id": "J067",
       "category": "WORK_LIFE",
-      "text": "I have excellent time management. I manage to lose time very consistently."
+      "text": "I have excellent time management. I manage to lose time very consistently.",
+      "glyph": "CLOCK",
+      "colour": "EMBER"
     },
     {
       "id": "J068",
       "category": "WORK_LIFE",
-      "text": "I put 'rest' on my to-do list, so naturally it became stressful."
+      "text": "I put 'rest' on my to-do list, so naturally it became stressful.",
+      "glyph": "MOON",
+      "colour": "SLATE"
     },
     {
       "id": "J069",
       "category": "WORK_LIFE",
-      "text": "I completed a task before the deadline. I assume there will be consequences."
+      "text": "I completed a task before the deadline. I assume there will be consequences.",
+      "glyph": "CALENDAR",
+      "colour": "SAGE"
     },
     {
       "id": "J070",
       "category": "WORK_LIFE",
-      "text": "My lunch break has been promoted to a calendar event with stakeholders."
+      "text": "My lunch break has been promoted to a calendar event with stakeholders.",
+      "glyph": "PLATE",
+      "colour": "AMBER"
     },
     {
       "id": "J071",
       "category": "WORK_LIFE",
-      "text": "I said 'I'll remember that' and immediately created a reminder."
+      "text": "I said 'I'll remember that' and immediately created a reminder.",
+      "glyph": "BELL",
+      "colour": "AMBER"
     },
     {
       "id": "J072",
       "category": "WORK_LIFE",
-      "text": "The best part of working from home is the commute from bed to concern."
+      "text": "The best part of working from home is the commute from bed to concern.",
+      "glyph": "MOON",
+      "colour": "SLATE"
     },
     {
       "id": "J073",
       "category": "ANTI_JOKE",
-      "text": "A man walks into a bar. He orders water. Hydration is important."
+      "text": "A man walks into a bar. He orders water. Hydration is important.",
+      "glyph": "DROP",
+      "colour": "SLATE"
     },
     {
       "id": "J074",
       "category": "ANTI_JOKE",
-      "text": "Why did the chicken cross the road? Traffic conditions allowed it."
+      "text": "Why did the chicken cross the road? Traffic conditions allowed it.",
+      "glyph": "BIRD",
+      "colour": "EMBER"
     },
     {
       "id": "J075",
       "category": "ANTI_JOKE",
-      "text": "I told a joke about construction. It was completed on schedule."
+      "text": "I told a joke about construction. It was completed on schedule.",
+      "glyph": "HOUSE",
+      "colour": "AMBER"
     },
     {
       "id": "J076",
       "category": "ANTI_JOKE",
-      "text": "What is blue and smells like blue paint? Blue paint."
+      "text": "What is blue and smells like blue paint? Blue paint.",
+      "glyph": "PAINT",
+      "colour": "SLATE"
     },
     {
       "id": "J077",
       "category": "ANTI_JOKE",
-      "text": "I bought a mystery box. It contained a box. Mystery resolved."
+      "text": "I bought a mystery box. It contained a box. Mystery resolved.",
+      "glyph": "BOX",
+      "colour": "EMBER"
     },
     {
       "id": "J078",
       "category": "ANTI_JOKE",
-      "text": "Two people walked into a room. The room remained structurally unaffected."
+      "text": "Two people walked into a room. The room remained structurally unaffected.",
+      "glyph": "DOOR",
+      "colour": "SAGE"
     },
     {
       "id": "J079",
       "category": "ANTI_JOKE",
-      "text": "I asked my dog what two minus two is. The dog did not answer. Correct."
+      "text": "I asked my dog what two minus two is. The dog did not answer. Correct.",
+      "glyph": "BONE",
+      "colour": "AMBER"
     },
     {
       "id": "J080",
       "category": "ANTI_JOKE",
-      "text": "Why was the math book sad? It wasn't. Books don't have endocrine systems."
+      "text": "Why was the math book sad? It wasn't. Books don't have endocrine systems.",
+      "glyph": "BOOK",
+      "colour": "SLATE"
     },
     {
       "id": "J081",
       "category": "ANTI_JOKE",
-      "text": "A horse enters an office. Security procedures have failed."
+      "text": "A horse enters an office. Security procedures have failed.",
+      "glyph": "DOOR",
+      "colour": "EMBER"
     },
     {
       "id": "J082",
       "category": "ANTI_JOKE",
-      "text": "I lost my phone yesterday. Then I found it. End of arc."
+      "text": "I lost my phone yesterday. Then I found it. End of arc.",
+      "glyph": "PHONE",
+      "colour": "SAGE"
     },
     {
       "id": "J083",
       "category": "ANTI_JOKE",
-      "text": "I planted a joke in the garden. Nothing happened. Wrong climate."
+      "text": "I planted a joke in the garden. Nothing happened. Wrong climate.",
+      "glyph": "PLANT",
+      "colour": "SAGE"
     },
     {
       "id": "J084",
       "category": "ANTI_JOKE",
-      "text": "The doctor told me to avoid unnecessary stress. So I stopped reading notifications."
+      "text": "The doctor told me to avoid unnecessary stress. So I stopped reading notifications.",
+      "glyph": "BELL",
+      "colour": "SAGE"
     },
     {
       "id": "J085",
       "category": "ANTI_JOKE",
-      "text": "A printer walks into a café. This raises several engineering questions."
+      "text": "A printer walks into a café. This raises several engineering questions.",
+      "glyph": "DOC",
+      "colour": "NIGHT"
     },
     {
       "id": "J086",
       "category": "ANTI_JOKE",
-      "text": "I tried to surprise myself. Prior knowledge made this difficult."
+      "text": "I tried to surprise myself. Prior knowledge made this difficult.",
+      "glyph": "BOX",
+      "colour": "AMBER"
     },
     {
       "id": "J087",
       "category": "ANTI_JOKE",
-      "text": "My alarm didn't go off. It remained on the nightstand."
+      "text": "My alarm didn't go off. It remained on the nightstand.",
+      "glyph": "BELL",
+      "colour": "NIGHT"
     },
     {
       "id": "J088",
       "category": "ANTI_JOKE",
-      "text": "I opened the fridge for inspiration. It contained food."
+      "text": "I opened the fridge for inspiration. It contained food.",
+      "glyph": "FRIDGE",
+      "colour": "SAGE"
     },
     {
       "id": "J089",
       "category": "ANTI_JOKE",
-      "text": "The weather forecast said 30 degrees. Later, it was approximately 30 degrees. Incredible."
+      "text": "The weather forecast said 30 degrees. Later, it was approximately 30 degrees. Incredible.",
+      "glyph": "SUN",
+      "colour": "AMBER"
     },
     {
       "id": "J090",
       "category": "ANTI_JOKE",
-      "text": "I threw a boomerang away. It returned, as specified."
+      "text": "I threw a boomerang away. It returned, as specified.",
+      "glyph": "SPINNER",
+      "colour": "EMBER"
     },
     {
       "id": "J091",
       "category": "ANTI_JOKE",
-      "text": "I took a personality test. It produced a result."
+      "text": "I took a personality test. It produced a result.",
+      "glyph": "DOC",
+      "colour": "SLATE"
     },
     {
       "id": "J092",
       "category": "ANTI_JOKE",
-      "text": "I asked the mirror who was fairest. It reflected visible light."
+      "text": "I asked the mirror who was fairest. It reflected visible light.",
+      "glyph": "MIRROR",
+      "colour": "AMBER"
     },
     {
       "id": "J093",
       "category": "ANTI_JOKE",
-      "text": "A skeleton walks into a pharmacy. It is denied service for administrative reasons."
+      "text": "A skeleton walks into a pharmacy. It is denied service for administrative reasons.",
+      "glyph": "BONE",
+      "colour": "NIGHT"
     },
     {
       "id": "J094",
       "category": "ANTI_JOKE",
-      "text": "I made a joke about gravity. It went down exactly as expected."
+      "text": "I made a joke about gravity. It went down exactly as expected.",
+      "glyph": "ARROW",
+      "colour": "SLATE"
     },
     {
       "id": "J095",
       "category": "ANTI_JOKE",
-      "text": "Why did I open this app? Historical records are inconclusive."
+      "text": "Why did I open this app? Historical records are inconclusive.",
+      "glyph": "PHONE",
+      "colour": "EMBER"
     },
     {
       "id": "J096",
       "category": "ANTI_JOKE",
-      "text": "I waited for inspiration. Time passed."
+      "text": "I waited for inspiration. Time passed.",
+      "glyph": "CLOCK",
+      "colour": "SLATE"
     },
     {
       "id": "J097",
       "category": "ABSURD",
-      "text": "A pigeon outside my window has been promoted. It now supervises the other pigeons."
+      "text": "A pigeon outside my window has been promoted. It now supervises the other pigeons.",
+      "glyph": "BIRD",
+      "colour": "SLATE"
     },
     {
       "id": "J098",
       "category": "ABSURD",
-      "text": "My left shoe knows what it did."
+      "text": "My left shoe knows what it did.",
+      "glyph": "SOCK",
+      "colour": "CLAY"
     },
     {
       "id": "J099",
       "category": "ABSURD",
-      "text": "I have replaced my five-year plan with a mysterious envelope labeled 'Thursday.'"
+      "text": "I have replaced my five-year plan with a mysterious envelope labeled 'Thursday.'",
+      "glyph": "MAIL",
+      "colour": "NIGHT"
     },
     {
       "id": "J100",
       "category": "ABSURD",
-      "text": "The moon has not replied to my email. Typical management."
+      "text": "The moon has not replied to my email. Typical management.",
+      "glyph": "MOON",
+      "colour": "NIGHT"
     },
     {
       "id": "J101",
       "category": "ABSURD",
-      "text": "I put a tiny hat on my router. Signal quality unchanged. Morale improved."
+      "text": "I put a tiny hat on my router. Signal quality unchanged. Morale improved.",
+      "glyph": "WIFI",
+      "colour": "EMBER"
     },
     {
       "id": "J102",
       "category": "ABSURD",
-      "text": "There is no evidence my houseplants are plotting, which is exactly what they want me to think."
+      "text": "There is no evidence my houseplants are plotting, which is exactly what they want me to think.",
+      "glyph": "PLANT",
+      "colour": "SAGE"
     },
     {
       "id": "J103",
       "category": "ABSURD",
-      "text": "My spoon has entered its villain era."
+      "text": "My spoon has entered its villain era.",
+      "glyph": "SPOON",
+      "colour": "NIGHT"
     },
     {
       "id": "J104",
       "category": "ABSURD",
-      "text": "I accidentally made eye contact with a mannequin. We are now legally rivals."
+      "text": "I accidentally made eye contact with a mannequin. We are now legally rivals.",
+      "glyph": "MIRROR",
+      "colour": "EMBER"
     },
     {
       "id": "J105",
       "category": "ABSURD",
-      "text": "The microwave beeped four times. I assume this was a threat."
+      "text": "The microwave beeped four times. I assume this was a threat.",
+      "glyph": "MICRO",
+      "colour": "CLAY"
     },
     {
       "id": "J106",
       "category": "ABSURD",
-      "text": "My laundry pile has achieved geological status."
+      "text": "My laundry pile has achieved geological status.",
+      "glyph": "LAUNDRY",
+      "colour": "SLATE"
     },
     {
       "id": "J107",
       "category": "ABSURD",
-      "text": "I don't trust revolving doors. Too many sudden returns."
+      "text": "I don't trust revolving doors. Too many sudden returns.",
+      "glyph": "DOOR",
+      "colour": "SLATE"
     },
     {
       "id": "J108",
       "category": "ABSURD",
-      "text": "A potato has never disappointed me professionally."
+      "text": "A potato has never disappointed me professionally.",
+      "glyph": "POTATO",
+      "colour": "EMBER"
     },
     {
       "id": "J109",
       "category": "ABSURD",
-      "text": "The chair in the corner is facing the wrong way again. I did not move it."
+      "text": "The chair in the corner is facing the wrong way again. I did not move it.",
+      "glyph": "CHAIR",
+      "colour": "NIGHT"
     },
     {
       "id": "J110",
       "category": "ABSURD",
-      "text": "Today has strong 'side character discovers a secret tunnel' energy."
+      "text": "Today has strong 'side character discovers a secret tunnel' energy.",
+      "glyph": "DOOR",
+      "colour": "AMBER"
     },
     {
       "id": "J111",
       "category": "ABSURD",
-      "text": "I whispered 'be normal' to my phone and it opened a system update screen."
+      "text": "I whispered 'be normal' to my phone and it opened a system update screen.",
+      "glyph": "PHONE",
+      "colour": "SLATE"
     },
     {
       "id": "J112",
       "category": "ABSURD",
-      "text": "My ceiling has been above me for years. Suspicious consistency."
+      "text": "My ceiling has been above me for years. Suspicious consistency.",
+      "glyph": "HOUSE",
+      "colour": "NIGHT"
     },
     {
       "id": "J113",
       "category": "ABSURD",
-      "text": "The fridge light knows too much."
+      "text": "The fridge light knows too much.",
+      "glyph": "FRIDGE",
+      "colour": "NIGHT"
     },
     {
       "id": "J114",
       "category": "ABSURD",
-      "text": "I have declared the next 11 minutes a protected historical period."
+      "text": "I have declared the next 11 minutes a protected historical period.",
+      "glyph": "CLOCK",
+      "colour": "CLAY"
     },
     {
       "id": "J115",
       "category": "ABSURD",
-      "text": "My socks are not missing. They have chosen separate careers."
+      "text": "My socks are not missing. They have chosen separate careers.",
+      "glyph": "SOCK",
+      "colour": "SAGE"
     },
     {
       "id": "J116",
       "category": "ABSURD",
-      "text": "The toaster has one setting: legal dispute."
+      "text": "The toaster has one setting: legal dispute.",
+      "glyph": "TOAST",
+      "colour": "CLAY"
     },
     {
       "id": "J117",
       "category": "ABSURD",
-      "text": "A cloud looked like a duck. The duck declined to comment."
+      "text": "A cloud looked like a duck. The duck declined to comment.",
+      "glyph": "CLOUD",
+      "colour": "AMBER"
     },
     {
       "id": "J118",
       "category": "ABSURD",
-      "text": "My hallway is longer at night. No measurements will be taken."
+      "text": "My hallway is longer at night. No measurements will be taken.",
+      "glyph": "DOOR",
+      "colour": "NIGHT"
     },
     {
       "id": "J119",
       "category": "ABSURD",
-      "text": "I put my problems in a folder called 'Archive.' They remain extremely active."
+      "text": "I put my problems in a folder called 'Archive.' They remain extremely active.",
+      "glyph": "BOX",
+      "colour": "SLATE"
     },
     {
       "id": "J120",
       "category": "ABSURD",
-      "text": "The day has been reviewed by management and will continue anyway."
+      "text": "The day has been reviewed by management and will continue anyway.",
+      "glyph": "DOC",
+      "colour": "EMBER"
     }
   ],
   "categoryWeights": [

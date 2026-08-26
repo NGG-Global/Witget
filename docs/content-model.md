@@ -105,6 +105,21 @@ State keys keep the Bible's own tokens with `-` normalised to `_`:
 `WX1`, `CD5`. The one rename is `8B-Positive`→`M8_POSITIVE`, because an
 identifier cannot begin with a digit.
 
+### Motifs
+
+Every joke carries `glyph` (a `MotifGlyph` name) and `colour` (a `ColourRole`
+name the tile retints to), and every equivalency unit carries `glyph`. These
+are *curated*, not derived: the libraries are fixed at 120 and 50 entries, so
+each assignment lives in the extractor's `JOKE_MOTIFS` and `UNIT_GLYPHS`
+tables, reviewed against the actual text — J076 "blue paint" is
+`PAINT`/`SLATE`, J116's toaster is `TOAST`/`CLAY`, ST01's trilogy is `FILM`.
+Nothing matches keywords at runtime, so the pairing can never surprise.
+
+Adding a joke or unit to the Bible without adding its motif fails the
+extractor; shipping a name that does not exist in the Kotlin enums fails
+`ContentPackTest`. Changing a motif does not touch response IDs, so it never
+resets anti-repeat history.
+
 ---
 
 ## 4. Trigger logic

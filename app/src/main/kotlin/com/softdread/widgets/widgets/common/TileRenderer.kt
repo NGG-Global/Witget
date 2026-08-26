@@ -12,11 +12,14 @@ import android.text.TextPaint
 import android.text.TextUtils
 import android.util.LruCache
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.withSave
 import com.softdread.widgets.R
+import com.softdread.widgets.design.Contrast
+import com.softdread.widgets.design.SoftDreadPalette
 import com.softdread.widgets.design.TileColours
 import com.softdread.widgets.domain.model.ColourRole
 import com.softdread.widgets.domain.model.WidgetBreakpoint
@@ -52,6 +55,12 @@ object TileRenderer {
      */
     private const val MAX_DIMENSION = 1600
 
+    /** Statement display sizes step down through these before any copy is cut. */
+    private val STATEMENT_STEPS = floatArrayOf(1f, 0.84f, 0.7f)
+
+    /** Compact voice sizes step down through these before any copy is cut. */
+    private val VOICE_STEPS = floatArrayOf(1f, 0.88f, 0.78f)
+
     private val cache = object : LruCache<String, Bitmap>(16 * 1024 * 1024) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount
     }
@@ -77,9 +86,18 @@ object TileRenderer {
         cache.get(key)?.let { return it }
 
         val needsAlpha = !hostClipsCorners
-        val bitmap = createBitmap(width, height, if (needsAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565)
-        val canvas = Canvas(bitmap)
-        Pass(context, canvas, role, breakpoint, colours, content, width, height, fontScale, densityPx).draw()
+        var bitmap = createBitmap(width, height, if (needsAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565)
+        val pass = Pass(context, Canvas(bitmap), role, breakpoint, colours, content, width, height, fontScale, densityPx)
+        pass.draw()
+        if (pass.copyLostToMotif && content.motif != null) {
+            // Copy lost to the plate: re-render this tile without it. The
+            // retinted field survives; only the pictogram is given up.
+            bitmap = createBitmap(width, height, if (needsAlpha) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565)
+            Pass(
+                context, Canvas(bitmap), role, breakpoint, colours,
+                content.copy(motif = null), width, height, fontScale, densityPx,
+            ).draw()
+        }
         cache.put(key, bitmap)
         return bitmap
     }
@@ -124,8 +142,38 @@ object TileRenderer {
         val contentRight = width - padH
 
         val circleSpec = TileGeometry.circle(role, breakpoint, colours)
-        val satelliteSpec = TileGeometry.satellite(role, breakpoint, colours)
+        private val satelliteGeometry = TileGeometry.satellite(role, breakpoint, colours)
+
+        /**
+         * The motif plate: a disc carrying the content's pictogram — the tile's
+         * visual anchor for what the copy is about. It occupies the satellite's
+         * slot (the sheet's shape budget stays one cropped circle plus one
+         * companion), so when a motif renders the decorative satellite does not.
+         * Colours are measured against the actual backdrop, not assumed: the
+         * plate must be perceptible on whatever sits under it — field or field
+         * circle — and the glyph ink is the pack extreme that reads best on the
+         * plate.
+         */
+        val motifPlate = buildMotifPlate()
+        val satelliteSpec = if (motifPlate != null) null else satelliteGeometry
         val obstacles = buildObstacles()
+
+        /**
+         * Set when copy lost to the plate: a text block was cut short, or drew
+         * across the plate's disc (possible when a field circle on the other
+         * side leaves the guard no side to give). The renderer then throws the
+         * pass away and re-renders without the plate — the punchline always
+         * outranks the pictogram; a retinted field costs nothing and stays.
+         */
+        var copyLostToMotif = false
+
+        fun markMotifCollision(x: Float, y: Float, w: Float, h: Float) {
+            val plate = motifPlate ?: return
+            val r = plate.radius + 2 * unit
+            val overlapsX = x < plate.cx + r && x + w > plate.cx - r
+            val overlapsY = y < plate.cy + r && y + h > plate.cy - r
+            if (overlapsX && overlapsY) copyLostToMotif = true
+        }
 
         fun draw() {
             TileArt.drawBackgroundInto(
@@ -136,6 +184,16 @@ object TileRenderer {
                 satellite = satelliteSpec,
                 insetStroke = if (colours.needsInsetStroke) colours.hairline else null,
             )
+            motifPlate?.let { plate ->
+                val paint = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG)
+                paint.color = plate.plate.toArgb()
+                canvas.drawCircle(plate.cx, plate.cy, plate.radius, paint)
+                MotifArt.draw(
+                    canvas, plate.glyph, plate.cx, plate.cy,
+                    plate.radius * MotifArt.GLYPH_OF_PLATE,
+                    ink = plate.ink.toArgb(), accent = plate.accent.toArgb(),
+                )
+            }
             when (breakpoint) {
                 WidgetBreakpoint.TINY -> tiny()
                 WidgetBreakpoint.COMPACT -> compact()
@@ -161,6 +219,26 @@ object TileRenderer {
             y += labelRow(y)
 
             // Bottom-anchored stack: call to action, then chip, then voice.
+            // The voice decides what else survives, in a fixed order: full
+            // size beside the chip; then the chip is given up for a fourth
+            // line; then the voice steps its size down. Metadata garnish and
+            // display size both rank below a complete punchline.
+            var showChip = content.chips.isNotEmpty()
+            var voiceShrink = 0
+            content.voice?.let { voice ->
+                val ladder = buildList {
+                    if (showChip) add(true to 0)
+                    add(false to 0)
+                    add(false to 1)
+                    add(false to 2)
+                }
+                val fit = ladder.firstOrNull { (chip, shrink) ->
+                    !fitCompactVoice(voice, chip, shrink).ellipsized
+                } ?: ladder.last()
+                showChip = fit.first
+                voiceShrink = fit.second
+            }
+
             var bottom = height - padV
             content.callToAction?.let {
                 val paint = ctaPaint()
@@ -169,13 +247,13 @@ object TileRenderer {
                 block.drawAt(contentLeft, bottom)
                 bottom -= 6 * unit
             }
-            if (content.chips.isNotEmpty()) {
+            if (showChip) {
                 bottom -= chipRow(listOf(content.chips.first()), bottom, anchorBottom = true)
                 bottom -= 7 * unit
             }
             content.voice?.let {
-                val paint = voicePaint()
-                val maxLines = if (content.heroValue != null || content.chips.isNotEmpty()) 3 else 4
+                val paint = voicePaint(voiceShrink)
+                val maxLines = if (content.heroValue != null || showChip) 3 else 4
                 val estTop = bottom - lineOf(paint) * maxLines
                 val block = layout(it, paint, spanAt(estTop, bottom).width, maxLines)
                 bottom -= block.height
@@ -209,6 +287,17 @@ object TileRenderer {
                     drawLeading(leading, contentLeft, rowTop, ballSize)
                 }
             }
+        }
+
+        /** Lays the compact voice out as it would render, to test for cuts. */
+        private fun fitCompactVoice(voice: String, withChip: Boolean, shrink: Int = 0): Block {
+            var anchor = height - padV
+            content.callToAction?.let { anchor -= lineOf(ctaPaint()) + 6 * unit }
+            if (withChip) anchor -= (lineOf(chipPaint(colours.pillText)) + 12 * unit) + 7 * unit
+            val paint = voicePaint(shrink)
+            val maxLines = if (content.heroValue != null || withChip) 3 else 4
+            val estTop = anchor - lineOf(paint) * maxLines
+            return layout(voice, paint, spanAt(estTop, anchor).width, maxLines)
         }
 
         private fun standard() {
@@ -308,7 +397,26 @@ object TileRenderer {
                 }
             }
 
-            drawBottomStack(topLimit = y + 10 * unit)
+            // The plate lives in the tile's upper zone; the stack must never
+            // rise into it. Horizontal avoidance alone cannot save a tile that
+            // also has a field circle on the other side — the guard rightly
+            // refuses to leave a sliver — so the plate takes a vertical slice.
+            drawBottomStack(topLimit = max(y + 10 * unit, motifPlate?.let { it.cy + it.radius + 8 * unit } ?: 0f))
+        }
+
+        private fun fitStatement(
+            text: String,
+            shrink: Int,
+            bottom: Float,
+            topLimit: Float,
+            statementLines: Int,
+        ): Block {
+            val paint = statementPaint(shrink)
+            // Never rise past the ceiling: fit the line count to what the
+            // space between the art and the chips actually allows.
+            val fitLines = ((bottom - topLimit) / lineOf(paint)).toInt().coerceIn(1, statementLines)
+            val estTop = bottom - lineOf(paint) * fitLines
+            return layout(text, paint, spanAt(estTop, bottom).width, fitLines)
         }
 
         /**
@@ -408,13 +516,18 @@ object TileRenderer {
                 block.drawAt(spanAt(bottom, bottom + block.height).left, bottom.coerceAtLeast(topLimit))
             }
             if (content.heroValue == null && content.subhead == null) {
-                content.voice?.let {
-                    val paint = statementPaint()
-                    // Never rise past the ceiling: fit the line count to what
-                    // the space between the art and the chips actually allows.
-                    val fitLines = ((bottom - topLimit) / lineOf(paint)).toInt().coerceIn(1, statementLines)
-                    val estTop = bottom - lineOf(paint) * fitLines
-                    val block = layout(it, paint, spanAt(estTop, bottom).width, fitLines)
+                content.voice?.let { voice ->
+                    // The statement steps its size down before anything else is
+                    // given up: a motif plate plus a field circle can shrink
+                    // the safe area enough that the display size no longer
+                    // holds the whole line, and the punchline must never lose
+                    // its ending to decoration.
+                    var block = fitStatement(voice, 0, bottom, topLimit, statementLines)
+                    var shrink = 1
+                    while (block.ellipsized && shrink < STATEMENT_STEPS.size) {
+                        block = fitStatement(voice, shrink, bottom, topLimit, statementLines)
+                        shrink++
+                    }
                     bottom -= block.height
                     block.drawAt(spanAt(bottom, bottom + block.height).left, bottom.coerceAtLeast(topLimit))
                 }
@@ -655,13 +768,95 @@ object TileRenderer {
                 val cy = height * spec.centreYRatio
                 list += TileTextGuard.Obstacle(cx - r, cy - r, cx + r, cy + r)
             }
+            motifPlate?.let { plate ->
+                // The plate is always solid, so it is always an obstacle.
+                val r = plate.radius + 4 * unit
+                list += TileTextGuard.Obstacle(plate.cx - r, plate.cy - r, plate.cx + r, plate.cy + r)
+            }
             return list
+        }
+
+        // ------------------------------------------------------------- motif
+
+        class MotifPlate(
+            val glyph: MotifGlyph,
+            val cx: Float,
+            val cy: Float,
+            val radius: Float,
+            val plate: Color,
+            val ink: Color,
+            val accent: Color,
+        )
+
+        private fun buildMotifPlate(): MotifPlate? {
+            val glyph = content.motif ?: return null
+            // A tiny tile has no room for a companion shape, and a setup state
+            // should look like a request, not like content.
+            if (breakpoint == WidgetBreakpoint.TINY || content.isSetupState) return null
+
+            val short = min(width, height).toFloat()
+            val radius = short * when (breakpoint) {
+                WidgetBreakpoint.COMPACT -> 0.155f
+                WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 0.15f
+                else -> 0.13f
+            }
+            // The satellite's measured position when the sheet defines one for
+            // this tile; otherwise the top-end slot under the label row.
+            var cx: Float
+            var cy: Float
+            // Only an upper-half satellite slot can host the plate: clay and
+            // cream place their satellite low, where the plate would sit on
+            // the pill. Those tiles use the top-end slot instead.
+            val slot = satelliteGeometry?.takeIf { it.centreYRatio <= 0.5f }
+            if (slot != null) {
+                cx = width * slot.centreXRatio
+                cy = height * slot.centreYRatio
+            } else {
+                cx = contentRight - radius
+                cy = padV + lineOf(labelPaint()) + 6 * unit + radius
+            }
+            val margin = 4 * unit
+            cx = cx.coerceIn(radius + margin, width - radius - margin)
+            cy = cy.coerceIn(radius + margin, height - radius - margin)
+
+            val backdrop = backdropAt(cx, cy)
+            val plate = Contrast.perceptibleShape(
+                preferred = colours.contrastCircle,
+                surface = backdrop,
+                fallback = colours.satellite,
+            )
+            val ink = Contrast.bestOn(plate, SoftDreadPalette.Ink, SoftDreadPalette.Cream)
+            val accent = Contrast.perceptibleShape(
+                preferred = colours.surface,
+                surface = plate,
+                fallback = ink,
+            )
+            return MotifPlate(glyph, cx, cy, radius, plate, ink, accent)
+        }
+
+        /** What actually sits under a point: the field, or the field circle. */
+        private fun backdropAt(px: Float, py: Float): Color {
+            val spec = circleSpec ?: return colours.surface
+            val reference = min(width, height).toFloat()
+            val rect = TileTextGuard.circleObstacle(
+                spec.anchor, reference * spec.diameterRatio, reference * spec.overhangRatio,
+                width.toFloat(), height.toFloat(),
+            )
+            val ccx = (rect.left + rect.right) / 2f
+            val ccy = (rect.top + rect.bottom) / 2f
+            val cr = (rect.right - rect.left) / 2f
+            val dx = px - ccx
+            val dy = py - ccy
+            if (dx * dx + dy * dy > cr * cr) return colours.surface
+            return if (spec.colour.alpha == 1f) spec.colour else spec.colour.compositeOver(colours.surface)
         }
 
         private interface Block {
             val width: Int
             val height: Int
             val leftOverride: Float?
+            /** True when StaticLayout had to cut the text. */
+            val ellipsized: Boolean get() = false
             fun drawAt(x: Float, y: Float)
         }
 
@@ -679,7 +874,11 @@ object TileRenderer {
                 override val width = measured.roundToInt()
                 override val height = staticLayout.height
                 override val leftOverride: Float? = null
+                override val ellipsized =
+                    staticLayout.getEllipsisCount(staticLayout.lineCount - 1) > 0
                 override fun drawAt(x: Float, y: Float) {
+                    markMotifCollision(x, y, width.toFloat(), height.toFloat())
+                    if (ellipsized) copyLostToMotif = motifPlate != null || copyLostToMotif
                     canvas.withSave {
                         translate(x, y)
                         staticLayout.draw(this)
@@ -704,6 +903,7 @@ object TileRenderer {
                 override val height = rowHeight.toInt()
                 override val leftOverride: Float? = null
                 override fun drawAt(x: Float, y: Float) {
+                    markMotifCollision(x, y, maxWidth, rowHeight)
                     var cx = x
                     val baseline = y + rowHeight - parts[0].second.fontMetrics.bottom
                     parts.forEachIndexed { index, (text, paint) ->
@@ -771,7 +971,7 @@ object TileRenderer {
         private fun labelPaint(): TextPaint =
             paint(colours.label, spToPx(if (breakpoint.isLarge) 12f else 11f), 600, trackingEm = 0.14f)
 
-        private fun voicePaint(): TextPaint = paint(
+        private fun voicePaint(shrink: Int = 0): TextPaint = paint(
             colours.onSurfaceMuted,
             spToPx(
                 when (breakpoint) {
@@ -779,12 +979,12 @@ object TileRenderer {
                     WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 16f
                     WidgetBreakpoint.EXPANDED -> 20f
                     WidgetBreakpoint.HERO -> 22f
-                },
+                } * VOICE_STEPS[shrink.coerceIn(0, VOICE_STEPS.lastIndex)],
             ),
             if (breakpoint == WidgetBreakpoint.COMPACT || breakpoint == WidgetBreakpoint.TINY) 500 else 600,
         )
 
-        private fun statementPaint(): TextPaint = paint(
+        private fun statementPaint(shrink: Int = 0): TextPaint = paint(
             colours.onSurface,
             spToPx(
                 when (breakpoint) {
@@ -793,7 +993,7 @@ object TileRenderer {
                     WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 19f
                     WidgetBreakpoint.EXPANDED -> 30f
                     WidgetBreakpoint.HERO -> 34f
-                },
+                } * STATEMENT_STEPS[shrink.coerceIn(0, STATEMENT_STEPS.lastIndex)],
             ),
             600,
         )
