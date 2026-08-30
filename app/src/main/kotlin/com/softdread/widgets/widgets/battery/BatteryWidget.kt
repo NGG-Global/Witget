@@ -62,7 +62,7 @@ class BatteryWidget : SoftDreadWidget(WidgetType.BATTERY) {
                 heroValue = if (breakpoint.isLarge) null else percentText,
                 metric = estimate.takeIf { breakpoint.showsSecondaryMetadata && !breakpoint.isLarge },
                 voice = voice.takeIf { !breakpoint.isLarge },
-                pill = if (breakpoint.isLarge) "$percentText — ${voice.replaceFirstChar { it.lowercase() }}" else null,
+                pill = if (breakpoint.isLarge) pillCopy(percentText, voice) else null,
                 leading = LeadingVisual.Ring(
                     fraction = reading.percent / 100f,
                     fillColour = ringFill,
@@ -73,6 +73,17 @@ class BatteryWidget : SoftDreadWidget(WidgetType.BATTERY) {
             )
         }
         return WidgetPayload(content, onClick = refreshAction(WidgetType.BATTERY))
+    }
+
+    /**
+     * The pill leads with the percentage, but 142 of the Bible's battery lines
+     * already contain `{percent}` — prefixing those produced "23% — 23% and
+     * charging." The number leads only when the copy does not already carry it.
+     */
+    private fun pillCopy(percentText: String, voice: String): String = when {
+        voice.isBlank() -> percentText
+        voice.contains(percentText) -> voice
+        else -> "$percentText — ${voice.replaceFirstChar { it.lowercase() }}"
     }
 
     private fun describe(reading: BatteryReading, voice: String, estimate: String?): String = buildString {
