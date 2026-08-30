@@ -12,11 +12,14 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.softdread.widgets.data.prefs.SavedLocation
 import com.softdread.widgets.domain.logic.WeatherReading
+import java.util.Locale
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.MapSerializer
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 
-private val Context.weatherDataStore: DataStore<Preferences> by preferencesDataStore(name = "soft_dread_weather")
+internal val Context.weatherDataStore: DataStore<Preferences> by preferencesDataStore(name = "soft_dread_weather")
 
 /** What the Weather widget should render right now. */
 sealed interface WeatherState {
@@ -71,9 +74,13 @@ private data class CachedReading(
 class WeatherRepository(
     private val context: Context,
     private val provider: WeatherProvider = OpenMeteoProvider(),
+    /** Injectable so tests get a store of their own; production uses the app's. */
+    private val cacheStore: DataStore<Preferences> = context.weatherDataStore,
 ) {
 
     private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
+
+    private val cacheMapSerializer = MapSerializer(String.serializer(), CachedWeather.serializer())
 
     val attribution: String get() = provider.attribution
 
@@ -126,10 +133,24 @@ class WeatherRepository(
         }?.let { it.latitude to it.longitude }
     }
 
+    /**
+     * Resolves what the tile should show.
+     *
+     * [allowNetworkWhenCached] is the difference between the two callers. The
+     * background worker passes `true`: it runs under a network constraint, off
+     * any deadline, and refreshing the cache is its whole job. A widget build
+     * passes `false`, because it can be running inside a broadcast — the
+     * platform's periodic update or a tap — where a request that waits on a
+     * slow network holds the receiver open and risks an ANR. A widget therefore
+     * renders whatever is cached for its location, honestly labelled when it is
+     * past its freshness window, and only reaches for the network when it has
+     * nothing at all for that place to show.
+     */
     suspend fun state(
         savedLocation: SavedLocation?,
         useDeviceLocation: Boolean,
         forceRefresh: Boolean = false,
+        allowNetworkWhenCached: Boolean = true,
     ): WeatherState {
         val query = resolveLocation(savedLocation, useDeviceLocation)
         if (query == null) {
@@ -145,6 +166,9 @@ class WeatherRepository(
         if (!forceRefresh && cachedEntry != null && cachedEntry.second <= FRESH_WINDOW_MILLIS) {
             return WeatherState.Ready(cachedEntry.first, isStale = false)
         }
+        if (!allowNetworkWhenCached && cachedEntry != null) {
+            return WeatherState.Ready(cachedEntry.first, isStale = true)
+        }
 
         return when (val fetch = provider.fetch(query)) {
             is WeatherFetch.Success -> {
@@ -157,14 +181,35 @@ class WeatherRepository(
         }
     }
 
-    /** Returns the cached reading and its age, if one exists for [query]. */
+    /**
+     * Returns the cached reading and its age, if one exists for [query].
+     *
+     * The cache holds one entry per place, not one entry overall. With a single
+     * slot, two Weather widgets set to different cities evicted each other on
+     * every refresh, so neither ever had a usable cache — and the pack promises
+     * that instances are independent.
+     */
     private suspend fun cached(query: WeatherQuery?): Pair<WeatherReading, Long>? {
-        val raw = context.weatherDataStore.data.first()[CACHE_KEY] ?: return null
-        val cache = runCatching { json.decodeFromString(CachedWeather.serializer(), raw) }.getOrNull()
-            ?: return null
-        if (query != null && !cache.matches(query)) return null
+        val entries = readCache()
+        val cache = if (query == null) {
+            entries.values.maxByOrNull { it.fetchedAtEpochMillis }
+        } else {
+            entries[cacheKey(query)] ?: entries.values.firstOrNull { it.matches(query) }
+        } ?: return null
         val age = System.currentTimeMillis() - cache.fetchedAtEpochMillis
         return cache.reading.toReading() to age.coerceAtLeast(0)
+    }
+
+    private suspend fun readCache(): Map<String, CachedWeather> {
+        val prefs = cacheStore.data.first()
+        prefs[CACHE_MAP_KEY]?.let { raw ->
+            runCatching { json.decodeFromString(cacheMapSerializer, raw) }.getOrNull()?.let { return it }
+        }
+        // A cache written by the single-slot build still reads, so upgrading
+        // does not throw away the forecast the user already has.
+        val legacy = prefs[CACHE_KEY]
+            ?.let { runCatching { json.decodeFromString(CachedWeather.serializer(), it) }.getOrNull() }
+        return legacy?.let { mapOf(cacheKey(it.latitude, it.longitude) to it) } ?: emptyMap()
     }
 
     private suspend fun store(query: WeatherQuery, reading: WeatherReading) {
@@ -174,10 +219,22 @@ class WeatherRepository(
             latitude = query.latitude,
             longitude = query.longitude,
         )
-        context.weatherDataStore.edit { prefs ->
-            prefs[CACHE_KEY] = json.encodeToString(CachedWeather.serializer(), payload)
+        val updated = (readCache() + (cacheKey(query) to payload))
+            .entries
+            .sortedByDescending { it.value.fetchedAtEpochMillis }
+            .take(MAX_CACHED_LOCATIONS)
+            .associate { it.key to it.value }
+        cacheStore.edit { prefs ->
+            prefs[CACHE_MAP_KEY] = json.encodeToString(cacheMapSerializer, updated)
+            prefs.remove(CACHE_KEY)
         }
     }
+
+    private fun cacheKey(query: WeatherQuery): String = cacheKey(query.latitude, query.longitude)
+
+    /** One key per ~1 km square, matching the precision actually sent upstream. */
+    private fun cacheKey(latitude: Double, longitude: Double): String =
+        String.format(Locale.US, "%.2f,%.2f", latitude, longitude)
 
     private fun CachedWeather.matches(query: WeatherQuery): Boolean =
         kotlin.math.abs(latitude - query.latitude) < LOCATION_MATCH_DEGREES &&
@@ -199,12 +256,13 @@ class WeatherRepository(
         /** Cached forecasts stay authoritative for an hour before a refetch. */
         const val FRESH_WINDOW_MILLIS = 60L * 60L * 1000L
 
-        /** Data older than this is labelled stale to the user. */
-        const val STALE_AFTER_MILLIS = 3L * 60L * 60L * 1000L
-
         /** Roughly 5 km — a cache hit for "the same place". */
         private const val LOCATION_MATCH_DEGREES = 0.05
 
+        /** How many places stay cached; more than anyone places at once. */
+        private const val MAX_CACHED_LOCATIONS = 8
+
         private val CACHE_KEY = stringPreferencesKey("weather_cache")
+        private val CACHE_MAP_KEY = stringPreferencesKey("weather_cache_by_location")
     }
 }

@@ -1,8 +1,8 @@
 package com.softdread.widgets.widgets.battery
 
 import android.content.Context
+import android.content.Intent
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import com.softdread.widgets.data.content.pool
 import com.softdread.widgets.data.device.BatteryDataSource
 import com.softdread.widgets.design.SoftDreadTiles
@@ -15,6 +15,7 @@ import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.widgets.common.LeadingVisual
 import com.softdread.widgets.widgets.common.SoftDreadWidget
+import com.softdread.widgets.widgets.common.SoftDreadWidgetReceiver
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
@@ -61,7 +62,7 @@ class BatteryWidget : SoftDreadWidget(WidgetType.BATTERY) {
                 heroValue = if (breakpoint.isLarge) null else percentText,
                 metric = estimate.takeIf { breakpoint.showsSecondaryMetadata && !breakpoint.isLarge },
                 voice = voice.takeIf { !breakpoint.isLarge },
-                pill = if (breakpoint.isLarge) "$percentText — ${voice.replaceFirstChar { it.lowercase() }}" else null,
+                pill = if (breakpoint.isLarge) pillCopy(percentText, voice) else null,
                 leading = LeadingVisual.Ring(
                     fraction = reading.percent / 100f,
                     fillColour = ringFill,
@@ -74,6 +75,17 @@ class BatteryWidget : SoftDreadWidget(WidgetType.BATTERY) {
         return WidgetPayload(content, onClick = refreshAction(WidgetType.BATTERY))
     }
 
+    /**
+     * The pill leads with the percentage, but 142 of the Bible's battery lines
+     * already contain `{percent}` — prefixing those produced "23% — 23% and
+     * charging." The number leads only when the copy does not already carry it.
+     */
+    private fun pillCopy(percentText: String, voice: String): String = when {
+        voice.isBlank() -> percentText
+        voice.contains(percentText) -> voice
+        else -> "$percentText — ${voice.replaceFirstChar { it.lowercase() }}"
+    }
+
     private fun describe(reading: BatteryReading, voice: String, estimate: String?): String = buildString {
         append("Battery ${reading.percent} percent")
         if (reading.isCharging) append(", charging")
@@ -82,6 +94,22 @@ class BatteryWidget : SoftDreadWidget(WidgetType.BATTERY) {
     }
 }
 
-class BatteryWidgetReceiver : GlanceAppWidgetReceiver() {
+/**
+ * The battery tile's own broadcasts.
+ *
+ * These four are the moments the reading changes in a way the user is waiting
+ * to see, and they are declared in the manifest for exactly that reason. They
+ * had no effect until now: `AppWidgetProvider.onReceive` routes only the
+ * `APPWIDGET_*` actions and drops the rest, so the tile sat on whatever
+ * percentage it was built with. [SoftDreadWidgetReceiver] handles them.
+ */
+class BatteryWidgetReceiver : SoftDreadWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = BatteryWidget()
+
+    override val refreshActions: Set<String> = setOf(
+        Intent.ACTION_BATTERY_LOW,
+        Intent.ACTION_BATTERY_OKAY,
+        Intent.ACTION_POWER_CONNECTED,
+        Intent.ACTION_POWER_DISCONNECTED,
+    )
 }

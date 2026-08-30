@@ -1,5 +1,6 @@
 package com.softdread.widgets.widgets.common
 
+import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.runtime.LaunchedEffect
@@ -128,6 +129,22 @@ abstract class SoftDreadWidget(protected val type: WidgetType) : GlanceAppWidget
         }
     }
 
+    /**
+     * The breakpoint this widget is currently showing, read from the host's
+     * reported options. Used only to order the build, so the selection the user
+     * will actually see is the one recorded against the anti-repeat history.
+     * Unknown sizes fall back to the largest breakpoint.
+     */
+    private fun currentBreakpoint(context: Context, appWidgetId: Int): WidgetBreakpoint? {
+        val options = runCatching {
+            AppWidgetManager.getInstance(context)?.getAppWidgetOptions(appWidgetId)
+        }.getOrNull() ?: return null
+        val width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 0)
+        val height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0)
+        if (width <= 0 || height <= 0) return null
+        return WidgetBreakpoint.forSize(width.toFloat(), height.toFloat())
+    }
+
     /** One complete build: config, history, data, selection, persistence. */
     private suspend fun buildFresh(context: Context, appWidgetId: Int): RenderModel {
         val store = SoftDreadStore.get(context)
@@ -145,9 +162,12 @@ abstract class SoftDreadWidget(protected val type: WidgetType) : GlanceAppWidget
             preferences = preferences,
             personality = personality,
             isDark = isDark,
-            // Largest first, so the richest copy is selected before the terser
-            // variants and the session's anti-repeat history stays coherent.
-            breakpoints = WidgetBreakpoint.entries.sortedByDescending { it.widthDp * it.heightDp },
+            // The breakpoint on screen first, then the rest largest-first.
+            // Order matters twice over: the first selection from a pool is the
+            // one ContentSession records, so it has to be the one the user
+            // sees, and the richer variants should still pick before the
+            // terser ones so their copy budgets stay coherent.
+            breakpoints = orderedBreakpoints(currentBreakpoint(context, appWidgetId)),
             content = ContentRepository.get(context),
             session = session,
             clock = clock,
@@ -161,6 +181,12 @@ abstract class SoftDreadWidget(protected val type: WidgetType) : GlanceAppWidget
             pack = ThemePack.fromKeyOrDefault(preferences.themePackKey),
             isDark = isDark,
         )
+    }
+
+    /** The showing breakpoint first, then the rest largest-first. */
+    private fun orderedBreakpoints(current: WidgetBreakpoint?): List<WidgetBreakpoint> {
+        val rest = WidgetBreakpoint.entries.sortedByDescending { it.widthDp * it.heightDp }
+        return if (current == null) rest else listOf(current) + rest.filterNot { it == current }
     }
 
     /**

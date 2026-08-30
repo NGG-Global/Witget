@@ -23,19 +23,26 @@ Decisions follow this precedence. Do not invert it.
 Both reference files are authoritative and **must not be edited**. The Bible in
 particular is a source document, not implementation data.
 
-Two conflicts are already resolved; do not "fix" them back:
+Three conflicts are already resolved; do not "fix" them back:
 
 - The sheet forbids all-caps body copy, but the Bible's Chaotic pool is
   all-caps. The Bible governs copy, so the all-caps stays.
 - The sheet leads the Screen Time tile with the equivalency ratio, but the Bible
   requires the literal metric to stay visible. Both hold: the ratio is the hero,
   and the real usage rides in `TileContent.labelDetail` at every size.
+- The Bible's Battery row says "avoid timer polling", but with only the four
+  manifest-declarable battery broadcasts the tile sat on a stale percentage for
+  hours at a time. `widget_battery_info.xml` therefore also carries the
+  platform's own `updatePeriodMillis` (30 min, the platform minimum), which is
+  batched and does not wake the device — the thing the Bible's line is guarding
+  against. The Bible's own Weather row, "data values can still update freely",
+  is the precedent: the anti-repeat rules govern copy, not readings.
 
 ## Build and test
 
 ```bash
 ./gradlew :app:assembleDebug
-./gradlew :app:testDebugUnitTest          # 147 tests; keep this green
+./gradlew :app:testDebugUnitTest          # 181 tests; keep this green
 ./gradlew :app:lintDebug                  # keep at 0 errors
 ./gradlew :app:assembleRelease            # verifies R8 rules
 ./gradlew :app:connectedDebugAndroidTest  # needs a device; none in CI so far
@@ -81,6 +88,14 @@ Do not add ad-hoc `random()` picks inside a widget.
   deterministic. Keep `reuseWithinPeriod` for anything daily.
 - `ContentSession` batches one update's history reads and writes. Widgets should
   select through it, never touch `SoftDreadStore` history directly.
+- **One history entry per pool per update.** An update builds every breakpoint
+  but the user sees one, and the Bible's rule is "keep the last 4 response IDs
+  per trigger/state". Recording all six pushed the shown line out of a four-deep
+  window inside a single refresh. `ContentSession` keeps the first write per
+  pool, and `SoftDreadWidget` orders `breakpoints` so the breakpoint on screen
+  is selected first — read from `AppWidgetManager.getAppWidgetOptions`. Change
+  either half and the other stops meaning anything. `ContentSessionTest` guards
+  it.
 
 ## Widget rules
 
@@ -101,6 +116,15 @@ Do not add ad-hoc `random()` picks inside a widget.
   would build one RemoteViews per declared size.
 - A widget must never fabricate data. Missing permission or missing setup renders
   a setup state via `setupContent(...)`.
+- **Every receiver extends `SoftDreadWidgetReceiver`, never `GlanceAppWidgetReceiver`
+  directly.** Glance's own `onUpdate` calls a bare `update()`, which inside a
+  live session redraws the stale model — so `updatePeriodMillis` ticks did
+  nothing at all. The base class force-refreshes on update, handles the extra
+  broadcasts a widget declares (`refreshActions` — `AppWidgetProvider.onReceive`
+  drops every action it does not recognise, so a manifest `intent-filter` alone
+  is inert), and arms the rollover and weather schedules in `onEnabled` so a
+  widget placed from the launcher picker is scheduled even if the app is never
+  opened.
 - **Refreshing a widget means `forceRefresh(context, glanceId)`, never a bare
   `update()`.** Glance keeps the composition session alive; the payload is
   rebuilt inside the composition when `REFRESH_TICK` changes, and a bare update
@@ -128,6 +152,13 @@ Do not add ad-hoc `random()` picks inside a widget.
   half, else the top-end slot under the label; it is always an obstacle. Plate,
   ink and accent colours are measured against the actual backdrop
   (`perceptibleShape`/`bestOn`), never assigned.
+- **Nothing is ellipsized before it has been shrunk.** Every text block goes
+  through `Pass.fitted` (or `rowBlock`/`fitStatement`, which wrap it), which
+  steps the type size down until the copy fits or hits that role's floor. This
+  is what keeps a hero numeral, a micro-label, a metric and a punchline whole at
+  a 1.6x system font scale and in a column narrowed by a field circle. Adding a
+  `layout(...)` call that draws user-visible copy directly re-opens the hole;
+  `TileMatrixDump` is how you check.
 - **Copy always outranks the pictogram.** The renderer holds a fixed surrender
   order before any text is cut: the expanded statement steps its size down
   (`STATEMENT_STEPS`), the compact tile gives up its chip and then steps the
@@ -206,6 +237,12 @@ to a bare `FlowRow` is what made wrapped rows collide.
 - **The privacy posture.** No analytics, no ads, no accounts, no crash reporting.
   Weather is the only network call. Coordinates are rounded to ~1 km before they
   leave the device; keep it that way.
+- **Where the weather request happens.** `WidgetRefreshWorker` owns it, under a
+  `CONNECTED` constraint. A widget build passes `allowNetworkWhenCached = false`
+  because it can be running inside a broadcast — the platform's periodic update
+  or a tap — where waiting on a slow request holds the receiver open. The cache
+  holds one entry per place, not one overall, so two Weather widgets set to
+  different cities do not evict each other. `WeatherRepositoryTest` guards both.
 - **Response IDs and the `manifest.json` SHA.** They tie the shipped content to a
   specific version of the Bible.
 
@@ -233,5 +270,22 @@ skips the splash and snaps the field.
 
 Widget rendering has never been exercised on a real device or emulator — the
 build environment had no KVM. Everything else (build, unit tests, lint, release
-minification, manifest wiring) is verified. See the README's *Known limitations*
+minification, manifest wiring) is verified, and `TileMatrixDump` renders the
+real pipeline to PNG under Robolectric's native graphics, which is as close to
+seeing the tiles as this environment gets. See the README's *Known limitations*
 before claiming any device behaviour works.
+
+Two content-cadence questions are open and belong to whoever owns the Bible:
+
+- **Screen Time re-rolls its equivalency on every update.** `ScreenTimeWidget`
+  seeds `chooseEquivalency` with the current time, so the unit behind the hero
+  ratio changes every refresh. The Bible's "do not reuse the same equivalency
+  for 7 days" only makes sense at a roughly daily cadence — at 30-minute
+  intervals the 50-unit library is exhausted within a day and the cooldown
+  permanently relaxes. The fix is the Daily Joke pattern (seed from local date +
+  instance, record against a `periodKey`, `reuseWithinPeriod`), but pinning a
+  unit for a whole day can push its ratio out of the preferred window as usage
+  grows, so it is a product call rather than a bug fix.
+- **Countdown updates every 30 minutes**, where the Bible asks for daily above
+  24 hours. Harmless as it stands — `updatePeriodMillis` does not wake the
+  device — but it is a deviation, not an implementation of the row.

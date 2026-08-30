@@ -27,6 +27,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -140,7 +143,16 @@ fun SetupFlow(
     Box(modifier = modifier.fillMaxSize().background(chrome.wallpaper)) {
         SetupCircleField(step = step, pack = selectedPack, isDark = chrome.isDark)
 
-        Column(Modifier.fillMaxSize().padding(horizontal = SoftDreadSpacing.XLarge)) {
+        // The circle field stays full-bleed behind the bars; the content does
+        // not. Nothing here sits in a Scaffold, so the insets are applied by
+        // hand — without this the first screen a user ever sees put its header
+        // under the status bar.
+        Column(
+            Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing)
+                .padding(horizontal = SoftDreadSpacing.XLarge),
+        ) {
             SetupHeader(
                 step = step,
                 visible = splashDone,

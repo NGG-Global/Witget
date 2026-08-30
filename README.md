@@ -204,7 +204,7 @@ git clone <this repo> && cd Witget
 echo "sdk.dir=/path/to/Android/sdk" > local.properties
 
 ./gradlew :app:assembleDebug        # debug APK
-./gradlew :app:testDebugUnitTest    # 149 unit tests
+./gradlew :app:testDebugUnitTest    # 181 unit tests
 ./gradlew :app:lintDebug            # Android lint
 ./gradlew :app:assembleRelease      # minified release APK (unsigned by default)
 ```
@@ -319,9 +319,16 @@ Screen Time, Day Vibe, Battery, Daily Joke, Countdown, Time Progress and Magic
 or API is involved in generating any response.
 
 Weather degrades in stages rather than failing: a successful fetch is cached per
-location and reused for an hour; a failed fetch falls back to that cache and the
-tile labels itself "last known"; with no cache at all it asks to be set up. A
-raw network error is never shown.
+location — one entry per place, so two widgets set to different cities do not
+evict each other — and reused for an hour; a failed fetch falls back to that
+cache and the tile labels itself "last known"; with no cache at all it asks to
+be set up. A raw network error is never shown.
+
+The request itself belongs to the background worker, which runs under a
+network constraint. A widget build renders from the cache and only reaches for
+the network when it has nothing at all for that place, because a build can be
+running inside a broadcast where waiting on a slow request holds the receiver
+open.
 
 ---
 
@@ -333,7 +340,10 @@ raw network error is never shown.
 - Widget tiles are rendered as a single bitmap (the only way to carry the
   bundled typeface and geometry-safe text through RemoteViews), and every text
   size inside it is multiplied by the system font scale, so large-type users
-  get large type; the fitted size steps absorb the growth instead of clipping.
+  get large type. Every text block then shrinks to fit before it is allowed to
+  be cut — hero numerals, micro-labels, metrics and punchlines all survive
+  whole at the largest system font scale, and the 4x4 tile gives up its
+  metadata chips before it gives up the end of a joke.
 - Body copy never drops below the design sheet's 13sp / 500 floor.
 - Every text colour the tiles render meets WCAG AA (4.5:1 for body, labels and
   metrics), in both light and dark and in all four theme packs. It is not
@@ -352,7 +362,7 @@ raw network error is never shown.
 ## Testing
 
 ```bash
-./gradlew :app:testDebugUnitTest          # 168 tests, JVM + Robolectric
+./gradlew :app:testDebugUnitTest          # 181 tests, JVM + Robolectric
 ./gradlew :app:connectedDebugAndroidTest  # requires a device or emulator
 ./gradlew :app:lintDebug                  # clean: no issues found
 ```
@@ -371,6 +381,9 @@ raw network error is never shown.
 | `WidgetInstanceConfigTest` | Two instances of one type staying independent, per-instance history, template inheritance, deletion cleanup, orphan pruning. |
 | `WidgetBreakpointTest` | Breakpoint selection including off-by-a-few-dp launcher sizes. |
 | `ContrastTest` | Every text and non-text pairing the tiles render, in light and dark, across all four theme packs, against WCAG AA. |
+| `ContentSessionTest` | One history entry per pool per update, recorded for the breakpoint actually on screen, so the Bible's four-deep exclusion window means four *updates*. |
+| `WeatherRepositoryTest` | Independent cache entries per location, cache-first on the widget path, fallback on a failed fetch, and honest unavailability with neither. |
+| `TileMatrixDump` | Not an assertion: renders the real pipeline for every widget x breakpoint x mode, at the largest font scale and at awkward resized tile sizes, to PNGs for inspection. |
 | `GalleryFlowTest`, `WidgetRenderTest` (device) | Compose flows, and every widget × personality × size producing resolved copy. |
 
 ---
@@ -393,11 +406,17 @@ built from.
 
 **Verification.** The build environment had no emulator and no attached device
 (no KVM, no hardware virtualisation). Everything statically verifiable was
-verified: the debug and minified release APKs build, 149 unit tests pass, lint
+verified: the debug and minified release APKs build, 181 unit tests pass, lint
 reports no issues, all eight widget receivers and providers are present in the
-merged manifest, and the instrumented tests compile. **Not yet exercised on a
-device:** rendering in a real launcher, the pin-widget flow, granting Usage
-Access, a live calendar read, a live weather fetch, and widget deletion cleanup.
+merged manifest, and the instrumented tests compile. Tile rendering is exercised
+end to end under Robolectric's native graphics — `TileMatrixDump` writes real
+PNGs for every widget, breakpoint, mode, the largest system font scale and the
+awkward sizes a resized tile lands on — so layout is inspected rather than
+assumed. **Not yet exercised on a device:** rendering in a real launcher, the
+pin-widget flow, granting Usage Access, a live calendar read, a live weather
+fetch, widget deletion cleanup, and the refresh path end to end (the platform's
+periodic update, the battery broadcasts and the midnight rollover are wired and
+unit-covered, but have not been observed firing on hardware).
 
 **Tap behaviour.** The five data widgets (Battery, Screen Time, Weather, Day
 Vibe, Time Progress) rebuild in place when tapped — the anti-repeat engine
