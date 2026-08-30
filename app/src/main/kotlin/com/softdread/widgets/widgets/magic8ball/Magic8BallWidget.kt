@@ -5,7 +5,6 @@ import androidx.glance.GlanceId
 import androidx.glance.action.ActionParameters
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
-import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.action.ActionCallback
 import androidx.glance.appwidget.action.actionRunCallback
 import com.softdread.widgets.data.content.pool
@@ -14,6 +13,7 @@ import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.widgets.common.LeadingVisual
 import com.softdread.widgets.widgets.common.SoftDreadWidget
+import com.softdread.widgets.widgets.common.SoftDreadWidgetReceiver
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
@@ -88,7 +88,7 @@ class AskAgainAction : ActionCallback {
     }
 }
 
-class Magic8BallWidgetReceiver : GlanceAppWidgetReceiver() {
+class Magic8BallWidgetReceiver : SoftDreadWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = Magic8BallWidget()
 }
 

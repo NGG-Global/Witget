@@ -1,7 +1,6 @@
 package com.softdread.widgets.widgets.weather
 
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import com.softdread.widgets.data.content.pool
 import com.softdread.widgets.data.weather.WeatherRepository
 import com.softdread.widgets.data.weather.WeatherState
@@ -15,6 +14,7 @@ import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.widgets.common.LeadingVisual
 import com.softdread.widgets.widgets.common.SoftDreadWidget
+import com.softdread.widgets.widgets.common.SoftDreadWidgetReceiver
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
@@ -44,6 +44,9 @@ class WeatherWidget : SoftDreadWidget(WidgetType.WEATHER) {
         val state = repository.state(
             savedLocation = location,
             useDeviceLocation = environment.config.useDeviceLocation,
+            // A widget build can be running inside a broadcast; the hourly
+            // worker owns the network, this owns the cache.
+            allowNetworkWhenCached = false,
         )
 
         val reading = when (state) {
@@ -73,9 +76,8 @@ class WeatherWidget : SoftDreadWidget(WidgetType.WEATHER) {
         val useCelsius = environment.preferences.useCelsius
         val document = environment.content.document(WidgetType.WEATHER)
         val variables = WeatherLogic.variables(reading, useCelsius)
-        val unit = if (useCelsius) "°" else "°"
-        val temperature = "${Formatting.temperature(reading.temperatureCelsius, useCelsius)}$unit"
-        val feelsLike = "feels ${Formatting.temperature(reading.feelsLikeCelsius, useCelsius)}$unit"
+        val temperature = "${Formatting.temperature(reading.temperatureCelsius, useCelsius)}°"
+        val feelsLike = "feels ${Formatting.temperature(reading.feelsLikeCelsius, useCelsius)}°"
         val skyColour = SoftDreadTiles
             .colours(WeatherLogic.skyRole(condition), dark = environment.isDark)
             .surface
@@ -132,7 +134,7 @@ class WeatherWidget : SoftDreadWidget(WidgetType.WEATHER) {
 
                 WidgetBreakpoint.EXPANDED, WidgetBreakpoint.HERO -> TileContent(
                     label = "weather, translated",
-                    labelDetail = detail ?: reading.locationName,
+                    labelDetail = detail,
                     heroValue = temperature,
                     metric = highLow(reading, feelsLike, useCelsius),
                     strip = reading.hourlyRainChance.map { it / 100f },
@@ -169,7 +171,7 @@ class WeatherWidget : SoftDreadWidget(WidgetType.WEATHER) {
 
 }
 
-class WeatherWidgetReceiver : GlanceAppWidgetReceiver() {
+class WeatherWidgetReceiver : SoftDreadWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = WeatherWidget()
 }
 

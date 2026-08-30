@@ -58,7 +58,15 @@ class ContentSession(
                 nowEpochMillis = nowEpochMillis,
             ),
         )
-        if (selection != null && !selection.wasReused) {
+        // First write per pool wins. One update builds every breakpoint, but the
+        // user only ever sees one of them, and the Content Bible's rule is
+        // "keep the last 4 response IDs per trigger/state and exclude them".
+        // Recording all six pushed the shown line out of a four-deep window
+        // within a single refresh, so the largest tiles could repeat themselves
+        // on the very next update. The displayed breakpoint is selected first
+        // (see SoftDreadWidget), so the entry kept here is the one shown; the
+        // later breakpoints still see it and still pick something else.
+        if (selection != null && !selection.wasReused && poolKey !in updates) {
             updates[poolKey] = selection.history
         }
         return selection
@@ -66,6 +74,7 @@ class ContentSession(
 
     /** Records a non-response choice, such as which equivalency unit was used. */
     fun record(poolKey: String, id: String, policy: AntiRepeatPolicy, periodKey: String? = null) {
+        if (poolKey in updates) return
         val current = historyFor(poolKey)
         updates[poolKey] = current.plus(
             com.softdread.widgets.domain.selection.HistoryEntry(id, nowEpochMillis, periodKey),

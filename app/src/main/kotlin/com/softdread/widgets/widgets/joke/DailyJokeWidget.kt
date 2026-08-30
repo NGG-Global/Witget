@@ -1,7 +1,6 @@
 package com.softdread.widgets.widgets.joke
 
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import com.softdread.widgets.data.content.ContentDocument
 import com.softdread.widgets.data.content.ContentResponse
 import com.softdread.widgets.data.content.Joke
@@ -13,6 +12,7 @@ import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.domain.selection.PoolHistory
 import com.softdread.widgets.widgets.common.MotifGlyph
 import com.softdread.widgets.widgets.common.SoftDreadWidget
+import com.softdread.widgets.widgets.common.SoftDreadWidgetReceiver
 import com.softdread.widgets.widgets.common.TileChip
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
@@ -141,6 +141,6 @@ class DailyJokeWidget : SoftDreadWidget(WidgetType.DAILY_JOKE) {
     }
 }
 
-class DailyJokeWidgetReceiver : GlanceAppWidgetReceiver() {
+class DailyJokeWidgetReceiver : SoftDreadWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = DailyJokeWidget()
 }

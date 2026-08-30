@@ -6,6 +6,7 @@ import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.softdread.widgets.data.prefs.SoftDreadStore
+import com.softdread.widgets.data.weather.WeatherRepository
 import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.widgets.common.forceRefresh
 import com.softdread.widgets.widgets.battery.BatteryWidget
@@ -36,10 +37,39 @@ class WidgetRefreshWorker(
             ?.mapNotNull { WidgetType.fromId(it) }
             ?: WidgetType.entries
         return runCatching {
+            if (WidgetType.WEATHER in requested) refreshWeatherCache()
             requested.forEach { refresh(it) }
             pruneOrphanedInstances()
             Result.success()
         }.getOrElse { Result.retry() }
+    }
+
+    /**
+     * Fetches each placed Weather instance's forecast before the tiles rebuild.
+     *
+     * The network belongs here and not in the widget: this worker runs under a
+     * `CONNECTED` constraint with no broadcast deadline over it, so a slow
+     * request costs a little battery rather than risking an ANR. The tiles then
+     * render from the cache this fills.
+     */
+    private suspend fun refreshWeatherCache() {
+        val store = SoftDreadStore.get(applicationContext)
+        val preferences = store.currentPreferences()
+        val repository = WeatherRepository(applicationContext)
+        val instances = store.placedConfigs().filter { it.widgetType == WidgetType.WEATHER }
+        // One request per distinct place, however many widgets point at it.
+        instances
+            .map { (it.savedLocation ?: preferences.defaultLocation) to it.useDeviceLocation }
+            .distinct()
+            .forEach { (location, useDeviceLocation) ->
+                runCatching {
+                    repository.state(
+                        savedLocation = location,
+                        useDeviceLocation = useDeviceLocation,
+                        forceRefresh = true,
+                    )
+                }
+            }
     }
 
     private suspend fun refresh(type: WidgetType) {
@@ -60,7 +90,24 @@ class WidgetRefreshWorker(
         val live = WidgetType.entries.flatMap { type ->
             manager.getGlanceIds(widgetFor(type).javaClass).map { manager.getAppWidgetId(it) }
         }.toSet()
+        // An empty set is ambiguous: it means either "no widgets are placed" or
+        // "the host could not be queried this time". Pruning on the second
+        // reading would delete every instance's configuration and history, so
+        // the platform is asked directly before anything is removed.
+        if (live.isEmpty() && hasPlacedWidgets()) return
         SoftDreadStore.get(applicationContext).pruneOrphans(live)
+    }
+
+    /** Whether the platform still knows about any provider in the pack. */
+    private fun hasPlacedWidgets(): Boolean {
+        val manager = android.appwidget.AppWidgetManager.getInstance(applicationContext) ?: return true
+        return WidgetType.entries.any { type ->
+            val component = android.content.ComponentName(
+                applicationContext,
+                com.softdread.widgets.ui.PinWidget.receiverFor(type),
+            )
+            manager.getAppWidgetIds(component)?.isNotEmpty() == true
+        }
     }
 
     companion object {

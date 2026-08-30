@@ -1,7 +1,6 @@
 package com.softdread.widgets.widgets.countdown
 
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import com.softdread.widgets.data.content.pool
 import com.softdread.widgets.domain.logic.CountdownLogic
 import com.softdread.widgets.domain.logic.CountdownReading
@@ -12,6 +11,7 @@ import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.widgets.common.LeadingVisual
 import com.softdread.widgets.widgets.common.SoftDreadWidget
+import com.softdread.widgets.widgets.common.SoftDreadWidgetReceiver
 import com.softdread.widgets.widgets.common.TileBar
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
@@ -105,9 +105,14 @@ class CountdownWidget : SoftDreadWidget(WidgetType.COUNTDOWN) {
                     contentDescription = description,
                 )
 
+                // The number leads and the unit trails it at a smaller size, as
+                // it does on the large tile. Setting "19 days" as one hero
+                // value made the tile's own headline the first thing to be cut
+                // when a field circle narrowed the column.
                 WidgetBreakpoint.COMPACT -> TileContent(
                     label = config.countdownTitle,
-                    heroValue = daysText,
+                    heroValue = leadNumber(reading),
+                    heroSuffix = unitWord(reading),
                     voice = "= $perspective",
                     contentDescription = description,
                 )
@@ -185,6 +190,6 @@ class CountdownWidget : SoftDreadWidget(WidgetType.COUNTDOWN) {
     }
 }
 
-class CountdownWidgetReceiver : GlanceAppWidgetReceiver() {
+class CountdownWidgetReceiver : SoftDreadWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = CountdownWidget()
 }

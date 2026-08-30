@@ -55,11 +55,28 @@ object TileRenderer {
      */
     private const val MAX_DIMENSION = 1600
 
-    /** Statement display sizes step down through these before any copy is cut. */
-    private val STATEMENT_STEPS = floatArrayOf(1f, 0.84f, 0.7f)
-
     /** Compact voice sizes step down through these before any copy is cut. */
     private val VOICE_STEPS = floatArrayOf(1f, 0.88f, 0.78f)
+
+    /**
+     * One step of the shrink-to-fit ladder every text block runs before it is
+     * allowed to be cut. Copy outranks type size everywhere on a tile: the
+     * sheet's scale is a starting point, not a licence to clip a number, a
+     * micro-label or a punchline.
+     */
+    private const val FIT_STEP = 0.07f
+
+    /** Per-role floors for that ladder, as a fraction of the sheet's size. */
+    private const val HERO_MIN_SCALE = 0.5f
+    private const val LABEL_MIN_SCALE = 0.72f
+    private const val STATEMENT_MIN_SCALE = 0.45f
+    private const val VOICE_MIN_SCALE = 0.7f
+    private const val SUPPORT_MIN_SCALE = 0.7f
+    private const val ROW_SECONDARY_MIN_SCALE = 0.55f
+    private const val ROW_MIN_SCALE = 0.55f
+
+    /** Dots ink only this fraction of the square they are drawn into. */
+    private const val DOTS_HEIGHT_RATIO = 0.55f
 
     private val cache = object : LruCache<String, Bitmap>(16 * 1024 * 1024) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount
@@ -208,8 +225,8 @@ object TileRenderer {
             var y = padV
             y += labelRow(y)
             val hero = content.heroValue ?: content.voice.orEmpty()
-            val paint = heroPaint(hero)
-            val block = layout(hero, paint, spanAt(y, y + paint.textSize * 1.1f).width, 1)
+            val width = spanAt(y, y + heroPaint(hero).textSize * 1.1f).width
+            val block = fitted(hero, width, 1, HERO_MIN_SCALE) { heroPaint(hero, scale = it) }.second
             val free = height - padV - y
             block.drawAt(contentLeft, y + max(0f, (free - block.height) / 2f))
         }
@@ -241,8 +258,10 @@ object TileRenderer {
 
             var bottom = height - padV
             content.callToAction?.let {
-                val paint = ctaPaint()
-                val block = layout(it.uppercase(Locale.getDefault()), paint, spanAt(bottom - lineOf(paint), bottom).width, 1)
+                val width = spanAt(bottom - lineOf(ctaPaint()), bottom).width
+                val block = fitted(it.uppercase(Locale.getDefault()), width, 1, SUPPORT_MIN_SCALE) {
+                    ctaPaint(it)
+                }.second
                 bottom -= block.height
                 block.drawAt(contentLeft, bottom)
                 bottom -= 6 * unit
@@ -252,10 +271,14 @@ object TileRenderer {
                 bottom -= 7 * unit
             }
             content.voice?.let {
-                val paint = voicePaint(voiceShrink)
                 val maxLines = if (content.heroValue != null || showChip) 3 else 4
-                val estTop = bottom - lineOf(paint) * maxLines
-                val block = layout(it, paint, spanAt(estTop, bottom).width, maxLines)
+                val estTop = bottom - lineOf(voicePaint(voiceShrink)) * maxLines
+                val width = spanAt(estTop, bottom).width
+                // The step ladder above trades the chip and then display size;
+                // this is the last resort before a compact punchline is cut.
+                val block = fitted(it, width, maxLines, VOICE_MIN_SCALE) {
+                    voicePaint(voiceShrink, scale = it)
+                }.second
                 bottom -= block.height
                 block.drawAt(spanAt(bottom, bottom + block.height).left, bottom)
                 bottom -= 8 * unit
@@ -269,17 +292,31 @@ object TileRenderer {
             when {
                 leading != null && content.heroValue != null -> {
                     val markSize = 46 * unit
-                    val paint = heroPaint(content.heroValue, besideLeading = true)
+                    val hero = content.heroValue
+                    val textLeft = contentLeft + markSize + 10 * unit
+                    val (paint, block) = fitted(hero, contentRight - textLeft, 1, HERO_MIN_SCALE) {
+                        heroPaint(hero, besideLeading = true, scale = it)
+                    }
                     val rowHeight = max(markSize, paint.textSize)
                     val rowTop = bandTop + max(0f, (bandBottom - bandTop - rowHeight) / 2f)
                     drawLeading(leading, contentLeft, rowTop + (rowHeight - markSize) / 2f, markSize)
-                    val textLeft = contentLeft + markSize + 10 * unit
-                    val block = layout(content.heroValue, paint, contentRight - textLeft, 1)
                     block.drawAt(textLeft, rowTop + (rowHeight - block.height) / 2f)
                 }
                 content.heroValue != null -> {
-                    val paint = heroPaint(content.heroValue)
-                    val block = layout(content.heroValue, paint, spanAt(bandTop, bandBottom).width, 1)
+                    val hero = content.heroValue
+                    // The safe span for the row the hero actually occupies, not
+                    // for the whole band: a field circle low in the tile used to
+                    // narrow the column that "19 days" was measured against and
+                    // cut it to "19 d...".
+                    val estHeight = lineOf(heroPaint(hero))
+                    val rowTop = bandTop + max(0f, (bandBottom - bandTop - estHeight) / 2f)
+                    val width = spanAt(rowTop, rowTop + estHeight).width
+                    val block = rowBlock(
+                        hero to heroPaint(hero),
+                        content.heroSuffix?.let { it to subheadPaint() },
+                        null,
+                        maxWidth = width,
+                    )
                     block.drawAt(contentLeft, bandTop + max(0f, (bandBottom - bandTop - block.height) / 2f))
                 }
                 leading != null -> {
@@ -304,17 +341,37 @@ object TileRenderer {
             val leading = content.leading
             val markSize = 82 * unit
             var textLeft = contentLeft
+            val leadingInset = if (leading != null && leading !is LeadingVisual.Numeral) markSize + 18 * unit else 0f
 
-            // Measure the column first so the whole row can centre vertically.
-            val blocks = standardColumn(textLeft + if (leading != null && leading !is LeadingVisual.Numeral) markSize + 18 * unit else 0f)
-            val columnHeight = blocks.sumOf { it.height.toDouble() }.toFloat() +
-                blocks.size.let { if (it > 1) (it - 1) * 7 * unit else 0f }
-            var y = max(padV, (height - columnHeight) / 2f)
+            // Measure the column first so the whole row can centre vertically —
+            // and so a tile shorter than the design canvas (a 4x1 resize) gives
+            // content up in a fixed order instead of running off the bottom.
+            val room = height - padV * 2
+            var voiceLines = if (content.heroValue == null) 4 else 2
+            var showChips = content.chips.isNotEmpty()
+            var showCta = content.callToAction != null
+            var blocks = standardColumn(textLeft + leadingInset, voiceLines, showChips, showCta)
+            val reductions = listOf<() -> Boolean>(
+                { if (voiceLines > 2) { voiceLines = 2; true } else false },
+                { if (showCta) { showCta = false; true } else false },
+                { if (showChips) { showChips = false; true } else false },
+                { if (voiceLines > 1) { voiceLines = 1; true } else false },
+            )
+            var index = 0
+            while (columnHeight(blocks) > room && index < reductions.size) {
+                if (reductions[index]()) {
+                    blocks = standardColumn(textLeft + leadingInset, voiceLines, showChips, showCta)
+                } else {
+                    index++
+                }
+            }
+            val measured = columnHeight(blocks)
 
             when (leading) {
                 is LeadingVisual.Numeral -> {
-                    val paint = heroNumeralPaint()
-                    val block = layout(leading.text, paint, contentRight - contentLeft, 1)
+                    val block = fitted(leading.text, contentRight - contentLeft, 1, HERO_MIN_SCALE) {
+                        heroNumeralPaint(it)
+                    }.second
                     block.drawAt(contentLeft, (height - block.height) / 2f)
                     textLeft = contentLeft + block.width + 18 * unit
                 }
@@ -325,16 +382,25 @@ object TileRenderer {
                 }
             }
 
-            val rebuilt = standardColumn(textLeft)
-            y = max(padV, (height - columnHeight) / 2f)
+            val rebuilt = standardColumn(textLeft, voiceLines, showChips, showCta)
+            var y = max(padV, (height - measured) / 2f)
             rebuilt.forEach { block ->
                 block.drawAt(block.leftOverride ?: textLeft, y)
                 y += block.height + 7 * unit
             }
         }
 
+        private fun columnHeight(blocks: List<Block>): Float =
+            blocks.sumOf { it.height.toDouble() }.toFloat() +
+                blocks.size.let { if (it > 1) (it - 1) * 7 * unit else 0f }
+
         /** The standard layout's text column, measured against [left]. */
-        private fun standardColumn(left: Float): List<Block> {
+        private fun standardColumn(
+            left: Float,
+            voiceLines: Int,
+            showChips: Boolean,
+            showCta: Boolean,
+        ): List<Block> {
             val blocks = mutableListOf<Block>()
             val widthAt = { top: Float, bottom: Float ->
                 TileTextGuard.safeSpan(left, contentRight, top, bottom, obstacles, minTextWidth(), gapPx()).width
@@ -346,9 +412,8 @@ object TileRenderer {
 
             labelBlock(fullBand)?.let { blocks += it }
             content.heroValue?.let { hero ->
-                val paint = heroPaint(hero)
                 blocks += rowBlock(
-                    hero to paint,
+                    hero to heroPaint(hero),
                     content.heroSuffix?.let { it to metricPaint() },
                     content.metric?.let { it to metricPaint() },
                     maxWidth = fullBand,
@@ -356,12 +421,19 @@ object TileRenderer {
             }
             content.bars.forEach { bar -> blocks += barBlock(bar, fullBand) }
             content.voice?.let {
-                val paint = if (content.heroValue == null && content.bars.isEmpty()) statementPaint() else voicePaint()
-                blocks += layout(it, paint, fullBand, if (content.heroValue == null) 4 else 2)
+                val statement = content.heroValue == null && content.bars.isEmpty()
+                val minScale = if (statement) STATEMENT_MIN_SCALE else VOICE_MIN_SCALE
+                blocks += fitted(it, fullBand, voiceLines, minScale) { scale ->
+                    if (statement) statementPaint(scale) else voicePaint(scale = scale)
+                }.second
             }
-            if (content.chips.isNotEmpty()) blocks += chipsBlock(content.chips.take(2))
-            content.callToAction?.let {
-                blocks += layout(it.uppercase(Locale.getDefault()), ctaPaint(), fullBand, 1)
+            if (showChips && content.chips.isNotEmpty()) blocks += chipsBlock(content.chips.take(2))
+            if (showCta) {
+                content.callToAction?.let {
+                    blocks += fitted(it.uppercase(Locale.getDefault()), fullBand, 1, SUPPORT_MIN_SCALE) { scale ->
+                        ctaPaint(scale)
+                    }.second
+                }
             }
             return blocks
         }
@@ -385,7 +457,10 @@ object TileRenderer {
                         contentLeft
                     }
                     drawLeading(leading, x, y, size)
-                    y += size
+                    // Dots draw into 0.55 of the square they are given; only
+                    // reserve what is actually inked, or the empty remainder
+                    // pushes the subhead off a tile that had room for it.
+                    y += if (leading is LeadingVisual.Dots) size * DOTS_HEIGHT_RATIO else size
                 }
             }
 
@@ -404,19 +479,31 @@ object TileRenderer {
             drawBottomStack(topLimit = max(y + 10 * unit, motifPlate?.let { it.cy + it.radius + 8 * unit } ?: 0f))
         }
 
+        /**
+         * The standalone statement — the Daily Joke's punchline and the 8
+         * ball's answer — laid out so it is never cut.
+         *
+         * Both dimensions bite here: the ceiling caps the line count, and a
+         * field circle beside the copy narrows the column. Stepping the size
+         * down fixes both at once, because a smaller line both fits the width
+         * and buys another line under the ceiling, so the loop continues until
+         * the whole statement renders or the 13sp floor is reached.
+         */
         private fun fitStatement(
             text: String,
-            shrink: Int,
             bottom: Float,
             topLimit: Float,
             statementLines: Int,
         ): Block {
-            val paint = statementPaint(shrink)
-            // Never rise past the ceiling: fit the line count to what the
-            // space between the art and the chips actually allows.
-            val fitLines = ((bottom - topLimit) / lineOf(paint)).toInt().coerceIn(1, statementLines)
-            val estTop = bottom - lineOf(paint) * fitLines
-            return layout(text, paint, spanAt(estTop, bottom).width, fitLines)
+            var scale = 1f
+            while (true) {
+                val paint = statementPaint(scale)
+                val fitLines = ((bottom - topLimit) / lineOf(paint)).toInt().coerceIn(1, statementLines)
+                val estTop = bottom - lineOf(paint) * fitLines
+                val block = layout(text, paint, spanAt(estTop, bottom).width, fitLines)
+                if (!block.ellipsized || scale <= STATEMENT_MIN_SCALE) return block
+                scale = (scale - FIT_STEP).coerceAtLeast(STATEMENT_MIN_SCALE)
+            }
         }
 
         /**
@@ -436,7 +523,10 @@ object TileRenderer {
             val available = (height - padV) - topLimit
             if (available <= 0f) return
 
-            var statementLines = 6
+            // The ceiling below is what really bounds the statement; this is
+            // only an upper limit, and it has to be generous enough for a long
+            // joke in a column narrowed by a field circle at a 1.6x font scale.
+            var statementLines = 9
             var heroShrink = 0
             var subheadLines = 2
             var showCta = content.callToAction != null
@@ -454,7 +544,13 @@ object TileRenderer {
                 }
                 if (content.heroValue == null && content.subhead == null) {
                     content.voice?.let {
-                        total += layout(it, statementPaint(), contentRight - contentLeft, statementLines).height
+                        // Measure the lines the space actually allows, exactly
+                        // as fitStatement will lay them out; counting the raw
+                        // maximum here made the stack look overfull and dropped
+                        // chips a tile had room for.
+                        val paint = statementPaint()
+                        val lines = (available / lineOf(paint)).toInt().coerceIn(1, statementLines)
+                        total += layout(it, paint, contentRight - contentLeft, lines).height
                     }
                 }
                 content.pill?.let { total += 16 * unit + measurePillHeight(it) }
@@ -465,7 +561,7 @@ object TileRenderer {
 
             // Give things up, cheapest first, until the stack fits.
             val reductions = listOf<() -> Boolean>(
-                { if (statementLines > 3) { statementLines = 3; true } else false },
+                { if (statementLines > 4) { statementLines = 4; true } else false },
                 { if (heroShrink < 1) { heroShrink = 1; true } else false },
                 { if (subheadLines > 1) { subheadLines = 1; true } else false },
                 { if (statementLines > 2) { statementLines = 2; true } else false },
@@ -480,10 +576,29 @@ object TileRenderer {
                 if (!reductions[index]()) index++
             }
 
+            // A cut punchline outranks its garnish. If the statement still
+            // does not fit at its smallest size — which happens when a field
+            // circle narrows the column at a large font scale — give up the
+            // chips and then the call to action to buy it the lines it needs.
+            if (content.heroValue == null && content.subhead == null) {
+                content.voice?.let { voice ->
+                    repeat(2) {
+                        if (!statementCut(voice, topLimit, showCta, showChips, statementLines)) return@let
+                        when {
+                            showChips -> showChips = false
+                            showCta -> showCta = false
+                            else -> return@let
+                        }
+                    }
+                }
+            }
+
             var bottom = height - padV
             if (showCta) {
                 content.callToAction?.let {
-                    val block = layout(it.uppercase(Locale.getDefault()), ctaPaint(), contentRight - contentLeft, 1)
+                    val block = fitted(
+                        it.uppercase(Locale.getDefault()), contentRight - contentLeft, 1, SUPPORT_MIN_SCALE,
+                    ) { scale -> ctaPaint(scale) }.second
                     bottom -= block.height
                     block.drawAt(contentLeft, bottom.coerceAtLeast(topLimit))
                     bottom -= 14 * unit
@@ -499,7 +614,10 @@ object TileRenderer {
             }
             if (showSubhead) {
                 content.subhead?.let {
-                    val block = layout(it, subheadPaint(), spanAt(bottom - 60 * unit, bottom).width, subheadLines)
+                    val width = spanAt(bottom - 60 * unit, bottom).width
+                    val block = fitted(it, width, subheadLines, SUPPORT_MIN_SCALE) { scale ->
+                        subheadPaint(scale)
+                    }.second
                     bottom -= block.height
                     block.drawAt(spanAt(bottom, bottom + block.height).left, bottom.coerceAtLeast(topLimit))
                     bottom -= 6 * unit
@@ -522,12 +640,7 @@ object TileRenderer {
                     // the safe area enough that the display size no longer
                     // holds the whole line, and the punchline must never lose
                     // its ending to decoration.
-                    var block = fitStatement(voice, 0, bottom, topLimit, statementLines)
-                    var shrink = 1
-                    while (block.ellipsized && shrink < STATEMENT_STEPS.size) {
-                        block = fitStatement(voice, shrink, bottom, topLimit, statementLines)
-                        shrink++
-                    }
+                    val block = fitStatement(voice, bottom, topLimit, statementLines)
                     bottom -= block.height
                     block.drawAt(spanAt(bottom, bottom + block.height).left, bottom.coerceAtLeast(topLimit))
                 }
@@ -547,13 +660,40 @@ object TileRenderer {
             }
         }
 
-        /** The pill's height as [pill] will draw it, without drawing it. */
-        private fun measurePillHeight(text: String): Float {
-            val paint = pillPaint()
-            val padding = 12 * unit
-            val block = layout(text, paint, (contentRight - contentLeft) - padding * 2, 3)
-            return block.height + padding * 2
+        /**
+         * The pill's laid-out copy. The pill carries the literal metric, so it
+         * is never dropped and never cut: it steps its type size down instead.
+         * [measurePillHeight] and [pill] share this so the measured stack and
+         * the drawn stack cannot disagree.
+         */
+        /** Where the statement's baseline sits, given what rides below it. */
+        private fun statementBottom(showCta: Boolean, showChips: Boolean): Float {
+            var bottom = height - padV
+            if (showCta && content.callToAction != null) bottom -= lineOf(ctaPaint()) + 14 * unit
+            if (showChips) bottom -= (lineOf(chipPaint(colours.pillText)) + 12 * unit) + 14 * unit
+            content.pill?.let { bottom -= measurePillHeight(it) + 16 * unit }
+            return bottom
         }
+
+        /** True when the statement would still be cut with this much room. */
+        private fun statementCut(
+            voice: String,
+            topLimit: Float,
+            showCta: Boolean,
+            showChips: Boolean,
+            statementLines: Int,
+        ): Boolean =
+            fitStatement(voice, statementBottom(showCta, showChips), topLimit, statementLines).ellipsized
+
+        private fun pillFit(text: String): Block {
+            val padding = 12 * unit
+            return fitted(text, (contentRight - contentLeft) - padding * 2, 3, SUPPORT_MIN_SCALE) { scale ->
+                pillPaint(scale)
+            }.second
+        }
+
+        /** The pill's height as [pill] will draw it, without drawing it. */
+        private fun measurePillHeight(text: String): Float = pillFit(text).height + 12 * unit * 2
 
         /** The fitted hero paint, stepped down [shrink] extra sizes when space demands it. */
         private fun heroPaintStepped(text: String, shrink: Int): TextPaint {
@@ -572,18 +712,18 @@ object TileRenderer {
         // -------------------------------------------------------- primitives
 
         private fun labelRow(y: Float): Float {
-            val paint = labelPaint()
             val label = content.label.uppercase(Locale.getDefault())
             val detail = content.labelDetail?.uppercase(Locale.getDefault())
-            val span = spanAt(y, y + lineOf(paint))
+            val span = spanAt(y, y + lineOf(labelPaint()))
 
-            // The label is the tile's name and always wins; the detail is a
-            // bonus that renders only when both fit the safe span untruncated.
-            val labelWidth = paint.measureText(label)
+            // The label is the tile's name and always wins; it steps down
+            // rather than clipping, which matters most at large font scales
+            // where "WEATHER, TRANSLATED" no longer fits at the sheet's size.
+            // The detail is a bonus that renders only when both then fit.
+            val (paint, block) = fitted(label, span.width, 1, LABEL_MIN_SCALE) { labelPaint(it) }
             val detailWidth = detail?.let { paint.measureText(it) } ?: 0f
-            val bothFit = detail != null && labelWidth + 8 * unit + detailWidth <= span.width
+            val bothFit = detail != null && block.width + 8 * unit + detailWidth <= span.width
 
-            val block = layout(label, paint, span.width, 1)
             block.drawAt(span.left, y)
             if (bothFit) {
                 canvas.drawText(detail!!, span.right - detailWidth, y - paint.fontMetrics.top, paint)
@@ -591,10 +731,10 @@ object TileRenderer {
             return max(block.height.toFloat(), lineOf(paint)) + 4 * unit
         }
 
-        private fun labelBlock(maxWidth: Float): Block? {
-            val paint = labelPaint()
-            return layout(content.label.uppercase(Locale.getDefault()), paint, maxWidth, 1)
-        }
+        private fun labelBlock(maxWidth: Float): Block? =
+            fitted(content.label.uppercase(Locale.getDefault()), maxWidth, 1, LABEL_MIN_SCALE) {
+                labelPaint(it)
+            }.second
 
         private fun drawLeading(leading: LeadingVisual, x: Float, y: Float, size: Float) {
             val sizePx = size.toInt()
@@ -642,11 +782,11 @@ object TileRenderer {
                 }
                 is LeadingVisual.Dots -> {
                     val dots = TileArt.dots(
-                        sizePx, (size * 0.55f).toInt(),
+                        sizePx, (size * DOTS_HEIGHT_RATIO).toInt(),
                         leading.filled, leading.total,
                         colours.onSurface, colours.trackTint,
                     )
-                    canvas.drawBitmap(dots, null, rect(x, y, x + size, y + size * 0.55f), null)
+                    canvas.drawBitmap(dots, null, rect(x, y, x + size, y + size * DOTS_HEIGHT_RATIO), null)
                 }
                 is LeadingVisual.Numeral -> Unit // handled by the caller
             }
@@ -683,29 +823,33 @@ object TileRenderer {
             val labelPaint = metricPaint()
             val valuePaint = paint(colours.onSurface, spToPx(26f), 800)
             val header = max(lineOf(labelPaint), lineOf(valuePaint))
-            canvas.drawText(bar.label, contentLeft, y + header - labelPaint.fontMetrics.bottom - 2 * unit, labelPaint)
+            val barHeight = 14 * unit
+            // A bar is copy plus a measurement, so it obeys the same guard the
+            // text does. Without this the year row on Time Progress, and the
+            // countdown's elapsed bar, drew straight across the field circle.
+            val span = spanAt(y, y + header + 7 * unit + barHeight)
+            val left = span.left
+            val right = span.right
+            canvas.drawText(bar.label, left, y + header - labelPaint.fontMetrics.bottom - 2 * unit, labelPaint)
             canvas.drawText(
                 bar.valueText,
-                contentRight - valuePaint.measureText(bar.valueText),
+                right - valuePaint.measureText(bar.valueText),
                 y + header - valuePaint.fontMetrics.bottom,
                 valuePaint,
             )
-            val barHeight = 14 * unit
             val top = y + header + 7 * unit
             val bitmap = TileArt.bar(
-                (contentRight - contentLeft).toInt(), barHeight.toInt(),
+                (right - left).toInt().coerceAtLeast(8), barHeight.toInt(),
                 bar.fraction, colours.trackTint,
                 com.softdread.widgets.design.SoftDreadTiles.colours(bar.colourRole).surface,
             )
-            canvas.drawBitmap(bitmap, null, rect(contentLeft, top, contentRight, top + barHeight), null)
+            canvas.drawBitmap(bitmap, null, rect(left, top, right, top + barHeight), null)
             return header + 7 * unit + barHeight
         }
 
         private fun pill(text: String, bottom: Float): Float {
-            val paint = pillPaint()
             val padding = 12 * unit
-            val maxWidth = (contentRight - contentLeft) - padding * 2
-            val block = layout(text, paint, maxWidth, 3)
+            val block = pillFit(text)
             val pillHeight = block.height + padding * 2
             val top = bottom - pillHeight
             val radius = 16 * unit
@@ -887,15 +1031,56 @@ object TileRenderer {
             }
         }
 
-        /** A baseline-aligned row: hero plus optional suffix and metric. */
+        /**
+         * Lays [text] out and, if it would be cut, steps the type size down
+         * until it fits or reaches [minScale]. Returns the paint that survived
+         * alongside the block, because callers that right-align a companion
+         * (the label's detail, a row's metric) need to measure with it.
+         *
+         * This is the single reason a hero numeral, a micro-label or a
+         * punchline can no longer end in an ellipsis: every text block on a
+         * tile goes through here, and giving up display size is always
+         * preferred to giving up a word.
+         */
+        private fun fitted(
+            text: String,
+            maxWidth: Float,
+            maxLines: Int,
+            minScale: Float,
+            paintAt: (Float) -> TextPaint,
+        ): Pair<TextPaint, Block> {
+            var scale = 1f
+            var paint = paintAt(scale)
+            var block = layout(text, paint, maxWidth, maxLines)
+            while (block.ellipsized && scale > minScale) {
+                scale = (scale - FIT_STEP).coerceAtLeast(minScale)
+                paint = paintAt(scale)
+                block = layout(text, paint, maxWidth, maxLines)
+            }
+            return paint to block
+        }
+
+        /** [TextPaint] at a fraction of another's size, keeping face and colour. */
+        private fun scaled(source: TextPaint, factor: Float): TextPaint =
+            TextPaint(source).apply { textSize = source.textSize * factor }
+
+        /**
+         * A baseline-aligned row: hero plus optional suffix and metric.
+         *
+         * When the row is wider than the space it has, the trailing parts are
+         * scaled down first — the hero number is the point of the row — and
+         * only then is the whole row scaled. Ellipsizing is the last resort,
+         * not the first response.
+         */
         private fun rowBlock(
             first: Pair<String, TextPaint>,
             second: Pair<String, TextPaint>?,
             third: Pair<String, TextPaint>?,
             maxWidth: Float,
         ): Block {
-            val parts = listOfNotNull(first, second, third)
+            val natural = listOfNotNull(first, second, third)
             val gap = 8 * unit
+            val parts = fitRow(natural, maxWidth, gap)
             val heights = parts.map { lineOf(it.second) }
             val rowHeight = heights.max()
             return object : Block {
@@ -918,6 +1103,36 @@ object TileRenderer {
                     }
                 }
             }
+        }
+
+        /** Scales a row's parts so the whole row fits [maxWidth]; see [rowBlock]. */
+        private fun fitRow(
+            parts: List<Pair<String, TextPaint>>,
+            maxWidth: Float,
+            gap: Float,
+        ): List<Pair<String, TextPaint>> {
+            if (parts.isEmpty() || maxWidth <= 0f) return parts
+            fun measure(text: String, paint: TextPaint) = paint.measureText(text.replace('\n', ' '))
+            val gaps = gap * (parts.size - 1)
+            val heroWidth = measure(parts[0].first, parts[0].second)
+            val restWidth = parts.drop(1).sumOf { measure(it.first, it.second).toDouble() }.toFloat()
+            if (heroWidth + restWidth + gaps <= maxWidth) return parts
+
+            // Give the secondary parts up first.
+            val restBudget = maxWidth - heroWidth - gaps
+            val secondary = if (restWidth > 0f) {
+                (restBudget / restWidth).coerceIn(ROW_SECONDARY_MIN_SCALE, 1f)
+            } else {
+                1f
+            }
+            val stepped = parts.mapIndexed { index, part ->
+                if (index == 0) part else part.first to scaled(part.second, secondary)
+            }
+            val steppedWidth = stepped.sumOf { measure(it.first, it.second).toDouble() }.toFloat() + gaps
+            if (steppedWidth <= maxWidth) return stepped
+
+            val whole = (maxWidth / steppedWidth).coerceIn(ROW_MIN_SCALE, 1f)
+            return stepped.map { it.first to scaled(it.second, whole) }
         }
 
         private fun chipsBlock(chips: List<TileChip>): Block {
@@ -953,25 +1168,25 @@ object TileRenderer {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P && weight >= 600) isFakeBoldText = true
             }
 
-        private fun heroPaint(text: String, besideLeading: Boolean = false): TextPaint {
+        private fun heroPaint(text: String, besideLeading: Boolean = false, scale: Float = 1f): TextPaint {
             val sp = heroSizeSp(breakpoint, text.length, besideLeading)
-            return paint(colours.onSurface, spToPx(sp), 800, trackingEm = -0.03f)
+            return paint(colours.onSurface, spToPx(sp * scale), 800, trackingEm = -0.03f)
         }
 
-        private fun heroNumeralPaint(): TextPaint {
+        private fun heroNumeralPaint(scale: Float = 1f): TextPaint {
             val sp = when (breakpoint) {
                 WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 62f
                 WidgetBreakpoint.EXPANDED -> 92f
                 WidgetBreakpoint.HERO -> 100f
                 else -> 38f
             }
-            return paint(colours.onSurface, spToPx(sp), 800, trackingEm = -0.04f)
+            return paint(colours.onSurface, spToPx(sp * scale), 800, trackingEm = -0.04f)
         }
 
-        private fun labelPaint(): TextPaint =
-            paint(colours.label, spToPx(if (breakpoint.isLarge) 12f else 11f), 600, trackingEm = 0.14f)
+        private fun labelPaint(scale: Float = 1f): TextPaint =
+            paint(colours.label, spToPx((if (breakpoint.isLarge) 12f else 11f) * scale), 600, trackingEm = 0.14f)
 
-        private fun voicePaint(shrink: Int = 0): TextPaint = paint(
+        private fun voicePaint(shrink: Int = 0, scale: Float = 1f): TextPaint = paint(
             colours.onSurfaceMuted,
             spToPx(
                 when (breakpoint) {
@@ -979,12 +1194,12 @@ object TileRenderer {
                     WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 16f
                     WidgetBreakpoint.EXPANDED -> 20f
                     WidgetBreakpoint.HERO -> 22f
-                } * VOICE_STEPS[shrink.coerceIn(0, VOICE_STEPS.lastIndex)],
+                } * VOICE_STEPS[shrink.coerceIn(0, VOICE_STEPS.lastIndex)] * scale,
             ),
             if (breakpoint == WidgetBreakpoint.COMPACT || breakpoint == WidgetBreakpoint.TINY) 500 else 600,
         )
 
-        private fun statementPaint(shrink: Int = 0): TextPaint = paint(
+        private fun statementPaint(scale: Float = 1f): TextPaint = paint(
             colours.onSurface,
             spToPx(
                 when (breakpoint) {
@@ -993,24 +1208,24 @@ object TileRenderer {
                     WidgetBreakpoint.STANDARD, WidgetBreakpoint.WIDE -> 19f
                     WidgetBreakpoint.EXPANDED -> 30f
                     WidgetBreakpoint.HERO -> 34f
-                } * STATEMENT_STEPS[shrink.coerceIn(0, STATEMENT_STEPS.lastIndex)],
+                } * scale,
             ),
             600,
         )
 
-        private fun subheadPaint(): TextPaint =
-            paint(colours.onSurface, spToPx(if (breakpoint.isLarge) 23f else 16f), 600)
+        private fun subheadPaint(scale: Float = 1f): TextPaint =
+            paint(colours.onSurface, spToPx((if (breakpoint.isLarge) 23f else 16f) * scale), 600)
 
-        private fun metricPaint(): TextPaint =
-            paint(colours.onSurfaceMuted, spToPx(if (breakpoint.isLarge) 15f else 13f), 500)
+        private fun metricPaint(scale: Float = 1f): TextPaint =
+            paint(colours.onSurfaceMuted, spToPx((if (breakpoint.isLarge) 15f else 13f) * scale), 500)
 
         private fun chipPaint(colour: Color): TextPaint = paint(colour, spToPx(12f), 600)
 
-        private fun pillPaint(): TextPaint =
-            paint(colours.pillText, spToPx(if (breakpoint.isLarge) 14f else 13f), 500)
+        private fun pillPaint(scale: Float = 1f): TextPaint =
+            paint(colours.pillText, spToPx((if (breakpoint.isLarge) 14f else 13f) * scale), 500)
 
-        private fun ctaPaint(): TextPaint =
-            paint(colours.callToAction, spToPx(11f), 600, trackingEm = 0.1f)
+        private fun ctaPaint(scale: Float = 1f): TextPaint =
+            paint(colours.callToAction, spToPx(11f * scale), 600, trackingEm = 0.1f)
 
         private fun rect(l: Float, t: Float, r: Float, b: Float) =
             Rect(l.roundToInt(), t.roundToInt(), r.roundToInt(), b.roundToInt())
@@ -1045,7 +1260,9 @@ object TileRenderer {
 
     // ---------------------------------------------------------------- fonts
 
-    private val typefaces = mutableMapOf<Int, Typeface>()
+    // Concurrent: several widgets can compose at once, and a plain HashMap can
+    // corrupt — or spin — when two of them resolve a weight simultaneously.
+    private val typefaces = java.util.concurrent.ConcurrentHashMap<Int, Typeface>()
 
     private fun typefaceFor(context: Context, weight: Int): Typeface =
         typefaces.getOrPut(weight) {

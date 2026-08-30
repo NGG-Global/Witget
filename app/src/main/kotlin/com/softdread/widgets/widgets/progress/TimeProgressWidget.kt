@@ -1,7 +1,6 @@
 package com.softdread.widgets.widgets.progress
 
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import com.softdread.widgets.data.content.pool
 import com.softdread.widgets.data.prefs.ProgressScope
 import com.softdread.widgets.design.SoftDreadTiles
@@ -14,6 +13,7 @@ import com.softdread.widgets.domain.model.WidgetType
 import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.widgets.common.LeadingVisual
 import com.softdread.widgets.widgets.common.SoftDreadWidget
+import com.softdread.widgets.widgets.common.SoftDreadWidgetReceiver
 import com.softdread.widgets.widgets.common.TileBar
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
@@ -133,6 +133,6 @@ class TimeProgressWidget : SoftDreadWidget(WidgetType.TIME_PROGRESS) {
     }
 }
 
-class TimeProgressWidgetReceiver : GlanceAppWidgetReceiver() {
+class TimeProgressWidgetReceiver : SoftDreadWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = TimeProgressWidget()
 }

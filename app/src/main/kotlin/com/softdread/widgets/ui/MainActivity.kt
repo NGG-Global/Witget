@@ -9,6 +9,9 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
@@ -52,6 +55,11 @@ import com.softdread.widgets.ui.settings.SettingsScreen
 import com.softdread.widgets.widgets.common.EXTRA_APP_WIDGET_ID
 import com.softdread.widgets.widgets.common.EXTRA_WIDGET_TYPE
 
+/** A tap on a placed widget: which widget, and which instance of it. */
+private data class DeepLink(val type: WidgetType, val appWidgetId: Int?)
+
+private const val INVALID_WIDGET_ID = 0
+
 private object Routes {
     const val GALLERY = "gallery"
     const val SETTINGS = "settings"
@@ -67,7 +75,7 @@ class MainActivity : ComponentActivity() {
     private val detailViewModel: WidgetDetailViewModel by viewModels()
 
     /** Deep-link target from a widget tap; state so onNewIntent can navigate too. */
-    private val deepLink = mutableStateOf<WidgetType?>(null)
+    private val deepLink = mutableStateOf<DeepLink?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -120,11 +128,19 @@ class MainActivity : ComponentActivity() {
         deepLink.value = deepLinkFrom(intent)
     }
 
-    private fun deepLinkFrom(intent: Intent): WidgetType? {
+    /**
+     * The widget that was tapped, and — when the tap came from a placed tile —
+     * which instance of it. Carrying the id through is what makes editing from
+     * a tap change that widget rather than the type's gallery template.
+     */
+    private fun deepLinkFrom(intent: Intent): DeepLink? {
         val typeId = intent.getStringExtra(EXTRA_WIDGET_TYPE)
             ?: intent.getStringExtra(PinWidget.EXTRA_PINNED_TYPE)
             ?: intent.data?.pathSegments?.getOrNull(0)
-        return WidgetType.fromId(typeId)
+        val type = WidgetType.fromId(typeId) ?: return null
+        val appWidgetId = intent.getIntExtra(EXTRA_APP_WIDGET_ID, INVALID_WIDGET_ID)
+            .takeIf { it > 0 }
+        return DeepLink(type, appWidgetId)
     }
 }
 
@@ -133,7 +149,7 @@ private fun SoftDreadApp(
     viewModel: SoftDreadViewModel,
     detailViewModel: WidgetDetailViewModel,
     isDark: Boolean,
-    deepLink: WidgetType?,
+    deepLink: DeepLink?,
     onDeepLinkConsumed: () -> Unit,
 ) {
     val navController = rememberNavController()
@@ -149,7 +165,7 @@ private fun SoftDreadApp(
     // when the app is already in the back stack, which is the common case.
     LaunchedEffect(deepLink) {
         deepLink?.let {
-            navController.navigate(Routes.detail(it))
+            navController.navigate(Routes.detail(it.type, it.appWidgetId))
             onDeepLinkConsumed()
         }
     }
@@ -171,7 +187,15 @@ private fun SoftDreadApp(
     // Expanded windows: the tabs become a left rail in the same design
     // language, freeing the bottom edge and matching how a tablet is held.
     if (expanded) {
-        Row(Modifier.fillMaxSize().background(chrome.wallpaper)) {
+        // This branch returns before the Scaffold below, so it carries its own
+        // insets: the wallpaper still runs edge to edge, the rail and the panes
+        // stay clear of the status and navigation bars.
+        Row(
+            Modifier
+                .fillMaxSize()
+                .background(chrome.wallpaper)
+                .windowInsetsPadding(WindowInsets.safeDrawing),
+        ) {
             if (route == Routes.GALLERY || route == Routes.SETTINGS) {
                 NavRail(destinations = destinations, onSelect = onSelectDestination)
             }

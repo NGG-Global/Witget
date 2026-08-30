@@ -1,7 +1,6 @@
 package com.softdread.widgets.widgets.screentime
 
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import com.softdread.widgets.data.content.pool
 import com.softdread.widgets.data.device.ScreenTimeDataSource
 import com.softdread.widgets.data.device.ScreenTimeResult
@@ -14,6 +13,7 @@ import com.softdread.widgets.domain.selection.AntiRepeatPolicies
 import com.softdread.widgets.widgets.common.LeadingVisual
 import com.softdread.widgets.widgets.common.MotifGlyph
 import com.softdread.widgets.widgets.common.SoftDreadWidget
+import com.softdread.widgets.widgets.common.SoftDreadWidgetReceiver
 import com.softdread.widgets.widgets.common.TileContent
 import com.softdread.widgets.widgets.common.WidgetEnvironment
 import com.softdread.widgets.widgets.common.WidgetPayload
@@ -176,6 +176,6 @@ class ScreenTimeWidget : SoftDreadWidget(WidgetType.SCREEN_TIME) {
     }
 }
 
-class ScreenTimeWidgetReceiver : GlanceAppWidgetReceiver() {
+class ScreenTimeWidgetReceiver : SoftDreadWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = ScreenTimeWidget()
 }
